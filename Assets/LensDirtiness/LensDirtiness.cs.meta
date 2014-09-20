@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 6e2678aa096eb064caa72f47d483baa0
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - DirtinessTexture: {fileID: 2800000, guid: e6238585ed281614cb707a38d3d16d02, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
