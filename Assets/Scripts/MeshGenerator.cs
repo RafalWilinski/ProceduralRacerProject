@@ -64,6 +64,12 @@ public class MeshGenerator : MonoBehaviour {
 				Log("Putting "+howManyVertexes+" at vert "+ (j*columns+i).ToString() +", pos x = "+i+", y = "+j);
 				Vector3 position = new Vector3(i * x_spacing + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(i * evaluationStep + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance)) * y_spacing + UnityEngine.Random.Range(-randomness, randomness), 0);
 				position += (splinePos + offset);
+				if(j == rows-1) {
+					LastRowContainer.Instance.vertexPositions.Add(position);
+				}
+				else if(j == 0) {
+					if(LastRowContainer.Instance.vertexPositions.Count > 1) position = LastRowContainer.Instance.VertexPosition(i);
+				}
 				for(int p = 0; p < howManyVertexes; p++) {
 					if(CreateDebugCubes) {
 						GameObject g = (GameObject)Instantiate(debugCube, position, Quaternion.identity);
@@ -97,8 +103,8 @@ public class MeshGenerator : MonoBehaviour {
 
 				//Log("Adding triangle: "+(GetSplitVertexNumber(rows * j + i)).ToString() + ", "+(GetSplitVertexNumber(rows * j + i + rows)).ToString() + ", "+(GetSplitVertexNumber(rows * j + i + rows + 1)).ToString());
 			}
+			yield return new WaitForEndOfFrame();
 		}
-		yield return new WaitForEndOfFrame();
 		SetMesh();
 	}
 
