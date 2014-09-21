@@ -180,8 +180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDebug: 0
   debugCube: {fileID: 100000, guid: 6fa084dd21c1e4b889da5778c2ab620c, type: 2}
-  columns: 40
-  rows: 100
+  columns: 20
+  rows: 20
   x_spacing: 1.20000005
   y_spacing: 1.20000005
   profileCurve:
@@ -209,7 +209,9 @@ MonoBehaviour:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-  evaluationStep: .00999999978
+  evaluationStep: .0500000007
+  randomness: .100000001
+  z_depth: 3
   vertices: []
   triangles: 
 --- !u!23 &393122554

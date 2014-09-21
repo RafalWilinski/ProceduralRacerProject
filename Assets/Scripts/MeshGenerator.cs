@@ -6,26 +6,27 @@ using System;
 public class MeshGenerator : MonoBehaviour {
 
 	public bool IsDebug;
+	public bool CreateDebugCubes;
+	public CatmullRomSpline spline;
 	public GameObject debugCube;
-	public int columns;
-	public int rows;
-	public float x_spacing;
-	public float y_spacing;
-	public AnimationCurve profileCurve;
-	public float evaluationStep;
+	public int columns = 10;
+	public int rows = 10;
+	public float x_spacing = 0.5f;
+	public float y_spacing = 0.1f;
+	public float evaluationStep = 0.1f;
+	public float evaluationDisturbance;
 	public float randomness;
-	public float z_depth;
+	public AnimationCurve profileCurve;
+	public Vector3 offset;
 
-	public List<Stack> stacksOfVertexes;
-	public List<Vector3> vertices;
-	public List<int> triangles;
-
+	private List<Stack> stacksOfVertexes;
+	private List<Vector3> vertices;
+	private List<int> triangles;
 	private int counter;
 	private float startTime;
 
-	void Start () {
-		Generate();
-	}
+	public float from;
+	public float to;
 
 	[Serializable]
 	internal class Vertex {
@@ -38,17 +39,33 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 		
-	void Generate() {
+	public void Generate() {
+		StartCoroutine("CreateVertices");
+	}
+
+	public void Generate(float f, float t, AnimationCurve pc) {
+		from = f;
+		to = t;
+		profileCurve = pc;
+		StartCoroutine(CreateVertices());
+	}
+
+	IEnumerator CreateVertices() {
+		float _step = (to - from) / (rows-1);
+		spline = (CatmullRomSpline) GameObject.Find("Root").GetComponent<CatmullRomSpline>();
 		startTime = Time.realtimeSinceStartup;
 		stacksOfVertexes = new List<Stack>();
+		vertices = new List<Vector3>();
 		for(int j = 0; j<rows; j++) {
+			Vector3 splinePos = spline.GetPositionAtTime(_step * j + from);
 			for(int i = 0; i<columns; i++) {
 				int howManyVertexes = GetSplitCount(i, j);
 				Stack vertexStack = new Stack();
 				Log("Putting "+howManyVertexes+" at vert "+ (j*columns+i).ToString() +", pos x = "+i+", y = "+j);
-				Vector3 position = new Vector3(i * x_spacing, j * y_spacing, profileCurve.Evaluate(i * evaluationStep) * z_depth + UnityEngine.Random.Range(-randomness, randomness));
+				Vector3 position = new Vector3(i * x_spacing + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(i * evaluationStep + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance)) * y_spacing + UnityEngine.Random.Range(-randomness, randomness), 0);
+				position += (splinePos + offset);
 				for(int p = 0; p < howManyVertexes; p++) {
-					if(IsDebug) {
+					if(CreateDebugCubes) {
 						GameObject g = (GameObject)Instantiate(debugCube, position, Quaternion.identity);
 						g.name = counter.ToString();
 					}
@@ -58,28 +75,30 @@ public class MeshGenerator : MonoBehaviour {
 				}
 				stacksOfVertexes.Add(vertexStack);
 			}
+			yield return new WaitForEndOfFrame();
 		}
 
-		GenerateTriangles();
+		StartCoroutine(GenerateTriangles());
 	}
 
-	void GenerateTriangles() {
+	IEnumerator GenerateTriangles() {
+		triangles = new List<int>();
 		for(int j = 0; j<rows-1; j++) {
 			for(int i = 0; i<columns-1; i++) {
-				triangles.Add(GetSplitVertexNumber(columns * j + i));
+				triangles.Add(GetSplitVertexNumber(columns * j + i + 1 + columns));
 				triangles.Add(GetSplitVertexNumber(columns * j + i + 1));
-				triangles.Add(GetSplitVertexNumber(columns * j + i + 1 + columns));	
+				triangles.Add(GetSplitVertexNumber(columns * j + i));	
 
 				//Log("Adding triangle: "+(GetSplitVertexNumber(rows * j + i)).ToString() + ", "+(GetSplitVertexNumber(rows * j + i + 1)).ToString() + ", "+(GetSplitVertexNumber(rows * j + i + rows)).ToString());
 
-				triangles.Add(GetSplitVertexNumber(columns * j + i + 1 + columns));
+				triangles.Add(GetSplitVertexNumber(columns * j + i));
 				triangles.Add(GetSplitVertexNumber(columns * j + i + columns));
-				triangles.Add(GetSplitVertexNumber(columns * j + i));	
+				triangles.Add(GetSplitVertexNumber(columns * j + i + 1 + columns));	
 
 				//Log("Adding triangle: "+(GetSplitVertexNumber(rows * j + i)).ToString() + ", "+(GetSplitVertexNumber(rows * j + i + rows)).ToString() + ", "+(GetSplitVertexNumber(rows * j + i + rows + 1)).ToString());
 			}
 		}
-
+		yield return new WaitForEndOfFrame();
 		SetMesh();
 	}
 
@@ -93,7 +112,7 @@ public class MeshGenerator : MonoBehaviour {
 		mesh.RecalculateNormals();
 		mesh.RecalculateBounds();
 
-		mesh.Optimize();
+		//mesh.Optimize();
 		//Debug.Log("Mesh generated in: "+(Time.realtimeSinceStartup - startTime).ToString("f3") + " seconds.");
 		//mesh.Optimize();
 	}

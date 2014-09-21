@@ -45,7 +45,6 @@ public class NodeSpawner : MonoBehaviour {
 
 		while(true) {
 			pos = new Vector3(Random.Range(-3.2f, 3.21f), Random.Range(-3.2f, 3.21f), zStep * zIterator + zOffset);
-			Debug.Log(pos);
 			Instantiate(node, pos, Quaternion.identity);
 			zIterator++;
 			yield return new WaitForSeconds(sleep);

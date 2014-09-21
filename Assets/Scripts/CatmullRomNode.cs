@@ -14,11 +14,12 @@ public class CatmullRomNode : MonoBehaviour {
 	void Start () {
 		myTransform = transform;
 		rootGo = GameObject.Find("Root");
-		myTransform.parent = rootGo.transform.parent;
+		myTransform.parent = rootGo.transform;
 		root = (CatmullRomSpline) rootGo.GetComponent<CatmullRomSpline>();
 		if(isPush) root.PushNode(this.gameObject);
 		else root.AddNode(this.gameObject);
 				StartCoroutine("positionCheck");
+				//Debug.Log("GUWNO");
 	}
 
 	IEnumerator positionCheck() {

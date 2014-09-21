@@ -4,14 +4,17 @@ using System.Collections.Generic;
 
 public class CatmullRomSpline : MonoBehaviour {
 
+	public GameObject meshPart;
 	public bool isDebug;
 	public UILabel debugLabel;
 	public bool invert;
 	public float deriveDelta;
+	public AnimationCurve profileCurve;
 
 	private float startTimestep;
 	private float nodeTimeLimit;
 	private bool isReady;
+	private float meshRenderedCap;
 
 	public bool IsReady {
 		get {
@@ -37,7 +40,7 @@ public class CatmullRomSpline : MonoBehaviour {
 		internal Node(GameObject g, Vector3 p, float t) { go = g; pos = p; time = t; }
 		internal Node(GameObject g, Vector3 p, Quaternion q, CatmullRomNode n) { go = g; pos = p; nodeScript = n; rot = q; }
 
-		internal string ToString() {
+		public override string ToString() {
 			return "Pos :"+pos+",\nRot: "+rot+",\nTime: "+time;
 		}
 
@@ -92,6 +95,16 @@ public class CatmullRomSpline : MonoBehaviour {
 		isReady = false;
 		nodes.Add(new Node(gameObj, gameObj.transform.position, gameObj.transform.rotation, gameObj.GetComponent<CatmullRomNode>()));
 		nodes[nodes.Count-1].Time = nodes[nodes.Count-2].Time + startTimestep;
+
+		if(nodeTimeLimit > 1f) {
+			MeshGenerator meshGen = ((GameObject) Instantiate(meshPart, Vector3.zero, Quaternion.identity)).GetComponent<MeshGenerator>() as MeshGenerator;
+			meshGen.Generate(meshRenderedCap, nodeTimeLimit, profileCurve);
+			meshRenderedCap = nodeTimeLimit;
+		}
+		else {
+			Debug.Log("TimeLimit: "+nodeTimeLimit);
+		}
+
 		PrintNodeTimes();
 	}
 
