@@ -2,10 +2,11 @@
 using System.Collections;
 
 public class NodeSpawner : MonoBehaviour {
-
 	public GameObject node;
+	public bool shouldCreateNodesAutomatically;
 	public float zStep;
 	public float zOffset;
+	public float furthestZPos;
 	private int zIterator;
 
 	public float sleep;
@@ -29,25 +30,25 @@ public class NodeSpawner : MonoBehaviour {
 		}
 
 		internal LCG(float aa, float cc, float s) { a = aa; c = cc; s = seed; }
-
 	}
 
 	void Start () {
-
-		StartCoroutine("CreateNodes");
+		zIterator = 1;
+		if(shouldCreateNodesAutomatically) StartCoroutine("CreateNodes");
 	}
 
 	IEnumerator CreateNodes() {
-
 		LCG l = new LCG(22695477, 7, Random.Range(13457, 59267));
-		zIterator = 1;
-		Vector3 pos;
-
 		while(true) {
-			pos = new Vector3(Random.Range(-3.2f, 3.21f), Random.Range(-3.2f, 3.21f), zStep * zIterator + zOffset);
-			Instantiate(node, pos, Quaternion.identity);
-			zIterator++;
+			CreateNode();
 			yield return new WaitForSeconds(sleep);
 		}
+	}
+
+	public void CreateNode() {
+		zIterator++;
+		Vector3 pos = new Vector3(Random.Range(-80.2f, 80.21f), Random.Range(-0.5f, 0.5f), zStep * zIterator + zOffset);
+		Instantiate(node, pos, Quaternion.identity);
+		furthestZPos = pos.z;
 	}
 }

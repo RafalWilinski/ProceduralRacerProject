@@ -18,8 +18,8 @@ public class CatmullRomNode : MonoBehaviour {
 		root = (CatmullRomSpline) rootGo.GetComponent<CatmullRomSpline>();
 		if(isPush) root.PushNode(this.gameObject);
 		else root.AddNode(this.gameObject);
-				StartCoroutine("positionCheck");
-				//Debug.Log("GUWNO");
+		//StartCoroutine("positionCheck");
+		StartCoroutine("Destroy");
 	}
 
 	IEnumerator positionCheck() {
@@ -31,5 +31,10 @@ public class CatmullRomNode : MonoBehaviour {
 				root.AddNode(this.gameObject);
 			}
 		}
+	}
+
+	IEnumerator Destroy() {
+		yield return new WaitForSeconds(1f);
+		Destroy(this.gameObject);
 	}
 }

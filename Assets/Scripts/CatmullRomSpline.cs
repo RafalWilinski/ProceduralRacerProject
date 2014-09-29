@@ -10,11 +10,14 @@ public class CatmullRomSpline : MonoBehaviour {
 	public bool invert;
 	public float deriveDelta;
 	public AnimationCurve profileCurve;
+	public List<float> args;
+	public float curveLength;
 
 	private float startTimestep;
 	private float nodeTimeLimit;
 	private bool isReady;
 	private float meshRenderedCap;
+	private int meshCounter;
 
 	public bool IsReady {
 		get {
@@ -87,7 +90,7 @@ public class CatmullRomSpline : MonoBehaviour {
 		isReady = false;
 		if(CheckExistingNode(gameObj) == true) return;
 		nodes.Add(new Node(gameObj, gameObj.transform.position, gameObj.transform.rotation, gameObj.GetComponent<CatmullRomNode>()));
-
+		Destroy(gameObj);
 		RecalculateNodeTimes();
 	}
 
@@ -98,8 +101,11 @@ public class CatmullRomSpline : MonoBehaviour {
 
 		if(nodeTimeLimit > 1f) {
 			MeshGenerator meshGen = ((GameObject) Instantiate(meshPart, Vector3.zero, Quaternion.identity)).GetComponent<MeshGenerator>() as MeshGenerator;
+			meshGen.gameObject.name = meshCounter.ToString();
+			meshGen.transform.parent = this.transform;
 			meshGen.Generate(meshRenderedCap, nodeTimeLimit, profileCurve);
 			meshRenderedCap = nodeTimeLimit;
+			meshCounter++;
 		}
 		else {
 			Debug.Log("TimeLimit: "+nodeTimeLimit);
@@ -195,6 +201,19 @@ public class CatmullRomSpline : MonoBehaviour {
 		go.transform.LookAt(futurePos);
 	}
 
+	public float GetTanAtTime(float t) {
+		Vector3 futurePos;
+		Vector3 herePos;
+		herePos = GetPositionAtTime(t);
+		if(t + deriveDelta < nodeTimeLimit) futurePos = GetPositionAtTime(t + deriveDelta);
+		else futurePos = GetPositionAtTime(nodeTimeLimit);
+
+		float delta_x = futurePos.x - herePos.x;
+		float delta_y = futurePos.z - herePos.z;
+		//Debug.Log(futurePos.x.ToString("f2") + " - " + herePos.x.ToString("f2") + "=" + delta_x.ToString("f2")+", delta_y: "+delta_y+", Tan: "+((float)(delta_x / delta_y)).ToString()+", Atan: "+ Mathf.Atan(delta_x / delta_y).ToString("f2"));
+		return (float) delta_x / delta_y;
+	}
+
 	public Vector3 GetPositionAtTime(float t) {
 
 		//if(!invert) t = 1 - t; //Inversion. Works only when spline is in 0..1 range
@@ -236,5 +255,15 @@ public class CatmullRomSpline : MonoBehaviour {
 			
 			}
 		return pos;
+	}
+
+	void calculateCurveLength() {
+		float totalLength = 0f;
+		for(float f = 0.01f; f < 1.0f; f += 0.01f) {
+			float delta_y = profileCurve.Evaluate(f) - profileCurve.Evaluate(f-0.01f);
+			totalLength += Mathf.Sqrt( (Mathf.Pow(delta_y, 2) + Mathf.Pow(0.01f, 2f)) );
+		}
+		curveLength = totalLength;
+		Debug.Log("Curve Length: "+totalLength);
 	}
 }
