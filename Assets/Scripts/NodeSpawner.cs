@@ -8,6 +8,8 @@ public class NodeSpawner : MonoBehaviour {
 	public float zOffset;
 	public float furthestZPos;
 	private int zIterator;
+	public GameObject movingNode;
+	private Vector3 pos;
 
 	public float sleep;
 
@@ -38,7 +40,7 @@ public class NodeSpawner : MonoBehaviour {
 	}
 
 	IEnumerator CreateNodes() {
-		LCG l = new LCG(22695477, 7, Random.Range(13457, 59267));
+		//LCG l = new LCG(22695477, 7, Random.Range(13457, 59267));
 		while(true) {
 			CreateNode();
 			yield return new WaitForSeconds(sleep);
@@ -47,8 +49,12 @@ public class NodeSpawner : MonoBehaviour {
 
 	public void CreateNode() {
 		zIterator++;
-		Vector3 pos = new Vector3(Random.Range(-80.2f, 80.21f), Random.Range(-0.5f, 0.5f), zStep * zIterator + zOffset);
-		Instantiate(node, pos, Quaternion.identity);
+		pos = new Vector3(Random.Range(-80.2f, 80.21f), Random.Range(-0.5f, 0.5f), zStep * zIterator + zOffset);
+		if(movingNode == null) {
+			movingNode = (GameObject) Instantiate(node, pos, Quaternion.identity);
+		}
+		movingNode.transform.position = pos;
+		movingNode.SendMessage("AddNodeToSpline");
 		furthestZPos = pos.z;
 	}
 }

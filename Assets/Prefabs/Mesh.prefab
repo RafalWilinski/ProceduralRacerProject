@@ -116,6 +116,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   offset: {x: -200, y: -30, z: 0}
+  vertices: []
   args:
   - 0
   - .0399999991
@@ -140,9 +141,10 @@ MonoBehaviour:
   lastRow: []
   from: 0
   to: 1
+  isUsed: 0
 --- !u!114 &11400002
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}

@@ -20,7 +20,7 @@ public class MeshGenerator : MonoBehaviour {
 	public Vector3 offset;
 
 	private List<Stack> stacksOfVertexes;
-	private List<Vector3> vertices;
+	public List<Vector3> vertices;
 	private List<int> triangles;
 	private Vector2[] uvs;
 	private int counter;
@@ -28,15 +28,21 @@ public class MeshGenerator : MonoBehaviour {
 	public List<float> args;
 	public List<Vector3> lastRow;
 	private MeshGenerator previousPart;
+
+	private MeshFilter meshFilter;
 	private Mesh mesh;
 	private MeshCollider col;
 
 	public float from;
 	public float to;
+	public bool isUsed;
+	public Vector3 assignedPosition;
 
 	private Transform myTransform;
 	private GameObject cam;
 	private Transform camTrans;
+
+	private bool trianglesGenerated;
 
 	[Serializable]
 	internal class Vertex {
@@ -48,23 +54,42 @@ public class MeshGenerator : MonoBehaviour {
 			position = p;
 		}
 	}
-
-	void Start() {
-		myTransform = transform;
-		cam = GameObject.Find("Main Camera");
-		camTrans = cam.transform;
-	}
 		
 	public void Generate() {
 		StartCoroutine("CreateVertices");
 		//StartCoroutine(calculateCurveLength());
 	}
 
+	void Awake() {
+		CalculateTargetArraySize();
+		myTransform = transform;
+		triangles = new List<int>();
+		col = GetComponent<MeshCollider>();
+		meshFilter = GetComponent<MeshFilter>();
+		spline = (CatmullRomSpline) GameObject.Find("Root").GetComponent<CatmullRomSpline>();
+		cam = GameObject.Find("Main Camera");
+		camTrans = cam.transform;
+
+	}
+
 	public void Generate(float f, float t, AnimationCurve pc) {
-		from = f;
-		to = t;
-		profileCurve = pc;
-		StartCoroutine("CreateVertices");
+		if(!isUsed) {
+			stacksOfVertexes = new List<Stack>();
+			vertices = new List<Vector3>();
+			previousPart = null;
+			StopAllCoroutines();
+			StartCoroutine("Check");
+			lastRow = null;
+			isUsed = true;
+			GC.Collect();
+			from = f;
+			to = t;
+			profileCurve = pc;
+			StartCoroutine("CreateVertices");
+		}
+		else {
+			Debug.Log("This object is busy right now!");
+		}
 		//StartCoroutine(calculateCurveLength());
 	}
 
@@ -95,21 +120,26 @@ public class MeshGenerator : MonoBehaviour {
 	}
 
 	IEnumerator CreateVertices() {
+		Vector3 position = Vector3.zero;
+		Vector3 splinePos;
+		int howManyVertexes = 0;
+		uvs = null;
+		lastRow = null;
+		counter = 0;
 		float _step = (to - from) / (rows-1);
-		spline = (CatmullRomSpline) GameObject.Find("Root").GetComponent<CatmullRomSpline>();
-		startTime = Time.realtimeSinceStartup;
-		stacksOfVertexes = new List<Stack>();
-		vertices = new List<Vector3>();
+		stacksOfVertexes.Clear();
+		vertices.Clear();
+
+		lastRow = new List<Vector3>();
 		for(int j = 0; j<rows; j++) {
-			Vector3 splinePos = spline.GetPositionAtTime(_step * j + from);
+			splinePos = spline.GetPositionAtTime(_step * j + from);
 			//float tangent = spline.GetTanAtTime(_step * j + from);
-			///Debug.Log("Tan: "+tangent);
 			for(int i = 0; i<columns; i++) {
-				int howManyVertexes = GetSplitCount(i, j);
+				howManyVertexes = GetSplitCount(i, j);
 				Stack vertexStack = new Stack();
-				Log("Putting "+howManyVertexes+" at vert "+ (j*columns+i).ToString() +", pos x = "+i+", y = "+j);
+				//Log("Putting "+howManyVertexes+" at vert "+ (j*columns+i).ToString() +", pos x = "+i+", y = "+j);
 				//Vector3 position = new Vector3(i * x_spacing + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(i * evaluationStep + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance)) * y_spacing + UnityEngine.Random.Range(-randomness, randomness));
-				Vector3 position = new Vector3(x_spacing * args[i] + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(args[i]) * y_spacing + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance) * y_spacing, 0);
+				position = new Vector3(x_spacing * args[i] + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(args[i]) * y_spacing + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance) * y_spacing, 0);
 				position += (splinePos + offset);
 				if(j == rows-1) {
 					lastRow.Add(position);
@@ -117,8 +147,8 @@ public class MeshGenerator : MonoBehaviour {
 				else if(j == 0) {
 					if(gameObject.name != "0") {
 						if(previousPart == null) previousPart = (MeshGenerator) GameObject.Find( (string)(int.Parse(gameObject.name) - 1).ToString() ).GetComponent<MeshGenerator>() as MeshGenerator;
-						while(previousPart.lastRow.Count <= i) {
-							yield return new WaitForSeconds(0.1f);
+						while(previousPart.lastRow.Count < columns) {
+							yield return new WaitForSeconds(0.25f);
 						}
 						position = previousPart.lastRow[i];
 					}
@@ -136,16 +166,20 @@ public class MeshGenerator : MonoBehaviour {
 			}
 			yield return new WaitForEndOfFrame();
 		}
-
-		StartCoroutine(GenerateTriangles());
+		//Log("#"+gameObject.name+" vertexes generated, t: "+Time.realtimeSinceStartup.ToString());
+		if(!trianglesGenerated) StartCoroutine("GenerateTriangles");
+		else ChangeVertices();
 	}
 
 	IEnumerator GenerateTriangles() {
+		int a = 0;
+		Log("#"+gameObject.name+", Generate triangles, t: "+Time.realtimeSinceStartup.ToString());
+		//yield return new WaitForSeconds(0.5f);
 		uvs = new Vector2[vertices.Count];
-		triangles = new List<int>();
+		Log("#"+gameObject.name+" - Creating uvs array, size: "+vertices.Count+" Stacks: "+stacksOfVertexes.Count);
 		for(int j = 0; j<rows-1; j++) {
 			for(int i = 0; i<columns-1; i++) {
-				int a = GetSplitVertexNumber(columns * j + i + 1 + columns);
+				a = GetSplitVertexNumber(columns * j + i + 1 + columns);
 				triangles.Add(a);
 				uvs[a] = new Vector2(0,0);
 
@@ -176,7 +210,24 @@ public class MeshGenerator : MonoBehaviour {
 			}
 			yield return new WaitForEndOfFrame();
 		}
+		trianglesGenerated = true;
 		SetMesh();
+	}
+
+	private int CalculateTargetArraySize() {
+		int size = 1 + 1 + 2 + 2 + 6 * (columns - 2) + 6 * (rows - 2) + 6 * (columns-2) * (rows-2);
+		return size;
+	}
+
+	void ChangeVertices() {
+		mesh.vertices = vertices.ToArray();
+		meshFilter.mesh = mesh;
+
+		mesh.RecalculateBounds();
+		mesh.RecalculateNormals();
+
+		col.mesh = mesh;
+		isUsed = false;
 	}
 
 	void SetMesh() {
@@ -184,25 +235,19 @@ public class MeshGenerator : MonoBehaviour {
 		mesh.vertices = vertices.ToArray();
 		mesh.triangles = triangles.ToArray();
 		mesh.uv = uvs;
-		MeshFilter meshFilter = GetComponent<MeshFilter>();
 		meshFilter.mesh = mesh;
 
-		mesh.RecalculateNormals();
 		mesh.RecalculateBounds();
+		mesh.RecalculateNormals();
 
-		col = (MeshCollider) gameObject.AddComponent<MeshCollider>();
 		col.mesh = mesh;
-
-		StartCoroutine("Check");
-
-		//mesh.Optimize();
-		//Debug.Log("Mesh generated in: "+(Time.realtimeSinceStartup - startTime).ToString("f3") + " seconds.");
-		//mesh.Optimize();
+		isUsed = false;
 	}
 
 	IEnumerator Check() {
 		while(true) {
-			if(lastRow[0].z + 25 < camTrans.position.z) {
+			//Debug.Log("Checking! "+camTrans.position.z+ " : " + assignedPosition.z);
+			if(assignedPosition.z + 500 < camTrans.position.z && !isUsed) {
 				Remove();
 			}
 			yield return new WaitForSeconds(0.25f);
@@ -216,20 +261,23 @@ public class MeshGenerator : MonoBehaviour {
 	}
 
 	void Remove() {
-		stacksOfVertexes = null;
-		vertices = null;
-		triangles = null;
-		mesh = null;
-		col.mesh = null;
-		Destroy(gameObject.GetComponent<MeshFilter>().mesh);
-		Destroy(gameObject);
-		GC.Collect();
+		uvs = null;
+		meshFilter.mesh = null;
+		vertices.Clear();
+		vertices.TrimExcess();
+		stacksOfVertexes.Clear();
+		stacksOfVertexes.TrimExcess();
+		GameObject.Find("Root").GetComponent<ObjectPool>().Return(gameObject);
 	}
 
 	private int GetSplitVertexNumber(int sharedVertexNumber) {
-		Stack s = stacksOfVertexes[sharedVertexNumber];
+		if(sharedVertexNumber > 199) Log("Possible error! Requesting for vert #"+sharedVertexNumber.ToString());
+		Stack s = null;
+		//Log("Requesring split for shared #"+sharedVertexNumber.ToString());
+		s = stacksOfVertexes[sharedVertexNumber];
 		Vertex splitVertex = (Vertex) s.Pop();
-		Log("Shared vertex: "+sharedVertexNumber+ " = " + splitVertex.index + " splitted vertex.");
+		//if(splitVertex.index > 1026) Log("Possible error! Size exceeded 1026. Index: "+splitVertex.index);
+		//Log("Shared vertex: "+sharedVertexNumber+ " = " + splitVertex.index + " splitted vertex.");
 		return splitVertex.index;
 	}
 

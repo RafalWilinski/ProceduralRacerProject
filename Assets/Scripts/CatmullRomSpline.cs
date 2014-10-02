@@ -6,12 +6,12 @@ public class CatmullRomSpline : MonoBehaviour {
 
 	public GameObject meshPart;
 	public bool isDebug;
-	public UILabel debugLabel;
 	public bool invert;
 	public float deriveDelta;
 	public AnimationCurve profileCurve;
 	public List<float> args;
 	public float curveLength;
+	public ObjectPool pool;
 
 	private float startTimestep;
 	private float nodeTimeLimit;
@@ -100,12 +100,18 @@ public class CatmullRomSpline : MonoBehaviour {
 		nodes[nodes.Count-1].Time = nodes[nodes.Count-2].Time + startTimestep;
 
 		if(nodeTimeLimit > 1f) {
-			MeshGenerator meshGen = ((GameObject) Instantiate(meshPart, Vector3.zero, Quaternion.identity)).GetComponent<MeshGenerator>() as MeshGenerator;
-			meshGen.gameObject.name = meshCounter.ToString();
+			GameObject g = (GameObject) pool.Create(Vector3.zero);
+			//MeshGenerator meshGen = ((GameObject) Instantiate(meshPart, Vector3.zero, Quaternion.identity)).GetComponent<MeshGenerator>() as MeshGenerator;
+			MeshGenerator meshGen = g.GetComponent<MeshGenerator>() as MeshGenerator;
+			meshGen.assignedPosition = GetPositionAtTime(nodeTimeLimit);
+			g.name = meshCounter.ToString();
+			//Debug.Log("Created: "+g.name);
 			meshGen.transform.parent = this.transform;
 			meshGen.Generate(meshRenderedCap, nodeTimeLimit, profileCurve);
 			meshRenderedCap = nodeTimeLimit;
 			meshCounter++;
+			g = null;
+			meshGen = null;
 		}
 		else {
 			Debug.Log("TimeLimit: "+nodeTimeLimit);
@@ -240,7 +246,7 @@ public class CatmullRomSpline : MonoBehaviour {
 			pos = 0.5f * (tension1 + tension2 + tension3 + tension4);
 
 			if(isDebug) {
-				debugLabel.text = "Nodes count: "+nodes.Count + "\n"+
+			/*	debugLabel.text = "Nodes count: "+nodes.Count + "\n"+
 				"Closest node index: "+nearestNodeIndex + "\n"+
 				"Node details: "+nodes[nearestNodeIndex].ToString() + "\n" +
 				"Pos_0: "+p0 + "\n"+
@@ -252,6 +258,7 @@ public class CatmullRomSpline : MonoBehaviour {
 				"Tension_3: "+tension3 + "\n"+
 				"Tension_4: "+tension4 + "\n"+
 				"Result: "+ pos;
+				*/
 			
 			}
 		return pos;

@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5604f8129eae4b16b632d9f956c2438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldAddOnStart: 1
   isPush: 1
   timeGiven: 0
 --- !u!1001 &100100000
