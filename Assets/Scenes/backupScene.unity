@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e112edc047ee441fa971814a0486309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDebug: 1
+  IsDebug: 0
   CreateDebugCubes: 0
   spline: {fileID: 0}
   debugCube: {fileID: 100000, guid: 6fa084dd21c1e4b889da5778c2ab620c, type: 2}
@@ -232,6 +232,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &223689761
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e112edc047ee441fa971814a0486309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDebug: 1
+  IsDebug: 0
   CreateDebugCubes: 0
   spline: {fileID: 0}
   debugCube: {fileID: 100000, guid: 6fa084dd21c1e4b889da5778c2ab620c, type: 2}
@@ -378,6 +379,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &223689766
 Transform:
   m_ObjectHideFlags: 0
@@ -548,6 +550,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &316190544
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,57 +590,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d0b5f3bbe925a408bd595c79d0bf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftAnchor:
-    target: {fileID: 1920520914}
-    relative: 0
-    absolute: 22
-  rightAnchor:
-    target: {fileID: 1920520914}
-    relative: 0
-    absolute: 300
-  bottomAnchor:
-    target: {fileID: 1920520914}
-    relative: 1
-    absolute: -382
-  topAnchor:
-    target: {fileID: 1920520914}
-    relative: 1
-    absolute: -18
-  updateAnchors: 1
-  mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 0
-  mWidth: 278
-  mHeight: 364
-  mDepth: 4
-  autoResizeBoxCollider: 0
-  hideIfOffScreen: 0
-  keepAspectRatio: 0
-  aspectRatio: .763736248
-  keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-  mFont: {fileID: 0}
-  mText: New Label
-  mFontSize: 16
-  mFontStyle: 0
-  mAlignment: 0
-  mEncoding: 1
-  mMaxLineCount: 0
-  mEffectStyle: 0
-  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
-  mEffectDistance: {x: 1, y: 1}
-  mOverflow: 0
-  mMaterial: {fileID: 0}
-  mApplyGradient: 1
-  mGradientTop: {r: 1, g: 1, b: 1, a: 1}
-  mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
-  mSpacingY: 0
-  mShrinkToFit: 0
-  mMaxLineWidth: 0
-  mMaxLineHeight: 0
-  mLineWidth: 0
-  mMultiline: 1
 --- !u!1 &342600926
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,6 +748,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &358163156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,6 +1083,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &514441541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,7 +1169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e112edc047ee441fa971814a0486309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDebug: 1
+  IsDebug: 0
   CreateDebugCubes: 0
   spline: {fileID: 0}
   debugCube: {fileID: 100000, guid: 6fa084dd21c1e4b889da5778c2ab620c, type: 2}
@@ -1288,6 +1242,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &720952152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,6 +1401,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &781980087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1719,6 +1675,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &835501489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1804,7 +1761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e112edc047ee441fa971814a0486309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDebug: 1
+  IsDebug: 0
   CreateDebugCubes: 0
   spline: {fileID: 0}
   debugCube: {fileID: 100000, guid: 6fa084dd21c1e4b889da5778c2ab620c, type: 2}
@@ -1877,6 +1834,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &867044873
 GameObject:
   m_ObjectHideFlags: 0
@@ -2035,6 +1993,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &894724592
 GameObject:
   m_ObjectHideFlags: 0
@@ -2107,7 +2066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e112edc047ee441fa971814a0486309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDebug: 1
+  IsDebug: 0
   CreateDebugCubes: 0
   spline: {fileID: 0}
   debugCube: {fileID: 100000, guid: 6fa084dd21c1e4b889da5778c2ab620c, type: 2}
@@ -2180,6 +2139,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!64 &894724597
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2351,6 +2311,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &934963221
 GameObject:
   m_ObjectHideFlags: 0
@@ -2509,6 +2470,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &967645668
 GameObject:
   m_ObjectHideFlags: 0
@@ -2667,6 +2629,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &976835205
 GameObject:
   m_ObjectHideFlags: 0
@@ -2825,6 +2788,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1013666872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2983,6 +2947,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1075751639
 GameObject:
   m_ObjectHideFlags: 0
@@ -3068,7 +3033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e112edc047ee441fa971814a0486309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDebug: 1
+  IsDebug: 0
   CreateDebugCubes: 0
   spline: {fileID: 0}
   debugCube: {fileID: 100000, guid: 6fa084dd21c1e4b889da5778c2ab620c, type: 2}
@@ -3141,6 +3106,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1137181426
 GameObject:
   m_ObjectHideFlags: 0
@@ -3269,30 +3235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a92b5d748695fd44aac9feef17ba415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventType: 1
-  eventReceiverMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  debug: 0
-  useMouse: 1
-  useTouch: 1
-  allowMultiTouch: 1
-  useKeyboard: 1
-  useController: 1
-  stickyTooltip: 1
-  tooltipDelay: 1
-  mouseDragThreshold: 4
-  mouseClickThreshold: 10
-  touchDragThreshold: 40
-  touchClickThreshold: 40
-  rangeDistance: -1
-  scrollAxisName: Mouse ScrollWheel
-  verticalAxisName: Vertical
-  horizontalAxisName: Horizontal
-  submitKey0: 13
-  submitKey1: 330
-  cancelKey0: 27
-  cancelKey1: 331
 --- !u!20 &1169913933
 Camera:
   m_ObjectHideFlags: 0
@@ -3483,6 +3425,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1352705735
 GameObject:
   m_ObjectHideFlags: 0
@@ -3641,6 +3584,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1357151172
 GameObject:
   m_ObjectHideFlags: 0
@@ -3799,6 +3743,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1467367039
 GameObject:
   m_ObjectHideFlags: 0
@@ -3957,6 +3902,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1474892370
 GameObject:
   m_ObjectHideFlags: 0
@@ -4203,6 +4149,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1522617046
 GameObject:
   m_ObjectHideFlags: 0
@@ -4424,6 +4371,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1607355752
 GameObject:
   m_ObjectHideFlags: 0
@@ -4582,6 +4530,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1657537928
 GameObject:
   m_ObjectHideFlags: 0
@@ -4740,6 +4689,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1675892902
 GameObject:
   m_ObjectHideFlags: 0
@@ -4898,6 +4848,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1709695981
 GameObject:
   m_ObjectHideFlags: 0
@@ -5144,6 +5095,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1912743225
 GameObject:
   m_ObjectHideFlags: 0
@@ -5275,38 +5227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae942c9068183dc40a9d01f648273726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  rightAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  bottomAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  updateAnchors: 1
-  showInPanelTool: 1
-  generateNormals: 0
-  widgetsAreStatic: 0
-  cullWhileDragging: 0
-  alwaysOnScreen: 0
-  anchorOffset: 0
-  renderQueue: 0
-  startingRenderQueue: 3000
-  mAlpha: 1
-  mClipping: 0
-  mClipRange: {x: 0, y: 0, z: 300, w: 200}
-  mClipSoftness: {x: 4, y: 4}
-  mDepth: 0
-  mSortingOrder: 0
-  mClipOffset: {x: 0, y: 0}
 --- !u!114 &1920520916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5318,12 +5238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c5ecb5660b11414fb042fb826e03b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scalingStyle: 0
-  manualHeight: 720
-  minimumHeight: 320
-  maximumHeight: 1536
-  adjustByDPI: 0
-  shrinkPortraitUI: 0
 --- !u!54 &1920520917
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5421,7 +5335,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshPart: {fileID: 100000, guid: b2dca54006b074ad08a271bcabcb26b9, type: 2}
   isDebug: 0
-  debugLabel: {fileID: 316190546}
   invert: 0
   deriveDelta: .0199999996
   profileCurve:
@@ -5483,7 +5396,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7041a753c17454cab56e07aa2e401d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertexPositions: []
 --- !u!114 &1969549984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5668,6 +5580,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &2089588591
 GameObject:
   m_ObjectHideFlags: 0
@@ -5753,7 +5666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e112edc047ee441fa971814a0486309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDebug: 1
+  IsDebug: 0
   CreateDebugCubes: 0
   spline: {fileID: 0}
   debugCube: {fileID: 100000, guid: 6fa084dd21c1e4b889da5778c2ab620c, type: 2}
@@ -5826,6 +5739,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &2122377553
 GameObject:
   m_ObjectHideFlags: 0
@@ -5911,7 +5825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e112edc047ee441fa971814a0486309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDebug: 1
+  IsDebug: 0
   CreateDebugCubes: 0
   spline: {fileID: 0}
   debugCube: {fileID: 100000, guid: 6fa084dd21c1e4b889da5778c2ab620c, type: 2}
@@ -5984,6 +5898,7 @@ MonoBehaviour:
   from: 0
   to: 1
   isUsed: 0
+  assignedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &2133578144
 GameObject:
   m_ObjectHideFlags: 0

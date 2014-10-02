@@ -20,7 +20,7 @@ public class MeshGenerator : MonoBehaviour {
 	public Vector3 offset;
 
 	private List<Stack> stacksOfVertexes;
-	public List<Vector3> vertices;
+	public Vector3[] vertices;
 	private List<int> triangles;
 	private Vector2[] uvs;
 	private int counter;
@@ -57,7 +57,6 @@ public class MeshGenerator : MonoBehaviour {
 		
 	public void Generate() {
 		StartCoroutine("CreateVertices");
-		//StartCoroutine(calculateCurveLength());
 	}
 
 	void Awake() {
@@ -75,7 +74,7 @@ public class MeshGenerator : MonoBehaviour {
 	public void Generate(float f, float t, AnimationCurve pc) {
 		if(!isUsed) {
 			stacksOfVertexes = new List<Stack>();
-			vertices = new List<Vector3>();
+			vertices = new Vector3[CalculateTargetArraySize()];
 			previousPart = null;
 			StopAllCoroutines();
 			StartCoroutine("Check");
@@ -128,7 +127,6 @@ public class MeshGenerator : MonoBehaviour {
 		counter = 0;
 		float _step = (to - from) / (rows-1);
 		stacksOfVertexes.Clear();
-		vertices.Clear();
 
 		lastRow = new List<Vector3>();
 		for(int j = 0; j<rows; j++) {
@@ -158,7 +156,7 @@ public class MeshGenerator : MonoBehaviour {
 						GameObject g = (GameObject)Instantiate(debugCube, position, Quaternion.identity);
 						g.name = counter.ToString();
 					}
-					vertices.Add(position);
+					vertices[counter] = position;
 					vertexStack.Push(new Vertex(counter, position));
 					counter++;
 				}
@@ -175,8 +173,8 @@ public class MeshGenerator : MonoBehaviour {
 		int a = 0;
 		Log("#"+gameObject.name+", Generate triangles, t: "+Time.realtimeSinceStartup.ToString());
 		//yield return new WaitForSeconds(0.5f);
-		uvs = new Vector2[vertices.Count];
-		Log("#"+gameObject.name+" - Creating uvs array, size: "+vertices.Count+" Stacks: "+stacksOfVertexes.Count);
+		uvs = new Vector2[CalculateTargetArraySize()];
+		Log("#"+gameObject.name+" - Creating uvs array, size: "+CalculateTargetArraySize()+" Stacks: "+stacksOfVertexes.Count);
 		for(int j = 0; j<rows-1; j++) {
 			for(int i = 0; i<columns-1; i++) {
 				a = GetSplitVertexNumber(columns * j + i + 1 + columns);
@@ -220,7 +218,7 @@ public class MeshGenerator : MonoBehaviour {
 	}
 
 	void ChangeVertices() {
-		mesh.vertices = vertices.ToArray();
+		mesh.vertices = vertices;
 		meshFilter.mesh = mesh;
 
 		mesh.RecalculateBounds();
@@ -232,7 +230,7 @@ public class MeshGenerator : MonoBehaviour {
 
 	void SetMesh() {
 		mesh = new Mesh();
-		mesh.vertices = vertices.ToArray();
+		mesh.vertices = vertices;
 		mesh.triangles = triangles.ToArray();
 		mesh.uv = uvs;
 		meshFilter.mesh = mesh;
@@ -263,8 +261,6 @@ public class MeshGenerator : MonoBehaviour {
 	void Remove() {
 		uvs = null;
 		meshFilter.mesh = null;
-		vertices.Clear();
-		vertices.TrimExcess();
 		stacksOfVertexes.Clear();
 		stacksOfVertexes.TrimExcess();
 		GameObject.Find("Root").GetComponent<ObjectPool>().Return(gameObject);
