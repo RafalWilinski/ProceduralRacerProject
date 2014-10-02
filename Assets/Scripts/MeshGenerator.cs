@@ -19,7 +19,7 @@ public class MeshGenerator : MonoBehaviour {
 	public AnimationCurve profileCurve;
 	public Vector3 offset;
 
-	private List<Stack> stacksOfVertexes;
+	private List<Vertex> stacksOfVertexes;
 	public Vector3[] vertices;
 	private List<int> triangles;
 	private Vector2[] uvs;
@@ -47,10 +47,9 @@ public class MeshGenerator : MonoBehaviour {
 	[Serializable]
 	internal class Vertex {
 		public Vector3 position;
-		public int index;
+		public Stack indexes;
 
-		public Vertex(int i, Vector3 p) {
-			index = i;
+		public Vertex(Vector3 p) {
 			position = p;
 		}
 	}
@@ -73,7 +72,7 @@ public class MeshGenerator : MonoBehaviour {
 
 	public void Generate(float f, float t, AnimationCurve pc) {
 		if(!isUsed) {
-			stacksOfVertexes = new List<Stack>();
+			stacksOfVertexes = new List<Vertex>();
 			vertices = new Vector3[CalculateTargetArraySize()];
 			previousPart = null;
 			StopAllCoroutines();
@@ -131,10 +130,7 @@ public class MeshGenerator : MonoBehaviour {
 		lastRow = new List<Vector3>();
 		for(int j = 0; j<rows; j++) {
 			splinePos = spline.GetPositionAtTime(_step * j + from);
-			//float tangent = spline.GetTanAtTime(_step * j + from);
 			for(int i = 0; i<columns; i++) {
-				howManyVertexes = GetSplitCount(i, j);
-				Stack vertexStack = new Stack();
 				//Log("Putting "+howManyVertexes+" at vert "+ (j*columns+i).ToString() +", pos x = "+i+", y = "+j);
 				//Vector3 position = new Vector3(i * x_spacing + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(i * evaluationStep + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance)) * y_spacing + UnityEngine.Random.Range(-randomness, randomness));
 				position = new Vector3(x_spacing * args[i] + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(args[i]) * y_spacing + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance) * y_spacing, 0);
@@ -151,20 +147,21 @@ public class MeshGenerator : MonoBehaviour {
 						position = previousPart.lastRow[i];
 					}
 				}
+				Vertex v = new Vertex(position);
+		
+				Stack vertexStack = new Stack();
+				howManyVertexes = GetSplitCount(i, j);
 				for(int p = 0; p < howManyVertexes; p++) {
-					if(CreateDebugCubes) {
-						GameObject g = (GameObject)Instantiate(debugCube, position, Quaternion.identity);
-						g.name = counter.ToString();
-					}
 					vertices[counter] = position;
-					vertexStack.Push(new Vertex(counter, position));
+					vertexStack.Push(counter);
 					counter++;
 				}
-				stacksOfVertexes.Add(vertexStack);
+				v.indexes = vertexStack;
+			
+				stacksOfVertexes.Add(v);
 			}
 			yield return new WaitForEndOfFrame();
 		}
-		//Log("#"+gameObject.name+" vertexes generated, t: "+Time.realtimeSinceStartup.ToString());
 		if(!trianglesGenerated) StartCoroutine("GenerateTriangles");
 		else ChangeVertices();
 	}
@@ -172,9 +169,7 @@ public class MeshGenerator : MonoBehaviour {
 	IEnumerator GenerateTriangles() {
 		int a = 0;
 		Log("#"+gameObject.name+", Generate triangles, t: "+Time.realtimeSinceStartup.ToString());
-		//yield return new WaitForSeconds(0.5f);
 		uvs = new Vector2[CalculateTargetArraySize()];
-		Log("#"+gameObject.name+" - Creating uvs array, size: "+CalculateTargetArraySize()+" Stacks: "+stacksOfVertexes.Count);
 		for(int j = 0; j<rows-1; j++) {
 			for(int i = 0; i<columns-1; i++) {
 				a = GetSplitVertexNumber(columns * j + i + 1 + columns);
@@ -268,13 +263,13 @@ public class MeshGenerator : MonoBehaviour {
 
 	private int GetSplitVertexNumber(int sharedVertexNumber) {
 		if(sharedVertexNumber > 199) Log("Possible error! Requesting for vert #"+sharedVertexNumber.ToString());
-		Stack s = null;
+		Vertex s = null;
 		//Log("Requesring split for shared #"+sharedVertexNumber.ToString());
 		s = stacksOfVertexes[sharedVertexNumber];
-		Vertex splitVertex = (Vertex) s.Pop();
+		return (int)s.indexes.Pop();
 		//if(splitVertex.index > 1026) Log("Possible error! Size exceeded 1026. Index: "+splitVertex.index);
 		//Log("Shared vertex: "+sharedVertexNumber+ " = " + splitVertex.index + " splitted vertex.");
-		return splitVertex.index;
+		//return splitVertex.index;
 	}
 
 	private int GetSplitCount(int col, int row) {
