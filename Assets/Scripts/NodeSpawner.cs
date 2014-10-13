@@ -26,7 +26,6 @@ public class NodeSpawner : MonoBehaviour {
 			}
 
 			if(mod == 0 || mod == 1) { Debug.Log("Invalid modulo!"); return 0f; }
-
 			x = ((a * x)+c) % mod;
 			return x;
 		}

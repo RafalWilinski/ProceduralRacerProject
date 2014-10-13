@@ -106,12 +106,10 @@ public class CatmullRomSpline : MonoBehaviour {
 			meshGen.assignedPosition = GetPositionAtTime(nodeTimeLimit);
 			g.name = meshCounter.ToString();
 			//Debug.Log("Created: "+g.name);
-			meshGen.transform.parent = this.transform;
 			meshGen.Generate(meshRenderedCap, nodeTimeLimit, profileCurve);
 			meshRenderedCap = nodeTimeLimit;
 			meshCounter++;
-			g = null;
-			meshGen = null;
+
 		}
 		else {
 			Debug.Log("TimeLimit: "+nodeTimeLimit);
