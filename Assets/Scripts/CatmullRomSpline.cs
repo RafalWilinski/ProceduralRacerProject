@@ -61,7 +61,7 @@ public class CatmullRomSpline : MonoBehaviour {
 	}
 
 	public delegate void SplineUpdate(float limit);
-    public static event SplineUpdate OnSplineUpdated; 
+    public static event SplineUpdate OnSplineUpdated;
 
 	List<Node> nodes = new List<Node>();
 
@@ -74,16 +74,16 @@ public class CatmullRomSpline : MonoBehaviour {
 	}
 
 	void PrintNodeTimes() {
-		string report = "";
+		//string report = "";
 		for(int i = 0; i < (nodes.Count); i++) {
-			report += "Node #"+i+": "+nodes[i].GetTime()+"| ";
+			//report += "Node #"+i+": "+nodes[i].GetTime()+"| ";
 			nodeTimeLimit = i * startTimestep;
 		}
 		nodeTimeLimit -= (startTimestep*2);
 		isReady = true;
-		report += "Limit: "+nodeTimeLimit;
+		//report += "Limit: "+nodeTimeLimit;
 		if(OnSplineUpdated != null) OnSplineUpdated(nodeTimeLimit);
-		log(report);
+		//log(report);
 	}
 
 	public void AddNode(GameObject gameObj) {
@@ -140,7 +140,7 @@ public class CatmullRomSpline : MonoBehaviour {
 
 		if(nodesCount < 4) {
 			log("Spline too short! Unable to recalculate times and create spline. ");
-		} 
+		}
 		else {
 			float timeStep = 0f;
 			timeStep = 1.0f / (nodesCount - 3);
@@ -240,7 +240,7 @@ public class CatmullRomSpline : MonoBehaviour {
 			Vector3 tension2 = (-p0 + p2) * t;
 			Vector3 tension3 = ((2 * p0) - (5 * p1) + (4 * p2) - p3) * Mathf.Pow(t,2);
 			Vector3 tension4 = (-p0 + (3 * p1) - (3 * p2) + p3) * Mathf.Pow(t,3);
-		
+
 			pos = 0.5f * (tension1 + tension2 + tension3 + tension4);
 
 			if(isDebug) {
@@ -257,7 +257,7 @@ public class CatmullRomSpline : MonoBehaviour {
 				"Tension_4: "+tension4 + "\n"+
 				"Result: "+ pos;
 				*/
-			
+
 			}
 		return pos;
 	}

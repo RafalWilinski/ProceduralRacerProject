@@ -263,7 +263,9 @@ public class MeshGenerator : MonoBehaviour {
 	void Remove() {
 		//uvs = null;
 		//lastRow = null;
-		//meshFilter.mesh = null;
+		//meshFilter.mesh = null
+		Destroy(meshFilter.mesh);
+		//Destroy(col.mesh);
 		root.GetComponent<ObjectPool>().Return(gameObject);
 		System.GC.Collect();
 	}
