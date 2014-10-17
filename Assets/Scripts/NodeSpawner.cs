@@ -10,6 +10,7 @@ public class NodeSpawner : MonoBehaviour {
 	private int zIterator;
 	public GameObject movingNode;
 	private Vector3 pos;
+	public float xVariety;
 
 	public float sleep;
 
@@ -48,7 +49,7 @@ public class NodeSpawner : MonoBehaviour {
 
 	public void CreateNode() {
 		zIterator++;
-		pos = new Vector3(Random.Range(-80.2f, 80.21f), Random.Range(-0.5f, 0.5f), zStep * zIterator + zOffset);
+		pos = new Vector3(Random.Range(-xVariety, xVariety), Random.Range(-0.5f, 0.5f), zStep * zIterator + zOffset);
 		if(movingNode == null) {
 			movingNode = (GameObject) Instantiate(node, pos, Quaternion.identity);
 		}
