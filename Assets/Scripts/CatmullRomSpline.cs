@@ -12,6 +12,7 @@ public class CatmullRomSpline : MonoBehaviour {
 	public List<float> args;
 	public float curveLength;
 	public ObjectPool pool;
+	public ThemeManager themesManager;
 
 	private float startTimestep;
 	private float nodeTimeLimit;
@@ -104,6 +105,9 @@ public class CatmullRomSpline : MonoBehaviour {
 			//MeshGenerator meshGen = ((GameObject) Instantiate(meshPart, Vector3.zero, Quaternion.identity)).GetComponent<MeshGenerator>() as MeshGenerator;
 			MeshGenerator meshGen = g.GetComponent<MeshGenerator>() as MeshGenerator;
 			meshGen.assignedPosition = GetPositionAtTime(nodeTimeLimit);
+			meshGen.profileCurve = themesManager.GetCurrentTheme().curve;
+			meshGen.x_spacing = themesManager.GetCurrentTheme().x_spacing;
+			meshGen.y_spacing = themesManager.GetCurrentTheme().y_spacing;
 			g.name = meshCounter.ToString();
 			//Debug.Log("Created: "+g.name);
 			meshGen.Generate(meshRenderedCap, nodeTimeLimit, profileCurve);

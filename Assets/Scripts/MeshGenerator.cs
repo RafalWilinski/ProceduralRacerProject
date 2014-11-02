@@ -27,7 +27,8 @@ public class MeshGenerator : MonoBehaviour {
 	private float startTime;
 	public List<float> args;
 	public List<Vector3> lastRow;
-	private MeshGenerator previousPart;
+	public MeshGenerator previousPart;
+	public GameObject previousPartGameObject;
 
 	private MeshFilter meshFilter;
 	private GameObject root;
@@ -42,6 +43,7 @@ public class MeshGenerator : MonoBehaviour {
 	private Transform myTransform;
 	private GameObject cam;
 	private Transform camTrans;
+	private string previousPartName;
 
 	private bool trianglesGenerated;
 	private bool stacksGenerated;
@@ -68,7 +70,7 @@ public class MeshGenerator : MonoBehaviour {
 		stacksOfVertexes = new List<Vertex>();
 		col = GetComponent<MeshCollider>();
 		meshFilter = GetComponent<MeshFilter>();
-	   root = GameObject.Find("Root");
+	    root = GameObject.Find("Root");
 		spline = (CatmullRomSpline) GameObject.Find("Root").GetComponent<CatmullRomSpline>();
 		cam = GameObject.Find("Main Camera");
 		camTrans = cam.transform;
@@ -77,21 +79,44 @@ public class MeshGenerator : MonoBehaviour {
 
 	public void Generate(float f, float t, AnimationCurve pc) {
 		if(!isUsed) {
+			isUsed = true;
 			if(vertices == null || vertices.Length < CalculateTargetArraySize()) vertices = new Vector3[CalculateTargetArraySize()];
 			StopAllCoroutines();
 			StartCoroutine("Check");
-			lastRow = null;
 			isUsed = true;
+			lastRow = null;
 			GC.Collect();
 			from = f;
 			to = t;
 			if(profileCurve == null) profileCurve = pc;
+
+			if(gameObject.name != "0") {
+
+				string previousPartName = (int.Parse(gameObject.name) - 1).ToString();
+				previousPartGameObject = GameObject.Find( previousPartName );
+				if(previousPartGameObject == null) Debug.Log(this.gameObject + " couldn't find previous gameobject! "+previousPartName);
+				else {
+					previousPart = (MeshGenerator) previousPartGameObject.GetComponent<MeshGenerator>() as MeshGenerator;
+					if(previousPart == null) {
+						Debug.Log(this.gameObject + " couldn't find previous part! "+previousPartName);
+					}
+				}
+			}
+
 			StartCoroutine(CreateVertices());
+			Debug.Log(gameObject.name+"'s Generate() finished.");
 		}
 		else {
 			Debug.Log("This object is busy right now!");
 		}
 		//StartCoroutine(calculateCurveLength());
+	}
+
+	IEnumerator PreviousPartSearch() {
+		while(previousPart == null) {
+			previousPart = (MeshGenerator) previousPartGameObject.GetComponent<MeshGenerator>() as MeshGenerator;
+			yield return new WaitForEndOfFrame();
+		}
 	}
 
 	IEnumerator calculateCurveLength() {
@@ -121,6 +146,27 @@ public class MeshGenerator : MonoBehaviour {
 	}
 
 	IEnumerator CreateVertices() {
+		yield return new WaitForEndOfFrame();
+
+		if(previousPart == null && this.gameObject.name != "0") {
+			yield return StartCoroutine(PreviousPartSearch());
+		}
+
+		/*if(gameObject.name != "0") {
+
+			string name = (int.Parse(gameObject.name) - 1).ToString();
+			GameObject previousPartGameObject = GameObject.Find( name );
+			yield return new WaitForEndOfFrame(); //For safety!
+			if(previousPartGameObject == null) Debug.Log(this.gameObject + " couldn't find previous gameobject! "+name);
+			else {
+				previousPart = (MeshGenerator) previousPartGameObject.GetComponent<MeshGenerator>() as MeshGenerator;
+				yield return new WaitForEndOfFrame(); //For safety!
+				if(previousPart == null) Debug.Log(this.gameObject + " couldn't find previous part! "+name);
+			}
+			//	yield return new WaitForEndOfFrame(); //For safety!
+		}
+		*/
+
 		Vector3 position = Vector3.zero;
 		Vector3 splinePos;
 		int howManyVertexes = 0;
@@ -141,7 +187,11 @@ public class MeshGenerator : MonoBehaviour {
 				}
 				else if(j == 0) {
 					if(gameObject.name != "0") {
-						previousPart = (MeshGenerator) GameObject.Find( (string)(int.Parse(gameObject.name) - 1).ToString() ).GetComponent<MeshGenerator>() as MeshGenerator;
+						/*yield return new WaitForEndOfFrame();
+						previousPart = (MeshGenerator) GameObject.Find( (int.Parse(gameObject.name) - 1).ToString() ).GetComponent<MeshGenerator>() as MeshGenerator;
+						if(previousPart == null) Debug.Log(this.gameObject + " couldn't find previous part! "+(int.Parse(gameObject.name) - 1).ToString());
+						*/
+						if(previousPart == null) Debug.Log(this.gameObject.name+": Warning! previousPart == null");
 						while(previousPart.lastRow.Count < columns) {
 							yield return new WaitForSeconds(0.25f);
 						}
@@ -222,11 +272,11 @@ public class MeshGenerator : MonoBehaviour {
 	void ChangeVertices() {
 		mesh.vertices = vertices;
 		meshFilter.mesh = mesh;
-
+		col.mesh = mesh;
+		col.enabled = false;
+		col.enabled = true;
 		mesh.RecalculateBounds();
 		mesh.RecalculateNormals();
-
-		col.mesh = mesh;
 		isUsed = false;
 	}
 
@@ -241,6 +291,8 @@ public class MeshGenerator : MonoBehaviour {
 		mesh.RecalculateNormals();
 
 		col.mesh = mesh;
+		col.enabled = false;
+		col.enabled = true;
 		isUsed = false;
 	}
 
