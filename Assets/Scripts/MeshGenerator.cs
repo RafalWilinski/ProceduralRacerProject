@@ -104,7 +104,7 @@ public class MeshGenerator : MonoBehaviour {
 			}
 
 			StartCoroutine(CreateVertices());
-			Debug.Log(gameObject.name+"'s Generate() finished.");
+//			Debug.Log(gameObject.name+"'s Generate() finished.");
 		}
 		else {
 			Debug.Log("This object is busy right now!");

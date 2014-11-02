@@ -16,10 +16,12 @@ public class ContinousMovement : MonoBehaviour {
 	public RectTransform bottomUI;
 	public RectTransform topUI;
 	public Text newRegionName;
+	public CatmullRomSpline spline;
 
 	public int currentRegionIndex;
 
 	public float fwdSpeed;
+	public float menuFwdSpeed;
 	public float directionSensitivity;
 	public float dir;
 	public float accel;
@@ -33,16 +35,21 @@ public class ContinousMovement : MonoBehaviour {
 	public float uiRotSensitivityZ;
 	public float uiThreadSleep;
 
+	public LoopMode loopMode;
 	public bool shouldRotateUI;
 	public bool shouldTweenFOV;
+	public bool controlsEnabled;
 
+	private Transform myTransform;
 	private Quaternion cameraRotationTarget;
 	private Quaternion uiRotationTarget;
 	private Vector3 vect;
+	private float _t;
 	private float distance;
 	private bool isChangingRegion;
 	private float markerRegionWidth;
 	private float hp;
+	private float splineTimeLimit;
 
 	[Serializable]
 	public class Region {
@@ -51,41 +58,83 @@ public class ContinousMovement : MonoBehaviour {
 		public int themeIndex;
 	}
 
+	public enum LoopMode {
+		ONCE, LOOP, PINGPONG
+	}
+
+	void OnEnable() {
+		CatmullRomSpline.OnSplineUpdated += OnLimitChanged;
+	}
+
+	void OnLimitChanged(float f) {
+		splineTimeLimit = f;
+	} 
+
+	void OnDisable() {
+		CatmullRomSpline.OnSplineUpdated -= OnLimitChanged;
+	}
+
 	void Update () {
 
-		#if UNITY_EDITOR 
-			dir = (Input.mousePosition.x / Screen.width) - 0.5f;
-			accel = (Input.mousePosition.y / Screen.height) - 0.5f;
-		#elif UNITY_IPHONE || UNITY_ANDROID
-			dir = Mathf.Clamp(Input.acceleration.x,-0.5f, 0.5f);
-			accel = Mathf.Atan2(Input.acceleration.y, Input.acceleration.z)*-1* Mathf.Rad2Deg;
-			accel = Mathf.Abs(accel) - calibration;
-			accel = Mathf.Clamp(accel,-1,1);
-		#endif
+		if(controlsEnabled) {
+			#if UNITY_EDITOR 
+				dir = (Input.mousePosition.x / Screen.width) - 0.5f;
+				accel = (Input.mousePosition.y / Screen.height) - 0.5f;
+			#elif UNITY_IPHONE || UNITY_ANDROID
+				dir = Mathf.Clamp(Input.acceleration.x,-0.5f, 0.5f);
+				accel = Mathf.Atan2(Input.acceleration.y, Input.acceleration.z)*-1* Mathf.Rad2Deg;
+				accel = Mathf.Abs(accel) - calibration;
+				accel = Mathf.Clamp(accel,-1,1);
+			#endif
 
-		vect = new Vector3(directionSensitivity*dir*-1f, 0f ,fwdSpeed * (1+(accel/5f)) );
-		transform.Translate(vect);
+			vect = new Vector3(directionSensitivity*dir*-1f, 0f ,fwdSpeed * (1+(accel/5f)) );
+			transform.Translate(vect);
 
-		cameraRotationTarget = Quaternion.Euler (accel * 5, dir, dir*cameraRotSensitivityZ);
-		uiRotationTarget = Quaternion.Euler (accel * uiRotSensitivityX, dir*uiRotSensitivityY, dir*uiRotSensitivityZ);
-		camera.localRotation = Quaternion.Lerp(camera.localRotation, cameraRotationTarget,Time.deltaTime*rotationSpeed);
+			cameraRotationTarget = Quaternion.Euler (accel * 5, dir, dir*cameraRotSensitivityZ);
+			uiRotationTarget = Quaternion.Euler (accel * uiRotSensitivityX, dir*uiRotSensitivityY, dir*uiRotSensitivityZ);
+			camera.localRotation = Quaternion.Lerp(camera.localRotation, cameraRotationTarget,Time.deltaTime*rotationSpeed);
 
-		if(shouldRotateUI) {
-			foreach(Transform t in uiPanelElements) {
-				t.localRotation = Quaternion.Lerp(t.localRotation, uiRotationTarget, Time.deltaTime*rotationSpeed);
+			if(shouldRotateUI) {
+				foreach(Transform t in uiPanelElements) {
+					t.localRotation = Quaternion.Lerp(t.localRotation, uiRotationTarget, Time.deltaTime*rotationSpeed);
+				}
+			}
+
+			if(shouldTweenFOV) cam.fov = Mathf.Lerp(cam.fov, 90 + (accel*10), Time.deltaTime*rotationSpeed);
+		}
+		else {
+			if(spline.IsReady) {
+				if(loopMode == LoopMode.ONCE) {
+					_t += menuFwdSpeed;
+				}
+				else if(loopMode == LoopMode.LOOP) {
+					if(_t >= splineTimeLimit) _t = 0f;
+					else _t += menuFwdSpeed;
+				}
+				else if(loopMode == LoopMode.PINGPONG) {
+					if(_t >= splineTimeLimit || _t <= 0f) menuFwdSpeed = -menuFwdSpeed;
+					_t += menuFwdSpeed;
+				}
+
+				if(_t > splineTimeLimit) _t = splineTimeLimit;
+				if(_t < 0) _t = 0f;
+
+				myTransform.position = spline.GetPositionAtTime(_t);
+				spline.GetRotAtTime(_t, this.gameObject);
 			}
 		}
-
-		if(shouldTweenFOV) cam.fov = Mathf.Lerp(cam.fov, 90 + (accel*10), Time.deltaTime*rotationSpeed);
 	}
 
 	void Start() {
-		//SetTheme(0);
+		myTransform = transform;
+		splineTimeLimit = spline.TimeLimit;
 		markerRegionWidth = 400;
 		cam = camera.GetComponent<Camera>();
-		//calibration = Mathf.Abs(Mathf.Atan2(Input.acceleration.y, Input.acceleration.z)*-1*Mathf.Rad2Deg);
-
 		StartCoroutine(OnUIRender());
+	}
+
+	public void StartGame() {
+
 	}
 
 	void SetTheme(int index) {
