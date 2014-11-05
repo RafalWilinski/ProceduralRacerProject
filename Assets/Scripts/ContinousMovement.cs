@@ -39,12 +39,13 @@ public class ContinousMovement : MonoBehaviour {
 	public bool shouldRotateUI;
 	public bool shouldTweenFOV;
 	public bool controlsEnabled;
+	public bool isPlaying;
 
 	private Transform myTransform;
 	private Quaternion cameraRotationTarget;
 	private Quaternion uiRotationTarget;
 	private Vector3 vect;
-	private float _t;
+	public float _t;
 	private float distance;
 	private bool isChangingRegion;
 	private float markerRegionWidth;
@@ -126,6 +127,7 @@ public class ContinousMovement : MonoBehaviour {
 	}
 
 	void Start() {
+		spline.xAxisDivider = 2.5f;
 		myTransform = transform;
 		splineTimeLimit = spline.TimeLimit;
 		markerRegionWidth = 400;
@@ -145,17 +147,18 @@ public class ContinousMovement : MonoBehaviour {
 	IEnumerator OnUIRender() {
 		float speed = 0f;
 		while(true) {
-			speed = (fwdSpeed * (1 + (accel/5f))) * 10;
-			distance += speed * uiThreadSleep;
+			if(isPlaying) {
+				speed = (fwdSpeed * (1 + (accel/5f))) * 10;
+				distance += speed * uiThreadSleep;
 
-			distanceLabel.text = distance.ToString("f0") + " / " + themesManager.themes[currentRegionIndex].distance.ToString("f0") + "mi remaining";
-			speedLabel.text = "Speed: "+speed.ToString("f2");
-			marker.anchoredPosition = new Vector2(-markerRegionWidth + (2*markerRegionWidth) * (distance/themesManager.themes[currentRegionIndex].distance), marker.anchoredPosition.y);
+				distanceLabel.text = distance.ToString("f0") + " / " + themesManager.themes[currentRegionIndex].distance.ToString("f0") + "mi remaining";
+				speedLabel.text = "Speed: "+speed.ToString("f2");
+				marker.anchoredPosition = new Vector2(-markerRegionWidth + (2*markerRegionWidth) * (distance/themesManager.themes[currentRegionIndex].distance), marker.anchoredPosition.y);
 
-			if(!isChangingRegion && distance > themesManager.themes[currentRegionIndex].distance) {
-				StartCoroutine(ChangeToNextRegion());
+				if(!isChangingRegion && distance > themesManager.themes[currentRegionIndex].distance) {
+					StartCoroutine(ChangeToNextRegion());
+				}
 			}
-
 			yield return new WaitForSeconds(uiThreadSleep);
 		}
 	}

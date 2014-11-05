@@ -4,9 +4,12 @@ using System.Collections;
 public class CatmullRomMovement : MonoBehaviour {
 
 	public float speed;
+	public float startOffset;
 	public float waitInterval;
 	public CatmullRomSpline spline;
 	public float _t;
+	public float startDelay;
+	public bool shouldntStartAuto;
 
 	private float splineTimeLimit;
 	private Transform myTransform;
@@ -28,10 +31,16 @@ public class CatmullRomMovement : MonoBehaviour {
 	void Start() {
 		myTransform = transform;
 		splineTimeLimit = spline.TimeLimit;
+		if(!shouldntStartAuto) StartCoroutine("Movement");
+	}
+
+	public void DelayedStart() {
 		StartCoroutine("Movement");
 	}
 
 	IEnumerator Movement() {
+		yield return new WaitForSeconds(startDelay);
+		_t += startOffset;
 		while(true) {
 			if(spline.IsReady) {
 				if(loopMode == LoopMode.ONCE) {
