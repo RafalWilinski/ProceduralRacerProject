@@ -22,7 +22,7 @@ public class RegionSelector : MonoBehaviour {
 	public void NextRegion() {
 		if(currentRegion < regions.Count-1) {
 			currentRegion++;
-			themeManager.LerpTo(currentRegion);
+			themeManager.FakeLerpTo(currentRegion);
 			StartCoroutine(TweenSpeed());
 		}
 	}
@@ -30,7 +30,7 @@ public class RegionSelector : MonoBehaviour {
 	public void PreviousRegion() {
 		if(currentRegion > 0) {
 			currentRegion--;
-			themeManager.LerpTo(currentRegion);
+			themeManager.FakeLerpTo(currentRegion);
 			StartCoroutine(TweenSpeed());
 		}
 	}

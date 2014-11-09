@@ -272,7 +272,7 @@ public class MeshGenerator : MonoBehaviour {
 	void ChangeVertices() {
 		mesh.vertices = vertices;
 		meshFilter.mesh = mesh;
-		col.mesh = mesh;
+		col.sharedMesh = mesh;
 		col.enabled = false;
 		col.enabled = true;
 		mesh.RecalculateBounds();
@@ -299,7 +299,7 @@ public class MeshGenerator : MonoBehaviour {
 	IEnumerator Check() {
 		while(true) {
 			//Debug.Log("Checking! "+camTrans.position.z+ " : " + assignedPosition.z);
-			if(assignedPosition.z + 500 < camTrans.position.z && !isUsed) {
+			if(assignedPosition.z + 1000 < camTrans.position.z && !isUsed) {
 				Remove();
 			}
 			yield return new WaitForSeconds(0.25f);
@@ -313,13 +313,11 @@ public class MeshGenerator : MonoBehaviour {
 	}
 
 	void Remove() {
-		//uvs = null;
-		//lastRow = null;
-		//meshFilter.mesh = null
-		Destroy(meshFilter.mesh);
-		//Destroy(col.mesh);
-		root.GetComponent<ObjectPool>().Return(gameObject);
-		System.GC.Collect();
+		if(gameObject.name != "0") {
+			Destroy(meshFilter.mesh);
+			root.GetComponent<ObjectPool>().Return(gameObject);
+			System.GC.Collect();
+		}
 	}
 
 	private int GetSplitVertexNumber(int sharedVertexNumber) {

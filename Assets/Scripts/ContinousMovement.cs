@@ -17,6 +17,7 @@ public class ContinousMovement : MonoBehaviour {
 	public RectTransform topUI;
 	public Text newRegionName;
 	public CatmullRomSpline spline;
+	public CanvasManager canvasManager;
 
 	public int currentRegionIndex;
 
@@ -40,6 +41,8 @@ public class ContinousMovement : MonoBehaviour {
 	public bool shouldTweenFOV;
 	public bool controlsEnabled;
 	public bool isPlaying;
+	public bool isPaused;
+	public bool isGameOver;
 
 	private Transform myTransform;
 	private Quaternion cameraRotationTarget;
@@ -76,52 +79,53 @@ public class ContinousMovement : MonoBehaviour {
 	}
 
 	void Update () {
+		if(!isPaused) {
+			if(controlsEnabled) {
+				#if UNITY_EDITOR 
+					dir = (Input.mousePosition.x / Screen.width) - 0.5f;
+					accel = (Input.mousePosition.y / Screen.height) - 0.5f;
+				#elif UNITY_IPHONE || UNITY_ANDROID
+					dir = Mathf.Clamp(Input.acceleration.x,-0.5f, 0.5f);
+					accel = Mathf.Atan2(Input.acceleration.y, Input.acceleration.z)*-1;
+					accel = Mathf.Abs(accel) - calibration;
+					accel = Mathf.Clamp(accel,-1,1);
+				#endif
 
-		if(controlsEnabled) {
-			#if UNITY_EDITOR 
-				dir = (Input.mousePosition.x / Screen.width) - 0.5f;
-				accel = (Input.mousePosition.y / Screen.height) - 0.5f;
-			#elif UNITY_IPHONE || UNITY_ANDROID
-				dir = Mathf.Clamp(Input.acceleration.x,-0.5f, 0.5f);
-				accel = Mathf.Atan2(Input.acceleration.y, Input.acceleration.z)*-1* Mathf.Rad2Deg;
-				accel = Mathf.Abs(accel) - calibration;
-				accel = Mathf.Clamp(accel,-1,1);
-			#endif
+				vect = new Vector3(directionSensitivity*dir*-1f, 0f ,fwdSpeed * (1+(accel/5f)) );
+				transform.Translate(vect);
 
-			vect = new Vector3(directionSensitivity*dir*-1f, 0f ,fwdSpeed * (1+(accel/5f)) );
-			transform.Translate(vect);
+				cameraRotationTarget = Quaternion.Euler (accel * 5, dir, dir*cameraRotSensitivityZ);
+				uiRotationTarget = Quaternion.Euler (accel * uiRotSensitivityX, dir*uiRotSensitivityY, dir*uiRotSensitivityZ);
+				camera.localRotation = Quaternion.Lerp(camera.localRotation, cameraRotationTarget,Time.deltaTime*rotationSpeed);
 
-			cameraRotationTarget = Quaternion.Euler (accel * 5, dir, dir*cameraRotSensitivityZ);
-			uiRotationTarget = Quaternion.Euler (accel * uiRotSensitivityX, dir*uiRotSensitivityY, dir*uiRotSensitivityZ);
-			camera.localRotation = Quaternion.Lerp(camera.localRotation, cameraRotationTarget,Time.deltaTime*rotationSpeed);
-
-			if(shouldRotateUI) {
-				foreach(Transform t in uiPanelElements) {
-					t.localRotation = Quaternion.Lerp(t.localRotation, uiRotationTarget, Time.deltaTime*rotationSpeed);
+				if(shouldRotateUI) {
+					foreach(Transform t in uiPanelElements) {
+						t.localRotation = Quaternion.Lerp(t.localRotation, uiRotationTarget, Time.deltaTime*rotationSpeed);
+					}
 				}
+
+				if(shouldTweenFOV) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 90 + (accel*10), Time.deltaTime*rotationSpeed);
 			}
+			else {
+				if(spline.IsReady) {
+					if(loopMode == LoopMode.ONCE) {
+						_t += menuFwdSpeed;
+					}
+					else if(loopMode == LoopMode.LOOP) {
+						if(_t >= splineTimeLimit) _t = 0f;
+						else _t += menuFwdSpeed;
+					}
+					else if(loopMode == LoopMode.PINGPONG) {
+						if(_t >= splineTimeLimit || _t <= 0f) menuFwdSpeed = -menuFwdSpeed;
+						_t += menuFwdSpeed;
+					}
 
-			if(shouldTweenFOV) cam.fov = Mathf.Lerp(cam.fov, 90 + (accel*10), Time.deltaTime*rotationSpeed);
-		}
-		else {
-			if(spline.IsReady) {
-				if(loopMode == LoopMode.ONCE) {
-					_t += menuFwdSpeed;
-				}
-				else if(loopMode == LoopMode.LOOP) {
-					if(_t >= splineTimeLimit) _t = 0f;
-					else _t += menuFwdSpeed;
-				}
-				else if(loopMode == LoopMode.PINGPONG) {
-					if(_t >= splineTimeLimit || _t <= 0f) menuFwdSpeed = -menuFwdSpeed;
-					_t += menuFwdSpeed;
-				}
+					if(_t > splineTimeLimit) _t = splineTimeLimit;
+					if(_t < 0) _t = 0f;
 
-				if(_t > splineTimeLimit) _t = splineTimeLimit;
-				if(_t < 0) _t = 0f;
-
-				myTransform.position = spline.GetPositionAtTime(_t);
-				spline.GetRotAtTime(_t, this.gameObject);
+					myTransform.position = spline.GetPositionAtTime(_t);
+					spline.GetRotAtTime(_t, this.gameObject);
+				}
 			}
 		}
 	}
@@ -130,13 +134,31 @@ public class ContinousMovement : MonoBehaviour {
 		spline.xAxisDivider = 2.5f;
 		myTransform = transform;
 		splineTimeLimit = spline.TimeLimit;
-		markerRegionWidth = 400;
+		markerRegionWidth = 375f;
 		cam = camera.GetComponent<Camera>();
 		StartCoroutine(OnUIRender());
 	}
 
 	public void StartGame() {
+		transform.rotation = Quaternion.identity;
+		canvasManager.StartGame();
+		Debug.Log("Starting game!");
+		controlsEnabled = true;
+		isPlaying = true;
+		StartCoroutine("increaseFwdSpeed");
+		spline.xAxisDivider = 1f;
+		currentRegionIndex = themesManager.fakeCurrentThemeIndex;
+		themesManager.currentThemeIndex = themesManager.fakeCurrentThemeIndex;
+		regionLabel.text = themesManager.themes[themesManager.fakeCurrentThemeIndex].fullName;
+	}
 
+	private IEnumerator increaseFwdSpeed() {
+		float targetSpeed = fwdSpeed;
+		fwdSpeed = fwdSpeed / 10f;
+		while(fwdSpeed < targetSpeed) {
+			fwdSpeed += 0.05f;
+			yield return new WaitForSeconds(0.01f);
+		}
 	}
 
 	void SetTheme(int index) {
@@ -148,7 +170,7 @@ public class ContinousMovement : MonoBehaviour {
 		float speed = 0f;
 		while(true) {
 			if(isPlaying) {
-				speed = (fwdSpeed * (1 + (accel/5f))) * 10;
+				speed = (fwdSpeed * (1 + (accel/5f))) * 10; 
 				distance += speed * uiThreadSleep;
 
 				distanceLabel.text = distance.ToString("f0") + " / " + themesManager.themes[currentRegionIndex].distance.ToString("f0") + "mi remaining";
@@ -166,15 +188,15 @@ public class ContinousMovement : MonoBehaviour {
 	IEnumerator ChangeToNextRegion() {
 		Debug.Log("ChangeToNextRegion");
 		isChangingRegion = true;
-		LeanTween.move( bottomUI, new Vector3(0, -300, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
-		LeanTween.move( topUI, new Vector3(0, 300, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
+		LeanTween.move( bottomUI, new Vector3(0, -400, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
+		LeanTween.move( topUI, new Vector3(0, 400, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
 		yield return new WaitForSeconds(1.25f);
 		distance = 0;
 		currentRegionIndex++;
 		SetTheme(currentRegionIndex);
 		yield return new WaitForSeconds(1.25f);
-		LeanTween.move( topUI, new Vector3(0, 150, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
-		LeanTween.move( bottomUI, new Vector3(0, -150, 0), 2f ) .setEase( LeanTweenType.easeInOutQuad );
+		LeanTween.move( topUI, new Vector3(0, 250, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
+		LeanTween.move( bottomUI, new Vector3(0, -250, 0), 2f ) .setEase( LeanTweenType.easeInOutQuad );
 		isChangingRegion = false;
 	}
 

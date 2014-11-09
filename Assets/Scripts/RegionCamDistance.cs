@@ -21,7 +21,7 @@ public class RegionCamDistance : MonoBehaviour {
 		while(true) {
 			if(manager.currentState == 1) {
 				float dist = Vector3.Distance(myTransform.position, cam.position);
-				if(dist < minDistance) alpha = ((minDistance - dist) / (minDistance * divisionModifier)) * (1-mainMenuCanvas.alpha);
+				if(dist < minDistance) alpha = ((minDistance - dist) / (minDistance * divisionModifier)) * 2.0f * (0.5f-mainMenuCanvas.alpha) * manager.checkpointsVisibility;
 				else alpha = 0f;
 
 				GetComponent<CanvasGroup>().alpha = alpha;

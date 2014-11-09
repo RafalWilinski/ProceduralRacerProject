@@ -13,6 +13,7 @@ public class ThemeManager : MonoBehaviour {
 	public float lerpSpeed;
 	public float lerpMultiplication;
 	public int currentThemeIndex;
+	public int fakeCurrentThemeIndex;
 
 	[Serializable]
 	public class Theme {
@@ -65,6 +66,12 @@ public class ThemeManager : MonoBehaviour {
 		StartCoroutine("LerpToTheme",themes[i]);
 	}
 
+	public void FakeLerpTo (int i) {
+		fakeCurrentThemeIndex = i;
+		StopCoroutine("LerpToTheme");
+		StartCoroutine("LerpToTheme",themes[i]);
+	}
+
 	public void NextTheme() {
 		if(currentThemeIndex + 1 >= themes.Count) currentThemeIndex = 0;
 		else currentThemeIndex++;
@@ -113,13 +120,12 @@ public class ThemeManager : MonoBehaviour {
 		while(lerpSpeed >= elapsedTime) {
 			foreach(Light l in lights) l.color = Color.Lerp(l.color, t.lightsColor, Time.deltaTime);
 			foreach(Camera cam in cams) cam.backgroundColor = Color.Lerp(cam.backgroundColor, t.backgroundColor, Time.deltaTime);
-			mat.color = Color.Lerp(mat.color, t.materialColor, Time.deltaTime);
+			//mat.color = Color.Lerp(mat.color, t.materialColor, Time.deltaTime);
 			RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor, t.backgroundColor, Time.deltaTime);
 			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, t.ambientColor, Time.deltaTime);
 			elapsedTime += Time.deltaTime;
 			yield return new WaitForSeconds(Time.deltaTime*lerpMultiplication);
 		}
 		SetTheme(t);
-		Debug.Log("Lerp complete!");
 	}
 }

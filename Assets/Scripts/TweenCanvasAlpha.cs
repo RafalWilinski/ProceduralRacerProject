@@ -9,6 +9,12 @@ public class TweenCanvasAlpha : MonoBehaviour {
 	public float time;
 	public float delay;
 
+	public void Show() {
+		TweenCanvasAlpha instance = canvas.GetComponent<TweenCanvasAlpha>();
+		TweenParameters t = new TweenParameters(canvas, from, to, time, delay);
+		instance.ObjectiveShow(t);
+	}
+
 	public static void Show (TweenParameters parameters) {
 		TweenCanvasAlpha instance = parameters.canvas.GetComponent<TweenCanvasAlpha>();
 		if(instance == null) {
@@ -31,6 +37,7 @@ public class TweenCanvasAlpha : MonoBehaviour {
 
 	private IEnumerator Tweening() {
 		float stepWait = time/60;
+		yield return new WaitForSeconds(delay);
 		if(from < to) {
 			while(canvas.alpha < to) {
 				canvas.alpha += (to-from)/60f;
@@ -43,6 +50,7 @@ public class TweenCanvasAlpha : MonoBehaviour {
 				yield return new WaitForSeconds(stepWait);
 			}
 		}
+		if(canvas.alpha <= 0.02) canvas.interactable = false;
 	}
 
 	private void StopAllLocalCoroutines() {
