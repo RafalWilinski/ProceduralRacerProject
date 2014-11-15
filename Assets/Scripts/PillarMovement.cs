@@ -9,6 +9,7 @@ public class PillarMovement : MonoBehaviour {
 
 	void Start () {
 		myTransform = transform;
+		myTransform.eulerAngles = new Vector3(Random.Range(-15,15), Random.Range(-15,15), Random.Range(-15,15));
 		StartCoroutine("Rise");
 	}
 	

@@ -36,6 +36,7 @@ public class TweenCanvasAlpha : MonoBehaviour {
 	}
 
 	private IEnumerator Tweening() {
+		canvas.alpha = from;
 		float stepWait = time/60;
 		yield return new WaitForSeconds(delay);
 		if(from < to) {
@@ -50,7 +51,11 @@ public class TweenCanvasAlpha : MonoBehaviour {
 				yield return new WaitForSeconds(stepWait);
 			}
 		}
-		if(canvas.alpha <= 0.02) canvas.interactable = false;
+
+		if(canvas.alpha < 0.005) {
+			canvas.interactable = false;
+			canvas.blocksRaycasts = false;
+		}
 	}
 
 	private void StopAllLocalCoroutines() {
@@ -59,6 +64,7 @@ public class TweenCanvasAlpha : MonoBehaviour {
 }
 
 public class TweenParameters {
+
 		public CanvasGroup canvas;
 		public float from;
 		public float to;

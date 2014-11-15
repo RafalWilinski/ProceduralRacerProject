@@ -35,7 +35,7 @@ public class Debugger : MonoBehaviour {
 							+ "fps: " + format + "\n"
 							+ "accel: "+movement.accel;
 
-			yield return new WaitForSeconds(0.03f);
+			yield return new WaitForSeconds(0.1f);
 		}
 	}
 

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+
 
 public class CanvasManager : MonoBehaviour {
 
@@ -10,7 +12,9 @@ public class CanvasManager : MonoBehaviour {
 	public CanvasGroup mainMenu;
 	public CanvasGroup gameInterface;
 	public CanvasGroup checkpointSelector;
+	public GameObject checkpointSelectorParent;
 	public CanvasGroup pauseMenu;
+	public CanvasGroup tint;
 	public RegionSelector regionSelector;
 
 	public float checkpointsVisibility;
@@ -58,7 +62,8 @@ public class CanvasManager : MonoBehaviour {
 	}
 
 	void Start() {
-		TweenCanvasAlpha.Show(new TweenParameters(mainMenu, 0f, 1f, 1.5f, 0f));
+		TweenCanvasAlpha.Show(new TweenParameters(tint, 1f, 0f, 2f, 1f));
+		TweenCanvasAlpha.Show(new TweenParameters(mainMenu, 0.015f, 1f, 2f, 2f));
 	}
 
 	//Region - Helpers
@@ -72,6 +77,7 @@ public class CanvasManager : MonoBehaviour {
 			checkpointsVisibility -= 0.02f;
 			yield return new WaitForSeconds(0.01f);
 		}
+		Destroy(checkpointSelectorParent);
 	}
 
 	private void HideAndDisableInteraction(CanvasGroup c) {

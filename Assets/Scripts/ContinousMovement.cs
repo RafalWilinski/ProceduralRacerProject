@@ -22,6 +22,7 @@ public class ContinousMovement : MonoBehaviour {
 	public int currentRegionIndex;
 
 	public float fwdSpeed;
+	public float targetFwdSpeed;
 	public float menuFwdSpeed;
 	public float directionSensitivity;
 	public float dir;
@@ -41,6 +42,7 @@ public class ContinousMovement : MonoBehaviour {
 	public bool shouldTweenFOV;
 	public bool controlsEnabled;
 	public bool isPlaying;
+	public bool isPreparing;
 	public bool isPaused;
 	public bool isGameOver;
 
@@ -81,7 +83,7 @@ public class ContinousMovement : MonoBehaviour {
 	void Update () {
 		if(!isPaused) {
 			if(controlsEnabled) {
-				#if UNITY_EDITOR 
+				#if UNITY_STANDALONE || UNITY_EDITOR || UNITY_WEBPLAYER
 					dir = (Input.mousePosition.x / Screen.width) - 0.5f;
 					accel = (Input.mousePosition.y / Screen.height) - 0.5f;
 				#elif UNITY_IPHONE || UNITY_ANDROID
@@ -140,25 +142,47 @@ public class ContinousMovement : MonoBehaviour {
 	}
 
 	public void StartGame() {
-		transform.rotation = Quaternion.identity;
-		canvasManager.StartGame();
-		Debug.Log("Starting game!");
+		if(!isPreparing) {
+			isPreparing = true;
+			fwdSpeed = targetFwdSpeed / 10f;
+			StartCoroutine("straightenMovement"); 
+			StartCoroutine("reCurveSpline");
+			canvasManager.StartGame();
+			Debug.Log("Starting game!");
+			currentRegionIndex = themesManager.fakeCurrentThemeIndex;
+			themesManager.currentThemeIndex = themesManager.fakeCurrentThemeIndex;
+			regionLabel.text = themesManager.themes[themesManager.fakeCurrentThemeIndex].fullName;
+		}
+	}
+
+	private IEnumerator reCurveSpline() {
+		//spline.xAxisDivider = 1f;
+		while(spline.xAxisDivider > 1) {
+			spline.xAxisDivider -= 0.02f;
+			yield return new WaitForEndOfFrame();
+		}
+	}
+
+	private IEnumerator straightenMovement() {
+		yield return new WaitForSeconds(0.75f);
 		controlsEnabled = true;
+		while(transform.rotation != Quaternion.identity) {
+			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, Time.deltaTime*3);
+			yield return new WaitForSeconds(0.02f);
+		}
+		yield return new WaitForSeconds(0.5f);
 		isPlaying = true;
 		StartCoroutine("increaseFwdSpeed");
-		spline.xAxisDivider = 1f;
-		currentRegionIndex = themesManager.fakeCurrentThemeIndex;
-		themesManager.currentThemeIndex = themesManager.fakeCurrentThemeIndex;
-		regionLabel.text = themesManager.themes[themesManager.fakeCurrentThemeIndex].fullName;
 	}
 
 	private IEnumerator increaseFwdSpeed() {
-		float targetSpeed = fwdSpeed;
-		fwdSpeed = fwdSpeed / 10f;
-		while(fwdSpeed < targetSpeed) {
+		fwdSpeed = targetFwdSpeed / 10f;
+		while(fwdSpeed < targetFwdSpeed) {
 			fwdSpeed += 0.05f;
 			yield return new WaitForSeconds(0.01f);
 		}
+		StopCoroutine("straightenMovement");
+		StopCoroutine("reCurveSpline");
 	}
 
 	void SetTheme(int index) {

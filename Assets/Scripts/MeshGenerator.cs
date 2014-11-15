@@ -148,6 +148,8 @@ public class MeshGenerator : MonoBehaviour {
 	IEnumerator CreateVertices() {
 		yield return new WaitForEndOfFrame();
 
+		offset = new Vector3(x_spacing * rows / 2, offset.y, offset.z);
+
 		if(previousPart == null && this.gameObject.name != "0") {
 			yield return StartCoroutine(PreviousPartSearch());
 		}
@@ -181,7 +183,7 @@ public class MeshGenerator : MonoBehaviour {
 				//Log("Putting "+howManyVertexes+" at vert "+ (j*columns+i).ToString() +", pos x = "+i+", y = "+j);
 				//Vector3 position = new Vector3(i * x_spacing + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(i * evaluationStep + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance)) * y_spacing + UnityEngine.Random.Range(-randomness, randomness));
 				position = new Vector3(x_spacing * args[i] + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(args[i]) * y_spacing + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance) * y_spacing, 0);
-				position += (splinePos + offset);
+				position += (splinePos + offset); //preliczac offset na podstawie x_spacing
 				if(j == rows-1) {
 					lastRow.Add(position);
 				}
