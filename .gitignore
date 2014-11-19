@@ -31,3 +31,14 @@ ExportedObj/
 Icon?
 ehthumbs.db
 Thumbs.db
+*.log
+
+*.dll
+
+*.mdb
+
+Library/metadata/00/0000000000000000b000000000000000
+
+Library/expandedItems
+
+Library/CurrentLayout.dwlt
