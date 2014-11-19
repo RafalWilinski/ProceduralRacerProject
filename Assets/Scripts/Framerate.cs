@@ -6,7 +6,7 @@ public class Framerate : MonoBehaviour {
 
 	public int framerate;
 	void Awake () {
-		Application.targetFrameRate = 60;
+		Application.targetFrameRate = -1;
 		InvokeRepeating("RemoveGC", 0.1f, 0.1f);
 	}
 

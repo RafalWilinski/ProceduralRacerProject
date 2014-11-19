@@ -13,18 +13,21 @@ public class CatmullRomNode : MonoBehaviour {
 	public float timeGiven;
 
 	void Start() {
+		myTransform = transform;
+		rootGo = GameObject.Find("Root");
+		myTransform.parent = rootGo.transform;
+		root = (CatmullRomSpline) rootGo.GetComponent<CatmullRomSpline>();
+
 		if(shouldAddOnStart) {
 			AddNodeToSpline();
 		}
 	}
 
 	void AddNodeToSpline () {
-		myTransform = transform;
-		rootGo = GameObject.Find("Root");
-		myTransform.parent = rootGo.transform;
-		root = (CatmullRomSpline) rootGo.GetComponent<CatmullRomSpline>();
-		if(isPush) root.PushNode(this.gameObject);
-		else root.AddNode(this.gameObject);
+		if(root != null) {
+			if(isPush) root.PushNode(this.gameObject);
+			else root.AddNode(this.gameObject);
+		}
 		//StartCoroutine("positionCheck");
 		//StartCoroutine("Destroy");
 	}
