@@ -74,29 +74,20 @@ public class MeshGenerator : MonoBehaviour {
 		spline = (CatmullRomSpline) GameObject.Find("Root").GetComponent<CatmullRomSpline>();
 		cam = GameObject.Find("Main Camera");
 		camTrans = cam.transform;
+
 	}
 
 	public void Generate(float f, float t, AnimationCurve pc) {
-<<<<<<< Updated upstream
 		if(!isUsed) {
 			isUsed = true;
 			if(vertices == null || vertices.Length < CalculateTargetArraySize()) vertices = new Vector3[CalculateTargetArraySize()];
 			StopAllCoroutines();
 			StartCoroutine("Check");
 			isUsed = true;
-=======
-		if(isUsed == false) {
-			isUsed = true;
-			stacksOfVertexes = new List<Stack>();
-			vertices = new Vector3[CalculateTargetArraySize()];
-			previousPart = null;
-			StopAllCoroutines();
->>>>>>> Stashed changes
 			lastRow = null;
 			GC.Collect();
 			from = f;
 			to = t;
-<<<<<<< Updated upstream
 			if(profileCurve == null) profileCurve = pc;
 
 			if(gameObject.name != "0") {
@@ -114,10 +105,6 @@ public class MeshGenerator : MonoBehaviour {
 
 			StartCoroutine(CreateVertices());
 //			Debug.Log(gameObject.name+"'s Generate() finished.");
-=======
-			profileCurve = pc;
-			StartCoroutine(CreateVertices());
->>>>>>> Stashed changes
 		}
 		else {
 			Debug.Log("This object is busy right now!");
@@ -125,7 +112,6 @@ public class MeshGenerator : MonoBehaviour {
 		//StartCoroutine(calculateCurveLength());
 	}
 
-<<<<<<< Updated upstream
 	IEnumerator PreviousPartSearch() {
 		while(previousPart == null) {
 			previousPart = (MeshGenerator) previousPartGameObject.GetComponent<MeshGenerator>() as MeshGenerator;
@@ -133,9 +119,6 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 
-=======
-	/*
->>>>>>> Stashed changes
 	IEnumerator calculateCurveLength() {
 		args = new List<float>();
 		float totalLength = 0f;
@@ -161,7 +144,6 @@ public class MeshGenerator : MonoBehaviour {
 		}
 		StartCoroutine(CreateVertices());
 	}
-	*/
 
 	IEnumerator CreateVertices() {
 		yield return new WaitForEndOfFrame();
@@ -198,18 +180,10 @@ public class MeshGenerator : MonoBehaviour {
 		for(int j = 0; j<rows; j++) {
 			splinePos = spline.GetPositionAtTime(_step * j + from);
 			for(int i = 0; i<columns; i++) {
-<<<<<<< Updated upstream
 				//Log("Putting "+howManyVertexes+" at vert "+ (j*columns+i).ToString() +", pos x = "+i+", y = "+j);
 				//Vector3 position = new Vector3(i * x_spacing + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(i * evaluationStep + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance)) * y_spacing + UnityEngine.Random.Range(-randomness, randomness));
 				position = new Vector3(x_spacing * args[i] + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(args[i]) * y_spacing + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance) * y_spacing, 0);
 				position += (splinePos + offset); //preliczac offset na podstawie x_spacing
-=======
-				howManyVertexes = GetSplitCount(i, j);
-				Stack vertexStack = new Stack();
-				position = new Vector3(x_spacing * args[i] + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(args[i]) * y_spacing + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance) * y_spacing, 0);
-				position += (splinePos + offset);
-
->>>>>>> Stashed changes
 				if(j == rows-1) {
 					lastRow.Add(position);
 				}
@@ -226,7 +200,6 @@ public class MeshGenerator : MonoBehaviour {
 						position = previousPart.lastRow[i];
 					}
 				}
-<<<<<<< Updated upstream
 				howManyVertexes = GetSplitCount(i, j);
 				if(!stacksGenerated) {
 					Vertex v = new Vertex(position);
@@ -244,20 +217,11 @@ public class MeshGenerator : MonoBehaviour {
 						vertices[counter] = position;
 						counter++;
 					}
-=======
-				for(int p = 0; p < howManyVertexes; p++) {
-					vertices[counter] = position;
-					vertexStack.Push(new Vertex(counter, position));
-					counter++;
->>>>>>> Stashed changes
 				}
 			}
 			yield return new WaitForEndOfFrame();
 		}
-<<<<<<< Updated upstream
 		stacksGenerated = true;
-=======
->>>>>>> Stashed changes
 		if(!trianglesGenerated) StartCoroutine(GenerateTriangles());
 		else ChangeVertices();
 	}
@@ -316,7 +280,6 @@ public class MeshGenerator : MonoBehaviour {
 		mesh.RecalculateBounds();
 		mesh.RecalculateNormals();
 		isUsed = false;
-		StartCoroutine("Check");
 	}
 
 	void SetMesh() {
@@ -333,18 +296,12 @@ public class MeshGenerator : MonoBehaviour {
 		col.enabled = false;
 		col.enabled = true;
 		isUsed = false;
-		StartCoroutine("Check");
 	}
 
 	IEnumerator Check() {
 		while(true) {
-<<<<<<< Updated upstream
 			//Debug.Log("Checking! "+camTrans.position.z+ " : " + assignedPosition.z);
 			if(assignedPosition.z + 1000 < camTrans.position.z && !isUsed) {
-=======
-			if(assignedPosition.z + 500 < camTrans.position.z && isUsed == false) {
-				isUsed = true;
->>>>>>> Stashed changes
 				Remove();
 			}
 			yield return new WaitForSeconds(0.25f);
@@ -358,7 +315,6 @@ public class MeshGenerator : MonoBehaviour {
 	}
 
 	void Remove() {
-<<<<<<< Updated upstream
 		if(gameObject.name != "0") {
 			Destroy(meshFilter.mesh);
 			root.GetComponent<ObjectPool>().Return(gameObject);
@@ -369,18 +325,6 @@ public class MeshGenerator : MonoBehaviour {
 	private int GetSplitVertexNumber(int sharedVertexNumber) {
 		Vertex s = null;
 		//Log("Requesring split for shared #"+sharedVertexNumber.ToString());
-=======
-		Debug.Log("Removing "+this.gameObject.name+", pos: "+assignedPosition.z+", campos: "+camTrans.position.z);
-		Destroy(meshFilter.mesh);
-		GameObject.Find("Root").GetComponent<ObjectPool>().Return(gameObject);
-		StopCoroutine("Check");
-		isUsed = false;
-	}
-
-	private int GetSplitVertexNumber(int sharedVertexNumber) {
-		//if(sharedVertexNumber > 199) Log("Possible error! Requesting for vert #"+sharedVertexNumber.ToString());
-		Stack s = null;
->>>>>>> Stashed changes
 		s = stacksOfVertexes[sharedVertexNumber];
 		return (int)s.indexes.Pop();
 		//if(splitVertex.index > 1026) Log("Possible error! Size exceeded 1026. Index: "+splitVertex.index);
