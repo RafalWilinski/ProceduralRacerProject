@@ -77,16 +77,25 @@ public class CatmullRomSpline : MonoBehaviour {
 	}
 
 	void PrintNodeTimes() {
+<<<<<<< Updated upstream
 		//string report = "";
+=======
+>>>>>>> Stashed changes
 		for(int i = 0; i < (nodes.Count); i++) {
 			//report += "Node #"+i+": "+nodes[i].GetTime()+"| ";
 			nodeTimeLimit = i * startTimestep;
 		}
+
+		//nodeTimeLimit = nodes.Count * startTimestep;
 		nodeTimeLimit -= (startTimestep*2);
 		isReady = true;
+<<<<<<< Updated upstream
 		//report += "Limit: "+nodeTimeLimit;
 		if(OnSplineUpdated != null) OnSplineUpdated(nodeTimeLimit);
 		//log(report);
+=======
+		if(OnSplineUpdated != null) OnSplineUpdated(nodeTimeLimit);
+>>>>>>> Stashed changes
 	}
 
 	public void AddNode(GameObject gameObj) {
@@ -111,7 +120,11 @@ public class CatmullRomSpline : MonoBehaviour {
 			meshGen.x_spacing = themesManager.GetCurrentTheme().x_spacing;
 			meshGen.y_spacing = themesManager.GetCurrentTheme().y_spacing;
 			g.name = meshCounter.ToString();
+<<<<<<< Updated upstream
 			//Debug.Log("Created: "+g.name);
+=======
+			meshGen.transform.parent = this.transform;
+>>>>>>> Stashed changes
 			meshGen.Generate(meshRenderedCap, nodeTimeLimit, profileCurve);
 			meshRenderedCap = nodeTimeLimit;
 			meshCounter++;
@@ -237,6 +250,7 @@ public class CatmullRomSpline : MonoBehaviour {
 		//log("Nearest node found: "+nearestNodeIndex);
 		t = (t - nodes[nearestNodeIndex].time) / (nodes[nearestNodeIndex+1].time - nodes[nearestNodeIndex].time); //T Conversion. Putting raw 0..1 input causes weird things
 
+<<<<<<< Updated upstream
 		Vector3 p0 = nodes[nearestNodeIndex-1].pos;
 		Vector3 p1 = nodes[nearestNodeIndex].pos;
 		Vector3 p2 = nodes[nearestNodeIndex+1].pos;
@@ -250,6 +264,36 @@ public class CatmullRomSpline : MonoBehaviour {
 		pos = 0.5f * (tension1 + tension2 + tension3 + tension4);
 
 		pos = new Vector3(pos.x/xAxisDivider, pos.y, pos.z);
+=======
+			Vector3 p0 = nodes[nearestNodeIndex-1].pos;
+			Vector3 p1 = nodes[nearestNodeIndex].pos;
+			Vector3 p2 = nodes[nearestNodeIndex+1].pos;
+			Vector3 p3 = nodes[nearestNodeIndex+2].pos;
+
+			Vector3 tension1 = 2 * p1;
+			Vector3 tension2 = (-p0 + p2) * t;
+			Vector3 tension3 = ((2 * p0) - (5 * p1) + (4 * p2) - p3) * Mathf.Pow(t,2);
+			Vector3 tension4 = (-p0 + (3 * p1) - (3 * p2) + p3) * Mathf.Pow(t,3);
+
+			pos = 0.5f * (tension1 + tension2 + tension3 + tension4);
+
+			if(isDebug) {
+			/*	debugLabel.text = "Nodes count: "+nodes.Count + "\n"+
+				"Closest node index: "+nearestNodeIndex + "\n"+
+				"Node details: "+nodes[nearestNodeIndex].ToString() + "\n" +
+				"Pos_0: "+p0 + "\n"+
+				"Pos_1: "+p1 + "\n"+
+				"Pos_2: "+p2 + "\n"+
+				"Pos_3: "+p3 + "\n"+
+				"Tension_1: "+tension1 + "\n"+
+				"Tension_2: "+tension2 + "\n"+
+				"Tension_3: "+tension3 + "\n"+
+				"Tension_4: "+tension4 + "\n"+
+				"Result: "+ pos;
+				*/
+
+			}
+>>>>>>> Stashed changes
 		return pos;
 	}
 
