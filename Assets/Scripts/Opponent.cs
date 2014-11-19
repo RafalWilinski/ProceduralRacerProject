@@ -6,7 +6,7 @@ public class Opponent : MonoBehaviour {
 	public CatmullRomSpline spline;
 	private CatmullRomMovement mov;
 
-	public void Create(Vector3 pos, float initSpeed) {
+	public void Create(Vector3 pos, float initSpeed) { 
 		mov = this.gameObject.GetComponent<CatmullRomMovement>();
 		spline = (CatmullRomSpline) GameObject.Find("Root").GetComponent<CatmullRomSpline>();
 		mov.startOffset = spline.GetClosestPointAtSpline(pos);	
