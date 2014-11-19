@@ -7,30 +7,15 @@ public class EventsManager : MonoBehaviour {
 	public Vector3 baseRezOffset;
 	public Vector3 randomness;
 	public GameObject risingPillarPrefab;
-	public GameObject opponent;
-	public float slowerSpeed;
-	public float fasterSpeed;
-	private Opponent op;
+
 
 
 	void Start() {
-		//RisingPillars(100);
-		StartCoroutine("CreateOpponents");
+		RisingPillars(100);
 	}
 	
 	public void StopAllEvents () {
 	
-	}
-
-	private IEnumerator CreateOpponents() {
-		while(true) {
-			yield return new WaitForSeconds(2f);
-			GameObject go = (GameObject) Instantiate(opponent, Vector3.zero, Quaternion.identity);
-			op = go.GetComponent<Opponent>();
-			if(Random.Range(0,1000) % 2 == 1) op.Create(vehicle.position + new Vector3(0, 1000, 0), slowerSpeed);
-			else op.Create(vehicle.position + new Vector3(0, -250, 0), fasterSpeed);
-			//yield return new WaitForSeconds(2f);
-		}
 	}
 
 	public void RisingPillars(int count) {

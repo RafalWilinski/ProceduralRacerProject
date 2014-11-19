@@ -141,43 +141,11 @@ public class CatmullRomSpline : MonoBehaviour {
 		nodes[index].pos = gameObj.transform.position;
 	}
 
-	public float GetClosestPointAtSpline(Vector3 pos) {
-		float x1 = 0f;
-		float x2 = nodeTimeLimit;
-		float divisionPoint = nodeTimeLimit/2;
-		int i = 0;
-		while(i < 10) {
-			//Debug.Log("GetPosAtTime: "+((divisionPoint + x1)/2).ToString("f4") + " & " + ((divisionPoint+x2)/2).ToString("f4") );
-			if(CompareTwoSplinePoints(GetPositionAtTime( (divisionPoint + x1)/2 ), GetPositionAtTime( (divisionPoint+x2)/2 ), pos) == 1) {
-				//Debug.Log("Case 1 - 1: "+x1+", x2: "+x2+", div: "+divisionPoint);
-				x1 = x1;
-				x2 = divisionPoint;
-				divisionPoint = (x2+x1)/2;
-			}
-			else {
-				//Debug.Log("Case 2 - 1: "+x1+", x2: "+x2+", div: "+divisionPoint);
-				x1 = divisionPoint;
-				x2 = x2;
-				divisionPoint = (x2+x1)/2;
-			}
-			i++;
-		}
-		return divisionPoint;
-	}
-
-	private int CompareTwoSplinePoints(Vector3 p1, Vector3 p2, Vector3 point) {
-		//Debug.Log("P1: "+p1 + ", P2: " + p2 + ", Org: " + point);
-		float d1 = Vector3.Distance(p1, point);
-		float d2 = Vector3.Distance(p2, point);
-		//Debug.Log("D1: "+d1.ToString("f3") + ", D2: " + d2.ToString("f3"));
-		if(d1 < d2) return 1;
-		else return 2;
-	}
-
 	void RecalculateNodeTimes() {
 		int nodesCount = nodes.Count;
+
 		if(nodesCount < 4) {
-			log("Spline too short! Unable to recalculate times and create spline.");
+			log("Spline too short! Unable to recalculate times and create spline. ");
 		}
 		else {
 			float timeStep = 0f;
