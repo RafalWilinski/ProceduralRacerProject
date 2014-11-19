@@ -148,7 +148,7 @@ public class MeshGenerator : MonoBehaviour {
 	IEnumerator CreateVertices() {
 		yield return new WaitForEndOfFrame();
 
-		offset = new Vector3(x_spacing * rows / 2, offset.y, offset.z);
+		offset = new Vector3(-x_spacing/2, offset.y, offset.z);
 
 		if(previousPart == null && this.gameObject.name != "0") {
 			yield return StartCoroutine(PreviousPartSearch());

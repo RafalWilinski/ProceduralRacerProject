@@ -10,6 +10,10 @@ public class CatmullRomMovement : MonoBehaviour {
 	public float _t;
 	public float startDelay;
 	public bool shouldntStartAuto;
+	public Vector3 targetOffset;
+	public Vector3 offsetLimits;
+	public Vector3 offset;
+	public float changesFrequency;
 
 	private float splineTimeLimit;
 	private Transform myTransform;
@@ -29,13 +33,20 @@ public class CatmullRomMovement : MonoBehaviour {
 	} 
 
 	void Start() {
+		spline = (CatmullRomSpline) GameObject.Find("Root").GetComponent<CatmullRomSpline>();
 		myTransform = transform;
 		splineTimeLimit = spline.TimeLimit;
-		if(!shouldntStartAuto) StartCoroutine("Movement");
+		if(!shouldntStartAuto) {
+			StartCoroutine("ComputeOffset");
+			StartCoroutine("LerpOffset");
+			StartCoroutine("Movement");
+		}
 	}
 
 	public void DelayedStart() {
 		StartCoroutine("Movement");
+		StartCoroutine("ComputeOffset");
+		StartCoroutine("LerpOffset");
 	}
 
 	IEnumerator Movement() {
@@ -59,10 +70,29 @@ public class CatmullRomMovement : MonoBehaviour {
 				if(_t < 0) _t = 0f;
 
 //				Debug.Log("position at time: "+_t.ToString("f3") + " = "+spline.GetPositionAtTime(_t));
-				myTransform.position = spline.GetPositionAtTime(_t);
+				myTransform.position = spline.GetPositionAtTime(_t) + offset;
 				spline.GetRotAtTime(_t, this.gameObject);
 			}
 			yield return new WaitForSeconds(waitInterval);
 		}
 	}
+
+	IEnumerator LerpOffset() {
+		while(true) {
+			offset = Vector3.Lerp(offset, targetOffset, Time.deltaTime * 0.5f);
+			yield return new WaitForEndOfFrame();
+		}
+	}
+
+	IEnumerator ComputeOffset() {
+		while(true) {
+			targetOffset = new Vector3(Random.Range(-offsetLimits.x,offsetLimits.x), Random.Range(-offsetLimits.y, offsetLimits.y), Random.Range(-offsetLimits.z, offsetLimits.z));
+			yield return new WaitForSeconds(changesFrequency);
+		}
+	}
 }
+
+
+
+
+
