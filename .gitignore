@@ -5,6 +5,8 @@ Temp/
 Obj/
 UnityGenerated/
 Library/
+Library/metadata
+Library/ScriptAssemblies
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -31,6 +33,7 @@ ExportedObj/
 Icon?
 ehthumbs.db
 Thumbs.db
+<<<<<<< HEAD
 Library/metadata/0a/0a74f2b0d5846425785bc749a7061848
 
 Library/assetDatabase3
@@ -38,3 +41,16 @@ Library/assetDatabase3
 Library/assetDatabase3
 
 Library/metadata/0a/0a74f2b0d5846425785bc749a7061848
+=======
+*.log
+
+*.dll
+
+*.mdb
+
+Library/metadata/00/0000000000000000b000000000000000
+
+Library/expandedItems
+
+Library/CurrentLayout.dwlt
+>>>>>>> master
