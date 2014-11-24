@@ -5082,7 +5082,7 @@ MonoBehaviour:
   offsetLimits: {x: 225, y: 20, z: 10}
   offset: {x: 0, y: 0, z: 0}
   changesFrequency: 2
-  loopMode: 0
+  loopMode: 2
 --- !u!23 &781980089
 Renderer:
   m_ObjectHideFlags: 0
@@ -5090,7 +5090,7 @@ Renderer:
     type: 2}
   m_PrefabInternal: {fileID: 1623121765}
   m_GameObject: {fileID: 781980087}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
