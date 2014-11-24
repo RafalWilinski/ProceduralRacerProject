@@ -3,16 +3,18 @@ using System.Collections;
 
 public class EventsManager : MonoBehaviour {
 
+    public bool isDebug;
 	public Transform vehicle;
 	public Vector3 baseRezOffset;
 	public Vector3 randomness;
 	public GameObject risingPillarPrefab;
-	public GameObject opponent;
+	public OpponentsPool opponentPool;
 	public float slowerSpeed;
 	public float fasterSpeed;
-	private Opponent op;
 
-
+    private void Log(string msg) {
+        if (isDebug) Debug.Log("Events: " + msg);
+    }
 	void Start() {
 		//RisingPillars(100);
 		StartCoroutine("CreateOpponents");
@@ -24,12 +26,21 @@ public class EventsManager : MonoBehaviour {
 
 	private IEnumerator CreateOpponents() {
 		while(true) {
-			yield return new WaitForSeconds(2f);
-			GameObject go = (GameObject) Instantiate(opponent, Vector3.zero, Quaternion.identity);
-			op = go.GetComponent<Opponent>();
-			if(Random.Range(0,1000) % 2 == 1) op.Create(vehicle.position + new Vector3(0, 1000, 0), slowerSpeed);
-			else op.Create(vehicle.position + new Vector3(0, -250, 0), fasterSpeed);
-			//yield return new WaitForSeconds(2f);
+			yield return new WaitForSeconds(3f);
+            Opponent op = opponentPool.GetFirstAvailable();
+            if (op != null) {
+                if (Random.Range(0, 1000) % 2 == 1) {
+                    Log("Creating slower opponent!");
+                    op.Create(vehicle.position + new Vector3(0, 0, 500), slowerSpeed);
+                }
+                else {
+                    Log("Creating faster opponent!");
+                    op.Create(vehicle.position + new Vector3(0, 0, -300), fasterSpeed);
+                }
+            }
+            else {
+                Log("Wanted to create Opponent but there was no ops available.");
+            }
 		}
 	}
 

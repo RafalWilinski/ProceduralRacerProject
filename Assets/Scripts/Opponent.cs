@@ -11,6 +11,7 @@ public class Opponent : MonoBehaviour {
 		spline = (CatmullRomSpline) GameObject.Find("Root").GetComponent<CatmullRomSpline>();
 		mov.startOffset = spline.GetClosestPointAtSpline(pos);	
 		mov.speed = initSpeed;
+        Debug.Log("Spawning at position: " + mov.startOffset + ", with init speed: " + mov.speed);
 		mov.DelayedStart();
 	}
 }

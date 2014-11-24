@@ -44,12 +44,12 @@ Material:
     m_Floats:
       data:
         first:
-          name: _RimPower
-        second: 1.57142866
-      data:
-        first:
           name: _Emission
         second: -1.57000005
+      data:
+        first:
+          name: _RimPower
+        second: 1.57142866
       data:
         first:
           name: _IBLBrightness
@@ -66,7 +66,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0, g: 0, b: 0, a: 0}
+        second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
           name: _RimColor
