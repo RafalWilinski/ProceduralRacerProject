@@ -16,8 +16,9 @@ public class EventsManager : MonoBehaviour {
         if (isDebug) Debug.Log("Events: " + msg);
     }
 	void Start() {
-		//RisingPillars(100);
+		RisingPillars(100);
 		StartCoroutine("CreateOpponents");
+	    StartCoroutine(waiting());
 	}
 	
 	public void StopAllEvents () {
@@ -31,11 +32,11 @@ public class EventsManager : MonoBehaviour {
             if (op != null) {
                 if (Random.Range(0, 1000) % 2 == 1) {
                     Log("Creating slower opponent!");
-                    op.Create(vehicle.position + new Vector3(0, 0, 500), slowerSpeed);
+                    op.Create(vehicle.position + new Vector3(0, 0, 600), slowerSpeed);
                 }
                 else {
                     Log("Creating faster opponent!");
-                    op.Create(vehicle.position + new Vector3(0, 0, -300), fasterSpeed);
+                    op.Create(vehicle.position + new Vector3(0, 0, -150), fasterSpeed);
                 }
             }
             else {
@@ -58,5 +59,11 @@ public class EventsManager : MonoBehaviour {
 			yield return new WaitForSeconds(1f);
 		}
 	}
+
+    IEnumerator waiting() {
+        float i = Mathf.Pow(Random.value, Random.value);
+        yield return new WaitForEndOfFrame();
+        StartCoroutine(waiting());
+    }
 	
 }

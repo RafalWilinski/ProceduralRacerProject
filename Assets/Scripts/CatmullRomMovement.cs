@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using System.Collections;
 
 public class CatmullRomMovement : MonoBehaviour {
@@ -57,6 +58,7 @@ public class CatmullRomMovement : MonoBehaviour {
     }
 
     IEnumerator Movement() {
+
         yield return new WaitForSeconds(startDelay);
         while (true) {
             if (spline.IsReady) {
