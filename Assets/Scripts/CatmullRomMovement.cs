@@ -21,6 +21,7 @@ public class CatmullRomMovement : MonoBehaviour {
     private float splineTimeLimit;
     private Transform myTransform;
     public bool isWorking;
+    public TrailRenderer trail;
 
     public enum LoopMode {
         ONCE, LOOP, PINGPONG
@@ -37,6 +38,7 @@ public class CatmullRomMovement : MonoBehaviour {
     }
 
     void Start() {
+        if(trail != null) trail.time = -1;
         spline = (CatmullRomSpline)GameObject.Find("Root").GetComponent<CatmullRomSpline>();
         myTransform = transform;
         splineTimeLimit = spline.TimeLimit;
@@ -49,6 +51,7 @@ public class CatmullRomMovement : MonoBehaviour {
     }
 
     public void DelayedStart() {
+        if (trail != null) trail.time = 1;
         StopAllCoroutines();
         isWorking = true;
         _t = startOffset;
@@ -77,8 +80,9 @@ public class CatmullRomMovement : MonoBehaviour {
                 if (_t > splineTimeLimit) {
                     _t = splineTimeLimit;
                     if (destroyOnReachingEnd && isWorking) {
-                        Debug.Log("Returning OP, reached end. Limit: " + splineTimeLimit);
+                        //Debug.Log("Returning OP, reached end. Limit: " + splineTimeLimit);
                         pool.Return(GetComponent<Opponent>());
+                        trail.time = -1;
                         isWorking = false;
                     }
                 }
@@ -103,7 +107,8 @@ public class CatmullRomMovement : MonoBehaviour {
             targetOffset = new Vector3(Random.Range(-offsetLimits.x, offsetLimits.x), Random.Range(-offsetLimits.y, offsetLimits.y), Random.Range(-offsetLimits.z, offsetLimits.z));
             if (destroyOnReachingEnd) {
                 if (myTransform.position.z + 1200 < vehicle.position.z && isWorking) {
-                    Debug.Log("Returning OP, left behind.");
+                    //Debug.Log("Returning OP, left behind.");
+                    trail.time = -1;
                     pool.Return(GetComponent<Opponent>());
                     isWorking = false;
                 }

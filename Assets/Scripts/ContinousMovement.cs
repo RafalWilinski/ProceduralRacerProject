@@ -80,7 +80,7 @@ public class ContinousMovement : MonoBehaviour {
 		CatmullRomSpline.OnSplineUpdated -= OnLimitChanged;
 	}
 
-	void Update () {
+	void FixedUpdate () {
 		if(!isPaused) {
 			if(controlsEnabled) {
 				#if UNITY_STANDALONE || UNITY_EDITOR || UNITY_WEBPLAYER

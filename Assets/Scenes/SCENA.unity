@@ -895,69 +895,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 225104196}
---- !u!1 &228206816
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 228206818}
-  - 108: {fileID: 228206817}
-  m_Layer: 8
-  m_Name: Directional light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!108 &228206817
-Light:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 228206816}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Type: 1
-  m_Color: {r: 1, g: 0, b: 0, a: 0}
-  m_Intensity: .540000021
-  m_Range: 27.3799992
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_Strength: 1
-    m_Bias: .0500000007
-    m_Softness: 4
-    m_SoftnessFade: 1
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_ActuallyLightmapped: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 256
-  m_Lightmapping: 1
-  m_ShadowSamples: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
-  m_IndirectIntensity: 1
-  m_AreaSize: {x: 1, y: 1}
---- !u!4 &228206818
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 228206816}
-  m_LocalRotation: {x: -.111844115, y: .533651888, z: .832145214, w: .101197734}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
 --- !u!1 &241531486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,6 +1163,10 @@ Prefab:
       propertyPath: destroyOnReachingEnd
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
+      propertyPath: waitInterval
+      value: .0149999997
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
   m_RootGameObject: {fileID: 1870479216}
@@ -1394,6 +1335,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 1969549981}
+  textName: {fileID: 0}
+  picImage: {fileID: 0}
 --- !u!96 &273437586
 TrailRenderer:
   m_ObjectHideFlags: 0
@@ -1415,8 +1358,8 @@ TrailRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: 2
-  m_StartWidth: 5
+  m_Time: 1
+  m_StartWidth: 3
   m_EndWidth: 0
   m_Colors:
     m_Color[0]:
@@ -1452,7 +1395,7 @@ MonoBehaviour:
   pool: {fileID: 733352733}
   speed: .0199999996
   startOffset: 0
-  waitInterval: .00999999978
+  waitInterval: .0149999997
   spline: {fileID: 1969549981}
   _t: 0
   startDelay: 0
@@ -1463,6 +1406,7 @@ MonoBehaviour:
   changesFrequency: 2
   destroyOnReachingEnd: 1
   isWorking: 0
+  trail: {fileID: 273437586}
   loopMode: 0
 --- !u!23 &273437588
 Renderer:
@@ -2130,6 +2074,70 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1969549980}
   m_RootOrder: 1
+--- !u!1001 &368096955
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+      propertyPath: SandboxConfiguration.BaseURL
+      value: http://vr2.dataspin.io/entrypoint.php?data=
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+      propertyPath: SandboxConfiguration.ShouldStartSessionAuto
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+      propertyPath: SandboxConfiguration.defaultPlatform
+      value: a
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+      propertyPath: SandboxConfiguration.AppId
+      value: '-'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+      propertyPath: SandboxConfiguration.AppSecret
+      value: '-'
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+  m_RootGameObject: {fileID: 922766643}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &373361219
 GameObject:
   m_ObjectHideFlags: 0
@@ -2420,6 +2428,10 @@ Prefab:
     - target: {fileID: 11400000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
       propertyPath: destroyOnReachingEnd
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
+      propertyPath: waitInterval
+      value: .0149999997
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
@@ -2767,6 +2779,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 1969549981}
+  textName: {fileID: 0}
+  picImage: {fileID: 0}
 --- !u!96 &467144250
 TrailRenderer:
   m_ObjectHideFlags: 0
@@ -2788,8 +2802,8 @@ TrailRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: 2
-  m_StartWidth: 5
+  m_Time: 1
+  m_StartWidth: 3
   m_EndWidth: 0
   m_Colors:
     m_Color[0]:
@@ -2825,7 +2839,7 @@ MonoBehaviour:
   pool: {fileID: 733352733}
   speed: .0199999996
   startOffset: 0
-  waitInterval: .00999999978
+  waitInterval: .0149999997
   spline: {fileID: 1969549981}
   _t: 0
   startDelay: 0
@@ -2836,6 +2850,7 @@ MonoBehaviour:
   changesFrequency: 2
   destroyOnReachingEnd: 1
   isWorking: 0
+  trail: {fileID: 467144250}
   loopMode: 0
 --- !u!23 &467144252
 Renderer:
@@ -3156,6 +3171,10 @@ Prefab:
       propertyPath: destroyOnReachingEnd
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
+      propertyPath: waitInterval
+      value: .0149999997
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
   m_RootGameObject: {fileID: 873413918}
@@ -3295,6 +3314,10 @@ Prefab:
     - target: {fileID: 11400000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
       propertyPath: destroyOnReachingEnd
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
+      propertyPath: waitInterval
+      value: .0149999997
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
@@ -4922,7 +4945,7 @@ Transform:
   - {fileID: 1080954411}
   - {fileID: 273437590}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!114 &733352733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5686,6 +5709,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 1969549981}
+  textName: {fileID: 0}
+  picImage: {fileID: 0}
 --- !u!96 &873413921
 TrailRenderer:
   m_ObjectHideFlags: 0
@@ -5707,8 +5732,8 @@ TrailRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: 2
-  m_StartWidth: 5
+  m_Time: 1
+  m_StartWidth: 3
   m_EndWidth: 0
   m_Colors:
     m_Color[0]:
@@ -5744,7 +5769,7 @@ MonoBehaviour:
   pool: {fileID: 733352733}
   speed: .0199999996
   startOffset: 0
-  waitInterval: .00999999978
+  waitInterval: .0149999997
   spline: {fileID: 1969549981}
   _t: 0
   startDelay: 0
@@ -5755,6 +5780,7 @@ MonoBehaviour:
   changesFrequency: 2
   destroyOnReachingEnd: 1
   isWorking: 0
+  trail: {fileID: 873413921}
   loopMode: 0
 --- !u!23 &873413923
 Renderer:
@@ -5827,7 +5853,7 @@ Transform:
   - {fileID: 1912034703}
   - {fileID: 1057244839}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!114 &877530894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6058,6 +6084,96 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 0}
+--- !u!1 &922766643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+  m_PrefabInternal: {fileID: 368096955}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 922766645}
+  - 114: {fileID: 922766644}
+  - 114: {fileID: 922766646}
+  m_Layer: 0
+  m_Name: Dataspin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &922766644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 03ea47a25f39440bc8af547defddf64a,
+    type: 2}
+  m_PrefabInternal: {fileID: 368096955}
+  m_GameObject: {fileID: 922766643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050ede6596f2643adb33c8eb7910c6ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseSanboxEnvironment: 1
+  versionNumber: 302e31
+  SandboxConfiguration:
+    AppId: '-'
+    AppSecret: '-'
+    BaseURL: http://vr2.dataspin.io/entrypoint.php?data=
+    LoggingOn: 1
+    ShouldStartSessionAuto: 0
+    defaultPlatform: a
+  LiveConfiguration:
+    AppId: 313233343536
+    AppSecret: 3c746f702d736563726574213e
+    BaseURL: 687474703a2f2f7672322e646174617370696e2e696f2f656e747279706f696e742e7068703f646174613d
+    LoggingOn: 1
+    ShouldStartSessionAuto: 1
+    defaultPlatform: 61
+  CurrentConfiguration:
+    AppId: 
+    AppSecret: 
+    BaseURL: 
+    LoggingOn: 0
+    ShouldStartSessionAuto: 0
+    defaultPlatform: 61
+--- !u!4 &922766645
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 03ea47a25f39440bc8af547defddf64a, type: 2}
+  m_PrefabInternal: {fileID: 368096955}
+  m_GameObject: {fileID: 922766643}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+--- !u!114 &922766646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 922766643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f48db7cfc0dc4474b45870e1afab225, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsLogging: 0
+  shouldShowGUI: 0
+  customEventId: 105
+  raceScore: 436634
+  raceDistance: 46336
+  addBalanceAmount: 1234
+  addBalanceSource: GAME
+  purchaseItemSku: headstart_1
+  purchaseItemQuantity: 2
+  googlePlusId: 6574762353
+  exampleMail: enter@yourmail.here
+  couponString: <enter here>
+  nickname: nickname
+  productSKU: sku
+  productSource: GOOG
 --- !u!1 &932123016
 GameObject:
   m_ObjectHideFlags: 0
@@ -6475,11 +6591,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f96bd3a10204501a3c47e02740c027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicle: {fileID: 0}
-  pool: {fileID: 0}
+  vehicle: {fileID: 1399996867}
+  pool: {fileID: 733352733}
   speed: .00249999994
   startOffset: .5
-  waitInterval: 0
+  waitInterval: .0149999997
   spline: {fileID: 1969549981}
   _t: 0
   startDelay: 0
@@ -6490,6 +6606,7 @@ MonoBehaviour:
   changesFrequency: 0
   destroyOnReachingEnd: 0
   isWorking: 0
+  trail: {fileID: 0}
   loopMode: 0
 --- !u!114 &937645331
 MonoBehaviour:
@@ -7473,7 +7590,7 @@ RectTransform:
   m_Children:
   - {fileID: 937645326}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 3.49745941, y: 159.809998}
@@ -8018,7 +8135,6 @@ MonoBehaviour:
     y_spacing: 400
   lights:
   - {fileID: 1522617047}
-  - {fileID: 228206817}
   cams:
   - {fileID: 2133578148}
   mat: {fileID: 2100000, guid: 3e19670a294ad4aa5a9a8c83fe970df6, type: 2}
@@ -8037,7 +8153,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!1 &1072864790
 GameObject:
   m_ObjectHideFlags: 0
@@ -8302,6 +8418,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 1969549981}
+  textName: {fileID: 0}
+  picImage: {fileID: 0}
 --- !u!96 &1080954413
 TrailRenderer:
   m_ObjectHideFlags: 0
@@ -8323,8 +8441,8 @@ TrailRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: 2
-  m_StartWidth: 5
+  m_Time: 1
+  m_StartWidth: 3
   m_EndWidth: 0
   m_Colors:
     m_Color[0]:
@@ -8360,7 +8478,7 @@ MonoBehaviour:
   pool: {fileID: 733352733}
   speed: .0199999996
   startOffset: 0
-  waitInterval: .00999999978
+  waitInterval: .0149999997
   spline: {fileID: 1969549981}
   _t: 0
   startDelay: 0
@@ -8371,6 +8489,7 @@ MonoBehaviour:
   changesFrequency: 2
   destroyOnReachingEnd: 1
   isWorking: 0
+  trail: {fileID: 1080954413}
   loopMode: 0
 --- !u!23 &1080954415
 Renderer:
@@ -8610,6 +8729,10 @@ Prefab:
       propertyPath: destroyOnReachingEnd
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
+      propertyPath: waitInterval
+      value: .0149999997
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
   m_RootGameObject: {fileID: 273437584}
@@ -8674,7 +8797,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
 --- !u!1 &1262693332
 GameObject:
   m_ObjectHideFlags: 0
@@ -8852,6 +8975,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 1969549981}
+  textName: {fileID: 0}
+  picImage: {fileID: 0}
 --- !u!96 &1281316921
 TrailRenderer:
   m_ObjectHideFlags: 0
@@ -8873,8 +8998,8 @@ TrailRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: 2
-  m_StartWidth: 5
+  m_Time: 1
+  m_StartWidth: 3
   m_EndWidth: 0
   m_Colors:
     m_Color[0]:
@@ -8910,7 +9035,7 @@ MonoBehaviour:
   pool: {fileID: 733352733}
   speed: .0199999996
   startOffset: 0
-  waitInterval: .00999999978
+  waitInterval: .0149999997
   spline: {fileID: 1969549981}
   _t: 0
   startDelay: 0
@@ -8921,6 +9046,7 @@ MonoBehaviour:
   changesFrequency: 2
   destroyOnReachingEnd: 1
   isWorking: 0
+  trail: {fileID: 1281316921}
   loopMode: 0
 --- !u!23 &1281316923
 Renderer:
@@ -9589,7 +9715,7 @@ Transform:
   m_Children:
   - {fileID: 2133578149}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!54 &1399996868
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10528,7 +10654,7 @@ RectTransform:
   m_Children:
   - {fileID: 635948309}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -10937,6 +11063,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 1969549981}
+  textName: {fileID: 0}
+  picImage: {fileID: 0}
 --- !u!96 &1599235569
 TrailRenderer:
   m_ObjectHideFlags: 0
@@ -10958,8 +11086,8 @@ TrailRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: 2
-  m_StartWidth: 5
+  m_Time: 1
+  m_StartWidth: 3
   m_EndWidth: 0
   m_Colors:
     m_Color[0]:
@@ -10995,7 +11123,7 @@ MonoBehaviour:
   pool: {fileID: 733352733}
   speed: .0199999996
   startOffset: 0
-  waitInterval: .00999999978
+  waitInterval: .0149999997
   spline: {fileID: 1969549981}
   _t: 0
   startDelay: 0
@@ -11006,6 +11134,7 @@ MonoBehaviour:
   changesFrequency: 2
   destroyOnReachingEnd: 1
   isWorking: 0
+  trail: {fileID: 1599235569}
   loopMode: 0
 --- !u!23 &1599235571
 Renderer:
@@ -11521,14 +11650,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d1dfd4abbfe4a238f5db044cec0f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebug: 0
+  isDebug: 1
   vehicle: {fileID: 1399996867}
   baseRezOffset: {x: 0, y: -200, z: 500}
   randomness: {x: 200, y: 5, z: 5}
   risingPillarPrefab: {fileID: 100000, guid: 24a6d4f4dab554e84b27d49af64d1bbf, type: 2}
   opponentPool: {fileID: 733352733}
-  slowerSpeed: .0250000004
-  fasterSpeed: .0500000007
+  slowerSpeed: .0280000009
+  fasterSpeed: .0430000015
 --- !u!4 &1672245217
 Transform:
   m_ObjectHideFlags: 0
@@ -11540,7 +11669,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
 --- !u!1 &1675892902
 GameObject:
   m_ObjectHideFlags: 0
@@ -11765,6 +11894,10 @@ Prefab:
       propertyPath: destroyOnReachingEnd
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
+      propertyPath: waitInterval
+      value: .0149999997
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
   m_RootGameObject: {fileID: 1080954410}
@@ -11972,7 +12105,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1772226274
@@ -12047,6 +12180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 1969549981}
+  textName: {fileID: 0}
+  picImage: {fileID: 0}
 --- !u!96 &1777995282
 TrailRenderer:
   m_ObjectHideFlags: 0
@@ -12068,8 +12203,8 @@ TrailRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: 2
-  m_StartWidth: 5
+  m_Time: 1
+  m_StartWidth: 3
   m_EndWidth: 0
   m_Colors:
     m_Color[0]:
@@ -12105,7 +12240,7 @@ MonoBehaviour:
   pool: {fileID: 733352733}
   speed: .0199999996
   startOffset: 0
-  waitInterval: .00999999978
+  waitInterval: .0149999997
   spline: {fileID: 1969549981}
   _t: 0
   startDelay: 0
@@ -12116,6 +12251,7 @@ MonoBehaviour:
   changesFrequency: 2
   destroyOnReachingEnd: 1
   isWorking: 0
+  trail: {fileID: 1777995282}
   loopMode: 0
 --- !u!23 &1777995284
 Renderer:
@@ -12418,7 +12554,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
 --- !u!1 &1813517079
 GameObject:
   m_ObjectHideFlags: 0
@@ -12625,6 +12761,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 1969549981}
+  textName: {fileID: 0}
+  picImage: {fileID: 0}
 --- !u!96 &1870479219
 TrailRenderer:
   m_ObjectHideFlags: 0
@@ -12646,8 +12784,8 @@ TrailRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: 2
-  m_StartWidth: 5
+  m_Time: 1
+  m_StartWidth: 3
   m_EndWidth: 0
   m_Colors:
     m_Color[0]:
@@ -12683,7 +12821,7 @@ MonoBehaviour:
   pool: {fileID: 733352733}
   speed: .0199999996
   startOffset: 0
-  waitInterval: .00999999978
+  waitInterval: .0149999997
   spline: {fileID: 1969549981}
   _t: 0
   startDelay: 0
@@ -12694,6 +12832,7 @@ MonoBehaviour:
   changesFrequency: 2
   destroyOnReachingEnd: 1
   isWorking: 0
+  trail: {fileID: 1870479219}
   loopMode: 0
 --- !u!23 &1870479221
 Renderer:
@@ -12932,6 +13071,10 @@ Prefab:
     - target: {fileID: 11400000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
       propertyPath: destroyOnReachingEnd
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
+      propertyPath: waitInterval
+      value: .0149999997
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
@@ -13219,7 +13362,7 @@ Transform:
   - {fileID: 1357151173}
   - {fileID: 934963222}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!114 &1969549981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13504,7 +13647,7 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -300, y: 0}
+  m_AnchoredPosition: {x: -300, y: 1}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &2024044851
@@ -13646,13 +13789,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Opponents: []
   HudParent: {fileID: 2038700433}
-  HUD: {fileID: 100000, guid: e5076c85ddc9a9c47ae7f0e0ca1fdd9f, type: 2}
+  HUD: {fileID: 100004, guid: e5076c85ddc9a9c47ae7f0e0ca1fdd9f, type: 2}
   OpponentsParent: {fileID: 733352732}
   Vehicle: {fileID: 1399996867}
   Cam: {fileID: 2133578148}
-  ComputeInterval: .0149999997
-  AlphaFunctionDivider: 500
-  AlphaFunctionAdder: 100
+  alphaCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: -.0136643648
+      inSlope: 2
+      outSlope: .170565218
+      tangentMode: 21
+    - time: 6.46645069
+      value: 1.08928716
+      inSlope: .000476394925
+      outSlope: .000476394925
+      tangentMode: 0
+    - time: 149.703476
+      value: 1.00589168
+      inSlope: -.000582220149
+      outSlope: -.0016965688
+      tangentMode: 21
+    - time: 749.317993
+      value: -.0113955736
+      inSlope: -.0016965688
+      outSlope: -.00372918812
+      tangentMode: 21
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  ComputeInterval: .0199999996
+  hudOffset: {x: 0, y: 10, z: 0}
 --- !u!1001 &2054085221
 Prefab:
   m_ObjectHideFlags: 0
@@ -13715,6 +13882,10 @@ Prefab:
     - target: {fileID: 11400000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
       propertyPath: destroyOnReachingEnd
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
+      propertyPath: waitInterval
+      value: .0149999997
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f6d7ab7c330d418ca82f7f6e665cf65, type: 2}
@@ -14395,7 +14566,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_HDR: 1
+  m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999

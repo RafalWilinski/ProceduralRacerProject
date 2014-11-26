@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using MiniJSON;
+using UnityEngine.UI;
 
 public class OpponentsHud : MonoBehaviour
 {
@@ -13,10 +14,10 @@ public class OpponentsHud : MonoBehaviour
     public Transform OpponentsParent;
     public Transform Vehicle;
     public Camera Cam;
+    public AnimationCurve alphaCurve;
 
     public float ComputeInterval;
-    public float AlphaFunctionDivider;
-    public float AlphaFunctionAdder;
+    public Vector3 hudOffset;
 
     private static OpponentsHud _instance;
 
@@ -49,21 +50,36 @@ public class OpponentsHud : MonoBehaviour
                 (GameObject) Instantiate(HUD, Vector3.zero, Quaternion.identity)));
         }
 
+        //Dataspin.Instance.GetRandomGooglePlusIds(10);
+
 	    StartCoroutine("ComputeOpponentsDistance");
 	}
+
+    public void SetHudNameAndPic(string name, Texture2D pic, Opponent sender) {
+        foreach (OpponentRepresentation o in Opponents) {
+            if (o.op == sender) {
+                foreach (Transform op in o.canvas.transform) {
+                    if (op.gameObject.name == "Name") op.GetComponent<Text>().text = name;
+                    else if (op.gameObject.name == "RawImage") op.GetComponent<RawImage>().texture = pic;
+                }
+            }
+        }
+    }
 
     IEnumerator ComputeOpponentsDistance() {
         while (true) {
             foreach (OpponentRepresentation o in Opponents) {
                 if (o.op.transform.position.z > Vehicle.position.z) {
                     float deltaDistance = o.op.transform.position.z - Vehicle.position.z;
-                    o.canvas.alpha = (AlphaFunctionDivider - deltaDistance + AlphaFunctionAdder) / deltaDistance;
+                    o.canvas.alpha = alphaCurve.Evaluate(deltaDistance);
+                    o.rect.localScale = new Vector3(3, 3, 3) * alphaCurve.Evaluate(deltaDistance);
+                    //o.canvas.alpha = (AlphaFunctionDivider - deltaDistance + AlphaFunctionAdder) / deltaDistance;
 
                     Vector3 screenPoint = Cam.WorldToScreenPoint(o.opTransform.position);
                     //o.rect.position = screenPoint;
                     o.rect.position = new Vector3(((screenPoint.x/Screen.width) - 0.5f)*800,
                         ((screenPoint.y/Screen.height) - 0.5f)*600,
-                        350f);
+                        350f) + hudOffset;
                 }
                 else {
                     o.canvas.alpha = 0f;
