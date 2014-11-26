@@ -43,7 +43,6 @@ public class EventsManager : MonoBehaviour {
                 Log("Wanted to create Opponent but there was no ops available.");
             }
 		}
-
 	}
 
 	public void RisingPillars(int count) {
