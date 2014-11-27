@@ -67,7 +67,7 @@ public class DataspinWebRequest {
 	}
 
 	private void BeginRequest(string url, HttpRequestMethod httpMethod, DataspinRequestMethod dataspinMethod, Dictionary<string, string> extraData = null) {
-		Debug.Log("Starting DataspinWebRequest, Type: "+dataspinMethod.ToString() + ", URL: "+url);
+		//Debug.Log("Starting DataspinWebRequest, Type: "+dataspinMethod.ToString() + ", URL: "+url);
 
 		HTTP_Method = httpMethod;
 		Dataspin_Method = dataspinMethod;
@@ -101,7 +101,7 @@ public class DataspinWebRequest {
 
 		if (www.error == null) {
 			responseText = www.text;
-			Debug.Log("DataspinWebRequest response: "+www.text);
+			//Debug.Log("DataspinWebRequest response: "+www.text);
 		}
 
 		else {

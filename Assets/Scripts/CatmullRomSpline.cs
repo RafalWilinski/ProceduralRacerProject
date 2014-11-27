@@ -150,14 +150,12 @@ public class CatmullRomSpline : MonoBehaviour {
 			//Debug.Log("GetPosAtTime: "+((divisionPoint + x1)/2).ToString("f4") + " & " + ((divisionPoint+x2)/2).ToString("f4") );
 			if(CompareTwoSplinePoints(GetPositionAtTime( (divisionPoint + x1)/2 ), GetPositionAtTime( (divisionPoint+x2)/2 ), pos) == 1) {
 				//Debug.Log("Case 1 - 1: "+x1+", x2: "+x2+", div: "+divisionPoint);
-				x1 = x1;
 				x2 = divisionPoint;
 				divisionPoint = (x2+x1)/2;
 			}
 			else {
 				//Debug.Log("Case 2 - 1: "+x1+", x2: "+x2+", div: "+divisionPoint);
 				x1 = divisionPoint;
-				x2 = x2;
 				divisionPoint = (x2+x1)/2;
 			}
 			i++;

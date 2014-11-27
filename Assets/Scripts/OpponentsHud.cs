@@ -15,6 +15,7 @@ public class OpponentsHud : MonoBehaviour
     public Transform Vehicle;
     public Camera Cam;
     public AnimationCurve alphaCurve;
+    public Texture2D defaultProfilePic;
 
     public float ComputeInterval;
     public Vector3 hudOffset;
@@ -47,7 +48,7 @@ public class OpponentsHud : MonoBehaviour
         _instance = this;
         foreach (Transform t in OpponentsParent) {
             Opponents.Add(new OpponentRepresentation(t.GetComponent<Opponent>(),
-                (GameObject) Instantiate(HUD, Vector3.zero, Quaternion.identity)));
+                (GameObject) Instantiate(HUD, new Vector3(1000,0,0), Quaternion.identity)));
         }
 
         //Dataspin.Instance.GetRandomGooglePlusIds(10);
@@ -56,6 +57,8 @@ public class OpponentsHud : MonoBehaviour
 	}
 
     public void SetHudNameAndPic(string name, Texture2D pic, Opponent sender) {
+        if (name == null || name == "") name = "User_" + UnityEngine.Random.Range(100, 1000);
+        if (pic == null) pic = defaultProfilePic;
         foreach (OpponentRepresentation o in Opponents) {
             if (o.op == sender) {
                 foreach (Transform op in o.canvas.transform) {
@@ -72,11 +75,10 @@ public class OpponentsHud : MonoBehaviour
                 if (o.op.transform.position.z > Vehicle.position.z) {
                     float deltaDistance = o.op.transform.position.z - Vehicle.position.z;
                     o.canvas.alpha = alphaCurve.Evaluate(deltaDistance);
-                    o.rect.localScale = new Vector3(3, 3, 3) * alphaCurve.Evaluate(deltaDistance);
+                    o.rect.localScale = new Vector3(5, 5, 5) * alphaCurve.Evaluate(deltaDistance);
                     //o.canvas.alpha = (AlphaFunctionDivider - deltaDistance + AlphaFunctionAdder) / deltaDistance;
 
                     Vector3 screenPoint = Cam.WorldToScreenPoint(o.opTransform.position);
-                    //o.rect.position = screenPoint;
                     o.rect.position = new Vector3(((screenPoint.x/Screen.width) - 0.5f)*800,
                         ((screenPoint.y/Screen.height) - 0.5f)*600,
                         350f) + hudOffset;

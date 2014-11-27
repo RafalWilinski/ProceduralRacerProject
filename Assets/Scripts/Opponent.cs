@@ -26,5 +26,6 @@ public class Opponent : MonoBehaviour {
 		mov.speed = initSpeed;
         //Debug.Log("Spawning at position: " + mov.startOffset + ", with init speed: " + mov.speed);
 		mov.DelayedStart();
+
 	}
 }

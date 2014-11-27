@@ -18,10 +18,13 @@ public class CatmullRomMovement : MonoBehaviour {
     public Vector3 offset;
     public float changesFrequency;
     public bool destroyOnReachingEnd;
-    private float splineTimeLimit;
-    private Transform myTransform;
     public bool isWorking;
     public TrailRenderer trail;
+
+    private float splineTimeLimit;
+    private Transform myTransform;
+    private bool isRunning;
+    private bool shouldRender;
 
     public enum LoopMode {
         ONCE, LOOP, PINGPONG
@@ -60,10 +63,47 @@ public class CatmullRomMovement : MonoBehaviour {
         StartCoroutine("LerpOffset");
     }
 
+    void FixedUpdate() {
+        //if (shouldRender) {
+            if (spline.IsReady && isRunning) {
+                if (loopMode == LoopMode.ONCE) {
+                    _t += speed;
+                }
+                else if (loopMode == LoopMode.LOOP) {
+                    if (_t >= splineTimeLimit) _t = 0f;
+                    else _t += speed;
+                }
+                else if (loopMode == LoopMode.PINGPONG) {
+                    if (_t >= splineTimeLimit || _t <= 0f) speed = -speed;
+                    _t += speed;
+                }
+
+                if (_t > splineTimeLimit) {
+                    _t = splineTimeLimit;
+                    if (destroyOnReachingEnd && isWorking) {
+                        //Debug.Log("Returning OP, reached end. Limit: " + splineTimeLimit);
+                        pool.Return(GetComponent<Opponent>());
+                        trail.time = -1;
+                        isWorking = false;
+                    }
+                }
+                if (_t < 0) _t = 0f;
+
+                myTransform.position = spline.GetPositionAtTime(_t) + offset;
+                spline.GetRotAtTime(_t, this.gameObject);
+            }
+            shouldRender = false;
+        /*}
+        else {
+            shouldRender = true;
+        }*/
+    }
+
     IEnumerator Movement() {
 
         yield return new WaitForSeconds(startDelay);
-        while (true) {
+        isRunning = true;
+        /* while (true) {
             if (spline.IsReady) {
                 if (loopMode == LoopMode.ONCE) {
                     _t += speed;
@@ -93,6 +133,7 @@ public class CatmullRomMovement : MonoBehaviour {
             }
             yield return new WaitForSeconds(waitInterval);
         }
+        * */
     }
 
     IEnumerator LerpOffset() {
@@ -103,17 +144,20 @@ public class CatmullRomMovement : MonoBehaviour {
     }
 
     IEnumerator ComputeOffset() {
-        while (true) {
-            targetOffset = new Vector3(Random.Range(-offsetLimits.x, offsetLimits.x), Random.Range(-offsetLimits.y, offsetLimits.y), Random.Range(-offsetLimits.z, offsetLimits.z));
-            if (destroyOnReachingEnd) {
-                if (myTransform.position.z + 1200 < vehicle.position.z && isWorking) {
-                    //Debug.Log("Returning OP, left behind.");
-                    trail.time = -1;
-                    pool.Return(GetComponent<Opponent>());
-                    isWorking = false;
+        if (changesFrequency > 0) {
+            while (true) {
+                targetOffset = new Vector3(Random.Range(-offsetLimits.x, offsetLimits.x),
+                    Random.Range(-offsetLimits.y, offsetLimits.y), Random.Range(-offsetLimits.z, offsetLimits.z));
+                if (destroyOnReachingEnd) {
+                    if (myTransform.position.z + 1200 < vehicle.position.z && isWorking) {
+                        //Debug.Log("Returning OP, left behind.");
+                        trail.time = -1;
+                        pool.Return(GetComponent<Opponent>());
+                        isWorking = false;
+                    }
                 }
+                yield return new WaitForSeconds(changesFrequency);
             }
-            yield return new WaitForSeconds(changesFrequency);
         }
     }
 }

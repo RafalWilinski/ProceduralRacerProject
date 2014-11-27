@@ -164,13 +164,13 @@ public class ContinousMovement : MonoBehaviour {
 	}
 
 	private IEnumerator straightenMovement() {
-		yield return new WaitForSeconds(0.75f);
+		yield return new WaitForSeconds(0.5f);
 		controlsEnabled = true;
 		while(transform.rotation != Quaternion.identity) {
-			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, Time.deltaTime*3);
-			yield return new WaitForSeconds(0.02f);
+			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, Time.deltaTime*5);
+			yield return new WaitForSeconds(0.01f);
 		}
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.3f);
 		isPlaying = true;
 		StartCoroutine("increaseFwdSpeed");
 	}

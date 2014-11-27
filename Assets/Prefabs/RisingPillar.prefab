@@ -78,11 +78,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e02931288f664c70acd82c74b069869, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f47b0d01b084804eb3c79b43c1d8195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   to_y: 0
   ySpeed: 15
+  MyTransform: {fileID: 0}
+  vehicle: {fileID: 0}
+  isUsed: 0
+  manager: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MiniJSON;
 using UnityEngine;
 using System.Collections;
@@ -10,22 +11,44 @@ public class EventsManager : MonoBehaviour {
     public bool isDebug;
 	public Transform vehicle;
 	public Vector3 baseRezOffset;
+    public Vector3 propRezOffset;
 	public Vector3 randomness;
 	public GameObject risingPillarPrefab;
 	public OpponentsPool opponentPool;
 	public float slowerSpeed;
 	public float fasterSpeed;
+
     public Stack<NameAndPic> gPlusIds;
+    public List<Props> propsList; 
 
     private void Log(string msg) {
         if (isDebug) Debug.Log("Events: " + msg);
     }
+
+    [Serializable]
+    public class Props {
+        public string name;
+        public GameObject stackParent;
+        public Stack<GameObject> stack;
+        public bool isEventInProgress;
+        public int availableObjects;
+    }
+
 	void Start() {
         gPlusIds = new Stack<NameAndPic>();
-		RisingPillars(100);
 		StartCoroutine("CreateOpponents");
-	    StartCoroutine(waiting());
 	    Dataspin.Instance.GetRandomGooglePlusIds(1);
+
+	    for(int i = 0; i < propsList.Count; i++) {
+            propsList[i].stack = new Stack<GameObject>();
+	        foreach (Transform t in propsList[i].stackParent.transform) {
+                propsList[i].stack.Push(t.gameObject);
+	        }
+	        propsList[i].availableObjects = propsList[i].stack.Count;
+	    }
+
+        StartCoroutine(RisingPillarEventsCoroutine());
+        StartCoroutine(ArcEventsCoroutine());
 	}
 
     [Serializable]
@@ -38,7 +61,6 @@ public class EventsManager : MonoBehaviour {
 	
 	}
 
-
     void OnEnable() {
         Dataspin.DataspinGooglePlusIds += OnGooglePlusIdsReceived;
     }
@@ -48,18 +70,14 @@ public class EventsManager : MonoBehaviour {
     }
 
     private void OnGooglePlusIdsReceived(List<object> obj) {
-        Log("Fetching GooglePlus ids...");
         foreach (object o in obj) {
             Dictionary<string, object> dict = (Dictionary<string, object>)o;
-            Log("Getting information about ID " + (string)dict["gplus_id"]);
             StartCoroutine(GetInformation((string) dict["gplus_id"]));
         }
-        Log("Fetching complete!");
     }
 
     IEnumerator GetInformation(string gplus_id) {
         string url = "https://www.googleapis.com/plus/v1/people/" + gplus_id + "?key=AIzaSyCVqa4G6A7UkkKHmSsZVaWlgJYVnmcduf8"; //100601054994187376077
-        Log("New request: "+url);
         WWW www = new WWW(url);
         yield return www;
         if (www.error == null) {
@@ -114,25 +132,57 @@ public class EventsManager : MonoBehaviour {
 		}
 	}
 
-	public void RisingPillars(int count) {
-		StartCoroutine("RisingPillarsCoroutine", count);
-	}
+    public void ReturnEventObject(GameObject o) {
+        bool isReturned = false;
+        foreach (Props p in propsList) {
+            if (o.name == p.name) {
+                isReturned = true;
+                p.stack.Push(o);
+                p.availableObjects = p.stack.Count;
+            }
+        }
 
-	private IEnumerator RisingPillarsCoroutine(int count) {
+        if(!isReturned) Log("Warning! "+o.name+ " has been not returned to the stack correctly!");
+    }
+
+    private Props FindPropByName(string name) {
+        foreach (Props p in propsList) {
+            if (p.name == name) return p;
+        }
+        return new Props();
+    }
+
+    private IEnumerator RisingPillarEventsCoroutine() {
 		int i = 0;
 		Vector3 position;
-		while(i<count) {
-			position = vehicle.position + baseRezOffset + new Vector3(Random.Range(-randomness.x, randomness.x), Random.Range(-randomness.y, randomness.y),Random.Range(-randomness.z, randomness.z));
-			Instantiate(risingPillarPrefab, position, Quaternion.identity);
-			i++;
-			yield return new WaitForSeconds(1f);
+        Props p = FindPropByName("RisingPillar");
+        while (true) {
+            if (p.stack.Count > 0 && p.isEventInProgress) {
+		        position = vehicle.position + baseRezOffset +
+		                   new Vector3(Random.Range(-randomness.x, randomness.x), Random.Range(-randomness.y, randomness.y),
+		                       Random.Range(-randomness.z, randomness.z));
+                p.stack.Pop().GetComponent<PropPoolObject>().Create(position, "Rise");
+                p.availableObjects = p.stack.Count;
+		        i++;
+		    }
+		    yield return new WaitForSeconds(1f);
 		}
 	}
 
-    IEnumerator waiting() {
-        float i = Mathf.Pow(Random.value, Random.value);
-        yield return new WaitForEndOfFrame();
-        StartCoroutine(waiting());
+    private IEnumerator ArcEventsCoroutine() {
+        int i = 0;
+        Vector3 position;
+        Props p = FindPropByName("Arc");
+        while (true) {
+            if (p.stack.Count > 0 && p.isEventInProgress) {
+                position = vehicle.position + propRezOffset +
+                           new Vector3(Random.Range(-randomness.x, randomness.x), Random.Range(-randomness.y, randomness.y),
+                               Random.Range(-randomness.z, randomness.z));
+                p.stack.Pop().GetComponent<PropPoolObject>().Create(position);
+                p.availableObjects = p.stack.Count;
+                i++;
+            }
+            yield return new WaitForSeconds(Random.Range(2f,5f));
+        }
     }
-	
 }
