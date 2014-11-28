@@ -19,7 +19,6 @@ public class CatmullRomMovement : MonoBehaviour {
     public float changesFrequency;
     public bool destroyOnReachingEnd;
     public bool isWorking;
-    public TrailRenderer trail;
 
     private float splineTimeLimit;
     private Transform myTransform;
@@ -41,7 +40,6 @@ public class CatmullRomMovement : MonoBehaviour {
     }
 
     void Start() {
-        if(trail != null) trail.time = -1;
         spline = (CatmullRomSpline)GameObject.Find("Root").GetComponent<CatmullRomSpline>();
         myTransform = transform;
         splineTimeLimit = spline.TimeLimit;
@@ -54,7 +52,6 @@ public class CatmullRomMovement : MonoBehaviour {
     }
 
     public void DelayedStart() {
-        if (trail != null) trail.time = 1;
         StopAllCoroutines();
         isWorking = true;
         _t = startOffset;
@@ -83,7 +80,6 @@ public class CatmullRomMovement : MonoBehaviour {
                     if (destroyOnReachingEnd && isWorking) {
                         //Debug.Log("Returning OP, reached end. Limit: " + splineTimeLimit);
                         pool.Return(GetComponent<Opponent>());
-                        trail.time = -1;
                         isWorking = false;
                     }
                 }
@@ -151,7 +147,6 @@ public class CatmullRomMovement : MonoBehaviour {
                 if (destroyOnReachingEnd) {
                     if (myTransform.position.z + 1200 < vehicle.position.z && isWorking) {
                         //Debug.Log("Returning OP, left behind.");
-                        trail.time = -1;
                         pool.Return(GetComponent<Opponent>());
                         isWorking = false;
                     }
