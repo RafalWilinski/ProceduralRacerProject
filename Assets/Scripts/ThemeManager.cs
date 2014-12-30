@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using VacuumShaders;
 
 public class ThemeManager : MonoBehaviour {
 
@@ -10,10 +11,12 @@ public class ThemeManager : MonoBehaviour {
 	public Light[] lights;
 	public Camera[] cams;
 	public Material mat;
+	public VacuumShaders.CurvedWorld.CurvedWorld_GlobalController controller;
 	public float lerpSpeed;
 	public float lerpMultiplication;
 	public int currentThemeIndex;
 	public int fakeCurrentThemeIndex;
+	public bool shouldTweenCurvedFog;
 
 	[Serializable]
 	public class Theme {
@@ -90,6 +93,7 @@ public class ThemeManager : MonoBehaviour {
 		mat.color = t.materialColor;
 		RenderSettings.fogColor = t.backgroundColor;
 		RenderSettings.ambientLight = t.ambientColor;
+		if(shouldTweenCurvedFog) controller._V_CW_Fog_Color_GLOBAL = t.backgroundColor;
 	}
 
 	public void UpdateCurrentTheme() {
@@ -123,6 +127,7 @@ public class ThemeManager : MonoBehaviour {
 			//mat.color = Color.Lerp(mat.color, t.materialColor, Time.deltaTime);
 			RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor, t.backgroundColor, Time.deltaTime);
 			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, t.ambientColor, Time.deltaTime);
+			if(shouldTweenCurvedFog) controller._V_CW_Fog_Color_GLOBAL = Color.Lerp(controller._V_CW_Fog_Color_GLOBAL, t.backgroundColor, Time.deltaTime);
 			elapsedTime += Time.deltaTime;
 			yield return new WaitForSeconds(Time.deltaTime*lerpMultiplication);
 		}

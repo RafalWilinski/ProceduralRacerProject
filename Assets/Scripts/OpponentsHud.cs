@@ -75,7 +75,7 @@ public class OpponentsHud : MonoBehaviour
                 if (o.op.transform.position.z > Vehicle.position.z) {
                     float deltaDistance = o.op.transform.position.z - Vehicle.position.z;
                     o.canvas.alpha = alphaCurve.Evaluate(deltaDistance);
-                    o.rect.localScale = new Vector3(5, 5, 5) * alphaCurve.Evaluate(deltaDistance);
+                    o.rect.localScale = new Vector3(3, 3, 3) * alphaCurve.Evaluate(deltaDistance);
                     //o.canvas.alpha = (AlphaFunctionDivider - deltaDistance + AlphaFunctionAdder) / deltaDistance;
 
                     Vector3 screenPoint = Cam.WorldToScreenPoint(o.opTransform.position);

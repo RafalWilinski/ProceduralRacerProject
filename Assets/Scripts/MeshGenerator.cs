@@ -318,7 +318,7 @@ public class MeshGenerator : MonoBehaviour {
 		if(gameObject.name != "0") {
 			Destroy(meshFilter.mesh);
 			root.GetComponent<ObjectPool>().Return(gameObject);
-			System.GC.Collect();
+			//System.GC.Collect();
 		}
 	}
 

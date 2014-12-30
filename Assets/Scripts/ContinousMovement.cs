@@ -18,6 +18,8 @@ public class ContinousMovement : MonoBehaviour {
 	public Text newRegionName;
 	public CatmullRomSpline spline;
 	public CanvasManager canvasManager;
+	public Slider textureQualitySlider;
+	public ParticleSystem particleFlakes;
 
 	public int currentRegionIndex;
 
@@ -80,6 +82,15 @@ public class ContinousMovement : MonoBehaviour {
 		CatmullRomSpline.OnSplineUpdated -= OnLimitChanged;
 	}
 
+	public void OnTextureQualitySliderChange() {
+		QualitySettings.masterTextureLimit = (int)textureQualitySlider.value;
+	}
+
+	public void OnAnisoChange() {
+		if(QualitySettings.anisotropicFiltering == AnisotropicFiltering.Disable) QualitySettings.anisotropicFiltering = AnisotropicFiltering.ForceEnable;
+		else QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
+	}
+
 	void FixedUpdate () {
 		if(!isPaused) {
 			if(controlsEnabled) {
@@ -133,6 +144,8 @@ public class ContinousMovement : MonoBehaviour {
 	}
 
 	void Start() {
+		particleFlakes.Stop();
+		particleFlakes.Clear();
 		spline.xAxisDivider = 2.5f;
 		myTransform = transform;
 		splineTimeLimit = spline.TimeLimit;
@@ -173,6 +186,7 @@ public class ContinousMovement : MonoBehaviour {
 		yield return new WaitForSeconds(0.3f);
 		isPlaying = true;
 		StartCoroutine("increaseFwdSpeed");
+		particleFlakes.Play();
 	}
 
 	private IEnumerator increaseFwdSpeed() {

@@ -6,8 +6,14 @@ public class Framerate : MonoBehaviour {
 
 	public int framerate;
 	void Awake () {
-		Application.targetFrameRate = framerate;
-		InvokeRepeating("RemoveGC", 0.1f, 0.1f);
+		
+		#if UNITY_EDITOR
+			Application.targetFrameRate = framerate;
+		#elif UNITY_ANDROID || UNITY_IOS
+			Application.targetFrameRate = 60;
+		#endif
+
+		InvokeRepeating("RemoveGC", 1f, 1f);
 	}
 
 	void RemoveGC() {

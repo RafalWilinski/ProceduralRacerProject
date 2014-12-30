@@ -10,11 +10,10 @@ public class EventsManager : MonoBehaviour {
 
     public bool isDebug;
 	public Transform vehicle;
-	public Vector3 baseRezOffset;
-    public Vector3 propRezOffset;
 	public Vector3 randomness;
 	public GameObject risingPillarPrefab;
 	public OpponentsPool opponentPool;
+    public ContinousMovement mov;
 	public float slowerSpeed;
 	public float fasterSpeed;
 
@@ -32,6 +31,7 @@ public class EventsManager : MonoBehaviour {
         public Stack<GameObject> stack;
         public bool isEventInProgress;
         public int availableObjects;
+        public Vector3 propRezOffset;
     }
 
 	void Start() {
@@ -49,6 +49,7 @@ public class EventsManager : MonoBehaviour {
 
         StartCoroutine(RisingPillarEventsCoroutine());
         StartCoroutine(ArcEventsCoroutine());
+        StartCoroutine(RocksEventsCoroutine());
 	}
 
     [Serializable]
@@ -157,8 +158,8 @@ public class EventsManager : MonoBehaviour {
 		Vector3 position;
         Props p = FindPropByName("RisingPillar");
         while (true) {
-            if (p.stack.Count > 0 && p.isEventInProgress) {
-		        position = vehicle.position + baseRezOffset +
+            if (p.stack.Count > 0 && p.isEventInProgress && mov.isPlaying) {
+		        position = vehicle.position + p.propRezOffset +
 		                   new Vector3(Random.Range(-randomness.x, randomness.x), Random.Range(-randomness.y, randomness.y),
 		                       Random.Range(-randomness.z, randomness.z));
                 p.stack.Pop().GetComponent<PropPoolObject>().Create(position, "Rise");
@@ -174,8 +175,25 @@ public class EventsManager : MonoBehaviour {
         Vector3 position;
         Props p = FindPropByName("Arc");
         while (true) {
-            if (p.stack.Count > 0 && p.isEventInProgress) {
-                position = vehicle.position + propRezOffset +
+            if (p.stack.Count > 0 && p.isEventInProgress && mov.isPlaying) {
+                position = vehicle.position + p.propRezOffset +
+                           new Vector3(Random.Range(-randomness.x, randomness.x), Random.Range(-randomness.y, randomness.y),
+                               Random.Range(-randomness.z, randomness.z));
+                p.stack.Pop().GetComponent<PropPoolObject>().Create(position);
+                p.availableObjects = p.stack.Count;
+                i++;
+            }
+            yield return new WaitForSeconds(Random.Range(2f,10f));
+        }
+    }
+
+    private IEnumerator RocksEventsCoroutine() {
+        int i = 0;
+        Vector3 position;
+        Props p = FindPropByName("Rock");
+        while (true) {
+            if (p.stack.Count > 0 && p.isEventInProgress && mov.isPlaying) {
+                position = vehicle.position + p.propRezOffset +
                            new Vector3(Random.Range(-randomness.x, randomness.x), Random.Range(-randomness.y, randomness.y),
                                Random.Range(-randomness.z, randomness.z));
                 p.stack.Pop().GetComponent<PropPoolObject>().Create(position);
