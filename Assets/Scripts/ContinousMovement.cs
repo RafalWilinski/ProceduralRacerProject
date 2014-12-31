@@ -20,6 +20,9 @@ public class ContinousMovement : MonoBehaviour {
 	public CanvasManager canvasManager;
 	public Slider textureQualitySlider;
 	public ParticleSystem particleFlakes;
+	public Tweener cinematicDown;
+	public Tweener cinematicTop;
+	public Tweener cinematicRegionNameText;
 
 	public int currentRegionIndex;
 
@@ -232,7 +235,11 @@ public class ContinousMovement : MonoBehaviour {
 		distance = 0;
 		currentRegionIndex++;
 		SetTheme(currentRegionIndex);
-		yield return new WaitForSeconds(1.25f);
+		cinematicTop.StartTween();
+		cinematicDown.StartTween();
+		cinematicRegionNameText.StartTween();
+		cinematicRegionNameText.gameObject.GetComponent<Text>().text = themesManager.themes[currentRegionIndex].fullName;
+		yield return new WaitForSeconds(4f);
 		LeanTween.move( topUI, new Vector3(0, 250, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
 		LeanTween.move( bottomUI, new Vector3(0, -250, 0), 2f ) .setEase( LeanTweenType.easeInOutQuad );
 		isChangingRegion = false;

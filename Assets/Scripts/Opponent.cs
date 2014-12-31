@@ -25,13 +25,14 @@ public class Opponent : MonoBehaviour {
     }
 
 	public void Create(Vector3 pos, float initSpeed, string name, Texture2D pic) {
+		trail.Emit = false;
 	    hud.SetHudNameAndPic(name, pic, this);
 		mov = this.gameObject.GetComponent<CatmullRomMovement>();
 		spline = (CatmullRomSpline) GameObject.Find("Root").GetComponent<CatmullRomSpline>();
 		mov.startOffset = spline.GetClosestPointAtSpline(pos);	
 		mov.speed = initSpeed;
 		mov.DelayedStart();
-
+		trail.Emit = true;
 
 
 		float hue = Random.Range(0.01f, 0.999f);
