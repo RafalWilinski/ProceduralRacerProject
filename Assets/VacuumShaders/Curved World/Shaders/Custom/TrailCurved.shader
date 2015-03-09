@@ -1,3 +1,5 @@
+#warning Upgrade NOTE: unity_Scale shader variable was removed; replaced 'unity_Scale.w' with '1.0'
+
 // VacuumShaders 2014
 // https://www.facebook.com/VacuumShaders
 
@@ -112,7 +114,7 @@ Shader "VacuumShaders/Curved World/Custom/TrailCurved"
 				
 				//IBL requires world space normal
 				#ifdef V_CW_IBL_ON
-					o.normal = normalize(mul((half3x3)_Object2World, v.normal * unity_Scale.w));
+					o.normal = normalize(mul((half3x3)_Object2World, v.normal * 1.0));
 				#endif
 
 				//Generating fog

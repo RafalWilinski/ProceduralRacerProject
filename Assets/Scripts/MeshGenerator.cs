@@ -292,7 +292,7 @@ public class MeshGenerator : MonoBehaviour {
 		mesh.RecalculateBounds();
 		mesh.RecalculateNormals();
 
-		col.mesh = mesh;
+		col.sharedMesh = mesh;
 		col.enabled = false;
 		col.enabled = true;
 		isUsed = false;

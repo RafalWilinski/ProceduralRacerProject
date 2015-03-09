@@ -31,7 +31,7 @@ public class ObjExporterScript
 		{
 			return "####Error####";
 		}
-		Material[] mats = mf.renderer.sharedMaterials;
+		Material[] mats = mf.GetComponent<Renderer>().sharedMaterials;
 
 		StringBuilder sb = new StringBuilder();
 

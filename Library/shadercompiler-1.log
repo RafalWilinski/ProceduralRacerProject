@@ -1,3 +1,1956 @@
-Base path: /Applications/Unity_4.6.1p2/Unity.app/Contents
-Pipe name: \\.\pipe\UnityShaderCompiler-1--1604709932
+Base path: /Applications/Unity/Unity.app/Contents
+Pipe name: \\.\pipe\UnityShaderCompiler-1--1595694636
 Cmd: getPlatforms
+Cmd: preprocess
+  insize=9628 outsize=2300 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=6976 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=6976 outsize=649 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=6972 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=6972 outsize=908 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=6972 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=6972 outsize=749 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=6979 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=6979 outsize=701 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=6975 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=6975 outsize=887 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=6975 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=6975 outsize=618 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=6984 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=6984 outsize=420 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=6989 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=6989 outsize=524 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=6982 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=6982 outsize=292 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=6980 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=6980 outsize=689 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=6987 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=6987 outsize=660 kw= ok=1
+Cmd: preprocess
+  insize=3818 outsize=2680 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1024 outsize=1215 kw=V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1024 outsize=376 kw=V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=721 outsize=962 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=721 outsize=160 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=2450 outsize=789 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1766 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1766 outsize=624 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1773 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1773 outsize=624 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1770 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1770 outsize=844 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1778 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1778 outsize=844 kw= ok=1
+Cmd: preprocess
+  insize=11084 outsize=719 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10526 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10526 outsize=729 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10549 outsize=332 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10549 outsize=4483 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10548 outsize=332 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10548 outsize=4547 kw= ok=1
+Cmd: preprocess
+  insize=3759 outsize=2725 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=987 outsize=1545 kw=V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=987 outsize=521 kw=V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=655 outsize=962 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=655 outsize=160 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=877 outsize=325 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=854 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=854 outsize=586 kw= ok=1
+Cmd: preprocess
+  insize=5268 outsize=854 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4320 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4320 outsize=668 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4324 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4324 outsize=925 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4327 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4327 outsize=694 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4330 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4330 outsize=955 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4347 outsize=432 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4347 outsize=1980 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4350 outsize=432 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4350 outsize=2526 kw= ok=1
+Cmd: preprocess
+  insize=938 outsize=1345 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4905 outsize=1509 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4905 outsize=810 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2628 outsize=1117 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2628 outsize=727 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2633 outsize=924 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2633 outsize=466 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4581 outsize=1406 kw=LIGHTMAP_OFF DIRLIGHTMAP_OFF HDR_LIGHT_PREPASS_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4581 outsize=783 kw=LIGHTMAP_OFF DIRLIGHTMAP_OFF HDR_LIGHT_PREPASS_OFF ok=1
+Cmd: preprocess
+  insize=1209 outsize=459 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=997 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=997 outsize=259 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=996 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=996 outsize=257 kw= ok=1
+Cmd: preprocess
+  insize=4203 outsize=523 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3976 outsize=590 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3976 outsize=1059 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3981 outsize=639 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3981 outsize=1183 kw= ok=1
+Cmd: preprocess
+  insize=1685 outsize=352 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1635 outsize=584 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1635 outsize=817 kw= ok=1
+Cmd: preprocess
+  insize=2392 outsize=1975 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=717 outsize=962 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=717 outsize=160 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=919 outsize=353 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=869 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=869 outsize=456 kw= ok=1
+Cmd: preprocess
+  insize=3900 outsize=2739 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1047 outsize=1545 kw=V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1047 outsize=521 kw=V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=721 outsize=962 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=721 outsize=160 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=2006 outsize=1721 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=584 outsize=994 kw=SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=584 outsize=181 kw=SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=3892 outsize=2696 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1050 outsize=1473 kw=V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1050 outsize=486 kw=V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=753 outsize=1367 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=753 outsize=305 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=671 outsize=379 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=594 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=594 outsize=406 kw= ok=1
+Cmd: preprocess
+  insize=2278 outsize=1964 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=613 outsize=1030 kw=V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=613 outsize=296 kw=V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=1006 outsize=316 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=995 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=995 outsize=315 kw= ok=1
+Cmd: preprocess
+  insize=761 outsize=368 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=695 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=695 outsize=319 kw= ok=1
+Cmd: preprocess
+  insize=2673 outsize=2170 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=804 outsize=1367 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=804 outsize=305 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=2380 outsize=1945 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=735 outsize=962 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=735 outsize=252 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=2505 outsize=1982 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=824 outsize=1367 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=824 outsize=373 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=1989 outsize=486 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1805 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1805 outsize=732 kw= ok=1
+Cmd: preprocess
+  insize=1588 outsize=501 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1329 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1329 outsize=880 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1338 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1338 outsize=1391 kw= ok=1
+Cmd: preprocess
+  insize=5910 outsize=3455 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1109 outsize=1028 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1109 outsize=349 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=523 outsize=424 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=523 outsize=92 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=660 outsize=1491 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=660 outsize=785 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1046 outsize=1028 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1046 outsize=349 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=713 outsize=1028 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=713 outsize=160 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=1284 outsize=412 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1177 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1177 outsize=495 kw= ok=1
+Cmd: preprocess
+  insize=2727 outsize=1462 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1566 outsize=1230 kw=V_CW_GLOBAL_FOG_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1566 outsize=271 kw=V_CW_GLOBAL_FOG_OFF ok=1
+Cmd: preprocess
+  insize=1799 outsize=558 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1542 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1542 outsize=1335 kw= ok=1
+Cmd: preprocess
+  insize=3074 outsize=1487 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1889 outsize=945 kw=V_CW_GLOBAL_FOG_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1889 outsize=160 kw=V_CW_GLOBAL_FOG_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=1546 outsize=457 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1377 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1377 outsize=98 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1367 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1367 outsize=439 kw= ok=1
+Cmd: preprocess
+  insize=4026 outsize=2712 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1115 outsize=1473 kw=V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1115 outsize=486 kw=V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=806 outsize=1367 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=806 outsize=305 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=2339 outsize=1983 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=653 outsize=962 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=653 outsize=160 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=2222 outsize=1833 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=687 outsize=962 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=687 outsize=160 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=2470 outsize=2020 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=751 outsize=1367 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=751 outsize=305 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=3420 outsize=808 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2773 outsize=2106 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2773 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2800 outsize=4730 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2800 outsize=6 kw= ok=1
+Cmd: preprocess
+  insize=5759 outsize=2122 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2490 outsize=1174 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF V_CW_GLOBAL_FOG_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2490 outsize=376 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF V_CW_GLOBAL_FOG_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=808 outsize=424 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=808 outsize=92 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1323 outsize=1492 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1323 outsize=785 kw=SHADOWS_NONATIVE ok=1
+Cmd: preprocess
+  insize=6379 outsize=3432 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1234 outsize=1433 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1234 outsize=462 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=550 outsize=424 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=550 outsize=92 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=687 outsize=1491 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=687 outsize=785 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1165 outsize=1433 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1165 outsize=462 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=908 outsize=1433 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=908 outsize=340 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=6247 outsize=3478 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1200 outsize=1433 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1200 outsize=462 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=523 outsize=424 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=523 outsize=92 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=660 outsize=1491 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=660 outsize=785 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1129 outsize=1433 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1129 outsize=462 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=853 outsize=1433 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=853 outsize=340 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=5881 outsize=3415 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1107 outsize=1064 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1107 outsize=461 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1038 outsize=1064 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1038 outsize=461 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=734 outsize=1064 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=734 outsize=301 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=735 outsize=353 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=684 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=684 outsize=263 kw= ok=1
+Cmd: preprocess
+  insize=2377 outsize=467 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2120 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2120 outsize=759 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2128 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2128 outsize=1307 kw= ok=1
+Cmd: preprocess
+  insize=2184 outsize=1869 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=614 outsize=994 kw=SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=614 outsize=181 kw=SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=1116 outsize=409 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1012 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1012 outsize=545 kw= ok=1
+Cmd: preprocess
+  insize=6870 outsize=844 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1903 outsize=425 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1903 outsize=4830 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2174 outsize=425 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2174 outsize=7921 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2691 outsize=425 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2691 outsize=14055 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2992 outsize=369 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2992 outsize=3794 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1895 outsize=530 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1895 outsize=304 kw= ok=1
+Cmd: preprocess
+  insize=1300 outsize=465 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1079 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1079 outsize=595 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1085 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1085 outsize=697 kw= ok=1
+Cmd: preprocess
+  insize=1192 outsize=314 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1183 outsize=604 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1183 outsize=466 kw= ok=1
+Cmd: preprocess
+  insize=6010 outsize=3382 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1143 outsize=1028 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1143 outsize=349 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=550 outsize=424 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=550 outsize=92 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=686 outsize=1491 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=686 outsize=785 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1076 outsize=1028 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1076 outsize=349 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=770 outsize=1028 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=770 outsize=160 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=6139 outsize=3452 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1173 outsize=1028 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1173 outsize=349 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=550 outsize=424 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=550 outsize=92 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=687 outsize=1491 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=687 outsize=785 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1104 outsize=1028 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1104 outsize=349 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=770 outsize=1028 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=770 outsize=160 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=849 outsize=906 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4533 outsize=919 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4533 outsize=400 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2572 outsize=817 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2572 outsize=366 kw=POINT ok=1
+Cmd: preprocess
+  insize=2671 outsize=774 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2000 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2000 outsize=332 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1998 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1998 outsize=256 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2011 outsize=561 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2011 outsize=402 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2009 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2009 outsize=213 kw= ok=1
+Cmd: preprocess
+  insize=5596 outsize=2110 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2395 outsize=1174 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2395 outsize=376 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=781 outsize=424 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=781 outsize=92 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1296 outsize=1492 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1296 outsize=785 kw=SHADOWS_NONATIVE ok=1
+Cmd: preprocess
+  insize=968 outsize=305 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=968 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=968 outsize=366 kw= ok=1
+Cmd: preprocess
+  insize=1176 outsize=447 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1031 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1031 outsize=717 kw= ok=1
+Cmd: preprocess
+  insize=1377 outsize=384 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1295 outsize=558 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1295 outsize=472 kw= ok=1
+Cmd: preprocess
+  insize=1437 outsize=347 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1396 outsize=979 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1396 outsize=6 kw= ok=1
+Cmd: preprocess
+  insize=1709 outsize=728 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1287 outsize=630 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1287 outsize=402 kw= ok=1
+Cmd: preprocess
+  insize=2348 outsize=1830 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=817 outsize=994 kw=V_CW_GLOBAL_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=817 outsize=225 kw=V_CW_GLOBAL_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=5890 outsize=3457 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1110 outsize=1028 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1110 outsize=349 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=522 outsize=424 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=522 outsize=92 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=659 outsize=1491 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=659 outsize=785 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1015 outsize=1028 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1015 outsize=349 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=724 outsize=1028 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=724 outsize=160 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=1403 outsize=346 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1359 outsize=584 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1359 outsize=453 kw= ok=1
+Cmd: preprocess
+  insize=1234 outsize=431 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1104 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1104 outsize=916 kw= ok=1
+Cmd: preprocess
+  insize=2695 outsize=1438 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1558 outsize=1230 kw=V_CW_GLOBAL_FOG_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1558 outsize=267 kw=V_CW_GLOBAL_FOG_OFF ok=1
+Cmd: preprocess
+  insize=1275 outsize=329 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1251 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1251 outsize=515 kw= ok=1
+Cmd: preprocess
+  insize=2165 outsize=643 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1827 outsize=412 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1827 outsize=1021 kw= ok=1
+Cmd: preprocess
+  insize=965 outsize=271 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=994 outsize=355 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=994 outsize=541 kw= ok=1
+Cmd: preprocess
+  insize=2587 outsize=2096 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=792 outsize=962 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=792 outsize=252 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=962 outsize=367 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=896 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=896 outsize=556 kw= ok=1
+Cmd: preprocess
+  insize=1039 outsize=536 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=805 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=805 outsize=598 kw= ok=1
+Cmd: preprocess
+  insize=2257 outsize=1873 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=681 outsize=998 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=681 outsize=301 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=790 outsize=320 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=772 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=772 outsize=408 kw= ok=1
+Cmd: preprocess
+  insize=6455 outsize=998 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5435 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5435 outsize=213 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5443 outsize=555 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5443 outsize=491 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5447 outsize=468 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5447 outsize=942 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5448 outsize=463 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5448 outsize=942 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5452 outsize=708 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5452 outsize=726 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5454 outsize=708 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5454 outsize=726 kw= ok=1
+Cmd: preprocess
+  insize=6125 outsize=3410 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1172 outsize=1433 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1172 outsize=462 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=523 outsize=424 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=523 outsize=92 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=660 outsize=1491 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=660 outsize=785 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1103 outsize=1433 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1103 outsize=462 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=853 outsize=1433 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=853 outsize=340 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=657 outsize=319 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=640 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=640 outsize=254 kw= ok=1
+Cmd: preprocess
+  insize=32615 outsize=273 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=32644 outsize=8955 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=32644 outsize=6 kw= ok=1
+Cmd: preprocess
+  insize=1335 outsize=506 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1068 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1068 outsize=294 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1074 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1074 outsize=548 kw= ok=1
+Cmd: preprocess
+  insize=2461 outsize=2025 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=735 outsize=998 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=735 outsize=267 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=1216 outsize=260 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1258 outsize=430 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1258 outsize=631 kw= ok=1
+Cmd: preprocess
+  insize=3375 outsize=706 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2803 outsize=474 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2803 outsize=725 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2794 outsize=474 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2794 outsize=505 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2793 outsize=474 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2793 outsize=544 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2805 outsize=474 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2805 outsize=705 kw= ok=1
+Cmd: preprocess
+  insize=3707 outsize=2660 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=998 outsize=1215 kw=DIRECTIONAL LIGHTMAP_OFF DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=998 outsize=376 kw=DIRECTIONAL LIGHTMAP_OFF DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=655 outsize=962 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=655 outsize=160 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=1794 outsize=577 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1384 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1384 outsize=673 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1384 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1384 outsize=1215 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1409 outsize=432 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1409 outsize=1905 kw= ok=1
+Cmd: preprocess
+  insize=1000 outsize=249 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1053 outsize=933 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1053 outsize=6 kw= ok=1
+Cmd: preprocess
+  insize=5357 outsize=1803 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3203 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3203 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3201 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3201 outsize=256 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3217 outsize=609 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3217 outsize=426 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3209 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3209 outsize=213 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3209 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3209 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3206 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3206 outsize=256 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3218 outsize=609 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3218 outsize=402 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3211 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3211 outsize=214 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3204 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3204 outsize=127 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3208 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3208 outsize=197 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3203 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3203 outsize=133 kw= ok=1
+Cmd: preprocess
+  insize=2482 outsize=1849 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=932 outsize=994 kw=V_CW_GLOBAL_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=932 outsize=278 kw=V_CW_GLOBAL_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=6489 outsize=3494 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1255 outsize=1433 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1255 outsize=462 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=550 outsize=424 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=550 outsize=92 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=692 outsize=1491 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=692 outsize=785 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1186 outsize=1433 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1186 outsize=462 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=908 outsize=1433 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=908 outsize=340 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=2257 outsize=1876 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=680 outsize=998 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=680 outsize=267 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=6523 outsize=3680 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1199 outsize=1433 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1199 outsize=495 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=549 outsize=495 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=549 outsize=227 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=687 outsize=1557 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=687 outsize=895 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1127 outsize=1433 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1127 outsize=495 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=877 outsize=1433 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=877 outsize=373 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=2202 outsize=1700 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=801 outsize=994 kw=V_CW_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=801 outsize=189 kw=V_CW_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=13833 outsize=2064 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=11194 outsize=1186 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=11194 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=11186 outsize=544 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=11186 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=11194 outsize=1615 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=11194 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=11200 outsize=3619 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=11200 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=11210 outsize=3334 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=11210 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=11197 outsize=688 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=11197 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=11196 outsize=1758 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=11196 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=11202 outsize=4118 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=11202 outsize=6 kw= ok=1
+Cmd: preprocess
+  insize=2464 outsize=2026 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=738 outsize=998 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=738 outsize=301 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=1038 outsize=358 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=985 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=985 outsize=426 kw= ok=1
+Cmd: preprocess
+  insize=2159 outsize=1662 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=796 outsize=994 kw=V_CW_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=796 outsize=223 kw=V_CW_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=6289 outsize=753 ok=1
+Cmd: preprocess
+  insize=2289 outsize=1699 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=889 outsize=994 kw=V_CW_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=889 outsize=278 kw=V_CW_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=2494 outsize=782 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1760 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1760 outsize=256 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1760 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1760 outsize=332 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1763 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1763 outsize=268 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1763 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1763 outsize=462 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1766 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1766 outsize=245 kw= ok=1
+Cmd: preprocess
+  insize=452 outsize=1180 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4169 outsize=885 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4169 outsize=376 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2211 outsize=783 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2211 outsize=531 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1801 outsize=457 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1801 outsize=159 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3924 outsize=871 kw=LIGHTMAP_OFF DIRLIGHTMAP_OFF HDR_LIGHT_PREPASS_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3924 outsize=348 kw=LIGHTMAP_OFF DIRLIGHTMAP_OFF HDR_LIGHT_PREPASS_OFF ok=1
+Cmd: preprocess
+  insize=685 outsize=340 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=647 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=647 outsize=436 kw= ok=1
+Cmd: preprocess
+  insize=937 outsize=463 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=776 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=776 outsize=400 kw= ok=1
+Cmd: preprocess
+  insize=11446 outsize=2629 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=8606 outsize=3234 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=8606 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=8611 outsize=2001 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=8611 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=8610 outsize=523 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=8610 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=8615 outsize=1055 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=8615 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=8614 outsize=1180 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=8614 outsize=6 kw= ok=1
+Cmd: preprocess
+  insize=2675 outsize=1450 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1526 outsize=1230 kw=V_CW_FOG_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1526 outsize=271 kw=V_CW_FOG_OFF ok=1
+Cmd: preprocess
+  insize=6073 outsize=3604 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1145 outsize=1096 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1145 outsize=486 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=522 outsize=424 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=522 outsize=92 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=659 outsize=1491 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=659 outsize=785 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1015 outsize=1028 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1015 outsize=349 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=724 outsize=1028 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=724 outsize=160 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=2474 outsize=1836 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=938 outsize=994 kw=V_CW_GLOBAL_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=938 outsize=353 kw=V_CW_GLOBAL_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=977 outsize=438 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=841 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=841 outsize=224 kw= ok=1
+Cmd: preprocess
+  insize=2348 outsize=1847 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=800 outsize=1367 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=800 outsize=340 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=13919 outsize=2635 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10332 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10332 outsize=236 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10332 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10332 outsize=540 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10332 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10332 outsize=567 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10315 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10315 outsize=333 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10334 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10334 outsize=358 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10315 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10315 outsize=396 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10360 outsize=478 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10360 outsize=707 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10314 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10314 outsize=127 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10318 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10318 outsize=133 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10340 outsize=1085 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10340 outsize=1198 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10334 outsize=1085 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10334 outsize=1251 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=10340 outsize=1085 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=10340 outsize=1198 kw= ok=1
+Cmd: preprocess
+  insize=1950 outsize=489 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1736 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1736 outsize=603 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1749 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1749 outsize=643 kw= ok=1
+Cmd: preprocess
+  insize=6323 outsize=3633 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1204 outsize=1096 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1204 outsize=486 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=522 outsize=424 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=522 outsize=92 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=659 outsize=1491 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=659 outsize=785 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1112 outsize=1096 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1112 outsize=486 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=790 outsize=1096 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=790 outsize=296 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=1604 outsize=302 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1607 outsize=695 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1607 outsize=994 kw= ok=1
+Cmd: preprocess
+  insize=24592 outsize=3233 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20010 outsize=821 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20010 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20005 outsize=513 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20005 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20021 outsize=2014 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20021 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20006 outsize=821 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20006 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20016 outsize=808 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20016 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20015 outsize=2831 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20015 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=19971 outsize=375 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=19971 outsize=698 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20009 outsize=746 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20009 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=19977 outsize=674 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=19977 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20014 outsize=2602 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20014 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20007 outsize=2046 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20007 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20010 outsize=2621 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20010 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20016 outsize=2884 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20016 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20013 outsize=2310 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20013 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20006 outsize=4288 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20006 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=20011 outsize=4534 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=20011 outsize=6 kw= ok=1
+Cmd: preprocess
+  insize=912 outsize=473 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=741 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=741 outsize=315 kw= ok=1
+Cmd: preprocess
+  insize=2633 outsize=353 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=2586 outsize=419 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=2586 outsize=1087 kw= ok=1
+Cmd: preprocess
+  insize=1046 outsize=417 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=931 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=931 outsize=805 kw= ok=1
+Cmd: preprocess
+  insize=5877 outsize=3414 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1106 outsize=1064 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1106 outsize=457 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1037 outsize=1064 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1037 outsize=457 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=733 outsize=1064 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=733 outsize=267 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  error: 1 plat 15 at (95): Compiling shaders to OpenGL ES 2.0, Xbox 360, PS3, Flash or DX11 requires both vertex and fragment programs
+  insize=2292 outsize=1222 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1310 outsize=766 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1310 outsize=518 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1017 outsize=766 kw= ok=1
+Cmd: preprocess
+  insize=2283 outsize=1688 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=895 outsize=994 kw=V_CW_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=895 outsize=353 kw=V_CW_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=1583 outsize=599 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1220 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1220 outsize=435 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1222 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1222 outsize=626 kw= ok=1
+Cmd: preprocess
+  insize=1737 outsize=297 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1742 outsize=671 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1742 outsize=1369 kw= ok=1
+Cmd: preprocess
+  insize=936 outsize=381 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=857 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=857 outsize=729 kw= ok=1
+Cmd: preprocess
+  insize=1026 outsize=351 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=977 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=977 outsize=471 kw= ok=1
+Cmd: preprocess
+  insize=1123 outsize=459 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=940 outsize=332 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=940 outsize=253 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=946 outsize=332 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=946 outsize=370 kw= ok=1
+Cmd: preprocess
+  insize=738 outsize=267 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=771 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=771 outsize=312 kw= ok=1
+Cmd: preprocess
+  insize=2708 outsize=2130 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=879 outsize=1367 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=879 outsize=373 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=5809 outsize=873 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4898 outsize=618 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4898 outsize=805 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4901 outsize=618 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4901 outsize=591 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4905 outsize=618 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4905 outsize=633 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4914 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4914 outsize=304 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4895 outsize=618 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4895 outsize=805 kw= ok=1
+Cmd: preprocess
+  insize=2274 outsize=1716 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=857 outsize=994 kw=V_CW_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=857 outsize=234 kw=V_CW_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=5633 outsize=759 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4669 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4669 outsize=296 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4674 outsize=753 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4674 outsize=569 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4684 outsize=757 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4684 outsize=852 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4679 outsize=757 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4679 outsize=714 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4685 outsize=691 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4685 outsize=994 kw= ok=1
+Cmd: preprocess
+  insize=2555 outsize=2136 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=719 outsize=962 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=719 outsize=160 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=586 outsize=360 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=528 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=528 outsize=332 kw= ok=1
+Cmd: preprocess
+  insize=7257 outsize=925 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5672 outsize=460 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5672 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5672 outsize=501 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5672 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5666 outsize=2652 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5666 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5665 outsize=2693 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5665 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5668 outsize=2776 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5668 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5668 outsize=2808 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5668 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5670 outsize=601 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5670 outsize=6 kw= ok=1
+Cmd: preprocess
+  insize=269 outsize=266 ok=1
+Cmd: preprocess
+  insize=32625 outsize=273 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=32654 outsize=8863 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=32654 outsize=6 kw= ok=1
+Cmd: preprocess
+  insize=2155 outsize=1683 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=771 outsize=994 kw=V_CW_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=771 outsize=225 kw=V_CW_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=5109 outsize=1741 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3672 outsize=3830 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3672 outsize=6 kw= ok=1
+Cmd: preprocess
+  insize=9293 outsize=2802 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5538 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5538 outsize=289 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5541 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5541 outsize=277 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5542 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5542 outsize=402 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5543 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5543 outsize=319 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5544 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5544 outsize=407 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5541 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5541 outsize=289 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5540 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5540 outsize=358 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5544 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5544 outsize=371 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5537 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5537 outsize=256 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5546 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5546 outsize=408 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5541 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5541 outsize=527 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5579 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5579 outsize=728 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5543 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5543 outsize=527 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5544 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5544 outsize=655 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5545 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5545 outsize=485 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5542 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5542 outsize=488 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5541 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5541 outsize=647 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5544 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5544 outsize=302 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5543 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5543 outsize=348 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5542 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5542 outsize=294 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5540 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5540 outsize=341 kw= ok=1
+Cmd: preprocess
+  insize=6474 outsize=3670 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1169 outsize=1028 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1169 outsize=394 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=576 outsize=495 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=576 outsize=227 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=714 outsize=1557 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=714 outsize=895 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1096 outsize=1028 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1096 outsize=394 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=845 outsize=1028 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=845 outsize=252 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=2945 outsize=1475 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1774 outsize=910 kw=V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1774 outsize=160 kw=V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=627 outsize=321 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=608 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=608 outsize=279 kw= ok=1
+Cmd: preprocess
+  insize=6141 outsize=3440 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1169 outsize=1064 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1169 outsize=461 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=550 outsize=424 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=550 outsize=92 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=687 outsize=1491 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=687 outsize=785 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1100 outsize=1064 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1100 outsize=461 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=791 outsize=1064 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=791 outsize=301 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=6788 outsize=3714 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1263 outsize=1433 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1263 outsize=495 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=576 outsize=495 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=576 outsize=227 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=714 outsize=1557 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=714 outsize=895 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1184 outsize=1433 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1184 outsize=495 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=932 outsize=1433 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=932 outsize=373 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=6780 outsize=255 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=6827 outsize=3185 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=6827 outsize=6 kw= ok=1
+Cmd: preprocess
+  insize=6222 outsize=3643 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1114 outsize=1028 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1114 outsize=394 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=549 outsize=495 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=549 outsize=227 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=687 outsize=1557 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=687 outsize=895 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1038 outsize=1028 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1038 outsize=394 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=788 outsize=1028 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=788 outsize=252 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=4425 outsize=555 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4129 outsize=847 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4129 outsize=1540 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4135 outsize=847 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4135 outsize=1165 kw= ok=1
+Cmd: preprocess
+  insize=6139 outsize=3443 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1168 outsize=1064 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1168 outsize=457 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1099 outsize=1064 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1099 outsize=457 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=788 outsize=1064 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=788 outsize=267 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=2350 outsize=1811 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=839 outsize=994 kw=V_CW_GLOBAL_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=839 outsize=223 kw=V_CW_GLOBAL_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=4869 outsize=1093 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3760 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3760 outsize=330 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3768 outsize=435 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3768 outsize=719 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3766 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3766 outsize=638 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3768 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3768 outsize=678 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3758 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3758 outsize=270 kw= ok=1
+Cmd: preprocess
+  insize=5752 outsize=1270 ok=1
+Cmd: preprocess
+  insize=778 outsize=304 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=776 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=776 outsize=158 kw= ok=1
+Cmd: preprocess
+  insize=2643 outsize=1426 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1518 outsize=1230 kw=V_CW_FOG_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1518 outsize=267 kw=V_CW_FOG_OFF ok=1
+Cmd: preprocess
+  insize=721 outsize=317 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=706 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=706 outsize=338 kw= ok=1
+Cmd: preprocess
+  insize=6337 outsize=3705 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1140 outsize=1028 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1140 outsize=394 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1064 outsize=1028 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1064 outsize=394 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=788 outsize=1028 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=788 outsize=252 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: preprocess
+  insize=2463 outsize=1863 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=900 outsize=994 kw=V_CW_GLOBAL_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=900 outsize=234 kw=V_CW_GLOBAL_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=4076 outsize=685 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3417 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3417 outsize=368 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3425 outsize=753 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3425 outsize=569 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3434 outsize=741 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3434 outsize=729 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3429 outsize=741 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3429 outsize=714 kw= ok=1
+Cmd: preprocess
+  insize=883 outsize=301 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=887 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=887 outsize=346 kw= ok=1
+Cmd: preprocess
+  insize=1339 outsize=296 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1347 outsize=618 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1347 outsize=787 kw= ok=1
+Cmd: preprocess
+  insize=2143 outsize=983 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=905 outsize=365 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=905 outsize=200 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=860 outsize=365 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=860 outsize=133 kw= ok=1
+Cmd: preprocess
+  insize=2346 outsize=1975 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=670 outsize=1030 kw=V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=670 outsize=296 kw=V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=2547 outsize=1993 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=855 outsize=1367 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=855 outsize=340 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF V_CW_FRESNEL_OFF ok=1
+Cmd: preprocess
+  insize=3288 outsize=2347 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=792 outsize=962 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=792 outsize=252 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=757 outsize=962 kw=V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=757 outsize=252 kw=V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=5314 outsize=775 ok=1
+Cmd: preprocess
+  insize=1080 outsize=489 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=893 outsize=468 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=893 outsize=269 kw= ok=1
+Cmd: preprocess
+  insize=862 outsize=313 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=845 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=845 outsize=369 kw= ok=1
+Cmd: preprocess
+  insize=1213 outsize=389 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1129 outsize=435 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1129 outsize=719 kw= ok=1
+Cmd: preprocess
+  insize=2975 outsize=2196 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=735 outsize=962 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=735 outsize=252 kw=V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF V_CW_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=651 outsize=962 kw=V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=651 outsize=252 kw=V_CW_RIM_OFF V_CW_VERTEX_COLOR_OFF V_CW_FOG_OFF ok=1
+Cmd: preprocess
+  insize=574 outsize=259 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=617 outsize=281 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=617 outsize=127 kw= ok=1
+Cmd: preprocess
+  insize=1139 outsize=535 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=903 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=903 outsize=777 kw= ok=1
+Cmd: preprocess
+  insize=724 outsize=315 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=714 outsize=328 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=714 outsize=197 kw= ok=1
+Cmd: preprocess
+  insize=2392 outsize=1849 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=843 outsize=994 kw=V_CW_GLOBAL_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=843 outsize=189 kw=V_CW_GLOBAL_FOG_OFF SOFTPARTICLES_OFF ok=1
+Cmd: preprocess
+  insize=6595 outsize=3734 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1195 outsize=1028 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1195 outsize=394 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=578 outsize=495 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=578 outsize=227 kw=SHADOWS_DEPTH ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=714 outsize=1557 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=714 outsize=895 kw=SHADOWS_NONATIVE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1126 outsize=1028 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1126 outsize=394 kw=LIGHTMAP_ON V_CW_UNITY_VERTEXLIGHT_OFF V_CW_LIGHT_PER_VERTEX V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=845 outsize=1028 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=845 outsize=252 kw=LIGHTMAP_ON V_CW_SELF_ILLUMINATED_OFF V_CW_RIM_OFF V_CW_GLOBAL_FOG_OFF V_CW_VERTEX_COLOR_OFF V_CW_GLOBAL_IBL_OFF ok=1
+Cmd: preprocess
+  insize=5281 outsize=887 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4430 outsize=555 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4430 outsize=402 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4435 outsize=468 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4435 outsize=942 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4436 outsize=463 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4436 outsize=942 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4440 outsize=708 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4440 outsize=726 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4441 outsize=708 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4441 outsize=726 kw= ok=1
+Cmd: preprocess
+  insize=1727 outsize=682 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1346 outsize=762 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1346 outsize=442 kw= ok=1
+Cmd: preprocess
+  insize=2315 outsize=787 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1771 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1771 outsize=1197 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=1782 outsize=428 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=1782 outsize=1262 kw= ok=1

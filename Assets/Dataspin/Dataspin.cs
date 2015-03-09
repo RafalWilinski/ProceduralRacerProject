@@ -73,7 +73,7 @@ public class Dataspin : MonoBehaviour {
 	static void CreateGameObject() {
 		if (_instance == null || _instance.gameObject == null) {
 			GameObject ds = new GameObject(GameObjectName);
-			ds.AddComponent("Dataspin");
+			ds.AddComponent<Dataspin>();
 		}
 	}
 

@@ -26,7 +26,7 @@ public class DataspinBank : MonoBehaviour {
 	static void CreateBankGameObject() {
 		if (_instance == null || _instance.gameObject == null) {
 			GameObject ds = new GameObject("_DataspinBank");
-			ds.AddComponent("DataspinBank");
+			ds.AddComponent<DataspinBank>();
 		}
 	}
 

@@ -105,6 +105,9 @@ public class ContinousMovement : MonoBehaviour {
 					accel = Mathf.Atan2(Input.acceleration.y, Input.acceleration.z)*-1;
 					accel = Mathf.Abs(accel) - calibration;
 					accel = Mathf.Clamp(accel,-1,1);
+				#else 
+					dir = (Input.mousePosition.x / Screen.width) - 0.5f;
+					accel = (Input.mousePosition.y / Screen.height) - 0.5f;
 				#endif
 
 				vect = new Vector3(directionSensitivity*dir*-1f, 0f ,fwdSpeed * (1+(accel/5f)) );

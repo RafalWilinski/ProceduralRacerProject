@@ -1,3 +1,5 @@
+#warning Upgrade NOTE: unity_Scale shader variable was removed; replaced 'unity_Scale.w' with '1.0'
+
 // VacuumShaders 2014
 // https://www.facebook.com/VacuumShaders
 
@@ -123,7 +125,7 @@ Shader "VacuumShaders/Curved World/Custom/Surface"
 				o.texcoord.xy = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
 
 				//Calculating world normal
-				half3 worldNormal = normalize(mul((half3x3)_Object2World, v.normal * unity_Scale.w));
+				half3 worldNormal = normalize(mul((half3x3)_Object2World, v.normal * 1.0));
 				
 				//Calculationg light
 				o.vLightDiff = max(0, dot (worldNormal, _WorldSpaceLightPos0.xyz));

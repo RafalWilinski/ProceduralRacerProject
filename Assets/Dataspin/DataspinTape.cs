@@ -41,7 +41,7 @@ public class DataspinTape : MonoBehaviour {
 	static void CreateGameObject() {
 		if (_instance == null || _instance.gameObject == null) {
 			GameObject ds = GameObject.Find(GameObjectName);
-			ds.AddComponent("DataspinTape");
+			ds.AddComponent<DataspinTape>();
 		}
 	}
 

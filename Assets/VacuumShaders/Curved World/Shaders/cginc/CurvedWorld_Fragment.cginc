@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced tex2D unity_Lightmap with UNITY_SAMPLE_TEX2D
+
 #ifndef VACUUM_CURVEDWORLD_FRAGMENT_CGINC
 #define VACUUM_CURVEDWORLD_FRAGMENT_CGINC
 
@@ -40,7 +42,7 @@ fixed4 frag(vOutput i) : SV_Target
 
 
 	#if defined(LIGHTMAP_ON) && !defined(PASS_FORWARD_ADD)
-		fixed4 lmtex = tex2D(unity_Lightmap, i.lmap.xy);
+		fixed4 lmtex = UNITY_SAMPLE_TEX2D(unity_Lightmap, i.lmap.xy);
 		fixed3 diff = V_DecodeLightmap (lmtex);
 	#endif
 

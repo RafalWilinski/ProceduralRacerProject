@@ -1,3 +1,5 @@
+// Upgrade NOTE: unity_Scale shader variable was removed; replaced 'unity_Scale.w' with '1.0'
+
 #ifndef VACUUM_CURVEDWORLD_VERTEX_CGINC
 #define VACUUM_CURVEDWORLD_VERTEX_CGINC
 
@@ -39,7 +41,7 @@ vOutput vert(vInput v)
 	#endif
 
 	#ifdef NEED_V_CALC_NORMAL_WS
-		float3 normal_WS = normalize(mul((half3x3)_Object2World, v.normal * unity_Scale.w));
+		float3 normal_WS = normalize(mul((half3x3)_Object2World, v.normal * 1.0));
 	#endif
 
 

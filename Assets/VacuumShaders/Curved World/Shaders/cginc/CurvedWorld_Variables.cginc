@@ -1,3 +1,6 @@
+// Upgrade NOTE: commented out 'half4 unity_LightmapST', a built-in variable
+// Upgrade NOTE: commented out 'sampler2D unity_Lightmap', a built-in variable
+
 #ifndef VACUUM_CURVEDWORLD_VARIABLES_CGINC
 #define VACUUM_CURVEDWORLD_VARIABLES_CGINC
 
@@ -23,8 +26,8 @@ half4 _MainTex_ST;
 #endif
 
 #ifdef LIGHTMAP_ON
-	half4 unity_LightmapST;
-	sampler2D unity_Lightmap;				
+	// half4 unity_LightmapST;
+	// sampler2D unity_Lightmap;				
 #endif
 
 
