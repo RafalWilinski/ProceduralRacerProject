@@ -91,7 +91,6 @@ public class MeshGenerator : MonoBehaviour {
 			if(profileCurve == null) profileCurve = pc;
 
 			if(gameObject.name != "0") {
-
 				string previousPartName = (int.Parse(gameObject.name) - 1).ToString();
 				previousPartGameObject = GameObject.Find( previousPartName );
 				if(previousPartGameObject == null) Debug.Log(this.gameObject + " couldn't find previous gameobject! "+previousPartName);

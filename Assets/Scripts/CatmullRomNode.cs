@@ -26,6 +26,7 @@ public class CatmullRomNode : MonoBehaviour {
 	void AddNodeToSpline () {
 		if(root != null) {
 			if(isPush) root.PushNode(this.gameObject);
+			
 			else root.AddNode(this.gameObject);
 		}
 		//StartCoroutine("positionCheck");

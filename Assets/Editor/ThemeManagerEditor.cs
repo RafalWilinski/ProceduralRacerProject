@@ -11,6 +11,9 @@ public class ThemeManagerEditor : Editor {
 	public Color materialColor;
 	public Color backgroundColor;
 	public Color ambientColor = new Color(0.2f, 0.2f, 0.2f);
+	public float lightIntensity = 1f;
+	public Vector3 lightRotation = Vector3.zero;
+
 	public bool isRealtime;
 	public bool showThemeCreator;
 	public bool showThemeDeletion;
@@ -48,17 +51,22 @@ public class ThemeManagerEditor : Editor {
 			materialColor = EditorGUILayout.ColorField("Material Color: ", materialColor);
 			backgroundColor = EditorGUILayout.ColorField("Background Color: ", backgroundColor);
 			ambientColor = EditorGUILayout.ColorField("Ambient Color: ", ambientColor);
+			lightRotation = EditorGUILayout.Vector3Field("Light Rotation: ", lightRotation);
+			lightIntensity = EditorGUILayout.Slider("Light Intensity: ", lightIntensity, 0f, 2f);
 
 			isRealtime = EditorGUILayout.Toggle("Realtime edit", isRealtime);
 
 			if(GUILayout.Button("Save this Theme")) {
 				myScript.currentThemeIndex = myScript.themes.Count;
-				myScript.AddOrChangeTheme(new ThemeManager.Theme(themeName, lightsColor, materialColor, backgroundColor, ambientColor));
+				myScript.AddOrChangeTheme(new ThemeManager.Theme(themeName, lightsColor, materialColor, backgroundColor, ambientColor, lightRotation, lightIntensity));
 				isRealtime = false;
 			}
 
 			if(GUILayout.Button("Load theme from current settings")) {
+				themeName = myScript.GetCurrentTheme().name;
 				lightsColor = myScript.lights[0].color;
+				lightIntensity = myScript.lights[0].intensity;
+				lightRotation = myScript.lights[0].transform.eulerAngles;
 				materialColor = myScript.mat.color;
 				backgroundColor = RenderSettings.fogColor;
 				ambientColor = RenderSettings.ambientLight;
@@ -69,11 +77,11 @@ public class ThemeManagerEditor : Editor {
 		showThemeDeletion = EditorGUILayout.Foldout(showThemeDeletion, "Theme Deletion");
 		if(showThemeDeletion) {
 			EditorGUILayout.LabelField("Theme deletion");
-			deletedThemeName = GUILayout.TextField(deletedThemeName,25);
-			if(GUILayout.Button("Delete Theme")) {
-				ThemeManager.Theme t = myScript.FindThemeByName(deletedThemeName);
-				myScript.themes.Remove(t);
-			}
+			// deletedThemeName = GUILayout.TextField(deletedThemeName,25);
+			// if(GUILayout.Button("Delete Theme")) {
+			// 	ThemeManager.Theme t = myScript.FindThemeByName(deletedThemeName);
+			// 	myScript.themes.Remove(t);
+			// }
 		}
 
 
@@ -97,7 +105,7 @@ public class ThemeManagerEditor : Editor {
 
 
 		if(isRealtime) {
-			myScript.SetTheme(new ThemeManager.Theme(themeName, lightsColor, materialColor, backgroundColor, ambientColor));
+			myScript.SetTheme(new ThemeManager.Theme(themeName, lightsColor, materialColor, backgroundColor, ambientColor, lightRotation, lightIntensity));
 		}
 	}
 }

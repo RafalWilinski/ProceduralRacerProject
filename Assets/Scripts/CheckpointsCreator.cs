@@ -17,7 +17,7 @@ public class CheckpointsCreator : MonoBehaviour {
 			if(t != themeManager.themes[0]) { 
 				GameObject copy = (GameObject) Instantiate(refferenceCheckpoint, Vector3.zero, Quaternion.identity);
 				copy.transform.parent = transform;
-				copy.GetComponent<CheckpointContainer>().Create(t.fullName, i, (float) ((i*1.0f)/2),  (float) ((i*1.0f)/5) );
+				copy.GetComponent<CheckpointContainer>().Create(t.fullName, i, (float) ((i*1.0f)/2.5),  (float) ((i*1.0f)/4) );
 			}
 			i++;
 		}

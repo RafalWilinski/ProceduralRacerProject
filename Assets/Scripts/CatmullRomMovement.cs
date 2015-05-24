@@ -19,11 +19,11 @@ public class CatmullRomMovement : MonoBehaviour {
     public float changesFrequency;
     public bool destroyOnReachingEnd;
     public bool isWorking;
+    public bool useLerp = false;
 
     private float splineTimeLimit;
     private Transform myTransform;
     private bool isRunning;
-    private bool shouldRender;
 
     public enum LoopMode {
         ONCE, LOOP, PINGPONG
@@ -61,7 +61,6 @@ public class CatmullRomMovement : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        //if (shouldRender) {
             if (spline.IsReady && isRunning) {
                 if (loopMode == LoopMode.ONCE) {
                     _t += speed;
@@ -85,14 +84,11 @@ public class CatmullRomMovement : MonoBehaviour {
                 }
                 if (_t < 0) _t = 0f;
 
-                myTransform.position = spline.GetPositionAtTime(_t) + offset;
+                if(useLerp) myTransform.position = Vector3.Lerp(myTransform.position, spline.GetPositionAtTime(_t) + offset, Time.deltaTime * 5);
+                else myTransform.position = spline.GetPositionAtTime(_t) + offset;
+
                 spline.GetRotAtTime(_t, this.gameObject);
             }
-            shouldRender = false;
-        /*}
-        else {
-            shouldRender = true;
-        }*/
     }
 
     IEnumerator Movement() {

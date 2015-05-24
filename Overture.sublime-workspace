@@ -1,0 +1,1213 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"current",
+				"CurrentConfiguration	Configuration { get; }"
+			],
+			[
+				"bits2un",
+				"bits_unset2(struct bit_set2 *val, int n)	void"
+			],
+			[
+				"bit",
+				"bit_set2	struct"
+			],
+			[
+				"bits",
+				"bits_all2(struct bit_set2 *val)	int"
+			],
+			[
+				"TEST",
+				"TEST_STEP	Macro"
+			],
+			[
+				"test",
+				"test_size"
+			],
+			[
+				"Seriali",
+				"SerializeField	SerializeField"
+			],
+			[
+				"Corotin",
+				"CoroutineObject	CoroutineObject"
+			],
+			[
+				"Coroutine",
+				"CoroutineObject	CoroutineObject"
+			],
+			[
+				"ligh",
+				"lightIntensity	float"
+			],
+			[
+				"light",
+				"lightRotation	Vector3"
+			],
+			[
+				"Ra",
+				"RawDataStruct"
+			],
+			[
+				"int",
+				"intMatrix"
+			],
+			[
+				"intLi",
+				"intListElement"
+			],
+			[
+				"ins",
+				"intListHead"
+			],
+			[
+				"st",
+				"start"
+			],
+			[
+				"verte",
+				"vertex_a"
+			],
+			[
+				"ver",
+				"vertex_b"
+			],
+			[
+				"intl",
+				"intListElement"
+			],
+			[
+				"intL",
+				"intListHead"
+			],
+			[
+				"fp",
+				"fp_results"
+			],
+			[
+				"rand",
+				"rand_index"
+			],
+			[
+				"sessions",
+				"sessionsCounter	Text"
+			],
+			[
+				"version",
+				"Version	Version"
+			],
+			[
+				"GetDevice",
+				"GetDeviceModel()	string"
+			],
+			[
+				"name",
+				"prefabName"
+			],
+			[
+				"coin",
+				"coinpack_id"
+			],
+			[
+				"Dataspin",
+				"DataspinTestModule"
+			],
+			[
+				"Dataspi",
+				"DataspinTestModule"
+			],
+			[
+				"hei",
+				"heightModifiers"
+			],
+			[
+				"noise",
+				"noiseTextureScale"
+			],
+			[
+				"height",
+				"heightModifiers"
+			],
+			[
+				"heigh",
+				"heightMultiplier"
+			],
+			[
+				"color",
+				"colorsGradient"
+			],
+			[
+				"c",
+				"colorGradient"
+			],
+			[
+				"parti",
+				"particleSystem"
+			],
+			[
+				"par",
+				"particlesBudgetLimit"
+			],
+			[
+				"target",
+				"targetVertices"
+			],
+			[
+				"tar",
+				"targetObject"
+			],
+			[
+				"UNITY_",
+				"UNITY_IPHONE"
+			],
+			[
+				"not",
+				"notification_id"
+			],
+			[
+				"Regi",
+				"RegisterDevice"
+			],
+			[
+				"Wai",
+				"WaitForUserRegister"
+			],
+			[
+				"game",
+				"gamecenter_id"
+			],
+			[
+				"google",
+				"google_plus_id"
+			],
+			[
+				"iris",
+				"irisDS"
+			],
+			[
+				"inde",
+				"indexNum"
+			],
+			[
+				"sear",
+				"searchInListTime"
+			],
+			[
+				"sea",
+				"searchInBSTTime"
+			],
+			[
+				"bbst",
+				"bbstMasterRoot"
+			],
+			[
+				"se",
+				"searchInBSTTime"
+			],
+			[
+				"remove",
+				"removeFromListTime"
+			],
+			[
+				"removeF",
+				"removeFromListTime"
+			],
+			[
+				"remo",
+				"removeFromAVLTime"
+			],
+			[
+				"raw",
+				"rawDataIterator"
+			],
+			[
+				"rawD",
+				"rawData"
+			],
+			[
+				"rawDa",
+				"rawDataCount"
+			],
+			[
+				"ra",
+				"rawDataIterator"
+			],
+			[
+				"left",
+				"leftChild"
+			],
+			[
+				"search",
+				"searchByIndex"
+			],
+			[
+				"print",
+				"printPostOrder"
+			],
+			[
+				"remov",
+				"removeFromTree"
+			],
+			[
+				"righ",
+				"rightChild"
+			],
+			[
+				"lis",
+				"listTime"
+			],
+			[
+				"resul",
+				"resultsFile"
+			],
+			[
+				"index",
+				"indexNum"
+			],
+			[
+				"Elem",
+				"ElemStruct"
+			],
+			[
+				"Player",
+				"PlayerPrefs"
+			],
+			[
+				"size",
+				"sizeof"
+			],
+			[
+				"la",
+				"lastActivityTimestamp"
+			],
+			[
+				"dataspi",
+				"dataspinManager"
+			],
+			[
+				"sess",
+				"sessionTimeout"
+			],
+			[
+				"DataspinM",
+				"DataspinManager"
+			],
+			[
+				"po",
+				"postData"
+			],
+			[
+				"div",
+				"divIndex"
+			],
+			[
+				"usd",
+				"total_usd_revenue"
+			],
+			[
+				"GetDe",
+				"GetDeviceId"
+			],
+			[
+				"predi",
+				"predictions"
+			],
+			[
+				"my_",
+				"my_list"
+			],
+			[
+				"user",
+				"userid"
+			],
+			[
+				"data",
+				"dataspinMethod"
+			],
+			[
+				"session",
+				"sessionId"
+			],
+			[
+				"UNITY",
+				"UNITY_EDITOR"
+			],
+			[
+				"Tracel",
+				"TracelyManager"
+			],
+			[
+				"Tra",
+				"TracelyManager"
+			],
+			[
+				"end",
+				"end_timestamp"
+			],
+			[
+				"fake",
+				"fake_id"
+			],
+			[
+				"Exce",
+				"ExceptionHandlerPlugin"
+			],
+			[
+				"code",
+				"codeLabel"
+			],
+			[
+				"Data",
+				"Dataspin"
+			],
+			[
+				"device",
+				"device_uuid"
+			],
+			[
+				"pur",
+				"purse_B"
+			],
+			[
+				"hi",
+				"hidden_to_out"
+			],
+			[
+				"context",
+				"unityContext"
+			],
+			[
+				"bac",
+				"backLogMethods"
+			],
+			[
+				"Datas",
+				"DataspinRequestMethod"
+			],
+			[
+				"UNI",
+				"UNITY_EDITOR"
+			],
+			[
+				"for",
+				"forceUpdate"
+			],
+			[
+				"gam",
+				"gamecenter_id"
+			],
+			[
+				"face",
+				"facebook_id"
+			],
+			[
+				"googl",
+				"google_plus_id"
+			],
+			[
+				"ad",
+				"advertisingId"
+			],
+			[
+				"unityC",
+				"unityContext"
+			],
+			[
+				"AndroidJ",
+				"AndroidJavaObject"
+			],
+			[
+				"AndroidJava",
+				"AndroidJavaObject"
+			],
+			[
+				"ex",
+				"externalPid"
+			],
+			[
+				"Extern",
+				"ExternalTaskPid"
+			],
+			[
+				"Log",
+				"LogInfo"
+			],
+			[
+				"Uni",
+				"UNITY_EDITOR"
+			],
+			[
+				"helper",
+				"helperInstance"
+			],
+			[
+				"API",
+				"APIKey"
+			],
+			[
+				"curren",
+				"currentConfiguration"
+			],
+			[
+				"Adn",
+				"AndroidJavaClass"
+			],
+			[
+				"Android",
+				"AndroidJavaObject"
+			],
+			[
+				"GetCurr",
+				"getCurrentConfiguration"
+			],
+			[
+				"curr",
+				"currentConfiguration"
+			],
+			[
+				"y_",
+				"y_randomLimit"
+			],
+			[
+				"x_",
+				"x_randomLimit"
+			],
+			[
+				"gra",
+				"colorsGradient"
+			],
+			[
+				"dev",
+				"deviceUniqueIdentifier"
+			],
+			[
+				"Sy",
+				"SystemInfo"
+			],
+			[
+				"y_mesh",
+				"y_meshResolution"
+			],
+			[
+				"per",
+				"perlinNoiseOffset"
+			],
+			[
+				"me",
+				"x_meshResolution"
+			],
+			[
+				"x_m",
+				"x_meshSpacing"
+			],
+			[
+				"y_m",
+				"y_meshSpacing"
+			],
+			[
+				"perlinNoise",
+				"perlinNoiseScale"
+			],
+			[
+				"part",
+				"particlesArray"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/Users/rafal/Grafy/adjmatrixx.c",
+			"settings":
+			{
+				"buffer_size": 3542,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "//\n//  main.c\n//  AiSD_Heapsort\n//\n//  Created by Rafal on 23.03.2015.\n//  Copyright (c) 2015 Rafal. All rights reserved.\n//\n\n#include <stdio.h>\n#include <stdbool.h>\n#include <stdlib.h>\n#include <time.h>\n\nint array[10000000];\nint originalArray[10000000];\n\nvoid swap(int index_a, int index_b) {\n    int temp = array[index_a];\n    array[index_a] = array[index_b];\n    array[index_b] = temp;\n    return;\n}\n\nvoid heapify(int *a, int start, int end) {\n    int root = start;\n    //printf(\"Heapify: %d %d\\n\", start, end);\n    while ( root*2+1 < end ) { //Repeat until root reaches the end of an array\n        \n        int leaf = 2*root + 1; // [root] ... [child], [child+1]\n        //printf(\"Leaf: [%d] = %d, Next: %d, \\n\", leaf, a[leaf], a[leaf+1]);\n        \n        if ((leaf + 1 < end) && a[leaf] < a[leaf+1]) {\n            leaf += 1; //If childs are placed good\n        }\n        \n        //printf(\"Leaf_2: [%d] = %d\\n\", leaf, a[leaf]);\n        if (a[root] < a[leaf]) {\n            swap(leaf, root);\n            root = leaf; //If leaf+1 is greater than root, swap them and select new root. Child is at good place already\n        }\n        else return; //Everything sorted, exit, next root = root - 1;\n    }\n}\n\nvoid heapSort(int *a, int count) {\n    int start, end;\n\n    for (start = (count - 2)/2; start >= 0; start--) { //Begin from center of array, go down\n        heapify(a, start, count);\n    }\n    \n    //printf(\"Inverting array!\\n\");\n    \n    for (end = count - 1; end > 0; end--) { //Invert an array\n        swap(end, 0);\n        heapify(a, 0, end);\n    }\n}\n\n\nint main()\n{\n    /*\n    int i, n = 0;\n    while(scanf(\"%d\", &array[n])) n++;\n    \n    heapSort(array, n);\n\n    for (i = 0; i < n; i++)\n        printf(\"%d%s\", array[i], i == n - 1 ? \"\\n\" : \" \");\n    return 0;\n     */\n\n    int mode, count, i, reps = 0;\n    printf(\"Podaj tryb generowania: 1 - losowy,\\n2 - staly\\n3 - rosnacy\\n4 - malejacy\\n5 - Aksztaltny\\n6 - Vksztaltny\\n\");\n    scanf(\"%d\", &mode);\n\n    FILE * fp;\n    int aInt = mode;\n    char str[30];\n    sprintf(str, \"heap_wyniki%d.txt\", aInt);\n    fp = fopen (str, \"w+\");\n    fclose(fp);\n    \n    printf(\"Podaj ilosc pomiarów: \");\n    scanf(\"%d\", &reps);\n    int q = 0;\n    int sizes[] = {10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000, 1100000, 1200000, 1300000, 1400000, 1500000};\n    for(q = 0; q < 24; q++) {\n        printf(\"\\nSize = %d\\n\", sizes[q]);\n        count = sizes[q];\n        switch(mode) {\n            case 1:\n                srand(45678);\n                for(i = 0; i < count; i++) {\n                    originalArray[i] = rand() % 10000000;\n                }\n                break;\n            case 2:\n                for(i = 0; i < count; i++) {\n                    originalArray[i] = 56;\n                }\n                break;\n            case 3:\n                for(i = 0; i < count; i++) {\n                    originalArray[i] = i;\n                }\n                break;\n            case 4:\n                for(i = 0; i < count; i++) {\n                    originalArray[i] = count - i;\n                }\n                break;\n            case 5:\n                for(i = 0; i < count / 2; i++) {\n                    originalArray[i] = i;\n                }\n                for(i = count / 2; i < count; i++) {\n                    originalArray[i] = count - i;\n                }\n                break;\n            case 6:\n                for(i = 0; i < count/2; i++) {\n                    originalArray[i] = count - i;\n                }\n                for(i = count/2; i < count; i++) {\n                    originalArray[i] = i;\n                }\n                break;\n        }\n        \n        clock_t start, end;\n        int j;\n        double sum = 0;\n        for(i = 0; i < reps; i++) {\n            \n            for(j = 0; j < count; j++) {\n                array[j] = originalArray[j];\n            }\n            \n            start = clock();\n            heapSort(array, count);\n            end = clock();\n            sum +=(end-start)/(double)CLOCKS_PER_SEC;\n        }\n\n        fp = fopen (str, \"a+\");\n        fprintf(fp, \"\\n%d - %f\", sizes[q], sum/reps);\n        fclose(fp);\n\n        printf(\"AVG: %f\", sum/reps);\n    }\n    return 0;\n}",
+			"file": "/Volumes/USB/AISD/Sortowania/heap.c",
+			"file_size": 4279,
+			"file_write_time": 130731252800000000,
+			"settings":
+			{
+				"buffer_size": 4278,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "//\n//  main.c\n//  AiSD_QuickSort\n//\n//  Created by Rafal on 25.03.2015.\n//  Copyright (c) 2015 Rafal. All rights reserved.\n//\n\n#include <stdlib.h>\n#include <stdio.h>\n#include <time.h>\n\nint iter;\nint array[10000000];\nint originalArray[10000000];\n\nvoid swap(int i1, int i2) {\n    int tmp = array[i1];\n    array[i1] = array[i2];\n    array[i2] = tmp;\n}\n\nvoid Quicksort(int l, int r) {\n    int i;\n    if(l < r) {              //If fragment to sort is longer than 1\n        i = DivArray(l, r);  //Divide array and remember divide point\n        Quicksort(l, i-1);     //Sort both sides\n        Quicksort(i+1, r);\n    }\n}\n\n// DivArray searches for point which will be divide point and move all smaller elements to the left and all greater to the right\nint DivArray(int l, int r) {\n    int i;\n    int currentPos;\n    int divIndex = (l+r) / 2; //Select divide point\n    int divIndexValue = array[divIndex]; //Remember it's value\n    swap(divIndex, r); //Move to end of array to prevent from being sorted\n\n    currentPos = l;\n    for(i=l; i < r; i++) { //Loop through all elements, if elements is less than divIndexValue then add it to left side\n        if (array[i] < divIndexValue) {\n            swap(i, currentPos);\n            currentPos++;\n        }\n    }\n\n    swap(currentPos, r); //Move back to correct place\n    return currentPos;\n}\n\nint SelectDivPoint(l, r) {\n    return (l+r) / 2;\n}\n\nint main(int argc, const char * argv[]) {\n    /*while(scanf(\"%d\", &array[iter])) iter++;\n    \n    int n = iter;\n    \n    Quicksort(0, n-1);\n    \n    for(iter = 0; iter<n; iter++) {\n        printf(\"%d\", array[iter]);\n    }\n    return 0;\n     */\n    \n    int mode, count, i, q, reps = 0;\n    printf(\"Podaj tryb generowania: 1 - losowy,\\n2 - staly\\n3 - rosnacy\\n4 - malejacy\\n5 - Aksztaltny\\n6 - Vksztaltny\\n\");\n    scanf(\"%d\", &mode);\n    \n    FILE * fp;\n    int aInt = mode;\n    char str[30];\n    sprintf(str, \"quick_wyniki%d.txt\", aInt);\n    fp = fopen (str, \"w+\");\n    fprintf(fp, \"Quick\");\n    fclose(fp);\n    \n    printf(\"Podaj ilosc pomiarów: \");\n    scanf(\"%d\", &reps);\n    \n    int sizes[] = {10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000, 1100000, 1200000, 1300000, 1400000, 1500000};\n    for(q = 0; q < 24; q++) {\n        printf(\"\\nSize = %d\\n\", sizes[q]);\n        switch(mode) {\n            case 1:\n                srand(45678);\n                for(i = 0; i < sizes[q]; i++) {\n                    originalArray[i] = rand() % 10000000;\n                }\n                break;\n            case 2:\n                for(i = 0; i < sizes[q]; i++) {\n                    originalArray[i] = 56;\n                }\n                break;\n            case 3:\n                for(i = 0; i < sizes[q]; i++) {\n                    originalArray[i] = i;\n                }\n                break;\n            case 4:\n                for(i = 0; i < sizes[q]; i++) {\n                    originalArray[i] = count - i;\n                }\n                break;\n            case 5:\n                for(i = 0; i < sizes[q] / 2; i++) {\n                    originalArray[i] = i;\n                }\n                for(i = sizes[q] / 2; i < sizes[q]; i++) {\n                    originalArray[i] = sizes[q] - i;\n                }\n                break;\n            case 6:\n                for(i = 0; i < sizes[q]/2; i++) {\n                    originalArray[i] = sizes[q] - i;\n                }\n                for(i = sizes[q]/2; i < sizes[q]; i++) {\n                    originalArray[i] = i;\n                }\n                break;\n        }\n        \n        clock_t start, end;\n        int j;\n        double sum;\n        for(i = 0; i < reps; i++) {\n            \n            for(j = 0; j < sizes[q]; j++) {\n                array[j] = originalArray[j];\n            }\n            \n            start = clock();\n            Quicksort(0, sizes[q]-1);\n            end = clock();\n            sum += (end-start)/(double)CLOCKS_PER_SEC;\n            //printf( \"%f\\n\", (end-start)/(double)CLOCKS_PER_SEC );\n        }\n        \n        fp = fopen (str, \"a+\");\n        fprintf(fp, \"\\n%d, %f\", sizes[q], sum/reps);\n        fclose(fp);\n        \n        printf(\"AVG: %f\", sum/reps);\n    }\n    return 0;\n\n}\n",
+			"file": "/Volumes/USB/AISD/Sortowania/quick.c",
+			"file_size": 4251,
+			"file_write_time": 130731253540000000,
+			"settings":
+			{
+				"buffer_size": 4250,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/C++/C++ Single File.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				"Run"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 239.0,
+		"last_filter": "install",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"terminal",
+				"Terminality: Browse Commands..."
+			],
+			[
+				"packageinsta",
+				"Package Control: Install Package"
+			],
+			[
+				"c",
+				"Build: Cancel"
+			],
+			[
+				"run",
+				"Build With: C++ Single File - Run"
+			],
+			[
+				"buil",
+				"Build With: C++ Single File - Run"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"omnish",
+				"OmniSharpSublime: Fix Usings"
+			],
+			[
+				"omni",
+				"OmniSharpSublime: ReBuild"
+			],
+			[
+				"omnisharp",
+				"OmniSharpSublime: Clean"
+			],
+			[
+				"brows",
+				"Preferences: Browse Packages"
+			],
+			[
+				"omnishar",
+				"OmniSharpSublime: Clean"
+			],
+			[
+				"project",
+				"Project: Refresh Folders"
+			],
+			[
+				"server",
+				"OmniSharpSublime: Show Server Output"
+			],
+			[
+				"build",
+				"OmniSharpSublime: Build"
+			],
+			[
+				"om",
+				"OmniSharpSublime: Run Single Test"
+			],
+			[
+				"packageins",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: List Packages"
+			],
+			[
+				"theme",
+				"Colorsublime: Browse Themes"
+			],
+			[
+				"",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"color",
+				"Colorsublime: Install Theme"
+			]
+		],
+		"width": 435.0
+	},
+	"console":
+	{
+		"height": 155.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"import urllib2,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); os.makedirs( ipp ) if not os.path.exists(ipp) else None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler()) ); by = urllib2.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); open( os.path.join( ipp, pf), 'wb' ).write(by) if dh == h else None; print('Error validating download (got %s instead of %s), please try manual install' % (dh, h) if dh != h else 'Please restart Sublime Text to finish installation')"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts"
+	],
+	"file_history":
+	[
+		"/Users/rafal/Unity Projects/Dataspin_2.0-Unity-Plugin/Assets/Dataspin/Scripts/DataspinManager.cs",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/Plugins/InAppBillingAndroid/demo/GoogleIABEventListener.cs",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/Scripts/upgrades/IABManager.js",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/Plugins/InAppBillingAndroid/GooglePurchase.cs",
+		"/Users/rafal/Grafy/graphgen.c",
+		"/Users/rafal/Desktop/dag_result.txt",
+		"/Users/rafal/Desktop/edgelist_results.txt",
+		"/Users/rafal/Unity Projects/Dataspin_2.0-Unity-Plugin/Assets/Dataspin/Scripts/DataspinWebRequest.cs",
+		"/Users/rafal/Desktop/adjlist_results.txt",
+		"/Users/rafal/Desktop/adjmatrix_results.txt",
+		"/Users/rafal/Desktop/Studia/sopy",
+		"/Users/rafal/Library/Application Support/Sublime Text 3/Packages/User/Terminality.sublime-settings",
+		"/Users/rafal/Downloads/cw3/src/bits.h",
+		"/Users/rafal/Downloads/cw4/src/main.c",
+		"/Users/rafal/Downloads/cw4/src/float.h",
+		"/Users/rafal/Downloads/cw4/src/float.c",
+		"/Users/rafal/Downloads/cw2/src/main.c",
+		"/Users/rafal/Downloads/cw2/src/stack.h",
+		"/Users/rafal/Downloads/cw3/src/main.c",
+		"/Users/rafal/Desktop/main.c",
+		"/Users/rafal/Grafy/adjlist.c",
+		"/Users/rafal/Dysk Google/Aisd/prog.c",
+		"/Users/rafal/Downloads/cw3 2/src/main.c",
+		"/Users/rafal/Downloads/cw2/src/text.txt",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/ThemeManager.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/PropPoolObject.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/RegionSelector.cs",
+		"/Users/rafal/Grafy/dag.c",
+		"/Users/rafal/Grafy/daggen.cpp",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/Scripts/pluginy_managers/DataspinManagerOld.js",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/Dataspin/Scripts/DataspinManager.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/EventsManager.cs",
+		"/Users/rafal/Grafy/dag_result.txt",
+		"/Users/rafal/Grafy/intmatrix.c",
+		"/Users/rafal/Grafy/untitled.cpp",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Editor/ThemeManagerEditor.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/RegionCamDistance.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/CheckpointContainer.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/CheckpointsCreator.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Overture.sublime-project",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/CatmullRomNode.cs",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/GameAnalytics/Editor/GA_Inspector.cs",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/GameAnalytics/Plugins/Framework/Scripts/GA_Design.cs",
+		"/Users/rafal/Library/Application Support/Sublime Text 3/Packages/OmniSharp/PrebuiltOmniSharpServer/config.json",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/ProceduralRacerProject.sln",
+		"/Users/rafal/Unity Projects/GA-SDK-UNITY/GameAnalytics/Editor/GameAnalyticsInspector.cs",
+		"/Users/rafal/Unity Projects/GA-SDK-UNITY/GameAnalytics/Editor/GA_UpdateWindow.cs",
+		"/Users/rafal/Unity Projects/GA-SDK-UNITY/GameAnalytics/Editor/GA_SignUp.cs",
+		"/Users/rafal/Unity Projects/Dataspin_2.0-Unity-Plugin/Assets/Editor/DataspinMenu.cs",
+		"/Users/rafal/Unity Projects/GA-SDK-UNITY/GameAnalytics/Editor/GA_SettingsInspector.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/ContinousMovement.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/ContinousRotation.cs",
+		"/Users/rafal/Unity Projects/GA-SDK-UNITY/GameAnalytics/Plugins/Scripts/GA_Debug.cs",
+		"/Users/rafal/Unity Projects/GA-SDK-UNITY/GameAnalytics/Editor/GA_Menu.cs",
+		"/Users/rafal/Unity Projects/GA-SDK-UNITY/GameAnalytics/Editor/GA_AutoRun.cs",
+		"/Users/rafal/Unity Projects/Dataspin_2.0-Unity-Plugin/Assets/Editor/DeletePlayerPrefs.cs",
+		"/Users/rafal/Dropbox/prog2.c",
+		"/Users/rafal/Grafy/edgeList.c",
+		"/Users/rafal/Grafy/adjmatrix.c",
+		"/Users/rafal/AiSD/AISD_Graphs/AISD_Graphs/main.c",
+		"/Volumes/USB/AISD/BST_Programy/prog2.c",
+		"/Users/rafal/XCode Projects/GraphDataGenerator/GraphDataGenerator/main.c",
+		"/Users/rafal/Unity Projects/Dataspin_2.0-Unity-Plugin/Assets/Dataspin/Scripts/DataspinBacklog.cs",
+		"/Users/rafal/Unity Projects/Dataspin_2.0-Unity-Plugin/Assets/Dataspin/Example/DataspinExample.cs",
+		"/Users/rafal/Unity Projects/SimpleRacing/Assets/Standard Assets/Vehicles/Car/CarGuidelines.txt",
+		"/Users/rafal/Unity Projects/SimpleRacing/Assets/Standard Assets/Vehicles/Car/Scripts/Suspension.cs",
+		"/Users/rafal/Unity Projects/SimpleRacing/Assets/Standard Assets/Cameras/Scripts/PivotBasedCameraRig.cs",
+		"/Users/rafal/Unity Projects/SimpleRacing/Assets/Standard Assets/Cameras/Scripts/AutoCam.cs",
+		"/Users/rafal/Unity Projects/SimpleRacing/Assets/Standard Assets/Vehicles/Car/Scripts/SkidTrail.cs",
+		"/Users/rafal/Unity Projects/SimpleRacing/Assets/Standard Assets/Vehicles/Car/Scripts/WheelEffects.cs",
+		"/Users/rafal/Unity Projects/SimpleRacing/Assets/Standard Assets/Vehicles/Car/Scripts/CarController.cs",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/GameAnalytics/Plugins/Framework/Scripts/GA_SystemTracker.cs",
+		"/Users/rafal/Unity Projects/Dataspin_2.0-Unity-Plugin/Assets/Dataspin/Scripts/DataspinCustomEvent.cs",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/Dataspin/Scripts/DataspinBacklog.cs",
+		"/Users/rafal/Library/Application Support/Sublime Text 3/Packages/User/C#.sublime-settings",
+		"/Users/rafal/Unity Projects/Dataspin_2.0-Unity-Plugin/DataspinUnitySDK.sublime-project",
+		"/Users/rafal/Unity Projects/Dataspin_2.0-Unity-Plugin/Dataspin_2.0-Unity-Plugin.sln",
+		"/Users/rafal/C_Asteroids/main.c",
+		"/Users/rafal/Documents/Unreal Projects/MyTestProject/Plugins/BPlugin/BPlugin.uplugin",
+		"/Users/rafal/Documents/Unreal Projects/MyTestProject/Plugins/BPlugin/Source/BPlugin/BPlugin.Build.cs",
+		"/Users/rafal/Documents/Unreal Projects/DataspinProject/Plugins/Module/Source/Module/Module.Build.cs",
+		"/Users/rafal/Documents/Unreal Projects/DataspinProject/Plugins/Module/Source/Module/Private/ModulePrivatePCH.h",
+		"/Users/rafal/Documents/Unreal Projects/DataspinProject/Plugins/Module/Source/Module/Private/Module.cpp",
+		"/Users/rafal/Documents/Unreal Projects/DataspinProject/Plugins/Module/Source/Module/Private/Module.h",
+		"/Users/rafal/Documents/Unreal Projects/DataspinProject/Plugins/Module/Source/Module/Public/IModule.h",
+		"/Users/rafal/Documents/Unreal Projects/DataspinProject/Plugins/Module/Module.uplugin",
+		"/Users/rafal/Documents/Unreal Projects/MyTestProject/Plugins/BPlugin/Source/BPlugin/Public/IBPlugin.h",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/Scripts/upgrades/IABClick.js",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/Scripts/upgrades/upgradesFramework.js",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/Editor/DeletePlayerPrefs.cs",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/Scripts/upgrades/checkPromo.js",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/Scripts/mainSteering.js",
+		"/Users/rafal/Documents/Unreal Projects/Tutorial/Plugins/DataspinTest/DataspinTest.uplugin",
+		"/Users/rafal/Documents/Unreal Projects/UnrealFirstProject/Plugins/DataspinTest/Source/DataspinTest/Private/DataspinTestModule.cpp",
+		"/Users/rafal/Documents/Unreal Projects/UnrealFirstProject/Plugins/DataspinTest/Source/DataspinTest/Private/DataspinTestModule.h",
+		"/Users/rafal/Documents/Unreal Projects/UnrealFirstProject/Plugins/DataspinTest/DataspinTest.uplugin",
+		"/Users/rafal/Documents/Unreal Projects/UnrealFirstProject/Plugins/DataspinTest/Source/DataspinTest/DataspinTest.Build.cs",
+		"/Users/rafal/Documents/Unreal Projects/UnrealFirstProject/Plugins/DataspinTest/Source/DataspinTest/Private/DataspinTestPCH.h",
+		"/Users/rafal/Desktop/Runner.sh",
+		"/Applications/VSCode-osx/Visual Studio Code.app/Contents/MacOS/Atom",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/LeanTween/Plugins/LeanTween.cs",
+		"/Users/rafal/Unity Projects/LoadingAnimations/Assets/Rotation.cs",
+		"/Users/rafal/Unity Projects/Flat Shaded Terrain Generator/Assets/Scripts/TerrainGenerator.cs",
+		"/Users/rafal/Unity Projects/ParticleSeaTutorial/Assets/ParticleSea.cs",
+		"/Users/rafal/Unity Projects/Flat Shaded Terrain Generator/Assets/Scripts/DirectionWanderer.cs",
+		"/Users/rafal/Dysk Google/prog.c",
+		"/Users/rafal/Unity Projects/Flat Shaded Terrain Generator/Assets/Scripts/ParticleSea.cs",
+		"/Users/rafal/Unity Projects/Flat Shaded Terrain Generator/Assets/VertexColorShader.shader",
+		"/Users/rafal/Documents/Unreal Projects/Tutorial/Intermediate/Android/APK/src/com/epicgames/ue4/GameActivity.java",
+		"/Users/rafal/Unity Projects/ParticleSea/.gitignore",
+		"/Users/rafal/Documents/Unreal Projects/Tutorial/Intermediate/Android/APK/jni/Android.mk",
+		"/Users/rafal/Unity Projects/ParticleSea/Assets/Scripts/ParticleSea.cs",
+		"/Users/rafal/Unity Projects/ParticleSea/Assets/ParticleSea.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Editor/ClosestSplinePointEditor.cs",
+		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/Editor/CameraShakeEditor.cs",
+		"/Users/rafal/Unity Projects/ParticleMesher/Assets/Editor/ParticleMesherEditor.cs",
+		"/Users/rafal/turnstile_110507.txt",
+		"/Users/rafal/Unity Projects/ParticleMesher/Assets/Scripts/ParticleMesher.cs",
+		"/Users/rafal/Downloads/Birdman (2014)/Birdman.2014.720p.BluRay.x264.YIFY.mpl",
+		"/Users/rafal/Unity Projects/MNDFCK_Android/MNDFCK/Assets/NGUI/Scripts/Editor/ActiveAnimationEditor.cs",
+		"/Users/rafal/Library/Application Support/Sublime Text 3/Packages/User/Distraction Free.sublime-settings",
+		"/Users/rafal/Desktop/Iris_Dataset/iris.py",
+		"/Users/rafal/AiSD/Binary Tree/Binary Tree/prog.c",
+		"/Users/rafal/AiSD/2/quick.c",
+		"/Users/rafal/AiSD/2/heap.c",
+		"/Users/rafal/AiSD/2/shell.c",
+		"/Users/rafal/AiSD/2/counting.c",
+		"/Volumes/USB/AISD/BST_Programy/datagen.c"
+	],
+	"find":
+	{
+		"height": 54.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			".",
+			",",
+			".",
+			",",
+			".",
+			",",
+			".",
+			",",
+			"struct stack * tmp = iter;\n	free(iter);",
+			"DataspinManagerOld",
+			".",
+			",",
+			"fields",
+			"underscore",
+			"theme",
+			"trigger",
+			"send",
+			"GA_Sign",
+			"rawData",
+			"findInList",
+			"searchinlist",
+			"m_Target",
+			"421",
+			"loginfo",
+			"log",
+			"forced_sess_id",
+			"GetDeviceModel",
+			"model",
+			"dontdestroy",
+			"don't",
+			"header",
+			"Device_UUID",
+			"uuid",
+			"comboItemsButton",
+			"comboeventsbutton",
+			"CreateTask",
+			";\n",
+			"getevents",
+			"session",
+			"isSessionInvalidated",
+			"GetItems",
+			"isSessionInvalidated",
+			"advertisingId",
+			"ads)id",
+			"adv",
+			"GetAdvertisingInfo",
+			"advertId",
+			"ads",
+			"StartSession",
+			"public",
+			"LTRect",
+			"move(",
+			"bottomUI",
+			"disqus",
+			"fclose",
+			"getsample",
+			"Profiler",
+			"GetSample",
+			"setmesh",
+			"meshColors",
+			"splitvertices",
+			"splitVertices",
+			"generation",
+			"colorsGradient",
+			"positions",
+			"spacing",
+			"class",
+			"oneventregistered",
+			"advertisingId",
+			"searchByIndex",
+			"searchbyindex",
+			"searchInBSTTime",
+			"searchByIndex",
+			"change",
+			"_insertToList",
+			"element",
+			"char[11]",
+			"340",
+			"authentication",
+			"onauth",
+			"advertising",
+			"\n			",
+			"DataspinManager",
+			"_RegisterCustomEvent",
+			"multiplayerRez",
+			"instantiateObstacle",
+			"rez",
+			"multiplayerRez",
+			"onsessionstarted",
+			"sessiontimeout",
+			"sessionTimeout",
+			"lastActivityTimestamp",
+			"currentConfiguration",
+			"lastActivityTimestamp",
+			"dataspinmanager",
+			"DataspinManager",
+			"authenticationSucceededEvent",
+			"FindItemById",
+			"registerevent",
+			"configuration",
+			"getCurrentConfiguration",
+			"startsession",
+			"helperInstance",
+			".",
+			", ",
+			"sortIndex",
+			"getdeviceid",
+			".",
+			", ",
+			".",
+			", ",
+			".",
+			", ",
+			".",
+			", ",
+			"Quick",
+			".",
+			" - ",
+			"rewind",
+			"mbe",
+			"adcolon",
+			"issession",
+			"GetTimestamp",
+			"sessionId",
+			"isSessionStarted = false;",
+			"isSessionStarted",
+			"issessionstarted = false",
+			"issession"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			",",
+			";",
+			",",
+			";",
+			",",
+			";",
+			",",
+			";",
+			",",
+			";",
+			"// Profiler",
+			"char[20]",
+			"DataspinManagerOld",
+			"dataspinManager",
+			",",
+			":",
+			"currentPos",
+			",",
+			":",
+			",",
+			":",
+			",",
+			":",
+			",",
+			":",
+			"",
+			",",
+			":",
+			", ",
+			"",
+			", ",
+			",",
+			", ",
+			".",
+			";",
+			", ",
+			",",
+			", ",
+			"TracelyManager"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Users/rafal/Grafy/adjmatrixx.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3542,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2412,
+								2412
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Volumes/USB/AISD/Sortowania/heap.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4278,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Volumes/USB/AISD/Sortowania/quick.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4250,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 51.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.cc":
+	{
+		"height": 158.0
+	},
+	"output.exec":
+	{
+		"height": 202.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.variable_get":
+	{
+		"height": 69.0
+	},
+	"pinned_build_system": "",
+	"project": "Overture.sublime-project",
+	"replace":
+	{
+		"height": 104.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 262.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+		"max_columns": 1
+	}
+}

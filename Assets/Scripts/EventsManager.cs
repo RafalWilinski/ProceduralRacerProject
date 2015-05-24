@@ -11,7 +11,6 @@ public class EventsManager : MonoBehaviour {
     public bool isDebug;
 	public Transform vehicle;
 	public Vector3 randomness;
-	public GameObject risingPillarPrefab;
 	public OpponentsPool opponentPool;
     public ContinousMovement mov;
 	public float slowerSpeed;
@@ -20,6 +19,9 @@ public class EventsManager : MonoBehaviour {
     public Stack<NameAndPic> gPlusIds;
     public List<Props> propsList; 
 
+    [SerializeField]
+    private List<CoroutineObject> ongoingEvents;
+
     private void Log(string msg) {
         if (isDebug) Debug.Log("Events: " + msg);
     }
@@ -27,11 +29,37 @@ public class EventsManager : MonoBehaviour {
     [Serializable]
     public class Props {
         public string name;
+        public float spawnInterval;
         public GameObject stackParent;
         public Stack<GameObject> stack;
         public bool isEventInProgress;
         public int availableObjects;
         public Vector3 propRezOffset;
+        public Vector3 randomness;
+        public string extraData = null;
+    }
+
+    [Serializable]
+    public struct NameAndPic {
+        public Texture2D pic;
+        public string name;
+    }
+
+    [Serializable]
+    internal class CoroutineObject {
+        public Props p;
+        public CoroutineObject(Props e) { 
+            this.p = e;
+            EventsManager.Instance().StartCoroutine("EventCoroutine",this.p); 
+        }
+
+        ~CoroutineObject() {
+            EventsManager.Instance().StopCoroutine("EventCoroutine");
+        }
+    }
+
+    public static EventsManager Instance() {
+        return (EventsManager) GameObject.Find("EventsManager").GetComponent<EventsManager>() as EventsManager;
     }
 
 	void Start() {
@@ -47,16 +75,16 @@ public class EventsManager : MonoBehaviour {
 	        propsList[i].availableObjects = propsList[i].stack.Count;
 	    }
 
-        StartCoroutine(RisingPillarEventsCoroutine());
-        StartCoroutine(ArcEventsCoroutine());
-        StartCoroutine(RocksEventsCoroutine());
-	}
+        // StartCoroutine(RisingPillarEventsCoroutine());
+        // StartCoroutine(ArcEventsCoroutine());
+        // StartCoroutine(RocksEventsCoroutine());
 
-    [Serializable]
-    public struct NameAndPic {
-        public Texture2D pic;
-        public string name;
-    }
+        StartEvent("RisingPillar");
+        StartEvent("Arc");
+        StartEvent("Rock");
+        StartEvent("Tree");
+        StartEvent("RotatingStone");
+	}
 	
 	public void StopAllEvents () {
 	
@@ -153,54 +181,26 @@ public class EventsManager : MonoBehaviour {
         return new Props();
     }
 
-    private IEnumerator RisingPillarEventsCoroutine() {
-		int i = 0;
-		Vector3 position;
-        Props p = FindPropByName("RisingPillar");
-        while (true) {
-            if (p.stack.Count > 0 && p.isEventInProgress && mov.isPlaying) {
-		        position = vehicle.position + p.propRezOffset +
-		                   new Vector3(Random.Range(-randomness.x, randomness.x), Random.Range(-randomness.y, randomness.y),
-		                       Random.Range(-randomness.z, randomness.z));
-                p.stack.Pop().GetComponent<PropPoolObject>().Create(position, "Rise");
-                p.availableObjects = p.stack.Count;
-		        i++;
-		    }
-		    yield return new WaitForSeconds(1f);
-		}
-	}
-
-    private IEnumerator ArcEventsCoroutine() {
-        int i = 0;
-        Vector3 position;
-        Props p = FindPropByName("Arc");
-        while (true) {
-            if (p.stack.Count > 0 && p.isEventInProgress && mov.isPlaying) {
-                position = vehicle.position + p.propRezOffset +
-                           new Vector3(Random.Range(-randomness.x, randomness.x), Random.Range(-randomness.y, randomness.y),
-                               Random.Range(-randomness.z, randomness.z));
-                p.stack.Pop().GetComponent<PropPoolObject>().Create(position);
-                p.availableObjects = p.stack.Count;
-                i++;
-            }
-            yield return new WaitForSeconds(Random.Range(2f,10f));
-        }
+    private IEnumerator StartEvent(string eventName) {
+        Props p = FindPropByName(eventName);
+        ongoingEvents.Add(new CoroutineObject(p));
+        return null;
     }
 
-    private IEnumerator RocksEventsCoroutine() {
+
+    IEnumerator EventCoroutine(Props p) {
+        Vector3 position = new Vector3(0,0,0);
         int i = 0;
-        Vector3 position;
-        Props p = FindPropByName("Rock");
         while (true) {
             if (p.stack.Count > 0 && p.isEventInProgress && mov.isPlaying) {
                 position = vehicle.position + p.propRezOffset +
-                           new Vector3(Random.Range(-randomness.x, randomness.x), Random.Range(-randomness.y, randomness.y),
-                               Random.Range(-randomness.z, randomness.z));
-                p.stack.Pop().GetComponent<PropPoolObject>().Create(position);
+                           new Vector3(Random.Range(-p.randomness.x, p.randomness.x), Random.Range(-p.randomness.y, p.randomness.y),
+                               Random.Range(-p.randomness.z, p.randomness.z));
+                p.stack.Pop().GetComponent<PropPoolObject>().Create(position, p.extraData);
                 p.availableObjects = p.stack.Count;
                 i++;
             }
-            yield return new WaitForSeconds(Random.Range(2f,5f));
+            yield return new WaitForSeconds(p.spawnInterval);
         }
     }
 }

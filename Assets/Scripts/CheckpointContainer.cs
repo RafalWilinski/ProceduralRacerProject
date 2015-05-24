@@ -8,13 +8,13 @@ public class CheckpointContainer : MonoBehaviour {
 	public Text regionIndex;
 	public RegionSelector selector;
 
-	public string name;
+	public string checkPointName;
 	public int index;
 	public float offset;
 	public float delay;
 
 	public void Create (string name, int index, float o, float d) {
-		this.name = name;
+		this.checkPointName = name;
 		this.index = index;
 		this.offset = o;
 		this.delay = d;
@@ -23,7 +23,7 @@ public class CheckpointContainer : MonoBehaviour {
 		m.startDelay = d;
 		m.startOffset = o;
 		m.DelayedStart();
-		regionName.text = name;
+		regionName.text = checkPointName;
 		regionIndex.text = index+"/15";
 
 		selector.regions.Add(m);

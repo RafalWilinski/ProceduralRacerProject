@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using MiniJSON;
-using DataspinEncryption;
+//using DataspinEncryption;
 
 /*
  * Dataspin Unity Component
@@ -760,7 +760,8 @@ public class Dataspin : MonoBehaviour {
 	public static string CreateEncryptedData(Dictionary<string, object> dict) {
 		string dataJson = Json.Serialize(dict);
 		Dataspin.Instance.Log("Encrypting Json: "+dataJson);
-		return DataspinEncryptionService.CreateEncryptedString(dataJson);
+//		return DataspinEncryptionService.CreateEncryptedString(dataJson);
+		return "XD";
 	}
 
 	#endregion

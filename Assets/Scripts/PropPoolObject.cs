@@ -27,10 +27,10 @@ public class PropPoolObject : MonoBehaviour {
         }
     }
 
-	public void Create (Vector3 position, string extraCoroutine = null) {
+	public void Create (Vector3 position, string extraCoroutine = "") {
 	    isUsed = true;
 	    MyTransform.position = position;
-	    if (extraCoroutine != null) StartCoroutine(extraCoroutine);
+	    if (extraCoroutine != "") StartCoroutine(extraCoroutine);
 	}
 
     private IEnumerator Rise() {

@@ -13,7 +13,7 @@ public class DataspinTape : MonoBehaviour {
 
 	//DataspinTape class is responsible for storaging unexecuted requests caused by lack of internet connection or server unavailability.
 
-	public static bool isDebug = true;
+	public static bool isDebug = false;
 
 	public static float secondsToCloseTape = 5.0f;
 

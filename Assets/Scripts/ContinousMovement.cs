@@ -2,10 +2,11 @@
 using UnityEngine.UI;
 using System.Collections;
 using System;
+using Thinksquirrel.Utilities;
 
 public class ContinousMovement : MonoBehaviour {
 
-	public Transform camera;
+	public Transform cameraTransform;
 	public Camera cam;
 	public Transform[] uiPanelElements;
 	public ThemeManager themesManager;
@@ -16,16 +17,22 @@ public class ContinousMovement : MonoBehaviour {
 	public RectTransform bottomUI;
 	public RectTransform topUI;
 	public Text newRegionName;
+	public Slider playerHealthBar;
+	public Text playerHealthText;
 	public CatmullRomSpline spline;
 	public CanvasManager canvasManager;
+	public PanelsManager panelsManager;
 	public Slider textureQualitySlider;
 	public ParticleSystem particleFlakes;
 	public Tweener cinematicDown;
 	public Tweener cinematicTop;
 	public Tweener cinematicRegionNameText;
+	public GlitchEffect cameraGlitch;
+	public CameraShake UICameraShake;
 
 	public int currentRegionIndex;
 
+	public float playerHealth = 100f;
 	public float fwdSpeed;
 	public float targetFwdSpeed;
 	public float menuFwdSpeed;
@@ -41,6 +48,9 @@ public class ContinousMovement : MonoBehaviour {
 	public float uiRotSensitivityY;
 	public float uiRotSensitivityZ;
 	public float uiThreadSleep;
+	public float glitchTime;
+	public float _t;
+	public float forceAffectorMultiplier;
 
 	public LoopMode loopMode;
 	public bool shouldRotateUI;
@@ -55,12 +65,15 @@ public class ContinousMovement : MonoBehaviour {
 	private Quaternion cameraRotationTarget;
 	private Quaternion uiRotationTarget;
 	private Vector3 vect;
-	public float _t;
-	private float distance;
+	private Vector3 forceAffector;
+
 	private bool isChangingRegion;
+
+	private float distance;
 	private float markerRegionWidth;
 	private float hp;
 	private float splineTimeLimit;
+	private float controlMultiplier = 1;
 
 	[Serializable]
 	public class Region {
@@ -101,21 +114,34 @@ public class ContinousMovement : MonoBehaviour {
 					dir = (Input.mousePosition.x / Screen.width) - 0.5f;
 					accel = (Input.mousePosition.y / Screen.height) - 0.5f;
 				#elif UNITY_IPHONE || UNITY_ANDROID
-					dir = Mathf.Clamp(Input.acceleration.x,-0.5f, 0.5f);
+					dir = Mathf.Clamp(Input.acceleration.x,-0.5f, 0.5f) * controlMultiplier;
 					accel = Mathf.Atan2(Input.acceleration.y, Input.acceleration.z)*-1;
 					accel = Mathf.Abs(accel) - calibration;
 					accel = Mathf.Clamp(accel,-1,1);
+
+					if(Input.GetJoystickNames().Length > 0) {
+						//Debug.Log("Joystick detected!");
+						dir = Input.GetAxis("Horizontal");
+						accel = Input.GetAxis("Vertical");
+					}
 				#else 
 					dir = (Input.mousePosition.x / Screen.width) - 0.5f;
 					accel = (Input.mousePosition.y / Screen.height) - 0.5f;
 				#endif
 
+				forceAffector = new Vector3(forceAffector.x, 0, forceAffector.z/100);
+				forceAffector = Vector3.ClampMagnitude(forceAffector, forceAffectorMultiplier * 10);
 				vect = new Vector3(directionSensitivity*dir*-1f, 0f ,fwdSpeed * (1+(accel/5f)) );
+				vect += forceAffector * (1 - controlMultiplier);
+
 				transform.Translate(vect);
 
 				cameraRotationTarget = Quaternion.Euler (accel * 5, dir, dir*cameraRotSensitivityZ);
 				uiRotationTarget = Quaternion.Euler (accel * uiRotSensitivityX, dir*uiRotSensitivityY, dir*uiRotSensitivityZ);
-				camera.localRotation = Quaternion.Lerp(camera.localRotation, cameraRotationTarget,Time.deltaTime*rotationSpeed);
+				cameraTransform.localRotation = Quaternion.Lerp(cameraTransform.localRotation, cameraRotationTarget,Time.deltaTime*rotationSpeed);
+
+				playerHealthBar.value = playerHealth / 100f;
+				playerHealthText.text = "Health "+playerHealth.ToString("f2")+"%";
 
 				if(shouldRotateUI) {
 					foreach(Transform t in uiPanelElements) {
@@ -142,8 +168,10 @@ public class ContinousMovement : MonoBehaviour {
 					if(_t > splineTimeLimit) _t = splineTimeLimit;
 					if(_t < 0) _t = 0f;
 
-					myTransform.position = spline.GetPositionAtTime(_t);
-					spline.GetRotAtTime(_t, this.gameObject);
+                	myTransform.position = Vector3.Lerp(myTransform.position, spline.GetPositionAtTime(_t), Time.deltaTime * 5);
+                	//myTransform.position = spline.GetPositionAtTime(_t);
+					spline.GetRotAtTime(_t + 0.5f, this.gameObject);
+					
 				}
 			}
 		}
@@ -156,8 +184,9 @@ public class ContinousMovement : MonoBehaviour {
 		myTransform = transform;
 		splineTimeLimit = spline.TimeLimit;
 		markerRegionWidth = 375f;
-		cam = camera.GetComponent<Camera>();
 		StartCoroutine(OnUIRender());
+
+		StartCoroutine("CheckController");
 	}
 
 	public void StartGame() {
@@ -166,11 +195,20 @@ public class ContinousMovement : MonoBehaviour {
 			fwdSpeed = targetFwdSpeed / 10f;
 			StartCoroutine("straightenMovement"); 
 			StartCoroutine("reCurveSpline");
-			canvasManager.StartGame();
+			//canvasManager.StartGame();
+			panelsManager.StartGame();
 			Debug.Log("Starting game!");
 			currentRegionIndex = themesManager.fakeCurrentThemeIndex;
 			themesManager.currentThemeIndex = themesManager.fakeCurrentThemeIndex;
 			regionLabel.text = themesManager.themes[themesManager.fakeCurrentThemeIndex].fullName;
+		}
+	}
+
+	private IEnumerator CheckController() {
+		yield return new WaitForSeconds(2f); 
+		if(Input.GetJoystickNames().Length > 0) {
+			Debug.Log("Controller found!");
+			ControllerConnectedModal.Instance.Show();
 		}
 	}
 
@@ -232,6 +270,8 @@ public class ContinousMovement : MonoBehaviour {
 	IEnumerator ChangeToNextRegion() {
 		Debug.Log("ChangeToNextRegion");
 		isChangingRegion = true;
+		UICameraShake.CancelShake();
+		UICameraShake.enabled = false;
 		LeanTween.move( bottomUI, new Vector3(0, -400, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
 		LeanTween.move( topUI, new Vector3(0, 400, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
 		yield return new WaitForSeconds(1.25f);
@@ -243,17 +283,61 @@ public class ContinousMovement : MonoBehaviour {
 		cinematicRegionNameText.StartTween();
 		cinematicRegionNameText.gameObject.GetComponent<Text>().text = themesManager.themes[currentRegionIndex].fullName;
 		yield return new WaitForSeconds(4f);
-		LeanTween.move( topUI, new Vector3(0, 250, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
-		LeanTween.move( bottomUI, new Vector3(0, -250, 0), 2f ) .setEase( LeanTweenType.easeInOutQuad );
+		LeanTween.move( topUI, new Vector3(0, 244, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
+		LeanTween.move( bottomUI, new Vector3(0, -249, 0), 2f ) .setEase( LeanTweenType.easeInOutQuad );
 		isChangingRegion = false;
+		UICameraShake.enabled = true;
 	}
 
 	void OnCollisionStay(Collision col) {
-		Debug.Log("OnCollisionStay with " + col.collider.name);
+		//Debug.Log("OnCollisionStay with " + col.collider.name);
 	}
 
-	void OnCollisionEnter(Collision col) {
-		Debug.Log("OnCollisionEnter with " + col.collider.name);
+	// void OnCollisionEnter(Collision col) {
+	// 	//Debug.Log("OnCollisionEnter normal: " + col.contacts[0].normal);
+	// 	forceAffector = col.contacts[0].normal * forceAffectorMultiplier;
+	// 	Stun();
+	// 	CameraShake.ShakeAll();
+	// 	StartCoroutine("GlitchEnumerator");
+	// }
+
+	public void OnCollision(Vector3 intersectingVector) {
+//		Debug.Log("OnCollision: "+intersectingVector);
+
+		//forceAffector = intersectingVector * forceAffectorMultiplier * -1;
+
+		forceAffector = (spline.GetPositionAtTime(spline.GetClosestPointAtSpline(myTransform.position) + 0.2f) - myTransform.position) * forceAffectorMultiplier;
+
+		Stun();
+		CameraShake.ShakeAll();
+		StartCoroutine("GlitchEnumerator");
+
+		playerHealth -= intersectingVector.magnitude;
+		Debug.Log("Damage: "+intersectingVector.magnitude.ToString());
+	}
+
+	public void OnTriggerEnter(Collider col) {
+		Debug.Log("OnTriggerEnter!");
+		CameraShake.ShakeAll();
+		StartCoroutine("GlitchEnumerator");
+	}
+
+	IEnumerator GlitchEnumerator() {
+		cameraGlitch.enabled = true;
+		yield return new WaitForSeconds(glitchTime);
+		cameraGlitch.enabled = false;
+	}
+
+	private void Stun() {
+		StopCoroutine("StunDiminishingReturns");
+		StartCoroutine("StunDiminishingReturns");
+	}
+
+	IEnumerator StunDiminishingReturns() {
+		controlMultiplier = 0;
+		for(controlMultiplier = 0; controlMultiplier <= 1f; controlMultiplier += 0.1f) {
+			yield return new WaitForSeconds(0.01f);
+		}
 	}
 
 	public void OnInvertControls() {

@@ -85,15 +85,15 @@ Material:
       data:
         first:
           name: _Exposure
-        second: 2.20000005
+        second: 1.22000003
       data:
         first:
           name: _SunSize
-        second: .140000001
+        second: .241999999
       data:
         first:
           name: _AtmosphereThickness
-        second: .839999974
+        second: .980000019
       data:
         first:
           name: _SrcBlend

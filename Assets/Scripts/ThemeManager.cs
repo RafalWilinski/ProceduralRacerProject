@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
-using VacuumShaders;
+//using VacuumShaders;
 
 public class ThemeManager : MonoBehaviour {
 
@@ -20,6 +20,7 @@ public class ThemeManager : MonoBehaviour {
 
 	[Serializable]
 	public class Theme {
+		[Header("Theme")]
 		public string name;
 		public string fullName;
 		public float distance; 
@@ -30,8 +31,10 @@ public class ThemeManager : MonoBehaviour {
 		public AnimationCurve curve;
 		public float x_spacing;
 		public float y_spacing;
+		public Vector3 lightRotation;
+		public float lightIntensity;
 
-		public Theme(string n, Color l, Color m, Color b, Color a) { name = n; lightsColor = l; materialColor = m; backgroundColor = b; ambientColor = a; }
+		public Theme(string n, Color l, Color m, Color b, Color a, Vector3 r, float li) { name = n; lightsColor = l; materialColor = m; backgroundColor = b; ambientColor = a; lightRotation = r; lightIntensity = li; }
 	}
 
 	void Update() {
@@ -40,9 +43,9 @@ public class ThemeManager : MonoBehaviour {
 		}
 	}
 
-	public Theme GetThemeByIndex(string name) {
+	public Theme GetThemeByIndex(string theme_name) {
 		foreach(Theme t in themes) {
-			if(t.name == name) return t;
+			if(t.name == theme_name) return t;
 		}
 		return null;
 	}
@@ -88,7 +91,11 @@ public class ThemeManager : MonoBehaviour {
 	}
 
 	public void SetTheme(Theme t) {
-		foreach(Light l in lights)  l.color = t.lightsColor;
+		foreach(Light l in lights)  {
+			l.color = t.lightsColor;
+			l.intensity = t.lightIntensity;
+			l.transform.eulerAngles = t.lightRotation;
+		}	
 		foreach(Camera cam in cams) cam.backgroundColor = t.backgroundColor;
 		mat.color = t.materialColor;
 		RenderSettings.fogColor = t.backgroundColor;
@@ -103,11 +110,18 @@ public class ThemeManager : MonoBehaviour {
 	public void AddOrChangeTheme(Theme t) {
 		for(int i = 0; i<themes.Count; i++) {
 			if(themes[i].name == t.name) {
+				t.fullName = themes[i].fullName;
+				t.x_spacing = themes[i].x_spacing;
+				t.curve = themes[i].curve;
+				t.y_spacing = themes[i].y_spacing;
+				t.distance = themes[i].distance;
 				themes[i] = t;
 				return;
 			}
 		}
 
+		t.lightIntensity = lights[0].intensity;
+		t.lightRotation = lights[0].transform.eulerAngles;
 		themes.Add(t);
 	}
 
@@ -122,7 +136,12 @@ public class ThemeManager : MonoBehaviour {
 		Debug.Log("Lerping theme to: "+t.name);
 		float elapsedTime = 0f;
 		while(lerpSpeed >= elapsedTime) {
-			foreach(Light l in lights) l.color = Color.Lerp(l.color, t.lightsColor, Time.deltaTime);
+			foreach(Light l in lights) {
+				l.color = Color.Lerp(l.color, t.lightsColor, Time.deltaTime);
+				l.intensity = Mathf.Lerp(l.intensity, t.lightIntensity, Time.deltaTime);
+				l.transform.rotation = Quaternion.Lerp (l.transform.rotation, Quaternion.Euler(t.lightRotation), Time.deltaTime);
+			}
+
 			foreach(Camera cam in cams) cam.backgroundColor = Color.Lerp(cam.backgroundColor, t.backgroundColor, Time.deltaTime);
 			//mat.color = Color.Lerp(mat.color, t.materialColor, Time.deltaTime);
 			RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor, t.backgroundColor, Time.deltaTime);
