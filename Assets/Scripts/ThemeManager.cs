@@ -17,6 +17,7 @@ public class ThemeManager : MonoBehaviour {
 	public int currentThemeIndex;
 	public int fakeCurrentThemeIndex;
 	public bool shouldTweenCurvedFog;
+	public EventsManager eventManager;
 
 	[Serializable]
 	public class Theme {
@@ -33,6 +34,7 @@ public class ThemeManager : MonoBehaviour {
 		public float y_spacing;
 		public Vector3 lightRotation;
 		public float lightIntensity;
+		public List<String> events;
 
 		public Theme(string n, Color l, Color m, Color b, Color a, Vector3 r, float li) { name = n; lightsColor = l; materialColor = m; backgroundColor = b; ambientColor = a; lightRotation = r; lightIntensity = li; }
 	}
@@ -91,15 +93,23 @@ public class ThemeManager : MonoBehaviour {
 	}
 
 	public void SetTheme(Theme t) {
+		eventManager.DisableAllEvents();
+
 		foreach(Light l in lights)  {
 			l.color = t.lightsColor;
 			l.intensity = t.lightIntensity;
 			l.transform.eulerAngles = t.lightRotation;
 		}	
+		
 		foreach(Camera cam in cams) cam.backgroundColor = t.backgroundColor;
+
 		mat.color = t.materialColor;
 		RenderSettings.fogColor = t.backgroundColor;
 		RenderSettings.ambientLight = t.ambientColor;
+
+		foreach(String s in t.events) {
+			eventManager.EnableEvent(s);
+		}
 //		if(shouldTweenCurvedFog) controller._V_CW_Fog_Color_GLOBAL = t.backgroundColor;
 	}
 

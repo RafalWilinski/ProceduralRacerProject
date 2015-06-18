@@ -19,9 +19,14 @@ public class ContinousMovement : MonoBehaviour {
 	public Text newRegionName;
 	public Slider playerHealthBar;
 	public Text playerHealthText;
+	public Image rewindCircle;
+	public Text rewindTimerLabel;
+	public Text gameOverScoreLabel;
+	public Text gameOverRegionNameLabel;
 	public CatmullRomSpline spline;
 	public CanvasManager canvasManager;
 	public PanelsManager panelsManager;
+	public EventsManager eventsManager;
 	public Slider textureQualitySlider;
 	public ParticleSystem particleFlakes;
 	public Tweener cinematicDown;
@@ -29,6 +34,7 @@ public class ContinousMovement : MonoBehaviour {
 	public Tweener cinematicRegionNameText;
 	public GlitchEffect cameraGlitch;
 	public CameraShake UICameraShake;
+	public GameOverCloudAnimation gameOverCloud;
 
 	public int currentRegionIndex;
 
@@ -51,6 +57,7 @@ public class ContinousMovement : MonoBehaviour {
 	public float glitchTime;
 	public float _t;
 	public float forceAffectorMultiplier;
+	public float rewindTotalTime;
 
 	public LoopMode loopMode;
 	public bool shouldRotateUI;
@@ -66,10 +73,13 @@ public class ContinousMovement : MonoBehaviour {
 	private Quaternion uiRotationTarget;
 	private Vector3 vect;
 	private Vector3 forceAffector;
+	private int startingTheme;
 
 	private bool isChangingRegion;
+	private bool rewindPanelShown = false;
 
 	private float distance;
+	private float totalDistance;
 	private float markerRegionWidth;
 	private float hp;
 	private float splineTimeLimit;
@@ -98,10 +108,6 @@ public class ContinousMovement : MonoBehaviour {
 		CatmullRomSpline.OnSplineUpdated -= OnLimitChanged;
 	}
 
-	public void OnTextureQualitySliderChange() {
-		QualitySettings.masterTextureLimit = (int)textureQualitySlider.value;
-	}
-
 	public void OnAnisoChange() {
 		if(QualitySettings.anisotropicFiltering == AnisotropicFiltering.Disable) QualitySettings.anisotropicFiltering = AnisotropicFiltering.ForceEnable;
 		else QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
@@ -120,7 +126,6 @@ public class ContinousMovement : MonoBehaviour {
 					accel = Mathf.Clamp(accel,-1,1);
 
 					if(Input.GetJoystickNames().Length > 0) {
-						//Debug.Log("Joystick detected!");
 						dir = Input.GetAxis("Horizontal");
 						accel = Input.GetAxis("Vertical");
 					}
@@ -134,7 +139,7 @@ public class ContinousMovement : MonoBehaviour {
 				vect = new Vector3(directionSensitivity*dir*-1f, 0f ,fwdSpeed * (1+(accel/5f)) );
 				vect += forceAffector * (1 - controlMultiplier);
 
-				transform.Translate(vect);
+				if(!isGameOver) transform.Translate(vect);
 
 				cameraRotationTarget = Quaternion.Euler (accel * 5, dir, dir*cameraRotSensitivityZ);
 				uiRotationTarget = Quaternion.Euler (accel * uiRotSensitivityX, dir*uiRotSensitivityY, dir*uiRotSensitivityZ);
@@ -191,6 +196,9 @@ public class ContinousMovement : MonoBehaviour {
 
 	public void StartGame() {
 		if(!isPreparing) {
+			distance = 0;
+			totalDistance = 0;
+			Physics.IgnoreLayerCollision(0, 9, false);
 			isPreparing = true;
 			fwdSpeed = targetFwdSpeed / 10f;
 			StartCoroutine("straightenMovement"); 
@@ -201,6 +209,7 @@ public class ContinousMovement : MonoBehaviour {
 			currentRegionIndex = themesManager.fakeCurrentThemeIndex;
 			themesManager.currentThemeIndex = themesManager.fakeCurrentThemeIndex;
 			regionLabel.text = themesManager.themes[themesManager.fakeCurrentThemeIndex].fullName;
+			startingTheme = themesManager.currentThemeIndex;
 		}
 	}
 
@@ -231,6 +240,7 @@ public class ContinousMovement : MonoBehaviour {
 		isPlaying = true;
 		StartCoroutine("increaseFwdSpeed");
 		particleFlakes.Play();
+		isPreparing = false;
 	}
 
 	private IEnumerator increaseFwdSpeed() {
@@ -251,7 +261,7 @@ public class ContinousMovement : MonoBehaviour {
 	IEnumerator OnUIRender() {
 		float speed = 0f;
 		while(true) {
-			if(isPlaying) {
+			if(isPlaying && !isGameOver) {
 				speed = (fwdSpeed * (1 + (accel/5f))) * 10; 
 				distance += speed * uiThreadSleep;
 
@@ -275,6 +285,7 @@ public class ContinousMovement : MonoBehaviour {
 		LeanTween.move( bottomUI, new Vector3(0, -400, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
 		LeanTween.move( topUI, new Vector3(0, 400, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
 		yield return new WaitForSeconds(1.25f);
+		totalDistance += distance;
 		distance = 0;
 		currentRegionIndex++;
 		SetTheme(currentRegionIndex);
@@ -289,23 +300,7 @@ public class ContinousMovement : MonoBehaviour {
 		UICameraShake.enabled = true;
 	}
 
-	void OnCollisionStay(Collision col) {
-		//Debug.Log("OnCollisionStay with " + col.collider.name);
-	}
-
-	// void OnCollisionEnter(Collision col) {
-	// 	//Debug.Log("OnCollisionEnter normal: " + col.contacts[0].normal);
-	// 	forceAffector = col.contacts[0].normal * forceAffectorMultiplier;
-	// 	Stun();
-	// 	CameraShake.ShakeAll();
-	// 	StartCoroutine("GlitchEnumerator");
-	// }
-
 	public void OnCollision(Vector3 intersectingVector) {
-//		Debug.Log("OnCollision: "+intersectingVector);
-
-		//forceAffector = intersectingVector * forceAffectorMultiplier * -1;
-
 		forceAffector = (spline.GetPositionAtTime(spline.GetClosestPointAtSpline(myTransform.position) + 0.2f) - myTransform.position) * forceAffectorMultiplier;
 
 		Stun();
@@ -314,12 +309,42 @@ public class ContinousMovement : MonoBehaviour {
 
 		playerHealth -= intersectingVector.magnitude;
 		Debug.Log("Damage: "+intersectingVector.magnitude.ToString());
+
+		if(playerHealth <= 0f) {
+			RewindCountdown();
+		}
 	}
 
 	public void OnTriggerEnter(Collider col) {
 		Debug.Log("OnTriggerEnter!");
 		CameraShake.ShakeAll();
 		StartCoroutine("GlitchEnumerator");
+	}
+
+	private void RewindCountdown() {
+		if(!rewindPanelShown) {
+			StopCoroutine("CountdownCoroutine");
+			StartCoroutine("CountdownCoroutine");
+		}
+		else {
+			GameOver();
+		}
+	}
+
+	private IEnumerator CountdownCoroutine() {
+		rewindPanelShown = true;
+		panelsManager.ShowRewindPanel();
+		_t = spline.GetClosestPointAtSpline(myTransform.position) + 0.05f;	
+		cam.GetComponent<NoiseEffect>().enabled = true;
+		Time.timeScale = 0.05f;
+		float startTime = Time.realtimeSinceStartup;
+		while(startTime + rewindTotalTime > Time.realtimeSinceStartup) {
+			rewindTimerLabel.text = (startTime + rewindTotalTime - Time.realtimeSinceStartup).ToString("f2").Replace('.', ':');
+			rewindCircle.fillAmount = 1 - ((startTime + rewindTotalTime - Time.realtimeSinceStartup) / rewindTotalTime);
+			yield return new WaitForEndOfFrame();
+		}
+		cam.GetComponent<NoiseEffect>().enabled = false;
+		GameOver();
 	}
 
 	IEnumerator GlitchEnumerator() {
@@ -338,6 +363,32 @@ public class ContinousMovement : MonoBehaviour {
 		for(controlMultiplier = 0; controlMultiplier <= 1f; controlMultiplier += 0.1f) {
 			yield return new WaitForSeconds(0.01f);
 		}
+	}
+
+	public void GameOver() {
+		if(!isGameOver) {
+			Physics.IgnoreLayerCollision(0, 9, true);
+			eventsManager.StopAllEvents();
+			gameOverScoreLabel.text = (totalDistance + distance).ToString("N");
+			gameOverRegionNameLabel.text = "in "+themesManager.GetCurrentTheme().fullName;
+			Debug.Log("Closest point: "+spline.GetClosestPointAtSpline(myTransform.position));
+			_t = spline.GetClosestPointAtSpline(myTransform.position) + 0.05f;	
+			controlsEnabled = false;
+			Time.timeScale = 1;
+			panelsManager.ShowGameOverPanel();
+			gameOverCloud.Animate();
+		}
+		isGameOver = true;
+	}
+
+	public void RestartGame() {
+		Debug.Log("Restaring game!");
+		rewindPanelShown = false;
+		playerHealth = 100f;
+		isGameOver = false;
+		themesManager.LerpTo(startingTheme);
+		StartGame();
+		panelsManager.HideGameOverPanel();
 	}
 
 	public void OnInvertControls() {

@@ -64,7 +64,7 @@ public class EventsManager : MonoBehaviour {
 
 	void Start() {
         gPlusIds = new Stack<NameAndPic>();
-		StartCoroutine("CreateOpponents");
+		//StartCoroutine("CreateOpponents");
 	    Dataspin.Instance.GetRandomGooglePlusIds(1);
 
 	    for(int i = 0; i < propsList.Count; i++) {
@@ -73,21 +73,32 @@ public class EventsManager : MonoBehaviour {
                 propsList[i].stack.Push(t.gameObject);
 	        }
 	        propsList[i].availableObjects = propsList[i].stack.Count;
+            StartEvent(propsList[i].name);
 	    }
-
-        // StartCoroutine(RisingPillarEventsCoroutine());
-        // StartCoroutine(ArcEventsCoroutine());
-        // StartCoroutine(RocksEventsCoroutine());
-
-        StartEvent("RisingPillar");
-        StartEvent("Arc");
-        StartEvent("Rock");
-        StartEvent("Tree");
-        StartEvent("RotatingStone");
 	}
+
+    public void EnableEvent(String name) {
+         for(int i = 0; i < propsList.Count; i++) {
+            if(name == propsList[i].name) propsList[i].isEventInProgress = true;
+         }
+    }
+
+    public void DisableEvent(String name) {
+         for(int i = 0; i < propsList.Count; i++) {
+            if(name == propsList[i].name) propsList[i].isEventInProgress = false;
+         }
+    }
+
+    public void DisableAllEvents() {
+        for(int i = 0; i < propsList.Count; i++) {
+            propsList[i].isEventInProgress = false;
+         }
+    }
 	
 	public void StopAllEvents () {
-	
+	   foreach(CoroutineObject o in ongoingEvents) {
+            StopCoroutine("EventCoroutine");
+       }
 	}
 
     void OnEnable() {

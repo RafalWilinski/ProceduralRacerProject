@@ -11,12 +11,12 @@ public class LightController : MonoBehaviour {
 
 	public Camera cam;
 	public Material mat;
-	public Light light;
+	public Light sceneLight;
 
 	void OnGUI () {
 		cam.backgroundColor = backgroundColor;
 		mat.color = materialColor;
-		light.color = lightColor;
+		sceneLight.color = lightColor;
 		RenderSettings.ambientLight = ambientColor;
 	}
 }

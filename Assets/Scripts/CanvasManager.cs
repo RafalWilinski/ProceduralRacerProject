@@ -25,7 +25,6 @@ public class CanvasManager : MonoBehaviour {
 		checkpointsVisibility = 1;
 		LeanTween.rotate (cam, Vector3.zero ,0.8f).setEase( LeanTweenType.easeInOutCubic);
 		LeanTween.moveLocal (cam, Vector3.zero ,0.8f).setEase( LeanTweenType.easeInOutCubic);
-		//StartCoroutine("HideCanvasGroup",new TweenParameters(mainMenu, 1f, 0f)) ;
 		TweenCanvasAlpha.Show(new TweenParameters(mainMenu, 1f, 0f, 1f, 0f));
 		currentState = 1;
 		regionSelector.NextRegion();
@@ -35,8 +34,6 @@ public class CanvasManager : MonoBehaviour {
 		checkpointsVisibility = 0;
 		LeanTween.moveLocal (cam, new Vector3(0, 27.4f, -32f) ,0.8f).setEase( LeanTweenType.easeInOutCubic);
 		LeanTween.rotate (cam, new Vector3(40f,0f,0f),1).setEase( LeanTweenType.easeInQuad );
-		//StartCoroutine("ShowCanvasGroup",new TweenParameters(mainMenu, 1f, 0f)) ;
-		//TweenCanvasAlpha.Show(new TweenParameters(mainMenu, 0f, 1f, 0.5f, 0f));
 		currentState = 0;
 	}
 

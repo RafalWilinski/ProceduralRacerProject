@@ -37,17 +37,17 @@ public class TweenCanvasAlpha : MonoBehaviour {
 
 	private IEnumerator Tweening() {
 		canvas.alpha = from;
-		float stepWait = time/60;
+		float stepWait = time/30;
 		yield return new WaitForSeconds(delay);
 		if(from < to) {
 			while(canvas.alpha < to) {
-				canvas.alpha += (to-from)/60f;
+				canvas.alpha += (to-from)/30f;
 				yield return new WaitForSeconds(stepWait);
 			}
 		}
 		else {
 			while(canvas.alpha > to) {
-				canvas.alpha += (to-from)/60f;
+				canvas.alpha += (to-from)/30f;
 				yield return new WaitForSeconds(stepWait);
 			}
 		}

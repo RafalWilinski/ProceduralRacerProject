@@ -52,7 +52,6 @@ public class Tweener : MonoBehaviour {
 		switch(style) {
 			case (Style.FillAmount):
 				if(image == null) image = this.GetComponent<Image>();
-				float deltaFill = (toFloat - image.fillAmount) / steps;
 				for(int i = 0; i < steps; i++) {
 					image.fillAmount = curve.Evaluate(step * i);
 					yield return new WaitForSeconds(yieldTime);

@@ -27,10 +27,8 @@ public class EventSystemDebugger : MonoBehaviour {
          cursor.position = Input.mousePosition;
          List<RaycastResult> objectsHit = new List<RaycastResult> ();
          EventSystem.current.RaycastAll(cursor, objectsHit);
-         int count = objectsHit.Count;
-         int x = 0;
  	
- 		if(objectsHit.Count > 0 && objectsHit[x].gameObject != null)
- 			label.text = "Current Mouseover: "+objectsHit[x].gameObject;
+ 		if(objectsHit.Count > 0 && objectsHit[0].gameObject != null)
+ 			label.text = "Current Mouseover: "+objectsHit[0].gameObject.name;
     }
 }

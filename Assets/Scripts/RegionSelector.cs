@@ -15,9 +15,7 @@ public class RegionSelector : MonoBehaviour {
 	
 	void Update () {
 		myPos = m._t;
-		if(Input.GetKeyUp(KeyCode.UpArrow)) NextRegion();
-		if(Input.GetKeyUp(KeyCode.DownArrow)) PreviousRegion();
-	}
+	}	
 
 	public void NextRegion() {
 		if(currentRegion < regions.Count-1) {
@@ -41,8 +39,8 @@ public class RegionSelector : MonoBehaviour {
 			deltaDistance = (regions[currentRegion]._t-checkpointPosAddition) - myPos;
 			m.menuFwdSpeed = movementSpeed * deltaDistance;
 			yield return new WaitForEndOfFrame();
+//			Debug.Log("TweenSpeed");
 		}
 		m.menuFwdSpeed = 0.0025f;
-
 	}
 }

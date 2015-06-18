@@ -11,7 +11,6 @@ public class DontGoThroughThings : MonoBehaviour
 	public float skinWidth = 0.1f; //probably doesn't need to be changed 
  
 	private float minimumExtent; 
-	private float partialExtent; 
 	private float sqrMinimumExtent; 
 	private Vector3 previousPosition; 
 	private Rigidbody myRigidbody;
@@ -23,8 +22,7 @@ public class DontGoThroughThings : MonoBehaviour
 	   myRigidbody = GetComponent<Rigidbody>();
 	   myCollider = GetComponent<Collider>();
 	   previousPosition = myRigidbody.position; 
-	   minimumExtent = Mathf.Min(Mathf.Min(myCollider.bounds.extents.x, myCollider.bounds.extents.y), myCollider.bounds.extents.z); 
-	   partialExtent = minimumExtent * (1.0f - skinWidth); 
+	   minimumExtent = Mathf.Min(Mathf.Min(myCollider.bounds.extents.x, myCollider.bounds.extents.y), myCollider.bounds.extents.z);  
 	   sqrMinimumExtent = minimumExtent * minimumExtent; 
 	} 
  
