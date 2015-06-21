@@ -12,7 +12,7 @@ public class CheckpointsCreator : MonoBehaviour {
 
 	void Start () {
 		i=1;
-		refferenceCheckpoint.GetComponent<CheckpointContainer>().Create("Sublime Fjords", i, (float) ((i*1.0f)/2),  (float) ((i*1.0f)/5) );
+		refferenceCheckpoint.GetComponent<CheckpointContainer>().Create("Celestial Path", i, (float) ((i*1.0f)/2),  (float) ((i*1.0f)/5) );
 		foreach(ThemeManager.Theme t in themeManager.themes) {
 			if(t != themeManager.themes[0]) { 
 				GameObject copy = (GameObject) Instantiate(refferenceCheckpoint, Vector3.zero, Quaternion.identity);

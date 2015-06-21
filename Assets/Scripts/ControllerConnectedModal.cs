@@ -29,7 +29,7 @@ public class ControllerConnectedModal : MonoBehaviour {
 		maskRectangle.fillOrigin = 0;
 
 		float floatVariable = 0f;
-		for(floatVariable = 0; floatVariable <= 1f; floatVariable += 0.01f) {
+		for(floatVariable = 0; floatVariable <= 1f; floatVariable += 0.02f) {
 			maskRectangle.fillAmount = floatVariable;
 			yield return new WaitForSeconds(animationTime/100);
 		}
@@ -38,7 +38,7 @@ public class ControllerConnectedModal : MonoBehaviour {
 
 		maskRectangle.fillOrigin = 1;
 
-		for(floatVariable = 1; floatVariable >= 0f; floatVariable -= 0.01f) {
+		for(floatVariable = 1; floatVariable >= 0f; floatVariable -= 0.02f) {
 			maskRectangle.fillAmount = floatVariable;
 			yield return new WaitForSeconds(animationTime/100);
 		}

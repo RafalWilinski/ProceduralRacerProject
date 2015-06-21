@@ -18,6 +18,7 @@ public class ThemeManager : MonoBehaviour {
 	public int fakeCurrentThemeIndex;
 	public bool shouldTweenCurvedFog;
 	public EventsManager eventManager;
+	public NodeSpawner nodeSpawner;
 
 	[Serializable]
 	public class Theme {
@@ -34,6 +35,7 @@ public class ThemeManager : MonoBehaviour {
 		public float y_spacing;
 		public Vector3 lightRotation;
 		public float lightIntensity;
+		public float ySplineVariety;
 		public List<String> events;
 
 		public Theme(string n, Color l, Color m, Color b, Color a, Vector3 r, float li) { name = n; lightsColor = l; materialColor = m; backgroundColor = b; ambientColor = a; lightRotation = r; lightIntensity = li; }
@@ -110,6 +112,8 @@ public class ThemeManager : MonoBehaviour {
 		foreach(String s in t.events) {
 			eventManager.EnableEvent(s);
 		}
+
+		nodeSpawner.yVariety = t.ySplineVariety;
 //		if(shouldTweenCurvedFog) controller._V_CW_Fog_Color_GLOBAL = t.backgroundColor;
 	}
 

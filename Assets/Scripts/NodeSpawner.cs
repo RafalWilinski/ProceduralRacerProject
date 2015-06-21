@@ -11,6 +11,7 @@ public class NodeSpawner : MonoBehaviour {
 	public GameObject movingNode;
 	private Vector3 pos;
 	public float xVariety;
+	public float yVariety;
 
 	public float sleep;
 
@@ -31,10 +32,11 @@ public class NodeSpawner : MonoBehaviour {
 			return x;
 		}
 
-		internal LCG(float aa, float cc, float s) { a = aa; c = cc; s = seed; }
+		internal LCG(float aa, float cc, int s) { a = aa; c = cc; seed = s; }
 	}
 
 	void Start () {
+		Random.seed = 2316115;
 		zIterator = 1;
 		if(shouldCreateNodesAutomatically) StartCoroutine("CreateNodes");
 	}
@@ -49,7 +51,9 @@ public class NodeSpawner : MonoBehaviour {
 
 	public void CreateNode() {
 		zIterator++;
-		pos = new Vector3(Random.Range(-xVariety, xVariety), Random.Range(-0.5f, 0.5f), zStep * zIterator + zOffset);
+		float y = Random.Range(-yVariety, yVariety);
+		y *= y;
+		pos = new Vector3(Random.Range(-xVariety, xVariety), y, zStep * zIterator + zOffset);
 		if(movingNode == null) {
 			movingNode = (GameObject) Instantiate(node, pos, Quaternion.identity);
 		}

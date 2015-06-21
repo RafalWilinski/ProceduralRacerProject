@@ -15,6 +15,7 @@ public class EventsManager : MonoBehaviour {
     public ContinousMovement mov;
 	public float slowerSpeed;
 	public float fasterSpeed;
+    public CatmullRomSpline spline;
 
     public Stack<NameAndPic> gPlusIds;
     public List<Props> propsList; 
@@ -64,7 +65,7 @@ public class EventsManager : MonoBehaviour {
 
 	void Start() {
         gPlusIds = new Stack<NameAndPic>();
-		//StartCoroutine("CreateOpponents");
+		StartCoroutine("CreateOpponents");
 	    Dataspin.Instance.GetRandomGooglePlusIds(1);
 
 	    for(int i = 0; i < propsList.Count; i++) {
@@ -198,15 +199,17 @@ public class EventsManager : MonoBehaviour {
         return null;
     }
 
-
     IEnumerator EventCoroutine(Props p) {
         Vector3 position = new Vector3(0,0,0);
         int i = 0;
         while (true) {
             if (p.stack.Count > 0 && p.isEventInProgress && mov.isPlaying) {
-                position = vehicle.position + p.propRezOffset +
+                position = vehicle.position + p.propRezOffset + 
                            new Vector3(Random.Range(-p.randomness.x, p.randomness.x), Random.Range(-p.randomness.y, p.randomness.y),
                                Random.Range(-p.randomness.z, p.randomness.z));
+
+                position += new Vector3(0, spline.GetPositionAtTime(spline.GetClosestPointAtSpline(position, 10)).y, 0); //Affect only Y-Axis
+
                 p.stack.Pop().GetComponent<PropPoolObject>().Create(position, p.extraData);
                 p.availableObjects = p.stack.Count;
                 i++;

@@ -146,7 +146,29 @@ public class CatmullRomSpline : MonoBehaviour {
 		float x2 = nodeTimeLimit;
 		float divisionPoint = nodeTimeLimit/2;
 		int i = 0;
-		while(i < 10) {
+		while(i < 20) {
+			//Debug.Log("GetPosAtTime: "+((divisionPoint + x1)/2).ToString("f4") + " & " + ((divisionPoint+x2)/2).ToString("f4") );
+			if(CompareTwoSplinePoints(GetPositionAtTime( (divisionPoint + x1)/2 ), GetPositionAtTime( (divisionPoint+x2)/2 ), pos) == 1) {
+				//Debug.Log("Case 1 - 1: "+x1+", x2: "+x2+", div: "+divisionPoint);
+				x2 = divisionPoint;
+				divisionPoint = (x2+x1)/2;
+			}
+			else {
+				//Debug.Log("Case 2 - 1: "+x1+", x2: "+x2+", div: "+divisionPoint);
+				x1 = divisionPoint;
+				divisionPoint = (x2+x1)/2;
+			}
+			i++;
+		}
+		return divisionPoint;
+	}
+
+	public float GetClosestPointAtSpline(Vector3 pos, int accuracy) {
+		float x1 = 0f;
+		float x2 = nodeTimeLimit;
+		float divisionPoint = nodeTimeLimit/2;
+		int i = 0;
+		while(i < accuracy) {
 			//Debug.Log("GetPosAtTime: "+((divisionPoint + x1)/2).ToString("f4") + " & " + ((divisionPoint+x2)/2).ToString("f4") );
 			if(CompareTwoSplinePoints(GetPositionAtTime( (divisionPoint + x1)/2 ), GetPositionAtTime( (divisionPoint+x2)/2 ), pos) == 1) {
 				//Debug.Log("Case 1 - 1: "+x1+", x2: "+x2+", div: "+divisionPoint);
@@ -274,8 +296,8 @@ public class CatmullRomSpline : MonoBehaviour {
 
 		Vector3 tension1 = 2 * p1;
 		Vector3 tension2 = (-p0 + p2) * t;
-		Vector3 tension3 = ((2 * p0) - (5 * p1) + (4 * p2) - p3) * Mathf.Pow(t,2);
-		Vector3 tension4 = (-p0 + (3 * p1) - (3 * p2) + p3) * Mathf.Pow(t,3);
+		Vector3 tension3 = ((2 * p0) - (5 * p1) + (4 * p2) - p3) * t * t;
+		Vector3 tension4 = (-p0 + (3 * p1) - (3 * p2) + p3) * t * t * t;
 
 		pos = 0.5f * (tension1 + tension2 + tension3 + tension4);
 

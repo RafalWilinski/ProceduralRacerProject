@@ -136,14 +136,19 @@ public class ContinousMovement : MonoBehaviour {
 
 				forceAffector = new Vector3(forceAffector.x, 0, forceAffector.z/100);
 				forceAffector = Vector3.ClampMagnitude(forceAffector, forceAffectorMultiplier * 10);
-				vect = new Vector3(directionSensitivity*dir*-1f, 0f ,fwdSpeed * (1+(accel/5f)) );
+				vect = new Vector3(directionSensitivity*dir*-1f, 0, fwdSpeed * (1+(accel/5f)) );
 				vect += forceAffector * (1 - controlMultiplier);
 
 				if(!isGameOver) transform.Translate(vect);
 
-				cameraRotationTarget = Quaternion.Euler (accel * 5, dir, dir*cameraRotSensitivityZ);
+				myTransform.position = new Vector3(myTransform.position.x, spline.GetPositionAtTime(spline.GetClosestPointAtSpline(myTransform.position, 20)).y + 2, myTransform.position.z);
+
+				Vector3 nearFuturePos = spline.GetPositionAtTime(spline.GetClosestPointAtSpline(myTransform.position, 20) + 0.1f);
+				float cameraXAngle = myTransform.position.y - nearFuturePos.y;
+
+				cameraRotationTarget = Quaternion.Euler (cameraXAngle * 4, dir, dir*cameraRotSensitivityZ);
 				uiRotationTarget = Quaternion.Euler (accel * uiRotSensitivityX, dir*uiRotSensitivityY, dir*uiRotSensitivityZ);
-				cameraTransform.localRotation = Quaternion.Lerp(cameraTransform.localRotation, cameraRotationTarget,Time.deltaTime*rotationSpeed);
+				cameraTransform.localRotation = Quaternion.Lerp(cameraTransform.localRotation, cameraRotationTarget, Time.deltaTime*rotationSpeed);
 
 				playerHealthBar.value = playerHealth / 100f;
 				playerHealthText.text = "Health "+playerHealth.ToString("f2")+"%";

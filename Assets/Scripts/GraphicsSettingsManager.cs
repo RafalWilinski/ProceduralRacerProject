@@ -1,94 +1,79 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityStandardAssets.ImageEffects;
 
 public class GraphicsSettingsManager : MonoBehaviour {
 
 	public GameObject gameCamera;
+	public GameObject uiCamera;
+	public ParticleSystem smallFragments;
+	public Material mat;
+	public Slider qualitySlider;
 
-	public Toggle anisoToggle;
-	public Toggle bloomToggle;
-	public Toggle blurToggle;
-	public Toggle colorToggle;
-	public Toggle aberrationToggle;
+	public int motionBlurMinRequirement = 3;
+	public int bloomMinRequirement = 2;
+	public int chromaticAberrationMinRequirement = 2;
+	public int smallFragmentsMinRequirement = 1;
+	public int colorCorrectionCurvesMinRequirement = 1;
+	public int glitchMinRequirement = 2;
+	public int anisotropicTexturesMinRequirement = 2;
+	public int hdrMinRequirement = 3;
 
-	private void Start() {
-		StartCoroutine(SetAfterTime());
+	void Start() {
+		qualitySlider.value = PlayerPrefs.GetInt("qualitySettings");
+		OnQualityChange(PlayerPrefs.GetInt("qualitySettings"));
 	}
 
-	private IEnumerator SetAfterTime() {
-		yield return new WaitForSeconds(0.5f);
+	public void OnQualityChange(float value) {
+		Debug.Log("Quality set to: "+value);
+		if(value >= motionBlurMinRequirement) gameCamera.GetComponent<AmplifyMotionEffect>().enabled = true;
+		else gameCamera.GetComponent<AmplifyMotionEffect>().enabled = false;
 
-		if(PlayerPrefs.GetInt("graphics_setup") != 123456) {
-			PlayerPrefs.SetInt("graphics_setup",123456);
+		if(value >= bloomMinRequirement) gameCamera.GetComponent<BloomOptimized>().enabled = true;
+		else gameCamera.GetComponent<BloomOptimized>().enabled = false;
 
-			PlayerPrefs.SetInt("anisotropic_filtering",1);
-			PlayerPrefs.SetInt("bloom",0);
-			PlayerPrefs.SetInt("chromatic_aberration",0);
-			PlayerPrefs.SetInt("color_correction",1);
+		if(value >= chromaticAberrationMinRequirement) gameCamera.GetComponent<Vignetting>().enabled = true;
+		else gameCamera.GetComponent<Vignetting>().enabled = false;
+
+		if(value >= smallFragmentsMinRequirement) smallFragments.Play();
+		else {
+			smallFragments.Stop();
+			smallFragments.Clear();
 		}
 
-		bool isOn;
+		if(value >= colorCorrectionCurvesMinRequirement) gameCamera.GetComponent<ColorCorrectionCurves>().enabled = true;
+		else gameCamera.GetComponent<ColorCorrectionCurves>().enabled = false;
 
-		isOn = (PlayerPrefs.GetInt("anisotropic_filtering") == 1 ? true : false);
-		anisoToggle.isOn = isOn;
+		if(value >= glitchMinRequirement) uiCamera.GetComponent<GlitchEffect>().enabled = true;
+		else uiCamera.GetComponent<GlitchEffect>().enabled = false;
 
-		isOn = (PlayerPrefs.GetInt("bloom") == 1 ? true : false);
-		bloomToggle.isOn = isOn;
-		gameCamera.GetComponent<Bloom>().enabled = isOn;
+		if(value >= anisotropicTexturesMinRequirement) QualitySettings.anisotropicFiltering = AnisotropicFiltering.ForceEnable;
+		else QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
 
-		isOn = (PlayerPrefs.GetInt("motion_blur") == 1 ? true : false);
-		blurToggle.isOn = isOn;
-		gameCamera.GetComponent<AmplifyMotionEffect>().enabled = isOn;
-
-		isOn = (PlayerPrefs.GetInt("color_correction") == 1 ? true : false);
-		colorToggle.isOn = isOn;
-		gameCamera.GetComponent<ColorCorrectionCurves>().enabled = isOn;
-
-		isOn = (PlayerPrefs.GetInt("chromatic_aberration") == 1 ? true : false);
-		aberrationToggle.isOn = isOn;
-		gameCamera.GetComponent<Vignetting>().enabled = isOn;
+		PlayerPrefs.SetInt("qualitySettings", (int) value);
 	}
 
-	public void OnAnisoChange() {
-		Debug.Log("OnAnisoChange "+anisoToggle.isOn);
-
-		if(anisoToggle.isOn) QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
-		else QualitySettings.anisotropicFiltering = AnisotropicFiltering.ForceEnable;
-
-		int preferencesNum = (anisoToggle.isOn ? 1 : 0);
-		PlayerPrefs.SetInt("anisotropic_filtering", preferencesNum);
-	}
-
-	public void OnBloomChange() {
-		Debug.Log("OnBloomChange "+bloomToggle.isOn);
-		gameCamera.GetComponent<Bloom>().enabled = bloomToggle.isOn;
-
-		int preferencesNum = (bloomToggle.isOn ? 1 : 0);
-		PlayerPrefs.SetInt("bloom", preferencesNum);
-	}
-
-	public void OnMotionBlurChange() {
-		Debug.Log("OnBlurChange " + blurToggle.isOn);
-		gameCamera.GetComponent<AmplifyMotionEffect>().enabled = blurToggle.isOn;
-
-		int preferencesNum = (blurToggle.isOn ? 1 : 0);
-		PlayerPrefs.SetInt("motion_blur", preferencesNum);
-	}
-
-	public void OnCorrectionCurvesChange() {
-		Debug.Log("OnCurvesChange "+colorToggle.isOn);
-		gameCamera.GetComponent<ColorCorrectionCurves>().enabled = colorToggle.isOn;
-
-		int preferencesNum = (colorToggle.isOn ? 1 : 0);
-		PlayerPrefs.SetInt("color_correction", preferencesNum);
-	}
-
-	public void OnChromaticAberrationChange() {
-		Debug.Log("OnAberrrationChange "+aberrationToggle.isOn);
-		gameCamera.GetComponent<Vignetting>().enabled = aberrationToggle.isOn;
-
-		int preferencesNum = (aberrationToggle.isOn ? 1 : 0);
-		PlayerPrefs.SetInt("chromatic_aberration", preferencesNum);
+	public void OnMaterialChange(float value) {
+		switch((int)value) {
+			case 0:
+				mat.shader = Shader.Find("Mobile/Diffuse");
+			break;
+			case 1:
+				mat.shader = Shader.Find("Mobile/VertexLit");
+			break;
+			case 2:
+				mat.shader = Shader.Find("Mobile/VertexLit (Only Directional Lights)");
+			break;
+			case 3:
+				mat.shader = Shader.Find("Legacy Shaders/Diffuse");
+			break;
+			case 4:
+				mat.shader = Shader.Find("Legacy Shaders/VertexLit");
+			break;
+			case 5:
+				mat.shader = Shader.Find("Legacy Shaders/Diffuse Fast");
+			break;
+		}
 	}
 }

@@ -51,7 +51,7 @@ public class MeshGenerator : MonoBehaviour {
 	[Serializable]
 	internal class Vertex {
 		public Vector3 position;
-		public Stack indexes;
+		public Stack<int> indexes;
 
 		public Vertex(Vector3 p) {
 			position = p;
@@ -202,7 +202,7 @@ public class MeshGenerator : MonoBehaviour {
 				howManyVertexes = GetSplitCount(i, j);
 				if(!stacksGenerated) {
 					Vertex v = new Vertex(position);
-					Stack vertexStack = new Stack();
+					Stack<int> vertexStack = new Stack<int>();
 					for(int p = 0; p < howManyVertexes; p++) {
 						vertices[counter] = position;
 						vertexStack.Push(counter);
@@ -283,6 +283,7 @@ public class MeshGenerator : MonoBehaviour {
 
 	void SetMesh() {
 		mesh = new Mesh();
+		mesh.MarkDynamic();
 		mesh.vertices = vertices;
 		mesh.triangles = triangles.ToArray();
 		mesh.uv = uvs;
@@ -325,7 +326,7 @@ public class MeshGenerator : MonoBehaviour {
 		Vertex s = null;
 		//Log("Requesring split for shared #"+sharedVertexNumber.ToString());
 		s = stacksOfVertexes[sharedVertexNumber];
-		return (int)s.indexes.Pop();
+		return s.indexes.Pop();
 		//if(splitVertex.index > 1026) Log("Possible error! Size exceeded 1026. Index: "+splitVertex.index);
 		//Log("Shared vertex: "+sharedVertexNumber+ " = " + splitVertex.index + " splitted vertex.");
 		//return splitVertex.index;
