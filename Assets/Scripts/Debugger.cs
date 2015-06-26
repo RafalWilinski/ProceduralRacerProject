@@ -30,10 +30,19 @@ public class Debugger : MonoBehaviour {
 	
 	private IEnumerator RenderText() {
 		while(true) {
-			debuggerText.text = "x: " + movement.dir + "\n"
-							+ "y: " + Mathf.Abs(Mathf.Atan2(Input.acceleration.y, Input.acceleration.z)*-1).ToString("f3") + "\n" 
+			float x = movement.dir;
+			float y = Mathf.Abs(Mathf.Atan2(Input.acceleration.y, Input.acceleration.z)*-1);
+
+			if(Input.GetJoystickNames().Length > 0) {
+				x = Input.GetAxis("Horizontal");
+				y = Input.GetAxis("Vertical");
+			}
+
+			debuggerText.text = "x: " + x.ToString("f3") + "\n"
+							+ "y: " + y.ToString("f3") + "\n" 
 							+ "fps: " + format + "\n"
-							+ "accel: "+movement.accel;
+							+ "accel: "+movement.accel
+							+ (Input.GetJoystickNames().Length > 0 ? "\nJoystick: "+Input.GetJoystickNames()[0] : null);
 
 			yield return new WaitForSeconds(0.1f);
 		}

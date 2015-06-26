@@ -42,10 +42,13 @@ public class PanelsManager : MonoBehaviour {
 	public CanvasGroup settingsPanel;
 	public CanvasGroup rewindPanel;
 	public CanvasGroup gameoverPanel;
+	public CanvasGroup firstRegionCanvas;
 
-	public GameObject startGameButton;
+	public GameObject gameUIFirstSelectedButton;
+	public GameObject settingsFirstSelectedButton;
+	public GameObject gameOverFirstSelectedButton;
+
 	public Text selectedGameObjectLabel;
-
 
 	public CanvasManager checkpointManager;
 	public ContinousMovement vehicle;
@@ -54,8 +57,6 @@ public class PanelsManager : MonoBehaviour {
 
 	public float alphaAnimationTime = 0.4f;
 
-
-	private bool isJoystickConnected;
 
 	//Singleton
 	private static PanelsManager _instance;
@@ -71,7 +72,7 @@ public class PanelsManager : MonoBehaviour {
 		TweenCanvasAlpha.Show(new TweenParameters(tint, 1f, 0f, 2f, 1f));
 		TweenCanvasAlpha.Show(new TweenParameters(startPanel, 0.015f, 1f, 2f, 2f));
 
-		EventSystem.current.SetSelectedGameObject (startGameButton);
+		EventSystem.current.SetSelectedGameObject (gameUIFirstSelectedButton);
 	}
 
 	private void Update() {
@@ -79,12 +80,13 @@ public class PanelsManager : MonoBehaviour {
 			Back();
 		}
 
+//		else if(Input.Get)
+
 		if(activePanel == Panel.RegionSelect) {
 			if(Input.GetKeyUp(KeyCode.UpArrow)) regionSelector.NextRegion();
 			if(Input.GetKeyUp(KeyCode.DownArrow)) regionSelector.PreviousRegion();
 		}
 
-		isJoystickConnected = Input.GetJoystickNames().Length > 0 ? true : false;
 		if(isDebug) selectedGameObjectLabel.text = "Selected: "+EventSystem.current.currentSelectedGameObject;
 	}
 
@@ -104,6 +106,7 @@ public class PanelsManager : MonoBehaviour {
 
 			case(Panel.RegionSelect):
 				BackFromCheckpoints();
+				EventSystem.current.SetSelectedGameObject(gameUIFirstSelectedButton);
 				break;
 
 			case(Panel.Playing):
@@ -116,10 +119,15 @@ public class PanelsManager : MonoBehaviour {
 
 			case(Panel.Settings):
 				BackFromSettings();
+				EventSystem.current.SetSelectedGameObject(gameUIFirstSelectedButton);
 				break;
 
 			case(Panel.RewindPanel):
 				vehicle.GameOver();
+				break;
+
+			case(Panel.GameOver):
+				BackFromGameOverPanel();
 				break;
 		}
 	}
@@ -158,6 +166,11 @@ public class PanelsManager : MonoBehaviour {
 		MakeUninteractable(cnd.cg);
 	}
 
+	private IEnumerator ReloadLevel(float delay) {
+		yield return new WaitForSeconds(delay);
+		Application.LoadLevel(Application.loadedLevel);
+	}
+
 	//Canvas Specific function
 
 	public void PauseGame() {
@@ -189,6 +202,7 @@ public class PanelsManager : MonoBehaviour {
 		MakeUninteractable(startPanel);
 		MakeInteractable(regionSelectorPanel);
 		checkpointsCreator.MakeActive();
+		MakeInteractable(firstRegionCanvas);
 		TweenCanvasAlpha.Show(new TweenParameters(regionSelectorPanel, 0f, 1f, alphaAnimationTime, 0f));
 		TweenCanvasAlpha.Show(new TweenParameters(startPanel, 1f, 0f, alphaAnimationTime, 0f));
 	}
@@ -251,6 +265,11 @@ public class PanelsManager : MonoBehaviour {
 		HideRewindPanel();
 		TweenCanvasAlpha.Show(new TweenParameters(gameoverPanel, 1f, 0f, 1f, 0f));
 		MakeUninteractable(gameoverPanel, 0.5f);
+	}
+
+	public void BackFromGameOverPanel() {
+		TweenCanvasAlpha.Show(new TweenParameters(tint, 0f, 1f, 1f, 0f));
+		StartCoroutine(ReloadLevel(1));
 	}
 }
 

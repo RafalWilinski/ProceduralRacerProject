@@ -30,7 +30,8 @@ public class EventsManager : MonoBehaviour {
     [Serializable]
     public class Props {
         public string name;
-        public float spawnInterval;
+        public float minSpawnInterval;
+        public float maxSpawnInterval;
         public GameObject stackParent;
         public Stack<GameObject> stack;
         public bool isEventInProgress;
@@ -80,13 +81,19 @@ public class EventsManager : MonoBehaviour {
 
     public void EnableEvent(String name) {
          for(int i = 0; i < propsList.Count; i++) {
-            if(name == propsList[i].name) propsList[i].isEventInProgress = true;
+            if(name == propsList[i].name) {
+                Log("Event " + name + " enabled!");
+                propsList[i].isEventInProgress = true;
+            }
          }
     }
 
     public void DisableEvent(String name) {
          for(int i = 0; i < propsList.Count; i++) {
-            if(name == propsList[i].name) propsList[i].isEventInProgress = false;
+            if(name == propsList[i].name) {
+                Log("Event " + name + " disabled!");
+                propsList[i].isEventInProgress = false;
+            }
          }
     }
 
@@ -214,7 +221,7 @@ public class EventsManager : MonoBehaviour {
                 p.availableObjects = p.stack.Count;
                 i++;
             }
-            yield return new WaitForSeconds(p.spawnInterval);
+            yield return new WaitForSeconds(Random.Range(p.minSpawnInterval, p.maxSpawnInterval));
         }
     }
 }

@@ -49,13 +49,17 @@ public class MeshGenerator : MonoBehaviour {
 	private bool stacksGenerated;
 
 	[Serializable]
-	internal class Vertex {
+	public class Vertex {
 		public Vector3 position;
 		public Stack<int> indexes;
 
 		public Vertex(Vector3 p) {
 			position = p;
 		}
+	}
+
+	public List<Vertex> Vertices {
+		get { return stacksOfVertexes; }
 	}
 
 	public void Generate() {

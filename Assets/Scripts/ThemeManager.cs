@@ -35,6 +35,7 @@ public class ThemeManager : MonoBehaviour {
 		public float y_spacing;
 		public Vector3 lightRotation;
 		public float lightIntensity;
+		public float x_SplineVariety = 150;
 		public float ySplineVariety;
 		public List<String> events;
 
@@ -114,6 +115,7 @@ public class ThemeManager : MonoBehaviour {
 		}
 
 		nodeSpawner.yVariety = t.ySplineVariety;
+		nodeSpawner.xVariety = t.x_SplineVariety;
 //		if(shouldTweenCurvedFog) controller._V_CW_Fog_Color_GLOBAL = t.backgroundColor;
 	}
 

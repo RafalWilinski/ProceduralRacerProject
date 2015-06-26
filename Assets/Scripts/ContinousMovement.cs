@@ -126,7 +126,7 @@ public class ContinousMovement : MonoBehaviour {
 					accel = Mathf.Clamp(accel,-1,1);
 
 					if(Input.GetJoystickNames().Length > 0) {
-						dir = Input.GetAxis("Horizontal");
+						dir = Input.GetAxis("Horizontal") / 2;
 						accel = Input.GetAxis("Vertical");
 					}
 				#else 
@@ -136,7 +136,7 @@ public class ContinousMovement : MonoBehaviour {
 
 				forceAffector = new Vector3(forceAffector.x, 0, forceAffector.z/100);
 				forceAffector = Vector3.ClampMagnitude(forceAffector, forceAffectorMultiplier * 10);
-				vect = new Vector3(directionSensitivity*dir*-1f, 0, fwdSpeed * (1+(accel/5f)) );
+				vect = new Vector3(directionSensitivity*dir*-1f, 0, fwdSpeed * (1+(accel/10f)) );
 				vect += forceAffector * (1 - controlMultiplier);
 
 				if(!isGameOver) transform.Translate(vect);
@@ -146,7 +146,7 @@ public class ContinousMovement : MonoBehaviour {
 				Vector3 nearFuturePos = spline.GetPositionAtTime(spline.GetClosestPointAtSpline(myTransform.position, 20) + 0.1f);
 				float cameraXAngle = myTransform.position.y - nearFuturePos.y;
 
-				cameraRotationTarget = Quaternion.Euler (cameraXAngle * 4, dir, dir*cameraRotSensitivityZ);
+				cameraRotationTarget = Quaternion.Euler (cameraXAngle * 4, dir * 10, dir*cameraRotSensitivityZ);
 				uiRotationTarget = Quaternion.Euler (accel * uiRotSensitivityX, dir*uiRotSensitivityY, dir*uiRotSensitivityZ);
 				cameraTransform.localRotation = Quaternion.Lerp(cameraTransform.localRotation, cameraRotationTarget, Time.deltaTime*rotationSpeed);
 
@@ -205,6 +205,11 @@ public class ContinousMovement : MonoBehaviour {
 			totalDistance = 0;
 			Physics.IgnoreLayerCollision(0, 9, false);
 			isPreparing = true;
+
+			if(Input.GetJoystickNames().Length > 0) {
+				fwdSpeed = 150;
+			}
+
 			fwdSpeed = targetFwdSpeed / 10f;
 			StartCoroutine("straightenMovement"); 
 			StartCoroutine("reCurveSpline");
@@ -268,7 +273,7 @@ public class ContinousMovement : MonoBehaviour {
 		while(true) {
 			if(isPlaying && !isGameOver) {
 				speed = (fwdSpeed * (1 + (accel/5f))) * 10; 
-				distance += speed * uiThreadSleep;
+				distance += speed * uiThreadSleep / 2;
 
 				distanceLabel.text = distance.ToString("f0") + " / " + themesManager.themes[currentRegionIndex].distance.ToString("f0") + "mi remaining";
 				speedLabel.text = "Speed: "+speed.ToString("f2");

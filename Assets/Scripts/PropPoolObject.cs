@@ -11,8 +11,7 @@ public class PropPoolObject : MonoBehaviour {
     public EventsManager manager;
     private float checkingFrequency = 1f;
 
-
-    void Start() {
+    private void Awake() {
         MyTransform = transform;
         StartCoroutine("CheckIfUnused");
     }
@@ -20,7 +19,7 @@ public class PropPoolObject : MonoBehaviour {
     IEnumerator CheckIfUnused() {
         while (true) {
             if (isUsed && vehicle.transform.position.z > MyTransform.position.z) {
-                manager.ReturnEventObject(this.gameObject);
+                manager.ReturnEventObject(gameObject);
                 isUsed = false;
             }
             yield return new WaitForSeconds(checkingFrequency);
@@ -38,5 +37,10 @@ public class PropPoolObject : MonoBehaviour {
             MyTransform.Translate(new Vector3(0, ySpeed, 0));
             yield return new WaitForSeconds(0.01f);
         }
+    }
+
+    private IEnumerator RandomizeYRotation() {
+        MyTransform.eulerAngles = new Vector3(MyTransform.eulerAngles.x, Random.Range(0, 180), MyTransform.eulerAngles.z);
+        yield return new WaitForEndOfFrame();
     }
 }
