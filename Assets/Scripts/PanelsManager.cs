@@ -224,6 +224,8 @@ public class PanelsManager : MonoBehaviour {
 		TweenCanvasAlpha.Show(new TweenParameters(settingsPanel, 0f, 1f, alphaAnimationTime, 1f));
 		TweenCanvasAlpha.Show(new TweenParameters(startPanel, 1f, 0f, alphaAnimationTime, 0f));
 
+		EventSystem.current.SetSelectedGameObject(settingsFirstSelectedButton);
+
 		LeanTween.moveLocal (cam, Vector3.zero, 0.75f).setEase( LeanTweenType.easeInOutCubic);
 		LeanTween.rotate (cam, Vector3.zero, 0.75f).setEase( LeanTweenType.easeInOutCubic );
 	}
@@ -234,6 +236,8 @@ public class PanelsManager : MonoBehaviour {
 		MakeInteractable(startPanel);
 		TweenCanvasAlpha.Show(new TweenParameters(settingsPanel, 1f, 0f, alphaAnimationTime, 0f));
 		TweenCanvasAlpha.Show(new TweenParameters(startPanel, 0f, 1f, alphaAnimationTime, 1f));
+
+		EventSystem.current.SetSelectedGameObject(gameUIFirstSelectedButton);
 
 		LeanTween.moveLocal (cam, new Vector3(0, 27.4f, -32f), 0.75f).setEase( LeanTweenType.easeInOutCubic);
 		LeanTween.rotate (cam, new Vector3(40f,0f,0f), 0.75f).setEase( LeanTweenType.easeInOutCubic );

@@ -36,6 +36,7 @@ public class EventsManager : MonoBehaviour {
         public Stack<GameObject> stack;
         public bool isEventInProgress;
         public int availableObjects;
+        public bool worldPos = false;
         public Vector3 propRezOffset;
         public Vector3 randomness;
         public string extraData = null;
@@ -211,11 +212,18 @@ public class EventsManager : MonoBehaviour {
         int i = 0;
         while (true) {
             if (p.stack.Count > 0 && p.isEventInProgress && mov.isPlaying) {
-                position = vehicle.position + p.propRezOffset + 
-                           new Vector3(Random.Range(-p.randomness.x, p.randomness.x), Random.Range(-p.randomness.y, p.randomness.y),
-                               Random.Range(-p.randomness.z, p.randomness.z));
 
-                position += new Vector3(0, spline.GetPositionAtTime(spline.GetClosestPointAtSpline(position, 10)).y, 0); //Affect only Y-Axis
+                if(!p.worldPos) {
+                    position = vehicle.position + p.propRezOffset + 
+                               new Vector3(Random.Range(-p.randomness.x, p.randomness.x), Random.Range(-p.randomness.y, p.randomness.y),
+                                   Random.Range(-p.randomness.z, p.randomness.z));
+
+                    position += new Vector3(0, spline.GetPositionAtTime(spline.GetClosestPointAtSpline(position, 10)).y, 0); //Affect only Y-Axis
+                }
+                else {
+                    position = p.propRezOffset + new Vector3(Random.Range(-p.randomness.x, p.randomness.x), Random.Range(-p.randomness.y, p.randomness.y),
+                                   Random.Range(-p.randomness.z, p.randomness.z));
+                }
 
                 p.stack.Pop().GetComponent<PropPoolObject>().Create(position, p.extraData);
                 p.availableObjects = p.stack.Count;

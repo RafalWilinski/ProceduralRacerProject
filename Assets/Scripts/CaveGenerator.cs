@@ -15,8 +15,10 @@ public class CaveGenerator : MonoBehaviour {
 	private List<int> triangles;
 	private Vector2[] uvs;
 	private Transform myTransform;
+	private Vector3 initialCavePos;
 
 	public CatmullRomSpline spline;
+	public ContinousMovement vehicle;
 	public ObjectPool meshPool;
 	public GameObject visualDebugCube;
 	public int caveLength = 20;
@@ -27,12 +29,10 @@ public class CaveGenerator : MonoBehaviour {
 	public float x_spacing;
 	public Vector3 offset;
 	public AnimationCurve profileCurve;
-	public float initialDelay = 1.0f;
+	public float initialDelay = 3.0f;
 	public List<float> args;
 
-	private bool trianglesGenerated;
 	private bool stacksGenerated;
-	private bool isUsed;
 
 	private MeshFilter meshFilter;
 	private Mesh mesh;
@@ -49,11 +49,12 @@ public class CaveGenerator : MonoBehaviour {
 
 	private void Awake() {
 		myTransform = transform;
+
 		triangles = new List<int>();
 		stacksOfVertexes = new List<Vertex>();
 		meshFilter = GetComponent<MeshFilter>();
 
-		StartCoroutine(GenerateCoroutine());
+		//StartCoroutine(GenerateCoroutine());
 	}
 
 	private IEnumerator GenerateCoroutine() {
@@ -62,11 +63,16 @@ public class CaveGenerator : MonoBehaviour {
 	}
 
 	private MeshGenerator GetCorrespondingPathPart() {
-		float splineClosestPosition = spline.GetClosestPointAtSpline(myTransform.position);
+		//float splineClosestPosition = spline.GetClosestPointAtSpline(myTransform.position);
+
+		float splineClosestPosition = spline.GetClosestPointAtSpline(vehicle.MyTransform.position) + 2f;
+
+		Debug.Log("Creating cave at spline pos: "+splineClosestPosition+" which is Vector3 world pos = "+ spline.GetPositionAtTime(splineClosestPosition));
 
 		for(int i = 0; i < meshPool.allObjects.Count; i++) {
 			if(meshPool.allObjects[i].from <= splineClosestPosition && 
 				meshPool.allObjects[i].to >= splineClosestPosition) {
+				Debug.Log("Selected mesh is: "+meshPool.allObjects[i]);
 				return meshPool.allObjects[i];
 			}
 		}
@@ -75,36 +81,63 @@ public class CaveGenerator : MonoBehaviour {
 		return null;
 	}
 
-	private void GetBoundaryVertices() {
+	public void GetBoundaryVertices() {
 		MeshGenerator startingBaseMesh = GetCorrespondingPathPart();
+
+		initialCavePos = startingBaseMesh.transform.position;
 
 		if(startingBaseMesh == null) {
 			Debug.LogWarning("Abort!");
 			return;
 		}
 
-		for(int i = 0; i < startingBaseMesh.rows * startingBaseMesh.columns; i += startingBaseMesh.columns) {
-			leftVerticesColumn.Add(startingBaseMesh.Vertices[i].position);
+		leftVerticesColumn = new List<Vector3>();
+		rightVerticesColumn = new List<Vector3>();
+
+		int borderVerticesCount = caveLength;
+		while(borderVerticesCount > 0) {
+
+			Debug.Log("Getting border vertices for part "+startingBaseMesh.gameObject);
+
+			for(int i = 0; i < startingBaseMesh.rows * startingBaseMesh.columns; i += startingBaseMesh.columns) {
+				leftVerticesColumn.Add(startingBaseMesh.Vertices[i].position);
+			}
+
+			for(int i = startingBaseMesh.columns-1; i < startingBaseMesh.rows * startingBaseMesh.columns; i += startingBaseMesh.columns) {
+				rightVerticesColumn.Add(startingBaseMesh.Vertices[i].position);
+				borderVerticesCount--;
+			}
+
+			string nextPartName = (int.Parse(startingBaseMesh.name) + 1).ToString();
+			GameObject nextPart = GameObject.Find(nextPartName);
+
+			if(nextPart) {
+				startingBaseMesh = nextPart.GetComponent<MeshGenerator>();
+			}
+			else startingBaseMesh = null;
+
+			if(!startingBaseMesh) {
+				caveLength = caveLength - borderVerticesCount;
+				borderVerticesCount = 0;
+			}
 		}
 
-		for(int i = startingBaseMesh.columns-1; i < startingBaseMesh.rows * startingBaseMesh.columns; i += startingBaseMesh.columns) {
-			rightVerticesColumn.Add(startingBaseMesh.Vertices[i].position);
-		}
+		Debug.Log("Final cave length: "+caveLength);
 
 		StartCoroutine(GenerateVertices());
 	}
 
 	private IEnumerator GenerateVertices() {
 
-		isUsed = true;
 		if(vertices == null || vertices.Length < CalculateTargetArraySize()) vertices = new Vector3[CalculateTargetArraySize()];
 
 		Vector3 position = Vector3.zero;
 		Vector3 splinePos;
 		int howManyVertexes;
 		int counter = 0;
+		double startTime = Time.realtimeSinceStartup;
 
-		for(int j = 0; j<caveLength; j++) {
+		for(int j = 0; j < caveLength; j++) {
 
 			splinePos = (leftVerticesColumn[j] + rightVerticesColumn[j])/2;
 			
@@ -124,8 +157,13 @@ public class CaveGenerator : MonoBehaviour {
 
 			for(int i = 1; i<columns-1; i++) {
 
-				position = new Vector3(x_spacing * args[i] + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(args[i]) * y_spacing + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance) * y_spacing, 0);
-				position += (splinePos + offset); //preliczac offset na podstawie x_spacing
+				if(j % 10 == 1 && j > 1) {
+					position = stacksOfVertexes[j * columns + i - columns].position;
+				}
+				else {
+					position = new Vector3(x_spacing * args[i] + UnityEngine.Random.Range(-randomness, randomness), profileCurve.Evaluate(args[i]) * y_spacing + UnityEngine.Random.Range(-evaluationDisturbance, evaluationDisturbance) * y_spacing, 0);
+					position += (splinePos + offset); //preliczac offset na podstawie x_spacing
+				}
 				
 				howManyVertexes = GetSplitCount(i, j);
 
@@ -161,11 +199,14 @@ public class CaveGenerator : MonoBehaviour {
 			v.indexes = vertexStack;
 			stacksOfVertexes.Add(v);
 
-			yield return new WaitForEndOfFrame();
+			if(Time.realtimeSinceStartup - startTime > 0.015) {
+				startTime = Time.realtimeSinceStartup;
+				yield return new WaitForEndOfFrame();
+			}
 		}
 		stacksGenerated = true;
-		if(!trianglesGenerated) StartCoroutine(GenerateTriangles());
-		else ChangeVertices();
+		StartCoroutine(GenerateTriangles());
+		//else ChangeVertices();
 	}
 
 	void ChangeVertices() {
@@ -173,11 +214,11 @@ public class CaveGenerator : MonoBehaviour {
 		meshFilter.mesh = mesh;
 		mesh.RecalculateBounds();
 		mesh.RecalculateNormals();
-		isUsed = false;
 	}
 
 	IEnumerator GenerateTriangles() {
 		int a = 0;
+		double startTime = Time.realtimeSinceStartup;
 		uvs = new Vector2[CalculateTargetArraySize()];
 		for(int j = 0; j<caveLength-1; j++) {
 			for(int i = 0; i<columns-1; i++) {
@@ -206,9 +247,12 @@ public class CaveGenerator : MonoBehaviour {
 				triangles.Add(a);
 				uvs[a] = new Vector2(1,1);
 			}
-			yield return new WaitForEndOfFrame();
+
+			if(Time.realtimeSinceStartup - startTime > 0.015) {
+				startTime = Time.realtimeSinceStartup;
+				yield return new WaitForEndOfFrame();
+			}
 		}
-		trianglesGenerated = true;
 		
 		mesh = new Mesh();
 		mesh.MarkDynamic();
@@ -220,12 +264,11 @@ public class CaveGenerator : MonoBehaviour {
 		mesh.RecalculateBounds();
 		mesh.RecalculateNormals();
 
-		isUsed = false;
+		//myTransform.position = Vector3.zero;
 	}
 
 	private int GetSplitVertexNumber(int sharedVertexNumber) {
 		Vertex s = null;
-		Debug.Log("Getting shared vertex #"+sharedVertexNumber);
 		s = stacksOfVertexes[sharedVertexNumber];
 		return s.indexes.Pop();
 	}
@@ -252,5 +295,17 @@ public class CaveGenerator : MonoBehaviour {
 			else if(col == columns - 1) return 3;
 			else return 6;
 		}
+	}
+
+
+	void OnDrawGizmos() {
+		Gizmos.color = Color.white;
+
+		for(int i = 0; i < stacksOfVertexes.Count; i++) {
+			Gizmos.DrawSphere (stacksOfVertexes[i].position, 10f);
+		}
+
+		Gizmos.color = Color.red;
+		Gizmos.DrawSphere (initialCavePos, 10f);
 	}
 }

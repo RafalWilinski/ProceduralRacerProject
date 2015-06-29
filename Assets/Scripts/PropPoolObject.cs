@@ -26,11 +26,11 @@ public class PropPoolObject : MonoBehaviour {
         }
     }
 
-	public void Create (Vector3 position, string extraCoroutine = "") {
-	    isUsed = true;
-	    MyTransform.position = position;
-	    if (extraCoroutine != "") StartCoroutine(extraCoroutine);
-	}
+    public void Create (Vector3 position, string extraCoroutine = "") {
+        isUsed = true;
+        MyTransform.position = position;
+        if (extraCoroutine != "") StartCoroutine(extraCoroutine);
+    }
 
     private IEnumerator Rise() {
         while (to_y > MyTransform.position.y) {
@@ -41,6 +41,11 @@ public class PropPoolObject : MonoBehaviour {
 
     private IEnumerator RandomizeYRotation() {
         MyTransform.eulerAngles = new Vector3(MyTransform.eulerAngles.x, Random.Range(0, 180), MyTransform.eulerAngles.z);
+        yield return new WaitForEndOfFrame();
+    }
+
+    private IEnumerator GenerateCave() {
+        this.gameObject.SendMessage("GetBoundaryVertices");
         yield return new WaitForEndOfFrame();
     }
 }

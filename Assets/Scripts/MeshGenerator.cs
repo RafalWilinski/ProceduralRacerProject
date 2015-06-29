@@ -19,7 +19,7 @@ public class MeshGenerator : MonoBehaviour {
 	public AnimationCurve profileCurve;
 	public Vector3 offset;
 
-	private List<Vertex> stacksOfVertexes;
+	public List<Vertex> stacksOfVertexes;
 	public Vector3[] vertices;
 	private List<int> triangles;
 	private Vector2[] uvs;
@@ -78,7 +78,6 @@ public class MeshGenerator : MonoBehaviour {
 		spline = (CatmullRomSpline) GameObject.Find("Root").GetComponent<CatmullRomSpline>();
 		cam = GameObject.Find("Main Camera");
 		camTrans = cam.transform;
-
 	}
 
 	public void Generate(float f, float t, AnimationCurve pc) {
@@ -151,26 +150,13 @@ public class MeshGenerator : MonoBehaviour {
 	IEnumerator CreateVertices() {
 		yield return new WaitForEndOfFrame();
 
+		double startTime = Time.realtimeSinceStartup;
+
 		offset = new Vector3(-x_spacing/2, offset.y, offset.z);
 
 		if(previousPart == null && this.gameObject.name != "0") {
 			yield return StartCoroutine(PreviousPartSearch());
 		}
-
-		/*if(gameObject.name != "0") {
-
-			string name = (int.Parse(gameObject.name) - 1).ToString();
-			GameObject previousPartGameObject = GameObject.Find( name );
-			yield return new WaitForEndOfFrame(); //For safety!
-			if(previousPartGameObject == null) Debug.Log(this.gameObject + " couldn't find previous gameobject! "+name);
-			else {
-				previousPart = (MeshGenerator) previousPartGameObject.GetComponent<MeshGenerator>() as MeshGenerator;
-				yield return new WaitForEndOfFrame(); //For safety!
-				if(previousPart == null) Debug.Log(this.gameObject + " couldn't find previous part! "+name);
-			}
-			//	yield return new WaitForEndOfFrame(); //For safety!
-		}
-		*/
 
 		Vector3 position = Vector3.zero;
 		Vector3 splinePos;
@@ -192,13 +178,14 @@ public class MeshGenerator : MonoBehaviour {
 				}
 				else if(j == 0) {
 					if(gameObject.name != "0") {
+
 						/*yield return new WaitForEndOfFrame();
 						previousPart = (MeshGenerator) GameObject.Find( (int.Parse(gameObject.name) - 1).ToString() ).GetComponent<MeshGenerator>() as MeshGenerator;
 						if(previousPart == null) Debug.Log(this.gameObject + " couldn't find previous part! "+(int.Parse(gameObject.name) - 1).ToString());
 						*/
 						if(previousPart == null) Debug.Log(this.gameObject.name+": Warning! previousPart == null");
 						while(previousPart.lastRow.Count < columns) {
-							yield return new WaitForSeconds(0.25f);
+							yield return new WaitForSeconds(0.1f);
 						}
 						position = previousPart.lastRow[i];
 					}
@@ -216,13 +203,14 @@ public class MeshGenerator : MonoBehaviour {
 					stacksOfVertexes.Add(v);
 				}
 				else {
+					stacksOfVertexes[j * columns + i].position = position;
 					for(int p = 0; p < howManyVertexes; p++) {
 						vertices[counter] = position;
 						counter++;
 					}
 				}
 			}
-			yield return new WaitForEndOfFrame();
+			if(Time.realtimeSinceStartup - startTime > 0.015) yield return new WaitForEndOfFrame();
 		}
 		stacksGenerated = true;
 		if(!trianglesGenerated) StartCoroutine(GenerateTriangles());
@@ -231,6 +219,7 @@ public class MeshGenerator : MonoBehaviour {
 
 	IEnumerator GenerateTriangles() {
 		int a = 0;
+		double startTime = Time.realtimeSinceStartup;
 		uvs = new Vector2[CalculateTargetArraySize()];
 		for(int j = 0; j<rows-1; j++) {
 			for(int i = 0; i<columns-1; i++) {
@@ -263,7 +252,10 @@ public class MeshGenerator : MonoBehaviour {
 
 				//Log("Adding triangle: "+(GetSplitVertexNumber(rows * j + i)).ToString() + ", "+(GetSplitVertexNumber(rows * j + i + rows)).ToString() + ", "+(GetSplitVertexNumber(rows * j + i + rows + 1)).ToString());
 			}
-			yield return new WaitForEndOfFrame();
+			if(Time.realtimeSinceStartup - startTime > 0.015) {
+				startTime = Time.realtimeSinceStartup;
+				yield return new WaitForEndOfFrame();
+			}
 		}
 		trianglesGenerated = true;
 		SetMesh();
@@ -304,7 +296,6 @@ public class MeshGenerator : MonoBehaviour {
 
 	IEnumerator Check() {
 		while(true) {
-			//Debug.Log("Checking! "+camTrans.position.z+ " : " + assignedPosition.z);
 			if(assignedPosition.z + 1000 < camTrans.position.z && !isUsed) {
 				Remove();
 			}

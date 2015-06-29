@@ -19,11 +19,4 @@ public class Screenshooter : MonoBehaviour
 			Application.CaptureScreenshot(s, superSize);
 		}
 	}
-
-	private bool takeHiResShot = false;
-
-	public static string ScreenShotName(int width, int height)
-	{
-		return string.Format("Screenshots/screen_{0}.png", (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
-	}
 }

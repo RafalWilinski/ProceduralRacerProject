@@ -69,6 +69,11 @@ public class ContinousMovement : MonoBehaviour {
 	public bool isGameOver;
 
 	private Transform myTransform;
+
+	public Transform MyTransform {
+		get { return myTransform; }
+	}
+
 	private Quaternion cameraRotationTarget;
 	private Quaternion uiRotationTarget;
 	private Vector3 vect;
@@ -273,7 +278,7 @@ public class ContinousMovement : MonoBehaviour {
 		while(true) {
 			if(isPlaying && !isGameOver) {
 				speed = (fwdSpeed * (1 + (accel/5f))) * 10; 
-				distance += speed * uiThreadSleep / 2;
+				distance += speed * uiThreadSleep;
 
 				distanceLabel.text = distance.ToString("f0") + " / " + themesManager.themes[currentRegionIndex].distance.ToString("f0") + "mi remaining";
 				speedLabel.text = "Speed: "+speed.ToString("f2");
