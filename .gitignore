@@ -4,11 +4,7 @@
 Temp/
 Obj/
 UnityGenerated/
-Library
-/Library
 Library/
-/Library
-Library
 Library/metadata
 Library/ScriptAssemblies
 Screenshots/
@@ -27,6 +23,7 @@ ExportedObj/
 *.user
 *.unityproj
 *.booproj
+*.apk
 
 # ============ #
 # OS generated #

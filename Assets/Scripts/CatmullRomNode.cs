@@ -7,12 +7,14 @@ public class CatmullRomNode : MonoBehaviour {
 	private GameObject rootGo;
 	private Transform myTransform;
 	private Vector3 cachedPos;
+	private GameObject thisGameObject;
 
 	public bool shouldAddOnStart;
 	public bool isPush;
 	public float timeGiven;
 
 	void Start() {
+		thisGameObject = gameObject;
 		myTransform = transform;
 		rootGo = GameObject.Find("Root");
 		myTransform.parent = rootGo.transform;
@@ -25,9 +27,9 @@ public class CatmullRomNode : MonoBehaviour {
 
 	void AddNodeToSpline () {
 		if(root != null) {
-			if(isPush) root.PushNode(this.gameObject);
+			if(isPush) root.PushNode(thisGameObject);
 			
-			else root.AddNode(this.gameObject);
+			else root.AddNode(thisGameObject);
 		}
 		//StartCoroutine("positionCheck");
 		//StartCoroutine("Destroy");
@@ -39,13 +41,13 @@ public class CatmullRomNode : MonoBehaviour {
 			yield return new WaitForSeconds(0.1f); //Update interval set to 0.1 sec.
 			if(cachedPos != myTransform.position) {
 				root = rootGo.GetComponent<CatmullRomSpline>();
-				root.AddNode(this.gameObject);
+				root.AddNode(thisGameObject);
 			}
 		}
 	}
 
 	IEnumerator Destroy() {
 		yield return new WaitForSeconds(1f);
-		Destroy(this.gameObject);
+		Destroy(thisGameObject);
 	}
 }

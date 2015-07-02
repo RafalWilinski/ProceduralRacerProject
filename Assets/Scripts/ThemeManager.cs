@@ -40,6 +40,16 @@ public class ThemeManager : MonoBehaviour {
 		public List<String> events;
 
 		public Theme(string n, Color l, Color m, Color b, Color a, Vector3 r, float li) { name = n; lightsColor = l; materialColor = m; backgroundColor = b; ambientColor = a; lightRotation = r; lightIntensity = li; }
+	}	
+
+	private static ThemeManager _instance;
+
+	public static ThemeManager Instance {
+		get { return _instance; }
+	}
+
+	private void Awake() { 
+		_instance = this;
 	}
 
 	void Update() {

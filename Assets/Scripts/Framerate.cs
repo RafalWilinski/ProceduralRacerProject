@@ -13,7 +13,7 @@ public class Framerate : MonoBehaviour {
 			Application.targetFrameRate = 60;
 		#endif
 
-		InvokeRepeating("RemoveGC", 1f, 1f);
+		//InvokeRepeating("RemoveGC", 0.5f, 0.5f);
 	}
 
 	void RemoveGC() {

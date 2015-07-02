@@ -10,12 +10,13 @@ public class CaveGenerator : MonoBehaviour {
 	[SerializeField]
 	private List<Vector3> rightVerticesColumn;
 
-	private List<Vertex> stacksOfVertexes;
+	public List<Vertex> stacksOfVertexes;
 	private Vector3[] vertices;
 	private List<int> triangles;
 	private Vector2[] uvs;
 	private Transform myTransform;
 	private Vector3 initialCavePos;
+	private Vector3 canionMeshOffset;
 
 	public CatmullRomSpline spline;
 	public ContinousMovement vehicle;
@@ -59,20 +60,21 @@ public class CaveGenerator : MonoBehaviour {
 
 	private IEnumerator GenerateCoroutine() {
 		yield return new WaitForSeconds(initialDelay);
-		GetBoundaryVertices();
+		StartCoroutine(GetBoundaryVertices());
 	}
 
 	private MeshGenerator GetCorrespondingPathPart() {
 		//float splineClosestPosition = spline.GetClosestPointAtSpline(myTransform.position);
 
-		float splineClosestPosition = spline.GetClosestPointAtSpline(vehicle.MyTransform.position) + 2f;
+		float splineClosestPosition = spline.GetClosestPointAtSpline(vehicle.MyTransform.position) + 5f;
+		caveLength = 100;
 
 		Debug.Log("Creating cave at spline pos: "+splineClosestPosition+" which is Vector3 world pos = "+ spline.GetPositionAtTime(splineClosestPosition));
 
 		for(int i = 0; i < meshPool.allObjects.Count; i++) {
 			if(meshPool.allObjects[i].from <= splineClosestPosition && 
 				meshPool.allObjects[i].to >= splineClosestPosition) {
-				Debug.Log("Selected mesh is: "+meshPool.allObjects[i]);
+//				Debug.Log("Selected mesh is: "+meshPool.allObjects[i]);
 				return meshPool.allObjects[i];
 			}
 		}
@@ -81,14 +83,15 @@ public class CaveGenerator : MonoBehaviour {
 		return null;
 	}
 
-	public void GetBoundaryVertices() {
+	public IEnumerator GetBoundaryVertices() {
 		MeshGenerator startingBaseMesh = GetCorrespondingPathPart();
+		offset = startingBaseMesh.offset;
 
 		initialCavePos = startingBaseMesh.transform.position;
 
 		if(startingBaseMesh == null) {
 			Debug.LogWarning("Abort!");
-			return;
+			return null;
 		}
 
 		leftVerticesColumn = new List<Vector3>();
@@ -97,7 +100,9 @@ public class CaveGenerator : MonoBehaviour {
 		int borderVerticesCount = caveLength;
 		while(borderVerticesCount > 0) {
 
-			Debug.Log("Getting border vertices for part "+startingBaseMesh.gameObject);
+//			Debug.Log("Getting border vertices for part "+startingBaseMesh.gameObject);
+
+			
 
 			for(int i = 0; i < startingBaseMesh.rows * startingBaseMesh.columns; i += startingBaseMesh.columns) {
 				leftVerticesColumn.Add(startingBaseMesh.Vertices[i].position);
@@ -125,6 +130,8 @@ public class CaveGenerator : MonoBehaviour {
 		Debug.Log("Final cave length: "+caveLength);
 
 		StartCoroutine(GenerateVertices());
+
+		return null;
 	}
 
 	private IEnumerator GenerateVertices() {
@@ -137,9 +144,12 @@ public class CaveGenerator : MonoBehaviour {
 		int counter = 0;
 		double startTime = Time.realtimeSinceStartup;
 
+		x_spacing = (rightVerticesColumn[0].x - leftVerticesColumn[0].x);
+
 		for(int j = 0; j < caveLength; j++) {
 
-			splinePos = (leftVerticesColumn[j] + rightVerticesColumn[j])/2;
+			splinePos = (rightVerticesColumn[j] + leftVerticesColumn[j]) / 2;
+			// splinePos = new Vector3(splinePos.x, splinePos.y, splinePos.z);
 			
 			howManyVertexes = GetSplitCount(0, j);
 			Vertex v = new Vertex(leftVerticesColumn[j]);
@@ -301,11 +311,13 @@ public class CaveGenerator : MonoBehaviour {
 	void OnDrawGizmos() {
 		Gizmos.color = Color.white;
 
-		for(int i = 0; i < stacksOfVertexes.Count; i++) {
-			Gizmos.DrawSphere (stacksOfVertexes[i].position, 10f);
-		}
+		if(stacksOfVertexes != null) {
+			for(int i = 0; i < stacksOfVertexes.Count; i++) {
+				Gizmos.DrawSphere (stacksOfVertexes[i].position, 10f);
+			}
 
-		Gizmos.color = Color.red;
-		Gizmos.DrawSphere (initialCavePos, 10f);
+			Gizmos.color = Color.red;
+			Gizmos.DrawSphere (initialCavePos, 10f);
+		}
 	}
 }

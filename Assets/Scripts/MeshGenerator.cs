@@ -88,7 +88,7 @@ public class MeshGenerator : MonoBehaviour {
 			StartCoroutine("Check");
 			isUsed = true;
 			lastRow = null;
-			GC.Collect();
+			// GC.Collect();
 			from = f;
 			to = t;
 			if(profileCurve == null) profileCurve = pc;
@@ -275,6 +275,10 @@ public class MeshGenerator : MonoBehaviour {
 		mesh.RecalculateBounds();
 		mesh.RecalculateNormals();
 		isUsed = false;
+
+		// if(profileCurve.Evaluate(1f) < -1f) {
+		// 	this.GetComponent<SideColliderMeshGenModule>().Generate(from, to);
+		// }
 	}
 
 	void SetMesh() {
@@ -282,6 +286,7 @@ public class MeshGenerator : MonoBehaviour {
 		mesh.MarkDynamic();
 		mesh.vertices = vertices;
 		mesh.triangles = triangles.ToArray();
+		triangles.Clear();
 		mesh.uv = uvs;
 		meshFilter.mesh = mesh;
 
@@ -292,6 +297,10 @@ public class MeshGenerator : MonoBehaviour {
 		col.enabled = false;
 		col.enabled = true;
 		isUsed = false;
+
+		// if(profileCurve.Evaluate(1f) < -1f) {
+		// 	this.GetComponent<SideColliderMeshGenModule>().Generate(from, to);
+		// }
 	}
 
 	IEnumerator Check() {
@@ -318,10 +327,10 @@ public class MeshGenerator : MonoBehaviour {
 	}
 
 	private int GetSplitVertexNumber(int sharedVertexNumber) {
-		Vertex s = null;
-		//Log("Requesring split for shared #"+sharedVertexNumber.ToString());
-		s = stacksOfVertexes[sharedVertexNumber];
-		return s.indexes.Pop();
+		// Vertex s = null;
+		// //Log("Requesring split for shared #"+sharedVertexNumber.ToString());
+		// s = stacksOfVertexes[sharedVertexNumber];
+		return stacksOfVertexes[sharedVertexNumber].indexes.Pop();
 		//if(splitVertex.index > 1026) Log("Possible error! Size exceeded 1026. Index: "+splitVertex.index);
 		//Log("Shared vertex: "+sharedVertexNumber+ " = " + splitVertex.index + " splitted vertex.");
 		//return splitVertex.index;

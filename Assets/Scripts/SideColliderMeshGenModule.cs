@@ -18,9 +18,13 @@ public class SideColliderMeshGenModule : MonoBehaviour {
 
 	void Awake() {
 		myTransform = transform;
+
+		vertices = new Vector3[partsNumber * 2 + 2];
+		triangles = new int[3 * (partsNumber * 2 - 2)];
+		mesh = new Mesh();
 	}
 
-	void Generate(float splineStart, float splineEnd) {
+	public void Generate(float splineStart, float splineEnd) {
 		if(childGameObject == null) {
 			childGameObject = new GameObject();
 			childGameObject.name = "SideCollider";
@@ -29,14 +33,6 @@ public class SideColliderMeshGenModule : MonoBehaviour {
 			if(childCollider == null) {
 				childCollider = childGameObject.AddComponent<MeshCollider>();
 			}
-		}
-
-		if(vertices == null) {
-			vertices = new Vector3[partsNumber * 2];
-		}
-
-		if(triangles == null) {
-			triangles = new int[3 * (partsNumber * 2 - 2)];
 		}
 
 		int verticesCounter = 0;
@@ -64,7 +60,8 @@ public class SideColliderMeshGenModule : MonoBehaviour {
 
 		mesh.vertices = vertices;
 		mesh.triangles = triangles;
-		
+
+		childCollider.sharedMesh = null;
 		childCollider.sharedMesh = mesh;
 	}
 }

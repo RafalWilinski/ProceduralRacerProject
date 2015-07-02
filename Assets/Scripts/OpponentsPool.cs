@@ -12,7 +12,7 @@ public class OpponentsPool : MonoBehaviour
         availableOpponents = new Stack<Opponent>();
 
         foreach (Transform t in transform) {
-           availableOpponents.Push( t.GetComponent<Opponent>());
+           availableOpponents.Push(t.GetComponent<Opponent>());
         }
 
         Debug.Log("Opponents Pool - Stack count: " + availableOpponents.Count);

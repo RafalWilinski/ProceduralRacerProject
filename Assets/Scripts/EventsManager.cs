@@ -68,7 +68,6 @@ public class EventsManager : MonoBehaviour {
 	void Start() {
         gPlusIds = new Stack<NameAndPic>();
 		StartCoroutine("CreateOpponents");
-	    Dataspin.Instance.GetRandomGooglePlusIds(1);
 
 	    for(int i = 0; i < propsList.Count; i++) {
             propsList[i].stack = new Stack<GameObject>();
@@ -160,7 +159,6 @@ public class EventsManager : MonoBehaviour {
 
 	private IEnumerator CreateOpponents() {
 		while(true) {
-            Dataspin.Instance.GetRandomGooglePlusIds(1);
 			yield return new WaitForSeconds(3f);
             Opponent op = opponentPool.GetFirstAvailable();
 		    NameAndPic cont = new NameAndPic();

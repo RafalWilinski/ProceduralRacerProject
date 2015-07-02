@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System;
+using System.Text;
 using Thinksquirrel.Utilities;
 
 public class ContinousMovement : MonoBehaviour {
@@ -87,8 +88,10 @@ public class ContinousMovement : MonoBehaviour {
 	private float totalDistance;
 	private float markerRegionWidth;
 	private float hp;
+	private float playerOldHealth;
 	private float splineTimeLimit;
 	private float controlMultiplier = 1;
+	private StringBuilder stringBuilder;
 
 	[Serializable]
 	public class Region {
@@ -102,6 +105,7 @@ public class ContinousMovement : MonoBehaviour {
 	}
 
 	void OnEnable() {
+		stringBuilder = new StringBuilder();
 		CatmullRomSpline.OnSplineUpdated += OnLimitChanged;
 	}
 
@@ -156,7 +160,10 @@ public class ContinousMovement : MonoBehaviour {
 				cameraTransform.localRotation = Quaternion.Lerp(cameraTransform.localRotation, cameraRotationTarget, Time.deltaTime*rotationSpeed);
 
 				playerHealthBar.value = playerHealth / 100f;
-				playerHealthText.text = "Health "+playerHealth.ToString("f2")+"%";
+
+				if(playerHealth != playerOldHealth)
+					playerHealthText.text = "Health: " + playerHealth.ToString("f2") + "%";
+				playerOldHealth = playerHealth;
 
 				if(shouldRotateUI) {
 					foreach(Transform t in uiPanelElements) {
