@@ -7,11 +7,16 @@ public class CheckpointContainer : MonoBehaviour {
 	public Text regionName;
 	public Text regionIndex;
 	public RegionSelector selector;
+	public Text lockedLabel;
+
+	public CanvasGroup unlockWithAdCanvas;
 
 	public string checkPointName;
 	public int index;
 	public float offset;
 	public float delay;
+
+	private bool isAvailable;
 
 	public void Create (string name, int index, float o, float d) {
 		this.checkPointName = name;
@@ -26,6 +31,37 @@ public class CheckpointContainer : MonoBehaviour {
 		regionName.text = checkPointName;
 		regionIndex.text = index+"/15";
 
+		if(ThemeManager.Instance.GetThemeByIndex(index-1).isAvailable) {
+			if(PlayerPrefs.GetFloat("total_distance") <= ThemeManager.Instance.GetThemeByIndex(index-1).unlockDistance) {
+				StartCoroutine("ShowAndHide");
+				lockedLabel.text = PlayerPrefs.GetFloat("total_distance").ToString("f2") + " / " + ThemeManager.Instance.GetThemeByIndex(index-1).unlockDistance + "m";
+			}
+			else lockedLabel.text = "u n l o c k e d";
+		}
+		else {
+			lockedLabel.text = "Coming soon";
+		}
+
 		selector.regions.Add(m);
+	}
+
+	IEnumerator ShowAndHide() {
+		while(true) {
+			for(float f = 0f; f < 1f; f += 0.025f) {
+				lockedLabel.color = new Color(1,1,1,1 - f);
+				unlockWithAdCanvas.alpha = f;
+				yield return new WaitForEndOfFrame();
+			}
+
+			yield return new WaitForSeconds(1.5f);
+
+			for(float f = 0f; f < 1f; f += 0.025f) {
+				lockedLabel.color = new Color(1,1,1,f);
+				unlockWithAdCanvas.alpha = 1 - f;
+				yield return new WaitForEndOfFrame();
+			}
+
+			yield return new WaitForSeconds(1.5f);
+		}
 	}
 }

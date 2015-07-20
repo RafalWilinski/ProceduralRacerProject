@@ -9,7 +9,10 @@ public class PropPoolObject : MonoBehaviour {
     public Transform vehicle;
     public bool isUsed = false;
     public EventsManager manager;
+    public Vector3 translationVector;
+
     private float checkingFrequency = 1f;
+    private string cachedCoroutine;
 
     private void Awake() {
         MyTransform = transform;
@@ -21,6 +24,7 @@ public class PropPoolObject : MonoBehaviour {
             if (isUsed && vehicle.transform.position.z > MyTransform.position.z) {
                 manager.ReturnEventObject(gameObject);
                 isUsed = false;
+                StopCoroutine(cachedCoroutine);
             }
             yield return new WaitForSeconds(checkingFrequency);
         }
@@ -29,7 +33,10 @@ public class PropPoolObject : MonoBehaviour {
     public void Create (Vector3 position, string extraCoroutine = "") {
         isUsed = true;
         MyTransform.position = position;
-        if (extraCoroutine != "") StartCoroutine(extraCoroutine);
+        if (extraCoroutine != "") {
+            StartCoroutine(extraCoroutine);
+            cachedCoroutine = extraCoroutine;
+        }
     }
 
     private IEnumerator Rise() {
@@ -42,6 +49,18 @@ public class PropPoolObject : MonoBehaviour {
     private IEnumerator RandomizeYRotation() {
         MyTransform.eulerAngles = new Vector3(MyTransform.eulerAngles.x, Random.Range(0, 180), MyTransform.eulerAngles.z);
         yield return new WaitForEndOfFrame();
+    }
+
+    private IEnumerator RandomizeSize() {
+        MyTransform.localScale = MyTransform.localScale * Random.Range(0.8f, 1.2f);
+        yield return new WaitForEndOfFrame();
+    }
+
+    private IEnumerator AddVelocity() {
+        while(true) {
+            MyTransform.Translate(translationVector * Time.deltaTime, Space.World);
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     private IEnumerator GenerateCave() {

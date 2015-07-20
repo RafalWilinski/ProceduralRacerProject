@@ -7,6 +7,7 @@ public class CheckpointsCreator : MonoBehaviour {
 	public GameObject refferenceCheckpoint;
 	public ThemeManager themeManager;
 	public List<GameObject> checkpoints;
+	
 
 	private int i;
 

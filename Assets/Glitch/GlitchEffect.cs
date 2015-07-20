@@ -23,7 +23,7 @@ public class GlitchEffect : ImageEffectBase {
 		
 		material.SetFloat("_Intensity", intensity);
 		material.SetTexture("_DispTex", displacementMap);
-		
+	
 		glitchup += Time.deltaTime * intensity;
 		glitchdown += Time.deltaTime * intensity;
 		flicker += Time.deltaTime * intensity;

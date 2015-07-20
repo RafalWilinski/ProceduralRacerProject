@@ -9,6 +9,7 @@ public class SideColliderMeshGenModule : MonoBehaviour {
 	public float colliderHeight;
 	public CatmullRomSpline spline;
 
+	private bool trianglesGenerated;
 	private Transform myTransform;
 	private MeshCollider childCollider;
 	private Mesh mesh;
@@ -25,6 +26,7 @@ public class SideColliderMeshGenModule : MonoBehaviour {
 	}
 
 	public void Generate(float splineStart, float splineEnd) {
+		Debug.Log("Generating side collider from "+splineStart.ToString("f2") + " to " + splineEnd.ToString("f2"));
 		if(childGameObject == null) {
 			childGameObject = new GameObject();
 			childGameObject.name = "SideCollider";
@@ -32,6 +34,8 @@ public class SideColliderMeshGenModule : MonoBehaviour {
 
 			if(childCollider == null) {
 				childCollider = childGameObject.AddComponent<MeshCollider>();
+				childGameObject.AddComponent<MeshRenderer>();
+				childGameObject.AddComponent<MeshFilter>();
 			}
 		}
 
@@ -50,16 +54,26 @@ public class SideColliderMeshGenModule : MonoBehaviour {
 			f_iter += f_iter_increment;
 		}
 
-		int trianglesCounter = 0;
-
-		for(int i = 0; i < (partsNumber * 2 - 2); i++) {
-			triangles[trianglesCounter++] = i;
-			triangles[trianglesCounter++] = i+1;
-			triangles[trianglesCounter++] = i+2;
-		}
-
 		mesh.vertices = vertices;
-		mesh.triangles = triangles;
+
+		if(!trianglesGenerated) {
+			int trianglesCounter = 0;
+
+			for(int i = 0; i < (partsNumber * 2 - 2); i+=2) {
+				triangles[trianglesCounter++] = i;
+				triangles[trianglesCounter++] = i+2;
+				triangles[trianglesCounter++] = i+1;
+
+				triangles[trianglesCounter++] = i+5;
+				triangles[trianglesCounter++] = i+3;
+				triangles[trianglesCounter++] = i+4;
+			}
+			mesh.triangles = triangles;
+			trianglesGenerated = true;
+		}	
+
+		childGameObject.GetComponent<MeshFilter>().sharedMesh = null;
+		childGameObject.GetComponent<MeshFilter>().sharedMesh = mesh;
 
 		childCollider.sharedMesh = null;
 		childCollider.sharedMesh = mesh;

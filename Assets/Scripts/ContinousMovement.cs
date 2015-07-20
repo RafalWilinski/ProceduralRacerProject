@@ -399,6 +399,8 @@ public class ContinousMovement : MonoBehaviour {
 			Time.timeScale = 1;
 			panelsManager.ShowGameOverPanel();
 			gameOverCloud.Animate();
+
+			PreferencesManager.Instance.Increment("total_distance", totalDistance + distance);
 		}
 		isGameOver = true;
 	}

@@ -37,6 +37,8 @@ public class ThemeManager : MonoBehaviour {
 		public float lightIntensity;
 		public float x_SplineVariety = 150;
 		public float ySplineVariety;
+		public int unlockDistance;
+		public bool isAvailable;
 		public List<String> events;
 
 		public Theme(string n, Color l, Color m, Color b, Color a, Vector3 r, float li) { name = n; lightsColor = l; materialColor = m; backgroundColor = b; ambientColor = a; lightRotation = r; lightIntensity = li; }
@@ -63,6 +65,10 @@ public class ThemeManager : MonoBehaviour {
 			if(t.name == theme_name) return t;
 		}
 		return null;
+	}
+
+	public Theme GetThemeByIndex(int i) {
+		return themes[i];
 	}
 
 	public int GetThemeIndexByName(string name) {
