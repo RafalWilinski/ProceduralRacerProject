@@ -24,6 +24,8 @@ public class CheckpointContainer : MonoBehaviour {
 		this.offset = o;
 		this.delay = d;
 
+		GetComponent<RegionByAdUnlocker>().regionIndex = index;
+
 		CatmullRomMovement m = GetComponent<CatmullRomMovement>();
 		m.startDelay = d;
 		m.startOffset = o;
@@ -34,12 +36,19 @@ public class CheckpointContainer : MonoBehaviour {
 		if(ThemeManager.Instance.GetThemeByIndex(index-1).isAvailable) {
 			if(PlayerPrefs.GetFloat("total_distance") <= ThemeManager.Instance.GetThemeByIndex(index-1).unlockDistance) {
 				StartCoroutine("ShowAndHide");
+				lockedLabel.GetComponent<Button>().enabled = false;
+				lockedLabel.GetComponent<RegionByAdUnlocker>().enabled = true;
 				lockedLabel.text = PlayerPrefs.GetFloat("total_distance").ToString("f2") + " / " + ThemeManager.Instance.GetThemeByIndex(index-1).unlockDistance + "m";
 			}
-			else lockedLabel.text = "u n l o c k e d";
+			else {
+				lockedLabel.text = "u n l o c k e d";
+				lockedLabel.GetComponent<RegionByAdUnlocker>().enabled = false;
+			}
 		}
 		else {
 			lockedLabel.text = "Coming soon";
+			lockedLabel.GetComponent<Button>().enabled = false;
+			lockedLabel.GetComponent<RegionByAdUnlocker>().enabled = false;
 		}
 
 		selector.regions.Add(m);
