@@ -22,6 +22,11 @@ public class CatmullRomSpline : MonoBehaviour {
 	private float meshRenderedCap;
 	private int meshCounter;
 
+	private static CatmullRomSpline _instance;
+	public static CatmullRomSpline Instance {
+		get { return _instance; }
+	}
+
 	public bool IsReady {
 		get {
 			return isReady;
@@ -73,6 +78,7 @@ public class CatmullRomSpline : MonoBehaviour {
 	}
 
 	void Awake() {
+		_instance = this;
 		isReady = false;
 	}
 
@@ -161,6 +167,10 @@ public class CatmullRomSpline : MonoBehaviour {
 			i++;
 		}
 		return divisionPoint;
+	}
+
+	public void PlaceOnClosestPointOnSpline(Transform t) {
+		t.position = GetPositionAtTime(GetClosestPointAtSpline(t.position, 15));
 	}
 
 	public float GetClosestPointAtSpline(Vector3 pos, int accuracy) {

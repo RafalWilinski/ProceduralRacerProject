@@ -24,7 +24,7 @@ public class CheckpointContainer : MonoBehaviour {
 		this.offset = o;
 		this.delay = d;
 
-		GetComponent<RegionByAdUnlocker>().regionIndex = index;
+		lockedLabel.GetComponent<RegionByAdUnlocker>().regionIndex = index;
 
 		CatmullRomMovement m = GetComponent<CatmullRomMovement>();
 		m.startDelay = d;
@@ -34,7 +34,7 @@ public class CheckpointContainer : MonoBehaviour {
 		regionIndex.text = index+"/15";
 
 		if(ThemeManager.Instance.GetThemeByIndex(index-1).isAvailable) {
-			if(PlayerPrefs.GetFloat("total_distance") <= ThemeManager.Instance.GetThemeByIndex(index-1).unlockDistance) {
+			if(PlayerPrefs.GetFloat("total_distance") + 1 <= ThemeManager.Instance.GetThemeByIndex(index-1).unlockDistance) {
 				StartCoroutine("ShowAndHide");
 				lockedLabel.GetComponent<Button>().enabled = false;
 				lockedLabel.GetComponent<RegionByAdUnlocker>().enabled = true;

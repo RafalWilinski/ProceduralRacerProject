@@ -101,6 +101,8 @@ public class EventsManager : MonoBehaviour {
         for(int i = 0; i < propsList.Count; i++) {
             propsList[i].isEventInProgress = false;
          }
+
+         
     }
 	
 	public void StopAllEvents () {

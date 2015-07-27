@@ -20,7 +20,7 @@ public class TiltPanel : MonoBehaviour {
 				rotation = Quaternion.Euler( ((Input.mousePosition.y / Screen.height)-0.5f)*multiper,((Input.mousePosition.x / Screen.width)-0.5f)*multiper,0f);
 			#endif
 
-			tr.rotation = Quaternion.Lerp(tr.rotation,rotation,Time.deltaTime * rotSpeed);
+			// tr.rotation = Quaternion.Lerp(tr.rotation,rotation,Time.deltaTime * rotSpeed);
 			yield return new WaitForSeconds(refreshRate);
 		}
 	}

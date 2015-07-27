@@ -14,6 +14,7 @@ public class ContinousMovement : MonoBehaviour {
 	public Text speedLabel;
 	public Text distanceLabel;
 	public Text regionLabel;
+	public Text cubesCollectedLabel;
 	public RectTransform marker;
 	public RectTransform bottomUI;
 	public RectTransform topUI;
@@ -23,7 +24,12 @@ public class ContinousMovement : MonoBehaviour {
 	public Image rewindCircle;
 	public Text rewindTimerLabel;
 	public Text gameOverScoreLabel;
+	public Text gameOverScoreTypeLabel;
 	public Text gameOverRegionNameLabel;
+	public Image gameOverCubeImage;
+	public CanvasGroup streakPanel;
+	public Text streakCountLabel;
+	public Image streakGauge;
 	public CatmullRomSpline spline;
 	public CanvasManager canvasManager;
 	public PanelsManager panelsManager;
@@ -36,6 +42,17 @@ public class ContinousMovement : MonoBehaviour {
 	public GlitchEffect cameraGlitch;
 	public CameraShake UICameraShake;
 	public GameOverCloudAnimation gameOverCloud;
+	public ParticleSystem particlePoints;
+
+	public int CubesCollected {
+		set {
+			cubesCollected = value;
+			cubesCollectedLabel.text = " x "+cubesCollected;
+		}
+		get {
+			return cubesCollected;
+		}
+	}
 
 	public int currentRegionIndex;
 
@@ -69,6 +86,9 @@ public class ContinousMovement : MonoBehaviour {
 	public bool isPaused;
 	public bool isGameOver;
 
+	public AudioClip pointsCubeHit;
+
+
 	private Transform myTransform;
 
 	public Transform MyTransform {
@@ -80,6 +100,8 @@ public class ContinousMovement : MonoBehaviour {
 	private Vector3 vect;
 	private Vector3 forceAffector;
 	private int startingTheme;
+	private int cubesCollected;
+	private int cubesCollectedStreak;
 
 	private bool isChangingRegion;
 	private bool rewindPanelShown = false;
@@ -91,6 +113,8 @@ public class ContinousMovement : MonoBehaviour {
 	private float playerOldHealth;
 	private float splineTimeLimit;
 	private float controlMultiplier = 1;
+	private float multiplierGauge;
+
 	private StringBuilder stringBuilder;
 
 	[Serializable]
@@ -200,6 +224,7 @@ public class ContinousMovement : MonoBehaviour {
 	}
 
 	void Start() {
+		CubesCollected = 0;
 		particleFlakes.Stop();
 		particleFlakes.Clear();
 		spline.xAxisDivider = 2.5f;
@@ -212,6 +237,8 @@ public class ContinousMovement : MonoBehaviour {
 	}
 
 	public void StartGame() {
+		cubesCollected = 0;
+
 		if(!isPreparing) {
 			distance = 0;
 			totalDistance = 0;
@@ -329,9 +356,8 @@ public class ContinousMovement : MonoBehaviour {
 		CameraShake.ShakeAll();
 		StartCoroutine("GlitchEnumerator");
 
-		playerHealth -= intersectingVector.magnitude;
-		Debug.Log("Damage: "+intersectingVector.magnitude.ToString());
-
+		playerHealth -= intersectingVector.magnitude * 2;
+	
 		if(playerHealth <= 0f) {
 			RewindCountdown();
 		}
@@ -339,8 +365,33 @@ public class ContinousMovement : MonoBehaviour {
 
 	public void OnTriggerEnter(Collider col) {
 		Debug.Log("OnTriggerEnter!");
-		CameraShake.ShakeAll();
-		StartCoroutine("GlitchEnumerator");
+		if(col.gameObject.tag == "CubePoints") {
+			particlePoints.Emit(200);
+			CameraShake.ShakeAll();
+			CubesCollected = CubesCollected + 1;
+			multiplierGauge += 0.2f;
+			cubesCollectedStreak++;
+			streakCountLabel.text = " x " + cubesCollectedStreak;
+			streakGauge.fillAmount = multiplierGauge;
+			StartCoroutine("GaugeCooldown");
+			SoundEngine.Instance.CreateSound(pointsCubeHit);
+
+		}
+		else {
+			CameraShake.ShakeAll();
+			StartCoroutine("GlitchEnumerator");
+		}
+	}
+
+	private IEnumerator GaugeCooldown() {
+		while(multiplierGauge > 0) {
+			streakPanel.alpha = multiplierGauge * 10f;
+			multiplierGauge -= 0.001f;
+			streakGauge.fillAmount = multiplierGauge;
+			yield return new WaitForSeconds(0.01f);
+		}
+
+		cubesCollectedStreak = 0;
 	}
 
 	private void RewindCountdown() {
@@ -393,16 +444,58 @@ public class ContinousMovement : MonoBehaviour {
 			eventsManager.StopAllEvents();
 			gameOverScoreLabel.text = (totalDistance + distance).ToString("N");
 			gameOverRegionNameLabel.text = "in "+themesManager.GetCurrentTheme().fullName;
+			gameOverScoreTypeLabel.text = "Distance";
+			StartCoroutine("ScoreSwitching");
+
 			Debug.Log("Closest point: "+spline.GetClosestPointAtSpline(myTransform.position));
 			_t = spline.GetClosestPointAtSpline(myTransform.position) + 0.05f;	
 			controlsEnabled = false;
 			Time.timeScale = 1;
 			panelsManager.ShowGameOverPanel();
 			gameOverCloud.Animate();
+			PlayerPrefs.SetInt("power_cubes_collected", PlayerPrefs.GetInt("power_cubes_collected") + cubesCollected);
 
 			PreferencesManager.Instance.Increment("total_distance", totalDistance + distance);
 		}
 		isGameOver = true;
+	}
+
+	IEnumerator ScoreSwitching() {
+
+		while(true) {
+
+			yield return new WaitForSeconds(1.5f);
+
+			for(float i = 0f; i < 1f; i += 0.03f) {
+				gameOverScoreLabel.color = new Color(1,1,1,1 - i);
+				yield return new WaitForEndOfFrame();
+			}
+
+			gameOverScoreTypeLabel.text = "Cubes collected";
+			gameOverScoreLabel.text = cubesCollected.ToString();
+
+			for(float i = 0f; i < 1f; i += 0.03f) {
+				gameOverScoreLabel.color = new Color(1,1,1,i);
+				gameOverCubeImage.color = new Color(1,1,1,i);
+				yield return new WaitForEndOfFrame();
+			}
+
+			yield return new WaitForSeconds(1.5f);
+
+			for(float i = 0f; i < 1f; i += 0.03f) {
+				gameOverScoreLabel.color = new Color(1,1,1,1 - i);
+				gameOverCubeImage.color = new Color(1,1,1,1 - i);
+				yield return new WaitForEndOfFrame();
+			}
+
+			gameOverScoreTypeLabel.text = "Distance";
+			gameOverScoreLabel.text = (totalDistance + distance).ToString("N");
+
+			for(float i = 0f; i < 1f; i += 0.03f) {
+				gameOverScoreLabel.color = new Color(1,1,1,i);
+				yield return new WaitForEndOfFrame();
+			}
+		}
 	}
 
 	public void RestartGame() {

@@ -67,4 +67,9 @@ public class PropPoolObject : MonoBehaviour {
         this.gameObject.SendMessage("GetBoundaryVertices");
         yield return new WaitForEndOfFrame();
     }
+
+    private IEnumerator AnnounceRespawn() {
+        this.gameObject.SendMessage("Replace");
+        yield return new WaitForEndOfFrame();
+    }
 }

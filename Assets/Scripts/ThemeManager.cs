@@ -44,6 +44,8 @@ public class ThemeManager : MonoBehaviour {
 		public Theme(string n, Color l, Color m, Color b, Color a, Vector3 r, float li) { name = n; lightsColor = l; materialColor = m; backgroundColor = b; ambientColor = a; lightRotation = r; lightIntensity = li; }
 	}	
 
+	public List<String> permaEvents;
+
 	private static ThemeManager _instance;
 
 	public static ThemeManager Instance {
@@ -127,6 +129,10 @@ public class ThemeManager : MonoBehaviour {
 		RenderSettings.ambientLight = t.ambientColor;
 
 		foreach(String s in t.events) {
+			eventManager.EnableEvent(s);
+		}
+
+		foreach(String s in permaEvents) {
 			eventManager.EnableEvent(s);
 		}
 
