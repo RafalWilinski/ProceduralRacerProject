@@ -34,6 +34,7 @@ QualitySettings:
     BlackBerry: 0
     Samsung TV: 0
     Standalone: 0
+    Tizen: 0
     WP8: 0
     Web: 0
     WebGL: 0

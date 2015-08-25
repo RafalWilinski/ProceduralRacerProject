@@ -71,6 +71,10 @@ Material:
         second: .514999986
       data:
         first:
+          name: _Emission
+        second: -1.57000005
+      data:
+        first:
           name: _V_CW_Z_Bend_Size
         second: 0
       data:
@@ -119,10 +123,6 @@ Material:
         second: 0
       data:
         first:
-          name: _Emission
-        second: -1.57000005
-      data:
-        first:
           name: _RimPower
         second: 1.57142866
       data:
@@ -161,7 +161,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 0}
+        second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
           name: _SpecColor

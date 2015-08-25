@@ -19,8 +19,8 @@ inline void DepthTest( float4 screen_pos )
 {
 	const float epsilon = 0.001f;
 	float3 uv = screen_pos.xyz / screen_pos.w;
-	float behind = UNITY_SAMPLE_DEPTH( tex2D( _CameraDepthTexture, uv.xy ) );
-#if SHADER_API_OPENGL
+	float behind = SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, uv.xy );
+#if defined( SHADER_API_OPENGL ) || defined( SHADER_API_GLES ) || defined( SHADER_API_GLES3 )
 	float front = uv.z * 0.5 + 0.5;
 #else
 	float front = uv.z;
@@ -42,13 +42,13 @@ inline half4 SolidMotionVector( half4 pos_prev, half4 pos_curr, half obj_id )
 	return half4( motion.xyz, obj_id );
 }
 
-inline half4 DeformableMotionVector( half4 motion )
+inline half4 DeformableMotionVector( half3 motion, half obj_id )
 {
 	motion.z = length( motion.xy );
 	motion.xy = ( motion.xy / motion.z ) * 0.5f + 0.5f;
 	motion.z = ( motion.z < _EFLOW_MIN_VELOCITY ) ? 0 : motion.z;
 	motion.z = max( min( motion.z, _EFLOW_MAX_VELOCITY ) - _EFLOW_MIN_VELOCITY, 0 ) * _EFLOW_RCP_TOTAL_VELOCITY;
-	return half4( motion.xyz, _EFLOW_OBJECT_ID );
+	return half4( motion.xyz, obj_id );
 }
 
 #endif

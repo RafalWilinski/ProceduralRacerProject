@@ -29,11 +29,11 @@ public class ImageEffectBase : MonoBehaviour {
 				m_Material.hideFlags = HideFlags.HideAndDontSave;
 			}
 			return m_Material;
-		} 
+		}
 	}
 	
 	protected virtual void OnDisable() {
-		if( m_Material ) {
+		if ( m_Material ) {
 			DestroyImmediate( m_Material );
 		}
 	}

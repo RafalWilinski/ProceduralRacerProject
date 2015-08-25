@@ -1,17 +1,24 @@
 // Amplify Motion - Full-scene Motion Blur for Unity Pro
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
 
+#if UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4  || UNITY_4_5 || UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9
+#define UNITY_4
+#endif
+#if UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3 || UNITY_5_4  || UNITY_5_5 || UNITY_5_6 || UNITY_5_7 || UNITY_5_8 || UNITY_5_9
+#define UNITY_5
+#endif
+
 using System;
 using UnityEngine;
 
 namespace AmplifyMotion
 {
-internal class SolidState : MotionState
+internal class SolidState : AmplifyMotion.MotionState
 {
 	public MeshRenderer m_meshRenderer;
 
-	public Matrix4x4 m_prevModelViewProj;
-	public Matrix4x4 m_currModelViewProj;
+	public Matrix4x4 m_prevLocalToWorld;
+	public Matrix4x4 m_currLocalToWorld;
 
 	public Vector3 m_lastPosition;
 	public Quaternion m_lastRotation;
@@ -19,8 +26,7 @@ internal class SolidState : MotionState
 
 	private Mesh m_mesh;
 
-	private Material[] m_sharedMaterials;
-	private bool[] m_sharedMaterialCoverage;
+	private MaterialDesc[] m_sharedMaterials;
 
 	public bool m_moved = false;
 	private bool m_wasVisible;
@@ -45,23 +51,9 @@ internal class SolidState : MotionState
 
 		m_mesh = meshFilter.mesh;
 
-		m_sharedMaterials = m_meshRenderer.sharedMaterials;
-		m_sharedMaterialCoverage = new bool[ m_sharedMaterials.Length ];
-		for ( int i = 0; i < m_sharedMaterials.Length; i++ )
-			m_sharedMaterialCoverage[ i ] = ( m_sharedMaterials[ i ].GetTag( "RenderType", false ) == "TransparentCutout" );
+		m_sharedMaterials = ProcessSharedMaterials( m_meshRenderer.sharedMaterials );
 
 		m_wasVisible = false;
-	}
-
-	bool VectorChanged( Vector3 a, Vector3 b )
-	{
-		return Vector3.SqrMagnitude( a - b ) > 0.0f;
-	}
-
-	bool RotationChanged( Quaternion a, Quaternion b )
-	{
-		Vector4 diff = new Vector4( a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w );
-		return Vector4.SqrMagnitude( diff ) > 0.0f;
 	}
 
 	internal override void UpdateTransform( bool starting )
@@ -72,8 +64,10 @@ internal class SolidState : MotionState
 			return;
 		}
 
+		Profiler.BeginSample( "Solid.Update" );
+
 		if ( !starting && m_wasVisible )
-			m_prevModelViewProj = m_currModelViewProj;
+			m_prevLocalToWorld = m_currLocalToWorld;
 
 		Transform transform = m_obj.transform;
 
@@ -97,16 +91,20 @@ internal class SolidState : MotionState
 			}
 		}
 
-		m_currModelViewProj = m_owner.ViewProjMatrix * transform.localToWorldMatrix;
+		m_currLocalToWorld = transform.localToWorldMatrix;
 
 		if ( starting || !m_wasVisible )
-			m_prevModelViewProj = m_currModelViewProj;
+			m_prevLocalToWorld = m_currLocalToWorld;
 
 		m_wasVisible = m_meshRenderer.isVisible;
+
+		Profiler.EndSample();
 	}
 
-	internal override void RenderVectors( Camera camera, float scale )
+	internal override void RenderVectors( Camera camera, float scale, AmplifyMotion.Quality quality )
 	{
+		Profiler.BeginSample( "Solid.Render" );
+
 		if ( m_initialized && !m_error && m_meshRenderer.isVisible )
 		{
 			bool mask = ( m_owner.Instance.CullingMask & ( 1 << m_obj.gameObject.layer ) ) != 0;
@@ -115,20 +113,28 @@ internal class SolidState : MotionState
 				const float rcp255 = 1 / 255.0f;
 				int objectId = mask ? m_owner.Instance.GenerateObjectId( m_obj.gameObject ) : 255;
 
-				Shader.SetGlobalMatrix( "_EFLOW_MATRIX_PREV_MVP", m_prevModelViewProj );
+				Matrix4x4 prevModelViewProj;
+				if ( m_obj.FixedStep )
+					prevModelViewProj = m_owner.PrevViewProjMatrixRT * m_currLocalToWorld;
+				else
+					prevModelViewProj = m_owner.PrevViewProjMatrixRT * m_prevLocalToWorld;
+
+				Shader.SetGlobalMatrix( "_EFLOW_MATRIX_PREV_MVP", prevModelViewProj );
 				Shader.SetGlobalFloat( "_EFLOW_OBJECT_ID", objectId * rcp255 );
 				Shader.SetGlobalFloat( "_EFLOW_MOTION_SCALE", mask ? scale : 0 );
 
+				int qualityPass = ( quality == AmplifyMotion.Quality.Mobile ) ? 0 : 2;
+
 				for ( int i = 0; i < m_sharedMaterials.Length; i++ )
 				{
-					Material mat = m_sharedMaterials[ i ];
-					bool coverage = m_sharedMaterialCoverage[ i ];
-					int pass = coverage ? 1 : 0;
+					MaterialDesc matDesc = m_sharedMaterials[ i ];
+					int pass = qualityPass + ( matDesc.coverage ? 1 : 0 );
 
-					if ( coverage )
+					if ( matDesc.coverage )
 					{
-						m_owner.Instance.SolidVectorsMaterial.mainTexture = mat.mainTexture;
-						m_owner.Instance.SolidVectorsMaterial.SetFloat( "_Cutoff", mat.GetFloat( "_Cutoff" ) );
+						m_owner.Instance.SolidVectorsMaterial.mainTexture = matDesc.material.mainTexture;
+						if ( matDesc.cutoff )
+							m_owner.Instance.SolidVectorsMaterial.SetFloat( "_Cutoff", matDesc.material.GetFloat( "_Cutoff" ) );
 					}
 
 					if ( m_owner.Instance.SolidVectorsMaterial.SetPass( pass ) )
@@ -136,6 +142,8 @@ internal class SolidState : MotionState
 				}
 			}
 		}
+
+		Profiler.EndSample();
 	}
 }
 }

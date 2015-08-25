@@ -1,6 +1,13 @@
 // Amplify Motion - Full-scene Motion Blur for Unity Pro
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
 
+#if UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4  || UNITY_4_5 || UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9
+#define UNITY_4
+#endif
+#if UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3 || UNITY_5_4  || UNITY_5_5 || UNITY_5_6 || UNITY_5_7 || UNITY_5_8 || UNITY_5_9
+#define UNITY_5
+#endif
+
 using System;
 using System.Threading;
 using System.Runtime.InteropServices;
@@ -8,9 +15,9 @@ using UnityEngine;
 
 namespace AmplifyMotion
 {
-internal class SkinnedState : MotionState
+internal class SkinnedState : AmplifyMotion.MotionState
 {
-	private SkinnedMeshRenderer m_skinnedRenderer;
+	private SkinnedMeshRenderer m_renderer;
 
 	private int m_boneCount;
 	private Transform[] m_boneTransforms;
@@ -21,18 +28,14 @@ internal class SkinnedState : MotionState
 	private float[] m_boneWeights;
 
 	private int m_vertexCount;
-	private Vector2[] m_prevProj;
 	private Vector4[] m_baseVertices;
-	private Vector3[] m_vertices;
-	private Vector2[] m_motions;
+	private Vector3[] m_prevVertices;
+	private Vector3[] m_currVertices;
 
 	private Mesh m_clonedMesh;
 	private Matrix4x4 m_worldToLocalMatrix;
-	private Matrix4x4 m_localToWorldMatrix;
-	private Matrix4x4 m_viewProjMatrix;
 
-	private Material[] m_sharedMaterials;
-	private bool[] m_sharedMaterialCoverage;
+	private MaterialDesc[] m_sharedMaterials;
 
 	private ManualResetEvent m_asyncUpdateSignal = null;
 	private bool m_asyncUpdateTriggered = false;
@@ -44,12 +47,12 @@ internal class SkinnedState : MotionState
 	public SkinnedState( AmplifyMotionCamera owner, AmplifyMotionObjectBase obj )
 		: base( owner, obj )
 	{
-		m_skinnedRenderer = m_obj.GetComponent<SkinnedMeshRenderer>();
+		m_renderer = m_obj.GetComponent<SkinnedMeshRenderer>();
 	}
 
 	internal override void Initialize()
 	{
-		Transform[] bones = m_skinnedRenderer.bones;
+		Transform[] bones = m_renderer.bones;
 		if ( bones == null || bones.Length == 0 )
 		{
 			Debug.LogWarning( "[AmplifyMotion] Bones not found on " + m_obj.name + ". Please note that 'Optimize Game Object' Rig import setting is not yet supported. Motion blur was disabled for this object." );
@@ -69,18 +72,15 @@ internal class SkinnedState : MotionState
 
 		base.Initialize();
 
-		m_vertexCount = m_skinnedRenderer.sharedMesh.vertexCount;
-		if ( m_skinnedRenderer.quality == SkinQuality.Auto )
+		m_vertexCount = m_renderer.sharedMesh.vertexCount;
+		if ( m_renderer.quality == SkinQuality.Auto )
 			m_weightCount = ( int ) QualitySettings.blendWeights;
 		else
-			m_weightCount = ( int ) m_skinnedRenderer.quality;
+			m_weightCount = ( int ) m_renderer.quality;
 
-		m_boneTransforms = m_skinnedRenderer.bones;
-		m_boneCount = m_skinnedRenderer.bones.Length;
+		m_boneTransforms = m_renderer.bones;
+		m_boneCount = m_renderer.bones.Length;
 		m_bones = new Matrix4x4[ m_boneCount ];
-
-		m_vertices = new Vector3[ m_vertexCount ];
-		m_motions = new Vector2[ m_vertexCount ];
 
 		Vector4[] baseVertices = new Vector4[ m_vertexCount * m_weightCount ];
 		int[] boneIndices = new int[ m_vertexCount * m_weightCount ];
@@ -93,19 +93,19 @@ internal class SkinnedState : MotionState
 		else
 			InitializeBone4( baseVertices, boneIndices, boneWeights );
 
-		Mesh skinnedMesh = m_skinnedRenderer.sharedMesh;
+		m_prevVertices = new Vector3[ m_vertexCount ];
+		m_currVertices = new Vector3[ m_vertexCount ];
+
+		Mesh skinnedMesh = m_renderer.sharedMesh;
 		m_clonedMesh = new Mesh();
 		m_clonedMesh.vertices = skinnedMesh.vertices;
-		m_clonedMesh.uv2 = m_motions;
+		m_clonedMesh.normals = skinnedMesh.vertices;
 		m_clonedMesh.uv = skinnedMesh.uv;
 		m_clonedMesh.subMeshCount = skinnedMesh.subMeshCount;
 		for ( int i = 0; i < skinnedMesh.subMeshCount; i++ )
 			m_clonedMesh.SetTriangles( skinnedMesh.GetTriangles( i ), i );
 
-		m_sharedMaterials = m_skinnedRenderer.sharedMaterials;
-		m_sharedMaterialCoverage = new bool [ m_sharedMaterials.Length ];
-		for ( int i = 0; i < m_sharedMaterials.Length; i++ )
-			m_sharedMaterialCoverage[ i ] = ( m_sharedMaterials[ i ].GetTag( "RenderType", false ) == "TransparentCutout" );
+		m_sharedMaterials = ProcessSharedMaterials( m_renderer.sharedMaterials );
 
 		m_asyncUpdateSignal = new ManualResetEvent( false );
 		m_asyncUpdateTriggered = false;
@@ -114,7 +114,6 @@ internal class SkinnedState : MotionState
 		m_baseVertices = baseVertices;
 		m_boneIndices = boneIndices;
 		m_boneWeights = boneWeights;
-		m_prevProj = new Vector2[ m_vertexCount ];
 
 		m_wasVisible = false;
 	}
@@ -132,12 +131,13 @@ internal class SkinnedState : MotionState
 			m_bones[ i ] = m_boneTransforms[ i ].localToWorldMatrix;
 
 		m_worldToLocalMatrix = m_obj.transform.worldToLocalMatrix;
-		m_localToWorldMatrix = m_obj.transform.localToWorldMatrix;
-		m_viewProjMatrix = m_owner.ViewProjMatrix;
 	}
 
 	void UpdateVertices( bool starting )
 	{
+		if ( !starting && m_wasVisible )
+			Array.Copy( m_currVertices, m_prevVertices, m_vertexCount );
+
 		for ( int i = 0; i < m_boneCount; i++ )
 			m_bones[ i ] = m_worldToLocalMatrix * m_bones[ i ];
 
@@ -147,47 +147,16 @@ internal class SkinnedState : MotionState
 			UpdateVerticesBone2();
 		else
 			UpdateVerticesBone4();
-	}
 
-	void UpdateMotions( bool starting )
-	{
-		Vector4 currProj = Vector4.zero;
-		Vector4 currPos = Vector4.one;
-		Matrix4x4 worldViewProjMatrix = m_viewProjMatrix * m_localToWorldMatrix;
-
-		for ( int i = 0; i < m_vertexCount; i++ )
-		{
-			currPos.x = m_vertices[ i ].x;
-			currPos.y = m_vertices[ i ].y;
-			currPos.z = m_vertices[ i ].z;
-
-			MulPoint4x4_XYZW( ref currProj, ref worldViewProjMatrix, currPos );
-
-			float rcp_curr_w = 1.0f / currProj.w;
-			currProj.x *= rcp_curr_w;
-			currProj.y *= rcp_curr_w;
-
-			if ( m_mask && !starting )
-			{
-				m_motions[ i ].x = currProj.x - m_prevProj[ i ].x;
-				m_motions[ i ].y = currProj.y - m_prevProj[ i ].y;
-			}
-			else
-			{
-				m_motions[ i ].x = 0;
-				m_motions[ i ].y = 0;
-			}
-
-			m_prevProj[ i ].x = currProj.x;
-			m_prevProj[ i ].y = currProj.y;
-		}
+		if ( starting || !m_wasVisible )
+			Array.Copy( m_currVertices, m_prevVertices, m_vertexCount );
 	}
 
 	void InitializeBone1( Vector4[] baseVertices, int[] boneIndices )
 	{
-		Vector3[] meshVertices = m_skinnedRenderer.sharedMesh.vertices;
-		Matrix4x4[] meshBindPoses = m_skinnedRenderer.sharedMesh.bindposes;
-		BoneWeight[] meshBoneWeights = m_skinnedRenderer.sharedMesh.boneWeights;
+		Vector3[] meshVertices = m_renderer.sharedMesh.vertices;
+		Matrix4x4[] meshBindPoses = m_renderer.sharedMesh.bindposes;
+		BoneWeight[] meshBoneWeights = m_renderer.sharedMesh.boneWeights;
 
 		for ( int i = 0; i < m_vertexCount; i++ )
 		{
@@ -199,9 +168,9 @@ internal class SkinnedState : MotionState
 
 	void InitializeBone2( Vector4[] baseVertices, int[] boneIndices, float[] boneWeights )
 	{
-		Vector3[] meshVertices = m_skinnedRenderer.sharedMesh.vertices;
-		Matrix4x4[] meshBindPoses = m_skinnedRenderer.sharedMesh.bindposes;
-		BoneWeight[] meshBoneWeights = m_skinnedRenderer.sharedMesh.boneWeights;
+		Vector3[] meshVertices = m_renderer.sharedMesh.vertices;
+		Matrix4x4[] meshBindPoses = m_renderer.sharedMesh.bindposes;
+		BoneWeight[] meshBoneWeights = m_renderer.sharedMesh.boneWeights;
 
 		for ( int i = 0; i < m_vertexCount; i++ )
 		{
@@ -229,9 +198,9 @@ internal class SkinnedState : MotionState
 
 	void InitializeBone4( Vector4[] baseVertices, int[] boneIndices, float[] boneWeights )
 	{
-		Vector3[] meshVertices = m_skinnedRenderer.sharedMesh.vertices;
-		Matrix4x4[] meshBindPoses = m_skinnedRenderer.sharedMesh.bindposes;
-		BoneWeight[] meshBoneWeights = m_skinnedRenderer.sharedMesh.boneWeights;
+		Vector3[] meshVertices = m_renderer.sharedMesh.vertices;
+		Matrix4x4[] meshBindPoses = m_renderer.sharedMesh.bindposes;
+		BoneWeight[] meshBoneWeights = m_renderer.sharedMesh.boneWeights;
 
 		for ( int i = 0; i < m_vertexCount; i++ )
 		{
@@ -263,39 +232,10 @@ internal class SkinnedState : MotionState
 		}
 	}
 
-	void MulPoint4x4_XYZW( ref Vector4 result, ref Matrix4x4 mat, Vector4 vec )
-	{
-		result.x = mat.m00 * vec.x + mat.m01 * vec.y + mat.m02 * vec.z + mat.m03 * vec.w;
-		result.y = mat.m10 * vec.x + mat.m11 * vec.y + mat.m12 * vec.z + mat.m13 * vec.w;
-		result.z = mat.m20 * vec.x + mat.m21 * vec.y + mat.m22 * vec.z + mat.m23 * vec.w;
-		result.w = mat.m30 * vec.x + mat.m31 * vec.y + mat.m32 * vec.z + mat.m33 * vec.w;
-	}
-
-	void MulPoint3x4_XYZ( ref Vector3 result, ref Matrix4x4 mat, Vector4 vec )
-	{
-		result.x = mat.m00 * vec.x + mat.m01 * vec.y + mat.m02 * vec.z + mat.m03;
-		result.y = mat.m10 * vec.x + mat.m11 * vec.y + mat.m12 * vec.z + mat.m13;
-		result.z = mat.m20 * vec.x + mat.m21 * vec.y + mat.m22 * vec.z + mat.m23;
-	}
-
-	void MulPoint3x4_XYZW( ref Vector3 result, ref Matrix4x4 mat, Vector4 vec )
-	{
-		result.x = mat.m00 * vec.x + mat.m01 * vec.y + mat.m02 * vec.z + mat.m03 * vec.w;
-		result.y = mat.m10 * vec.x + mat.m11 * vec.y + mat.m12 * vec.z + mat.m13 * vec.w;
-		result.z = mat.m20 * vec.x + mat.m21 * vec.y + mat.m22 * vec.z + mat.m23 * vec.w;
-	}
-
-	void MulAddPoint3x4_XYZW( ref Vector3 result, ref Matrix4x4 mat, Vector4 vec )
-	{
-		result.x += mat.m00 * vec.x + mat.m01 * vec.y + mat.m02 * vec.z + mat.m03 * vec.w;
-		result.y += mat.m10 * vec.x + mat.m11 * vec.y + mat.m12 * vec.z + mat.m13 * vec.w;
-		result.z += mat.m20 * vec.x + mat.m21 * vec.y + mat.m22 * vec.z + mat.m23 * vec.w;
-	}
-
 	void UpdateVerticesBone1()
 	{
 		for ( int i = 0; i < m_vertexCount; i++ )
-			MulPoint3x4_XYZ( ref m_vertices[ i ], ref m_bones[ m_boneIndices[ i ] ], m_baseVertices[ i ] );
+			MulPoint3x4_XYZ( ref m_currVertices[ i ], ref m_bones[ m_boneIndices[ i ] ], m_baseVertices[ i ] );
 	}
 
 	void UpdateVerticesBone2()
@@ -314,7 +254,7 @@ internal class SkinnedState : MotionState
 			if ( w1 != 0 )
 				MulAddPoint3x4_XYZW( ref deformedVertex, ref m_bones[ b1 ], m_baseVertices[ o1 ] );
 
-			m_vertices[ i ] = deformedVertex;
+			m_currVertices[ i ] = deformedVertex;
 		}
 	}
 
@@ -345,7 +285,7 @@ internal class SkinnedState : MotionState
 			if ( w3 != 0 )
 				MulAddPoint3x4_XYZW( ref deformedVertex, ref m_bones[ b3 ], m_baseVertices[ o3 ] );
 
-			m_vertices[ i ] = deformedVertex;
+			m_currVertices[ i ] = deformedVertex;
 		}
 	}
 
@@ -355,7 +295,6 @@ internal class SkinnedState : MotionState
 		{
 			// managed path
 			UpdateVertices( m_starting );
-			UpdateMotions( m_starting );
 		}
 		catch ( System.Exception e )
 		{
@@ -375,7 +314,9 @@ internal class SkinnedState : MotionState
 			return;
 		}
 
-		bool isVisible = m_skinnedRenderer.isVisible;
+		Profiler.BeginSample( "Skinned.Update" );
+
+		bool isVisible = m_renderer.isVisible;
 
 		if ( !m_error && ( isVisible || starting ) )
 		{
@@ -391,6 +332,8 @@ internal class SkinnedState : MotionState
 		}
 
 		m_wasVisible = isVisible;
+
+		Profiler.EndSample();
 	}
 
 	void WaitForAsyncUpdate()
@@ -406,14 +349,16 @@ internal class SkinnedState : MotionState
 		}
 	}
 
-	internal override void RenderVectors( Camera camera, float scale )
+	internal override void RenderVectors( Camera camera, float scale, AmplifyMotion.Quality quality )
 	{
-		if ( m_initialized && !m_error && m_skinnedRenderer.isVisible )
+		Profiler.BeginSample( "Skinned.Render" );
+
+		if ( m_initialized && !m_error && m_renderer.isVisible )
 		{
 			WaitForAsyncUpdate();
 
-			m_clonedMesh.vertices = m_vertices;
-			m_clonedMesh.uv2 = m_motions;
+			m_clonedMesh.vertices = m_currVertices;
+			m_clonedMesh.normals = m_prevVertices;
 
 			const float rcp255 = 1 / 255.0f;
 			int objectId = m_mask ? m_owner.Instance.GenerateObjectId( m_obj.gameObject ) : 255;
@@ -421,22 +366,26 @@ internal class SkinnedState : MotionState
 			Shader.SetGlobalFloat( "_EFLOW_OBJECT_ID", objectId * rcp255 );
 			Shader.SetGlobalFloat( "_EFLOW_MOTION_SCALE", m_mask ? scale : 0 );
 
+			int qualityPass = ( quality == AmplifyMotion.Quality.Mobile ) ? 0 : 2;
+
 			for ( int i = 0; i < m_sharedMaterials.Length; i++ )
 			{
-				Material mat = m_sharedMaterials[ i ];
-				bool coverage = m_sharedMaterialCoverage[ i ];
-				int pass = coverage ? 1 : 0;
+				MaterialDesc matDesc = m_sharedMaterials[ i ];
+				int pass = qualityPass + ( matDesc.coverage ? 1 : 0 );
 
-				if ( coverage )
+				if ( matDesc.coverage )
 				{
-					m_owner.Instance.SkinnedVectorsMaterial.mainTexture = mat.mainTexture;
-					m_owner.Instance.SkinnedVectorsMaterial.SetFloat( "_Cutoff", mat.GetFloat( "_Cutoff" ) );
+					m_owner.Instance.SkinnedVectorsMaterial.mainTexture = matDesc.material.mainTexture;
+					if ( matDesc.cutoff )
+						m_owner.Instance.SkinnedVectorsMaterial.SetFloat( "_Cutoff", matDesc.material.GetFloat( "_Cutoff" ) );
 				}
 
 				if ( m_owner.Instance.SkinnedVectorsMaterial.SetPass( pass ) )
 					Graphics.DrawMeshNow( m_clonedMesh, m_obj.transform.localToWorldMatrix, i );
 			}
 		}
+
+		Profiler.EndSample();
 	}
 }
 }

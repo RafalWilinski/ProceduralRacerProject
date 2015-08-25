@@ -408,7 +408,7 @@ public class ContinousMovement : MonoBehaviour {
 		rewindPanelShown = true;
 		panelsManager.ShowRewindPanel();
 		_t = spline.GetClosestPointAtSpline(myTransform.position) + 0.05f;	
-		cam.GetComponent<NoiseEffect>().enabled = true;
+		// cam.GetComponent<NoiseEffect>().enabled = true;
 		Time.timeScale = 0.05f;
 		float startTime = Time.realtimeSinceStartup;
 		while(startTime + rewindTotalTime > Time.realtimeSinceStartup) {
@@ -416,7 +416,7 @@ public class ContinousMovement : MonoBehaviour {
 			rewindCircle.fillAmount = 1 - ((startTime + rewindTotalTime - Time.realtimeSinceStartup) / rewindTotalTime);
 			yield return new WaitForEndOfFrame();
 		}
-		cam.GetComponent<NoiseEffect>().enabled = false;
+		// cam.GetComponent<NoiseEffect>().enabled = false;
 		GameOver();
 	}
 

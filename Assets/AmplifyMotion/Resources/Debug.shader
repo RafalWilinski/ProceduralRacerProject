@@ -24,7 +24,7 @@ Shader "Hidden/Amplify Motion/Debug" {
 
 				struct v2f
 				{
-					float4 pos : POSITION;
+					float4 pos : SV_POSITION;
 					float4 uv : TEXCOORD0;
 				};
 
@@ -41,11 +41,13 @@ Shader "Hidden/Amplify Motion/Debug" {
 					return o;
 				}
 
-				half4 frag( v2f i ) : COLOR
+				half4 frag( v2f i ) : SV_Target
 				{
-					half id = tex2D( _MainTex, i.uv.xy ).w;
-					half depth = UNITY_SAMPLE_DEPTH( tex2D( _CameraDepthTexture, i.uv.zw ) );
-					return half4( depth, depth, id, 1 );
+					half4 motion = tex2D( _MotionTex, i.uv.zw );
+					half2 vec = ( motion.xy * 2 - 1 ) * motion.z;
+					half id = motion.w;
+					//float depth = SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, i.uv.zw );
+					return half4( vec, id * 10, 1 );
 				}
 			ENDCG
 		}

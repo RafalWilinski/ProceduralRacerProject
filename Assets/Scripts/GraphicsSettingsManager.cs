@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using ScionEngine;
 using System.Collections;
-using UnityStandardAssets.ImageEffects;
+	using UnityStandardAssets.ImageEffects;
 
 public class GraphicsSettingsManager : MonoBehaviour {
 
@@ -13,11 +14,9 @@ public class GraphicsSettingsManager : MonoBehaviour {
 
 	public int motionBlurMinRequirement = 3;
 	public int bloomMinRequirement = 2;
-	public int chromaticAberrationMinRequirement = 2;
-	public int smallFragmentsMinRequirement = 1;
 	public int colorCorrectionCurvesMinRequirement = 1;
+	public int smallFragmentsMinRequirement = 1;
 	public int glitchMinRequirement = 2;
-	public int anisotropicTexturesMinRequirement = 2;
 	public int hdrMinRequirement = 3;
 
 	void Start() {
@@ -30,26 +29,17 @@ public class GraphicsSettingsManager : MonoBehaviour {
 		if(value >= motionBlurMinRequirement) gameCamera.GetComponent<AmplifyMotionEffect>().enabled = true;
 		else gameCamera.GetComponent<AmplifyMotionEffect>().enabled = false;
 
-		if(value >= bloomMinRequirement) gameCamera.GetComponent<BloomOptimized>().enabled = true;
-		else gameCamera.GetComponent<BloomOptimized>().enabled = false;
-
-		if(value >= chromaticAberrationMinRequirement) gameCamera.GetComponent<Vignetting>().enabled = true;
-		else gameCamera.GetComponent<Vignetting>().enabled = false;
-
 		if(value >= smallFragmentsMinRequirement) smallFragments.Play();
 		else {
 			smallFragments.Stop();
 			smallFragments.Clear();
 		}
 
+		if(value >= bloomMinRequirement) gameCamera.GetComponent<ScionPostProcess>().enabled = true;
+		else gameCamera.GetComponent<ScionPostProcess>().enabled = false;
+
 		if(value >= colorCorrectionCurvesMinRequirement) gameCamera.GetComponent<ColorCorrectionCurves>().enabled = true;
 		else gameCamera.GetComponent<ColorCorrectionCurves>().enabled = false;
-
-		if(value >= glitchMinRequirement) uiCamera.GetComponent<GlitchEffect>().enabled = true;
-		else uiCamera.GetComponent<GlitchEffect>().enabled = false;
-
-		if(value >= anisotropicTexturesMinRequirement) QualitySettings.anisotropicFiltering = AnisotropicFiltering.ForceEnable;
-		else QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
 
 		PlayerPrefs.SetInt("qualitySettings", (int) value);
 	}

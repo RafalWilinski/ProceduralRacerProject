@@ -7,67 +7,151 @@ Shader "Hidden/Amplify Motion/Dilation" {
 		_MotionTex ("Motion (RGB)", 2D) = "white" {}
 	}
 	SubShader {
-		Pass {
-			ZTest Always Cull Off ZWrite Off Fog { Mode off }
+		ZTest Always Cull Off Fog { Mode off }
+		ZWrite On
+		CGINCLUDE
+			#pragma fragmentoption ARB_precision_hint_fastest
+			#pragma exclude_renderers flash
+			#include "UnityCG.cginc"
 
+			sampler2D _CameraDepthTexture;
+			sampler2D _MotionTex;
+			float4 _MainTex_TexelSize;
+
+			struct v2f
+			{
+				float4 pos : SV_POSITION;
+				float4 uv : TEXCOORD0;
+			};
+
+			v2f vert( appdata_img v )
+			{
+				v2f o;
+				o.pos = mul( UNITY_MATRIX_MVP, v.vertex );
+				o.uv.xy = v.texcoord.xy;
+				o.uv.zw = v.texcoord.xy;
+			#if UNITY_UV_STARTS_AT_TOP
+				if ( _MainTex_TexelSize.y < 0 )
+					o.uv.w = 1 - o.uv.w;
+			#endif
+				return o;
+			}
+		ENDCG
+
+		// Separable Dilation - 3-Tap Horizontal
+		Pass {
 			CGPROGRAM
 				#pragma vertex vert
-				#pragma fragment frag
-				#pragma fragmentoption ARB_precision_hint_fastest
-				#pragma exclude_renderers flash
-				#include "UnityCG.cginc"
+				#pragma fragment frag_horizontal
 
-				sampler2D _MotionTex;
-				sampler2D _CameraDepthTexture;
-				float4 _MainTex_TexelSize;
-
-				struct v2f
+				half4 frag_horizontal( v2f i ) : SV_Target
 				{
-					float4 pos : POSITION;
-					float4 uv : TEXCOORD0;
-				};
+					float tx = _MainTex_TexelSize.x;
+					float2 offsets[ 3 ] = { float2( -tx, 0 ), float2( 0, 0 ), float2( tx, 0 ) };
 
-				v2f vert( appdata_img v )
-				{
-					v2f o;
-					o.pos = mul( UNITY_MATRIX_MVP, v.vertex );
-					o.uv.xy = v.texcoord.xy;
-					o.uv.zw = v.texcoord.xy;
-				#if UNITY_UV_STARTS_AT_TOP
-					if ( _MainTex_TexelSize.y < 0 )
-						o.uv.w = 1 - o.uv.w;
-				#endif
-					return o;
+					half4 motion_ref = tex2D( _MotionTex, i.uv.zw );
+					float depth_ref = SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, i.uv.zw );
+					half4 result = motion_ref;
+
+					for ( int tap = 0; tap < 3; tap++ )
+					{
+						float2 tap_uv = i.uv.zw + offsets[ tap ];
+
+						half4 motion = tex2D( _MotionTex, tap_uv );
+						float depth =  SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, tap_uv );
+						result = ( depth < depth_ref ) ? motion : result;
+					}
+
+					return result;
 				}
+			ENDCG
+		}
 
-				half4 frag( v2f i ) : COLOR
+		// Separable Dilation - 3-Tap Vertical
+		Pass {
+			CGPROGRAM
+				#pragma vertex vert
+				#pragma fragment frag_vertical
+
+				half4 frag_vertical( v2f i ) : SV_Target
 				{
-					half2 texel = _MainTex_TexelSize.xy;
+					float ty = _MainTex_TexelSize.y;					
+					float2 offsets[ 3 ] = { float2( 0, -ty ), float2( 0, 0 ), float2( 0, ty ) };
 
-					half2 offset0 = i.uv.zw;
-					half2 offset1 = i.uv.zw - texel;
-					half2 offset2 = i.uv.zw + float2(  texel.x, -texel.y );
-					half2 offset3 = i.uv.zw + float2( -texel.x,  texel.y );
-					half2 offset4 = i.uv.zw + texel;
+					half4 motion_ref = tex2D( _MotionTex, i.uv.zw );
+					float depth_ref = SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, i.uv.zw );
+					half4 result = motion_ref;
 
-					half4 motion0 = tex2D( _MotionTex, offset0 );
-					half4 motion1 = tex2D( _MotionTex, offset1 );
-					half4 motion2 = tex2D( _MotionTex, offset2 );
-					half4 motion3 = tex2D( _MotionTex, offset3 );
-					half4 motion4 = tex2D( _MotionTex, offset4 );
+					for ( int tap = 0; tap < 3; tap++ )
+					{
+						float2 tap_uv = i.uv.zw + offsets[ tap ];
 
-					half depth0 = UNITY_SAMPLE_DEPTH( tex2D( _CameraDepthTexture, offset0 ) );
-					half depth1 = UNITY_SAMPLE_DEPTH( tex2D( _CameraDepthTexture, offset1 ) );
-					half depth2 = UNITY_SAMPLE_DEPTH( tex2D( _CameraDepthTexture, offset2 ) );
-					half depth3 = UNITY_SAMPLE_DEPTH( tex2D( _CameraDepthTexture, offset3 ) );
-					half depth4 = UNITY_SAMPLE_DEPTH( tex2D( _CameraDepthTexture, offset4 ) );
+						half4 motion = tex2D( _MotionTex, tap_uv );
+						float depth =  SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, tap_uv );
+						result = ( depth < depth_ref ) ? motion : result;
+					}
 
-					motion0.xyz = ( motion1.a > 0 && depth1 < depth0 ) ? motion1.xyz : motion0.xyz;
-					motion0.xyz = ( motion2.a > 0 && depth2 < depth0 ) ? motion2.xyz : motion0.xyz;
-					motion0.xyz = ( motion3.a > 0 && depth3 < depth0 ) ? motion3.xyz : motion0.xyz;
-					motion0.xyz = ( motion4.a > 0 && depth4 < depth0 ) ? motion4.xyz : motion0.xyz;
+					return result;
+				}
+			ENDCG
+		}
 
-					return motion0;
+		// Separable Dilation - 5-Tap Horizontal
+		Pass {
+			CGPROGRAM
+				#pragma vertex vert
+				#pragma fragment frag_horizontal
+
+				half4 frag_horizontal( v2f i ) : SV_Target
+				{
+					float tx1 = _MainTex_TexelSize.x;
+					float tx2 = tx1 + tx1;
+					float2 offsets[ 5 ] = { float2( -tx2, 0 ), float2( -tx1, 0 ), float2( 0, 0 ), float2( tx1, 0 ), float2( tx2, 0 ) };
+
+					half4 motion_ref = tex2D( _MotionTex, i.uv.zw );
+					float depth_ref = SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, i.uv.zw );
+					half4 result = motion_ref;
+
+					for ( int tap = 0; tap < 5; tap++ )
+					{
+						float2 tap_uv = i.uv.zw + offsets[ tap ];
+
+						half4 motion = tex2D( _MotionTex, tap_uv );
+						float depth =  SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, tap_uv );
+						result = ( depth < depth_ref ) ? motion : result;
+					}
+
+					return result;
+				}
+			ENDCG
+		}
+
+		// Separable Dilation - 5-Tap Vertical
+		Pass {
+			CGPROGRAM
+				#pragma vertex vert
+				#pragma fragment frag_vertical
+
+				half4 frag_vertical( v2f i ) : SV_Target
+				{
+					float ty1 = _MainTex_TexelSize.y;
+					float ty2 = ty1 + ty1;
+					float2 offsets[ 5 ] = { float2( 0, -ty2 ), float2( 0, -ty1 ), float2( 0, 0 ), float2( 0, ty1 ), float2( 0, ty2 ) };
+
+					half4 motion_ref = tex2D( _MotionTex, i.uv.zw );
+					float depth_ref = SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, i.uv.zw );
+					half4 result = motion_ref;
+
+					for ( int tap = 0; tap < 5; tap++ )
+					{
+						float2 tap_uv = i.uv.zw + offsets[ tap ];
+
+						half4 motion = tex2D( _MotionTex, tap_uv );
+						float depth =  SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, tap_uv );
+						result = ( depth < depth_ref ) ? motion : result;
+					}
+
+					return result;
 				}
 			ENDCG
 		}

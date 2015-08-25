@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3acd8acfcd4e348b1a989320194966af, type: 3}
+  m_Name: EveryplaySettings
+  m_EditorClassIdentifier: 
+  clientId: c5e7534c40dd28dc6664613fe337faef767f69f0
+  clientSecret: db941fa0e87393d9e2a6e10939d241e8d42ed428
+  redirectURI: https://m.everyplay.com/auth
+  iosSupportEnabled: 1
+  androidSupportEnabled: 0
+  testButtonsEnabled: 0
