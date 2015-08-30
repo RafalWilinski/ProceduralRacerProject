@@ -7,6 +7,7 @@ using Thinksquirrel.Utilities;
 
 public class ContinousMovement : MonoBehaviour {
 
+	public InputManager inputManager;
 	public Transform cameraTransform;
 	public Camera cam;
 	public Transform[] uiPanelElements;
@@ -63,7 +64,6 @@ public class ContinousMovement : MonoBehaviour {
 	public float directionSensitivity;
 	public float dir;
 	public float accel;
-	public float calibration;
 	public float rotationSpeed;
 	public float cameraRotSensitivityX;
 	public float cameraRotSensitivityY;
@@ -76,6 +76,7 @@ public class ContinousMovement : MonoBehaviour {
 	public float _t;
 	public float forceAffectorMultiplier;
 	public float rewindTotalTime;
+	public float controlMultiplier = 1;
 
 	public LoopMode loopMode;
 	public bool shouldRotateUI;
@@ -112,7 +113,6 @@ public class ContinousMovement : MonoBehaviour {
 	private float hp;
 	private float playerOldHealth;
 	private float splineTimeLimit;
-	private float controlMultiplier = 1;
 	private float multiplierGauge;
 
 	private StringBuilder stringBuilder;
@@ -149,23 +149,9 @@ public class ContinousMovement : MonoBehaviour {
 	void FixedUpdate () {
 		if(!isPaused) {
 			if(controlsEnabled) {
-				#if UNITY_STANDALONE || UNITY_EDITOR || UNITY_WEBPLAYER
-					dir = (Input.mousePosition.x / Screen.width) - 0.5f;
-					accel = (Input.mousePosition.y / Screen.height) - 0.5f;
-				#elif UNITY_IPHONE || UNITY_ANDROID
-					dir = Mathf.Clamp(Input.acceleration.x,-0.5f, 0.5f) * controlMultiplier;
-					accel = Mathf.Atan2(Input.acceleration.y, Input.acceleration.z)*-1;
-					accel = Mathf.Abs(accel) - calibration;
-					accel = Mathf.Clamp(accel,-1,1);
 
-					if(Input.GetJoystickNames().Length > 0) {
-						dir = Input.GetAxis("Horizontal") / 2;
-						accel = Input.GetAxis("Vertical");
-					}
-				#else 
-					dir = (Input.mousePosition.x / Screen.width) - 0.5f;
-					accel = (Input.mousePosition.y / Screen.height) - 0.5f;
-				#endif
+				dir = inputManager.dir;
+				accel = inputManager.accel;
 
 				forceAffector = new Vector3(forceAffector.x, 0, forceAffector.z/100);
 				forceAffector = Vector3.ClampMagnitude(forceAffector, forceAffectorMultiplier * 10);
@@ -367,7 +353,7 @@ public class ContinousMovement : MonoBehaviour {
 		Debug.Log("OnTriggerEnter!");
 		if(col.gameObject.tag == "CubePoints") {
 			particlePoints.Emit(200);
-			CameraShake.ShakeAll();
+			CameraShake.ShakeAll(CameraShake.ShakeType.CameraMatrix, 3, new Vector3(1,1,1), new Vector3(3,3,3), 0.2f, 70, 0.4f, 1f, true);
 			CubesCollected = CubesCollected + 1;
 			multiplierGauge += 0.2f;
 			cubesCollectedStreak++;
@@ -440,6 +426,7 @@ public class ContinousMovement : MonoBehaviour {
 
 	public void GameOver() {
 		if(!isGameOver) {
+			particleFlakes.Stop();
 			Physics.IgnoreLayerCollision(0, 9, true);
 			eventsManager.StopAllEvents();
 			gameOverScoreLabel.text = (totalDistance + distance).ToString("N");

@@ -18,6 +18,7 @@ public class HUDFPS : MonoBehaviour
  
 public  float updateInterval = 0.5F;
 public Text t;
+public Text grade;
  
 private float accum   = 0; // FPS accumulated over the interval
 private int   frames  = 0; // Frames drawn over the interval
@@ -38,6 +39,11 @@ private float timeleft; // Left time for current interval
 	        // display two fractional digits (f2 format)
 			float fps = accum/frames;
 			string format = System.String.Format("{0:F2} FPS",fps);
+			if(fps < 10000) grade.text = "(Perfectly Smooth)";
+			if(fps < 40) grade.text = "(Smooth)";
+			if(fps < 30) grade.text = "(Playable)";
+			if(fps < 20) grade.text = "(Unplayable)";
+			if(fps < 10) grade.text = "(TERRIBLE)";
 			t.text = format;
 	        timeleft = updateInterval;
 	        accum = 0.0F;

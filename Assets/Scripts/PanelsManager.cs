@@ -15,6 +15,7 @@ public class PanelsManager : MonoBehaviour {
 		Pause,
 		GameOver,
 		Settings,
+		ControlsSettings,
 		RewindPanel,
 		Quitting,
 		About
@@ -41,6 +42,7 @@ public class PanelsManager : MonoBehaviour {
 	public CanvasGroup pausePanel;
 	public CanvasGroup regionIntroduce;
 	public CanvasGroup settingsPanel;
+	public CanvasGroup controlsPanel;
 	public CanvasGroup rewindPanel;
 	public CanvasGroup gameoverPanel;
 	public CanvasGroup firstRegionCanvas;
@@ -125,6 +127,10 @@ public class PanelsManager : MonoBehaviour {
 			case(Panel.Settings):
 				BackFromSettings();
 				EventSystem.current.SetSelectedGameObject(gameUIFirstSelectedButton);
+				break;
+
+			case(Panel.ControlsSettings):
+				BackFromControlSettings();
 				break;
 
 			case(Panel.RewindPanel):
@@ -264,6 +270,27 @@ public class PanelsManager : MonoBehaviour {
 		MakeUninteractable(settingsPanel);
 		MakeInteractable(startPanel);
 		TweenCanvasAlpha.Show(new TweenParameters(settingsPanel, 1f, 0f, alphaAnimationTime, 0f));
+		TweenCanvasAlpha.Show(new TweenParameters(startPanel, 0f, 1f, alphaAnimationTime, 1f));
+
+		EventSystem.current.SetSelectedGameObject(gameUIFirstSelectedButton);
+
+		LeanTween.moveLocal (cam, new Vector3(0, 27.4f, -32f), 0.75f).setEase( LeanTweenType.easeInOutCubic);
+		LeanTween.rotate (cam, new Vector3(40f,0f,0f), 0.75f).setEase( LeanTweenType.easeInOutCubic );
+	}
+
+	public void ShowControls() {
+		activePanel = Panel.ControlsSettings;
+		MakeUninteractable(settingsPanel);
+		MakeInteractable(controlsPanel);
+		TweenCanvasAlpha.Show(new TweenParameters(controlsPanel, 0f, 1f, alphaAnimationTime, 1f));
+		TweenCanvasAlpha.Show(new TweenParameters(settingsPanel, 1f, 0f, alphaAnimationTime, 0f));
+	}
+
+	public void BackFromControlSettings() {
+		activePanel = Panel.StartGame;
+		MakeUninteractable(controlsPanel);
+		MakeInteractable(startPanel);
+		TweenCanvasAlpha.Show(new TweenParameters(controlsPanel, 1f, 0f, alphaAnimationTime, 0f));
 		TweenCanvasAlpha.Show(new TweenParameters(startPanel, 0f, 1f, alphaAnimationTime, 1f));
 
 		EventSystem.current.SetSelectedGameObject(gameUIFirstSelectedButton);

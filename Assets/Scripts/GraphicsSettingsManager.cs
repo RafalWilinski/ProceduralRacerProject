@@ -18,10 +18,28 @@ public class GraphicsSettingsManager : MonoBehaviour {
 	public int smallFragmentsMinRequirement = 1;
 	public int glitchMinRequirement = 2;
 	public int hdrMinRequirement = 3;
+	public int scionMinRequirement = 5;
+
+	private int screenHeight;
+	private int screenWidth;
 
 	void Start() {
+		screenHeight = Screen.height;
+		screenWidth = Screen.width;
 		qualitySlider.value = PlayerPrefs.GetInt("qualitySettings");
 		OnQualityChange(PlayerPrefs.GetInt("qualitySettings"));
+
+		Resolution[] resolutions = Screen.resolutions;
+		Debug.Log("Supported resolutions: ");
+		foreach (Resolution res in resolutions) {
+			Debug.Log(res.width + "x" + res.height);
+		}
+	}
+
+	public void ChangeResolution(float value) {
+		if(value < 0.3) value = 1;
+		Screen.SetResolution((int) Mathf.Floor(screenHeight * value), (int)Mathf.Floor(screenWidth * value), true, 60);
+		Debug.Log("New Resolution: "+Mathf.Floor(screenHeight * value));
 	}
 
 	public void OnQualityChange(float value) {
@@ -35,7 +53,10 @@ public class GraphicsSettingsManager : MonoBehaviour {
 			smallFragments.Clear();
 		}
 
-		if(value >= bloomMinRequirement) gameCamera.GetComponent<ScionPostProcess>().enabled = true;
+		if(value >= bloomMinRequirement) gameCamera.GetComponent<BloomOptimized>().enabled = true;
+		else gameCamera.GetComponent<BloomOptimized>().enabled = false;
+
+		if(value >= scionMinRequirement) gameCamera.GetComponent<ScionPostProcess>().enabled = true;
 		else gameCamera.GetComponent<ScionPostProcess>().enabled = false;
 
 		if(value >= colorCorrectionCurvesMinRequirement) gameCamera.GetComponent<ColorCorrectionCurves>().enabled = true;
