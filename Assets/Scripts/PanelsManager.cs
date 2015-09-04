@@ -45,6 +45,8 @@ public class PanelsManager : MonoBehaviour {
 	public CanvasGroup controlsPanel;
 	public CanvasGroup rewindPanel;
 	public CanvasGroup gameoverPanel;
+	public CanvasGroup distanceGameOverPanel;
+	public CanvasGroup tournamentGameOverPanel;
 	public CanvasGroup firstRegionCanvas;
 	public CanvasGroup aboutCanvas;
 	public CanvasGroup aboutCanvasContent;
@@ -61,6 +63,7 @@ public class PanelsManager : MonoBehaviour {
 	public ContinousMovement vehicle;
 	public RegionSelector regionSelector;
 	public CheckpointsCreator checkpointsCreator;
+	public GameOverScenario gameOverScenario;
 
 	public float alphaAnimationTime = 0.4f;
 
@@ -157,7 +160,7 @@ public class PanelsManager : MonoBehaviour {
 		cg.blocksRaycasts = false;
 	}
 
-	private void ShowCanvasImmediately(CanvasGroup cg) {
+	public void ShowCanvasImmediately(CanvasGroup cg) {
 		MakeInteractable(cg);
 		cg.alpha = 1;
 	}
@@ -314,10 +317,11 @@ public class PanelsManager : MonoBehaviour {
 
 	public void ShowGameOverPanel() {
 		activePanel = Panel.GameOver;
+		gameOverScenario.StartScenario();
 		HideRewindPanel();
 		TweenCanvasAlpha.Show(new TweenParameters(tint, 1f, 0f, 2f, 0f));
 		TweenCanvasAlpha.Show(new TweenParameters(gameUI, 1f, 0f, 1f, 0f));
-		ShowCanvasImmediately(gameoverPanel);
+		// ShowCanvasImmediately(gameoverPanel);
 	}
 
 	public void HideGameOverPanel() {

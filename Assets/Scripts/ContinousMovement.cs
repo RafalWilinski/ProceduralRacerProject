@@ -43,7 +43,9 @@ public class ContinousMovement : MonoBehaviour {
 	public GlitchEffect cameraGlitch;
 	public CameraShake UICameraShake;
 	public GameOverCloudAnimation gameOverCloud;
+	public GameOverScenario gameOverScenario;
 	public ParticleSystem particlePoints;
+
 
 	public int CubesCollected {
 		set {
@@ -102,6 +104,7 @@ public class ContinousMovement : MonoBehaviour {
 	private Vector3 forceAffector;
 	private int startingTheme;
 	private int cubesCollected;
+	private int lastRunDistance;
 	private int cubesCollectedStreak;
 
 	private bool isChangingRegion;
@@ -320,6 +323,7 @@ public class ContinousMovement : MonoBehaviour {
 		LeanTween.move( bottomUI, new Vector3(0, -400, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
 		LeanTween.move( topUI, new Vector3(0, 400, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
 		yield return new WaitForSeconds(1.25f);
+		gameOverScenario.AddEvent(themesManager.themes[currentRegionIndex+1].fullName, (int) distance);
 		totalDistance += distance;
 		distance = 0;
 		currentRegionIndex++;
@@ -438,7 +442,9 @@ public class ContinousMovement : MonoBehaviour {
 			_t = spline.GetClosestPointAtSpline(myTransform.position) + 0.05f;	
 			controlsEnabled = false;
 			Time.timeScale = 1;
+			gameOverScenario.DistanceTravelled = (int) (totalDistance + distance);
 			panelsManager.ShowGameOverPanel();
+			lastRunDistance = (int) (totalDistance + distance);
 			gameOverCloud.Animate();
 			PlayerPrefs.SetInt("power_cubes_collected", PlayerPrefs.GetInt("power_cubes_collected") + cubesCollected);
 

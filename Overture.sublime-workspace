@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"getM",
+				"GetMouseButtonDown(int button)	bool"
+			],
+			[
+				"control",
+				"controlsPanel	CanvasGroup"
+			],
+			[
+				"Input",
+				"InputType	InputType"
+			],
+			[
+				"Bloom",
+				"BloomOptimized	BloomOptimized"
+			],
+			[
+				"Shake",
+				"ShakeType	ShakeType"
+			],
+			[
+				"Camer",
+				"CameraShake	CameraShake"
+			],
+			[
+				"Left",
+				"LeftArrow	KeyCode"
+			],
+			[
+				"Get",
+				"GetKey(string name)	bool"
+			],
+			[
+				"Inpu",
+				"InputType	InputType"
+			],
+			[
 				"local",
 				"localGraph	unsigned int **"
 			],
@@ -478,93 +514,33 @@
 			[
 				"helper",
 				"helperInstance"
-			],
-			[
-				"API",
-				"APIKey"
-			],
-			[
-				"curren",
-				"currentConfiguration"
-			],
-			[
-				"Adn",
-				"AndroidJavaClass"
-			],
-			[
-				"Android",
-				"AndroidJavaObject"
-			],
-			[
-				"GetCurr",
-				"getCurrentConfiguration"
-			],
-			[
-				"curr",
-				"currentConfiguration"
-			],
-			[
-				"y_",
-				"y_randomLimit"
-			],
-			[
-				"x_",
-				"x_randomLimit"
-			],
-			[
-				"gra",
-				"colorsGradient"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "Assets/Scripts/ContinousMovement.cs",
+			"file": "/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/mainSteering.js",
 			"settings":
 			{
-				"buffer_size": 12695,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/ThemeManager.cs",
-			"settings":
-			{
-				"buffer_size": 4564,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/rafal/Downloads/Hamilton/compact.c",
-			"settings":
-			{
-				"buffer_size": 4955,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/rafal/Downloads/Hamilton/main_find.c",
-			"settings":
-			{
-				"buffer_size": 3333,
+				"buffer_size": 143937,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/rafal/Downloads/Euler/main_iterative.c",
+			"file": "/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/iOSInAppManager.cs",
 			"settings":
 			{
-				"buffer_size": 2976,
-				"line_ending": "Windows"
+				"buffer_size": 5202,
+				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/Users/rafal/Downloads/Euler/main_find.c",
+			"file": "/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/przecinek.js",
 			"settings":
 			{
-				"buffer_size": 2141,
-				"line_ending": "Windows"
+				"buffer_size": 401,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -711,8 +687,33 @@
 	],
 	"file_history":
 	[
-		"/Users/rafal/Desktop/testy.pl",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/upgrades/labels.js",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/upgrades/upgradesFramework.js",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/bSpotCashUpdater.cs",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/bSpot/bSpotWagerCellClicker.cs",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/bSpot/bSpotMyManager.cs",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/bSpot/b Spot Unity Plugin/BSpotManager.cs",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/upgrades/modulePurchase.js",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/iOSInAppManager.cs",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/bSpot/bSpotWagersManager.cs",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/bSpotLogout.cs",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/upgrades/store_handler.js",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/ContinousMovement.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/HUDFPS.cs",
 		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/PanelsManager.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/InputManager.cs",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/iOSInAppClick.cs",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/mainSteering.js",
+		"/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/upgrades/IABManager.js",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/GraphicsSettingsManager.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Camera Shake/_Main/Source/Base/CameraShake.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/MeshGenerator.cs",
+		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/ThemeManager.cs",
+		"/Users/rafal/Downloads/Euler/main_find.c",
+		"/Users/rafal/Downloads/Hamilton/main_find.c",
+		"/Users/rafal/Downloads/Hamilton/compact.c",
+		"/Users/rafal/Downloads/Euler/main_iterative.c",
+		"/Users/rafal/Desktop/testy.pl",
 		"/Users/rafal/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/Users/rafal/Grafy/adjmatrixx.c",
 		"/Volumes/USB/AISD/Sortowania/quick.c",
@@ -741,7 +742,6 @@
 		"/Users/rafal/Dysk Google/Aisd/prog.c",
 		"/Users/rafal/Downloads/cw3 2/src/main.c",
 		"/Users/rafal/Downloads/cw2/src/text.txt",
-		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/ThemeManager.cs",
 		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/PropPoolObject.cs",
 		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/RegionSelector.cs",
 		"/Users/rafal/Grafy/dag.c",
@@ -767,7 +767,6 @@
 		"/Users/rafal/Unity Projects/GA-SDK-UNITY/GameAnalytics/Editor/GA_SignUp.cs",
 		"/Users/rafal/Unity Projects/Dataspin_2.0-Unity-Plugin/Assets/Editor/DataspinMenu.cs",
 		"/Users/rafal/Unity Projects/GA-SDK-UNITY/GameAnalytics/Editor/GA_SettingsInspector.cs",
-		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/ContinousMovement.cs",
 		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Scripts/ContinousRotation.cs",
 		"/Users/rafal/Unity Projects/GA-SDK-UNITY/GameAnalytics/Plugins/Scripts/GA_Debug.cs",
 		"/Users/rafal/Unity Projects/GA-SDK-UNITY/GameAnalytics/Editor/GA_Menu.cs",
@@ -815,34 +814,11 @@
 		"/Users/rafal/Documents/Unreal Projects/UnrealFirstProject/Plugins/DataspinTest/DataspinTest.uplugin",
 		"/Users/rafal/Documents/Unreal Projects/UnrealFirstProject/Plugins/DataspinTest/Source/DataspinTest/DataspinTest.Build.cs",
 		"/Users/rafal/Documents/Unreal Projects/UnrealFirstProject/Plugins/DataspinTest/Source/DataspinTest/Private/DataspinTestPCH.h",
-		"/Users/rafal/Desktop/Runner.sh",
-		"/Applications/VSCode-osx/Visual Studio Code.app/Contents/MacOS/Atom",
-		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/LeanTween/Plugins/LeanTween.cs",
-		"/Users/rafal/Unity Projects/LoadingAnimations/Assets/Rotation.cs",
-		"/Users/rafal/Unity Projects/Flat Shaded Terrain Generator/Assets/Scripts/TerrainGenerator.cs",
-		"/Users/rafal/Unity Projects/ParticleSeaTutorial/Assets/ParticleSea.cs",
-		"/Users/rafal/Unity Projects/Flat Shaded Terrain Generator/Assets/Scripts/DirectionWanderer.cs",
-		"/Users/rafal/Dysk Google/prog.c",
-		"/Users/rafal/Unity Projects/Flat Shaded Terrain Generator/Assets/Scripts/ParticleSea.cs",
-		"/Users/rafal/Unity Projects/Flat Shaded Terrain Generator/Assets/VertexColorShader.shader",
-		"/Users/rafal/Documents/Unreal Projects/Tutorial/Intermediate/Android/APK/src/com/epicgames/ue4/GameActivity.java",
-		"/Users/rafal/Unity Projects/ParticleSea/.gitignore",
-		"/Users/rafal/Documents/Unreal Projects/Tutorial/Intermediate/Android/APK/jni/Android.mk",
-		"/Users/rafal/Unity Projects/ParticleSea/Assets/Scripts/ParticleSea.cs",
-		"/Users/rafal/Unity Projects/ParticleSea/Assets/ParticleSea.cs",
-		"/Users/rafal/Unity Projects/ProceduralRacerProject/Assets/Editor/ClosestSplinePointEditor.cs",
-		"/Users/rafal/Dropbox/voxel/voxelRushNewMultiLibs/cloud/Assets/Editor/CameraShakeEditor.cs",
-		"/Users/rafal/Unity Projects/ParticleMesher/Assets/Editor/ParticleMesherEditor.cs",
-		"/Users/rafal/turnstile_110507.txt",
-		"/Users/rafal/Unity Projects/ParticleMesher/Assets/Scripts/ParticleMesher.cs",
-		"/Users/rafal/Downloads/Birdman (2014)/Birdman.2014.720p.BluRay.x264.YIFY.mpl",
-		"/Users/rafal/Unity Projects/MNDFCK_Android/MNDFCK/Assets/NGUI/Scripts/Editor/ActiveAnimationEditor.cs",
-		"/Users/rafal/Library/Application Support/Sublime Text 3/Packages/User/Distraction Free.sublime-settings",
-		"/Users/rafal/Desktop/Iris_Dataset/iris.py"
+		"/Users/rafal/Desktop/Runner.sh"
 	],
 	"find":
 	{
-		"height": 54.0
+		"height": 70.0
 	},
 	"find_in_files":
 	{
@@ -857,6 +833,14 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"loginstatus",
+			"headstart",
+			"gameover()",
+			"flakes",
+			"shakeall(",
+			"camerashake",
+			"calibration",
+			"controlmultiplier",
 			"startingtheme",
 			"fwdSpeed",
 			"isPreparing",
@@ -976,15 +960,7 @@
 			".",
 			", ",
 			".",
-			", ",
-			"Quick",
-			".",
-			" - ",
-			"rewind",
-			"mbe",
-			"adcolon",
-			"issession",
-			"GetTimestamp"
+			", "
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1041,70 +1017,289 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/Scripts/ContinousMovement.cs",
+					"file": "/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/mainSteering.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12695,
+						"buffer_size": 143937,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5940,
-								5940
+								55208,
+								55213
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 19930.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/iOSInAppManager.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5202,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3652,
+								3652
 							]
 						],
 						"settings":
 						{
 							"oops":
 							{
-								"10019,10028": "Redundant ToString() call",
-								"10137,10140": "Parameter 'col' is never used",
-								"1059,1072": "'UICameraShake' should start with a lower case letter. (Rule 'Fields')",
-								"2232,2237": "Initializing field by default value is redundant",
-								"2344,2346": "The private field 'hp' is never assigned",
-								"2813,2826": "Method 'OnAnisoChange' can be made static.",
-								"2833,2835": "Convert to '?:' expression",
-								"5023,5025": "Convert to 'switch' statement",
-								"5675,5679": "'this.' is redundant and can be removed safely.",
-								"7887,7897": "Method never reaches its end or a 'return' statement."
+								"1093,1110": "Cannot convert from ? to System.String",
+								"1111,1112": "Invocation error: ArgumentTypeMismatch",
+								"1130,1148": "'InAppPurchaseState' is not a known identifier",
+								"1149,1157": "'?' does not contain a definition for 'Deferred'",
+								"1584,1602": "'InAppPurchaseState' is not a known identifier",
+								"1603,1609": "'?' does not contain a definition for 'Failed'",
+								"1722,1727": "'Debug' is not a known identifier",
+								"1728,1731": "'?' does not contain a definition for 'Log'",
+								"1783,1788": "'IOSStoreKitResult' does not contain a definition for 'Error'",
+								"1789,1793": "Error: String",
+								"1794,1795": "'?' does not contain a definition for 'Log'",
+								"1799,1804": "'Debug' is not a known identifier",
+								"1805,1808": "'?' does not contain a definition for 'Log'",
+								"1867,1872": "'IOSStoreKitResult' does not contain a definition for 'Error'",
+								"1873,1884": "Error: String",
+								"1885,1886": "'?' does not contain a definition for 'Log'",
+								"189,212": "'IOSInAppPurchaseManager' is not a known identifier",
+								"1890,1911": "'IOSNativePopUpManager' is not a known identifier",
+								"1912,1923": "'?' does not contain a definition for 'showMessage'",
+								"1952,1957": "'IOSStoreKitResult' does not contain a definition for 'Error'",
+								"1958,1962": "'?' does not contain a definition for 'Code'",
+								"1969,1970": "Error: String",
+								"1979,1984": "'IOSStoreKitResult' does not contain a definition for 'Error'",
+								"1985,1996": "Error: String",
+								"1997,1998": "'?' does not contain a definition for 'showMessage'",
+								"2029,2034": "'IOSStoreKitResult' does not contain a definition for 'State'",
+								"2038,2056": "'InAppPurchaseState' is not a known identifier",
+								"2057,2063": "Error: Boolean",
+								"2070,2091": "'IOSNativePopUpManager' is not a known identifier",
+								"2092,2103": "'?' does not contain a definition for 'showMessage'",
+								"213,235": "'?' does not contain a definition for 'OnVerificationComplete'",
+								"2152,2157": "'IOSStoreKitResult' does not contain a definition for 'Error'",
+								"2158,2162": "Error: String",
+								"2204,2209": "'IOSStoreKitResult' does not contain a definition for 'Error'",
+								"2210,2221": "Error: String",
+								"2222,2223": "'?' does not contain a definition for 'showMessage'",
+								"2238,2259": "'IOSNativePopUpManager' is not a known identifier",
+								"2260,2271": "'?' does not contain a definition for 'showMessage'",
+								"2316,2333": "Error: String",
+								"2358,2363": "'IOSStoreKitResult' does not contain a definition for 'State'",
+								"2364,2372": "'?' does not contain a definition for 'ToString'",
+								"2374,2375": "Error: String",
+								"2375,2376": "'?' does not contain a definition for 'showMessage'",
+								"239,267": "Error: Int32",
+								"2428,2452": "'IOSStoreKitRestoreResult' is not a known identifier",
+								"2469,2480": "Cannot convert from ? to System.Boolean",
+								"2487,2508": "'IOSNativePopUpManager' is not a known identifier",
+								"2509,2520": "'?' does not contain a definition for 'showMessage'",
+								"2553,2554": "'?' does not contain a definition for 'showMessage'",
+								"2569,2590": "'IOSNativePopUpManager' is not a known identifier",
+								"2591,2602": "'?' does not contain a definition for 'showMessage'",
+								"2619,2624": "'IOSStoreKitRestoreResult' does not contain a definition for 'Error'",
+								"2625,2629": "Error: String",
+								"2635,2640": "'IOSStoreKitRestoreResult' does not contain a definition for 'Error'",
+								"2641,2652": "'?' does not contain a definition for 'Description'",
+								"2653,2654": "'?' does not contain a definition for 'showMessage'",
+								"2708,2739": "'IOSStoreKitVerificationResponse' is not a known identifier",
+								"272,295": "'IOSInAppPurchaseManager' is not a known identifier",
+								"2879,2884": "'Debug' is not a known identifier",
+								"2885,2888": "'?' does not contain a definition for 'Log'",
+								"2918,2930": "Error: String",
+								"2931,2932": "'?' does not contain a definition for 'Log'",
+								"296,318": "'?' does not contain a definition for 'OnStoreKitInitComplete'",
+								"2983,2993": "'ISN_Result' is not a known identifier",
+								"3017,3028": "Cannot convert from ? to System.Boolean",
+								"3194,3199": "'Debug' is not a known identifier",
+								"3200,3203": "'?' does not contain a definition for 'Log'",
+								"322,344": "Error: Int32",
+								"3259,3282": "'IOSInAppPurchaseManager' is not a known identifier",
+								"3283,3291": "'?' does not contain a definition for 'instance'",
+								"3292,3300": "'?' does not contain a definition for 'products'",
+								"3301,3306": "'?' does not contain a definition for 'Count'",
+								"3307,3315": "'?' does not contain a definition for 'ToString'",
+								"3317,3318": "Error: String",
+								"3318,3319": "'?' does not contain a definition for 'Log'",
+								"3334,3355": "'IOSNativePopUpManager' is not a known identifier",
+								"3356,3367": "'?' does not contain a definition for 'showMessage'",
+								"3417,3422": "'ISN_Result' does not contain a definition for 'Error'",
+								"3423,3427": "Error: String",
+								"3467,3472": "'ISN_Result' does not contain a definition for 'Error'",
+								"3473,3484": "Error: String",
+								"3485,3486": "'?' does not contain a definition for 'showMessage'",
+								"349,372": "'IOSInAppPurchaseManager' is not a known identifier",
+								"3587,3598": "'PlayerPrefs' is not a known identifier",
+								"3599,3605": "'?' does not contain a definition for 'SetInt'",
+								"3611,3622": "'PlayerPrefs' is not a known identifier",
+								"3623,3629": "'?' does not contain a definition for 'GetInt'",
+								"3634,3635": "'?' does not contain a definition for 'GetInt'",
+								"3637,3639": "Error: Int32",
+								"3640,3641": "'?' does not contain a definition for 'SetInt'",
+								"3687,3698": "'PlayerPrefs' is not a known identifier",
+								"3699,3705": "'?' does not contain a definition for 'SetInt'",
+								"3711,3722": "'PlayerPrefs' is not a known identifier",
+								"3723,3729": "'?' does not contain a definition for 'GetInt'",
+								"373,394": "'?' does not contain a definition for 'OnTransactionComplete'",
+								"3734,3735": "'?' does not contain a definition for 'GetInt'",
+								"3737,3739": "Error: Int32",
+								"3740,3741": "'?' does not contain a definition for 'SetInt'",
+								"3784,3795": "'PlayerPrefs' is not a known identifier",
+								"3796,3802": "'?' does not contain a definition for 'SetInt'",
+								"3808,3819": "'PlayerPrefs' is not a known identifier",
+								"3820,3826": "'?' does not contain a definition for 'GetInt'",
+								"3831,3832": "'?' does not contain a definition for 'GetInt'",
+								"3834,3837": "Error: Int32",
+								"3838,3839": "'?' does not contain a definition for 'SetInt'",
+								"3883,3894": "'PlayerPrefs' is not a known identifier",
+								"3895,3901": "'?' does not contain a definition for 'SetInt'",
+								"3907,3918": "'PlayerPrefs' is not a known identifier",
+								"3919,3925": "'?' does not contain a definition for 'GetInt'",
+								"3930,3931": "'?' does not contain a definition for 'GetInt'",
+								"3933,3936": "Error: Int32",
+								"3937,3938": "'?' does not contain a definition for 'SetInt'",
+								"398,419": "Error: Int32",
+								"3988,3999": "'PlayerPrefs' is not a known identifier",
+								"4000,4006": "'?' does not contain a definition for 'SetInt'",
+								"4015,4026": "'PlayerPrefs' is not a known identifier",
+								"4027,4033": "'?' does not contain a definition for 'GetInt'",
+								"4041,4042": "'?' does not contain a definition for 'GetInt'",
+								"4044,4049": "Error: Int32",
+								"4050,4051": "'?' does not contain a definition for 'SetInt'",
+								"4101,4112": "'PlayerPrefs' is not a known identifier",
+								"4113,4119": "'?' does not contain a definition for 'SetInt'",
+								"4128,4139": "'PlayerPrefs' is not a known identifier",
+								"4140,4146": "'?' does not contain a definition for 'GetInt'",
+								"4154,4155": "'?' does not contain a definition for 'GetInt'",
+								"4157,4163": "Error: Int32",
+								"4164,4165": "'?' does not contain a definition for 'SetInt'",
+								"4212,4223": "'PlayerPrefs' is not a known identifier",
+								"4224,4230": "'?' does not contain a definition for 'SetInt'",
+								"4239,4250": "'PlayerPrefs' is not a known identifier",
+								"424,447": "'IOSInAppPurchaseManager' is not a known identifier",
+								"4251,4257": "'?' does not contain a definition for 'GetInt'",
+								"4265,4266": "'?' does not contain a definition for 'GetInt'",
+								"4268,4274": "Error: Int32",
+								"4275,4276": "'?' does not contain a definition for 'SetInt'",
+								"4324,4335": "'PlayerPrefs' is not a known identifier",
+								"4336,4342": "'?' does not contain a definition for 'SetInt'",
+								"4351,4362": "'PlayerPrefs' is not a known identifier",
+								"4363,4369": "'?' does not contain a definition for 'GetInt'",
+								"4377,4378": "'?' does not contain a definition for 'GetInt'",
+								"4380,4386": "Error: Int32",
+								"4387,4388": "'?' does not contain a definition for 'SetInt'",
+								"4444,4455": "'PlayerPrefs' is not a known identifier",
+								"4456,4462": "'?' does not contain a definition for 'SetInt'",
+								"4468,4479": "'PlayerPrefs' is not a known identifier",
+								"448,465": "'?' does not contain a definition for 'OnRestoreComplete'",
+								"4480,4486": "'?' does not contain a definition for 'GetInt'",
+								"4491,4492": "'?' does not contain a definition for 'GetInt'",
+								"4494,4496": "Error: Int32",
+								"4497,4498": "'?' does not contain a definition for 'SetInt'",
+								"4546,4557": "'PlayerPrefs' is not a known identifier",
+								"4558,4564": "'?' does not contain a definition for 'SetInt'",
+								"4578,4589": "'PlayerPrefs' is not a known identifier",
+								"4590,4596": "'?' does not contain a definition for 'GetInt'",
+								"4609,4610": "'?' does not contain a definition for 'GetInt'",
+								"4612,4614": "Error: Int32",
+								"4615,4616": "'?' does not contain a definition for 'SetInt'",
+								"4621,4632": "'PlayerPrefs' is not a known identifier",
+								"4633,4639": "'?' does not contain a definition for 'SetInt'",
+								"4653,4664": "'PlayerPrefs' is not a known identifier",
+								"4665,4671": "'?' does not contain a definition for 'GetInt'",
+								"4684,4685": "'?' does not contain a definition for 'GetInt'",
+								"4687,4689": "Error: Int32",
+								"469,486": "Error: Int32",
+								"4690,4691": "'?' does not contain a definition for 'SetInt'",
+								"4696,4707": "'PlayerPrefs' is not a known identifier",
+								"4708,4714": "'?' does not contain a definition for 'SetInt'",
+								"4732,4743": "'PlayerPrefs' is not a known identifier",
+								"4744,4750": "'?' does not contain a definition for 'GetInt'",
+								"4767,4768": "'?' does not contain a definition for 'GetInt'",
+								"4770,4772": "Error: Int32",
+								"4773,4774": "'?' does not contain a definition for 'SetInt'",
+								"4797,4807": "'GameObject' is not a known identifier",
+								"4817,4827": "'GameObject' is not a known identifier",
+								"4828,4832": "'?' does not contain a definition for 'Find'",
+								"4843,4844": "'?' does not contain a definition for 'Find'",
+								"4847,4857": "'GameObject' is not a known identifier",
+								"4868,4878": "'GameObject' is not a known identifier",
+								"4879,4883": "'?' does not contain a definition for 'Find'",
+								"4895,4896": "'?' does not contain a definition for 'Find'",
+								"4934,4945": "'PlayerPrefs' is not a known identifier",
+								"4946,4952": "'?' does not contain a definition for 'GetInt'",
+								"4960,4961": "'?' does not contain a definition for 'GetInt'",
+								"4961,4969": "'?' does not contain a definition for 'ToString'",
+								"4975,4976": "Cannot convert from ? to System.String",
+								"5034,5041": "'UILabel' is not a known identifier",
+								"5042,5043": "'?' does not contain a definition for 'GetComponent'",
+								"5044,5045": "'?' does not contain a definition for 'GetComponent'",
+								"5045,5049": "'?' does not contain a definition for 'text'",
+								"5058,5059": "Cannot convert from System.String to ?",
+								"5108,5115": "'UILabel' is not a known identifier",
+								"5116,5117": "'?' does not contain a definition for 'GetComponent'",
+								"5118,5119": "'?' does not contain a definition for 'GetComponent'",
+								"5119,5123": "'?' does not contain a definition for 'text'",
+								"5126,5137": "'PlayerPrefs' is not a known identifier",
+								"5138,5144": "'?' does not contain a definition for 'GetInt'",
+								"5149,5150": "'?' does not contain a definition for 'GetInt'",
+								"5150,5158": "'?' does not contain a definition for 'ToString'",
+								"5160,5161": "'?' does not contain a definition for 'ToString'",
+								"5173,5174": "Cannot convert from System.String to ?",
+								"5177,5185": "'Handheld' is not a known identifier",
+								"5186,5193": "'?' does not contain a definition for 'Vibrate'",
+								"5195,5196": "'?' does not contain a definition for 'Vibrate'",
+								"523,546": "'IOSInAppPurchaseManager' is not a known identifier",
+								"547,555": "'?' does not contain a definition for 'Instance'",
+								"556,565": "'?' does not contain a definition for 'loadStore'",
+								"567,568": "'?' does not contain a definition for 'loadStore'",
+								"6,17": "'UnityEngine' is not a known identifier",
+								"610,627": "'IOSStoreKitResult' is not a known identifier",
+								"643,648": "'Debug' is not a known identifier",
+								"649,652": "'?' does not contain a definition for 'Log'",
+								"690,707": "Error: String",
+								"708,709": "'?' does not contain a definition for 'Log'",
+								"712,717": "'Debug' is not a known identifier",
+								"718,721": "'?' does not contain a definition for 'Log'",
+								"766,771": "Error: String",
+								"77,90": "'MonoBehaviour' is not a known identifier",
+								"772,773": "'?' does not contain a definition for 'Log'",
+								"777,787": "'TweenAlpha' is not a known identifier",
+								"788,793": "'?' does not contain a definition for 'Begin'",
+								"794,804": "'GameObject' is not a known identifier",
+								"805,809": "'?' does not contain a definition for 'Find'",
+								"823,824": "'?' does not contain a definition for 'Find'",
+								"833,834": "'?' does not contain a definition for 'Begin'",
+								"854,859": "'IOSStoreKitResult' does not contain a definition for 'State'",
+								"870,888": "'InAppPurchaseState' is not a known identifier",
+								"889,898": "'?' does not contain a definition for 'Purchased'",
+								"907,925": "'InAppPurchaseState' is not a known identifier",
+								"926,934": "'?' does not contain a definition for 'Restored'"
 							},
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3773.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Assets/Scripts/ThemeManager.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4564,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1169,
-								1169
-							]
-						],
-						"settings":
-						{
 							"syntax": "Packages/C#/C#.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
@@ -1112,117 +1307,29 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/Users/rafal/Downloads/Hamilton/compact.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4955,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								704,
-								704
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 9.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/Users/rafal/Downloads/Hamilton/main_find.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3333,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2825,
-								2825
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1007.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/Users/rafal/Downloads/Euler/main_iterative.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2976,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1904,
-								1904
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 553.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "/Users/rafal/Downloads/Euler/main_find.c",
+					"buffer": 2,
+					"file": "/Users/rafal/Documents/VR-bSpot-oldPlugin-backup/Assets/Scripts/przecinek.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2141,
+						"buffer_size": 401,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1019,
-								1019
+								151,
+								196
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -1295,6 +1402,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"inpu",
+				"Scripts/InputManager.cs"
+			],
+			[
+				"input",
+				"Scripts/InputManager.cs"
+			],
 			[
 				"theme",
 				"Scripts/ThemeManager.cs"
