@@ -40,7 +40,7 @@ public class ContinousMovement : MonoBehaviour {
 	public Tweener cinematicDown;
 	public Tweener cinematicTop;
 	public Tweener cinematicRegionNameText;
-	public GlitchEffect cameraGlitch;
+	public CameraFilterPack_TV_VHS_Rewind rewindCameraEffect;
 	public CameraShake UICameraShake;
 	public GameOverCloudAnimation gameOverCloud;
 	public GameOverScenario gameOverScenario;
@@ -248,6 +248,8 @@ public class ContinousMovement : MonoBehaviour {
 			themesManager.currentThemeIndex = themesManager.fakeCurrentThemeIndex;
 			regionLabel.text = themesManager.themes[themesManager.fakeCurrentThemeIndex].fullName;
 			startingTheme = themesManager.currentThemeIndex;
+
+			SoundEngine.Instance.StartSoundtrack(ThemeManager.Instance.currentThemeIndex);
 		}
 	}
 
@@ -323,8 +325,8 @@ public class ContinousMovement : MonoBehaviour {
 		LeanTween.move( bottomUI, new Vector3(0, -400, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
 		LeanTween.move( topUI, new Vector3(0, 400, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
 		yield return new WaitForSeconds(1.25f);
-		gameOverScenario.AddEvent(themesManager.themes[currentRegionIndex+1].fullName, (int) distance);
 		totalDistance += distance;
+		gameOverScenario.AddEvent(themesManager.themes[currentRegionIndex+1].fullName, (int) totalDistance);
 		distance = 0;
 		currentRegionIndex++;
 		SetTheme(currentRegionIndex);
@@ -395,6 +397,7 @@ public class ContinousMovement : MonoBehaviour {
 	}
 
 	private IEnumerator CountdownCoroutine() {
+		SoundEngine.Instance.ChangeSoundtrackPitch(0.5f);
 		rewindPanelShown = true;
 		panelsManager.ShowRewindPanel();
 		_t = spline.GetClosestPointAtSpline(myTransform.position) + 0.05f;	
@@ -407,13 +410,27 @@ public class ContinousMovement : MonoBehaviour {
 			yield return new WaitForEndOfFrame();
 		}
 		// cam.GetComponent<NoiseEffect>().enabled = false;
+		SoundEngine.Instance.MusicFadeOut();
 		GameOver();
 	}
 
 	IEnumerator GlitchEnumerator() {
-		cameraGlitch.enabled = true;
+		// cameraGlitch.enabled = true;
 		yield return new WaitForSeconds(glitchTime);
-		cameraGlitch.enabled = false;
+		// cameraGlitch.enabled = false;
+	}
+
+	public void RewindEffectShort() {
+		StopCoroutine("RewindEnumerator");
+		StartCoroutine("RewindEnumerator");
+	}
+
+	IEnumerator RewindEnumerator() {
+		if(GraphicsSettingsManager.Instance.IsGlitchAllowed()) {
+			rewindCameraEffect.enabled = true;
+			yield return new WaitForSeconds(1.0f);
+			rewindCameraEffect.enabled = false;
+		}
 	}
 
 	private void Stun() {

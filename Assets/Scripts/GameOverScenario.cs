@@ -8,6 +8,7 @@ public class GameOverScenario : MonoBehaviour {
 	public CanvasGroup gameoverPanel;
 	public CanvasGroup distanceGameOverPanel;
 	public CanvasGroup tournamentGameOverPanel;
+	public CanvasGroup tapToContinue;
 
 	public List<TimeLineEvent> timelineEvents;
 	public GameObject regionMarkerPrefab;
@@ -19,10 +20,11 @@ public class GameOverScenario : MonoBehaviour {
 	public PanelsManager manager;
 
 	public float initialWaitTime = 1.0f;
-	public float timelineAnimationTime = 2.5f;
+	public float timelineAnimationTime = 1.5f;
 
 	private int distance;
 
+	[SerializeField]
 	public class TimeLineEvent {
 		public string name;
 		public int distance;
@@ -36,9 +38,14 @@ public class GameOverScenario : MonoBehaviour {
 		}
 
 		public void Reveal() {
-			if(!isRevealed) {
-				isRevealed = true;
-				marker.SendMessage("Reveal");
+			if(marker != null) {
+				if(!isRevealed) {
+					isRevealed = true;
+					marker.SendMessage("Reveal");
+				}
+			}
+			else {
+				Debug.Log("Marker for event "+name+" is missing!");
 			}
 		}
 	}
@@ -46,6 +53,9 @@ public class GameOverScenario : MonoBehaviour {
 	public int DistanceTravelled {
 		set {
 			distance = value;
+			if(PlayerPrefs.GetInt("best_distance") < distance) {
+				PlayerPrefs.SetInt("best_distance", distance);
+			}
 		}
 	}
 
@@ -55,14 +65,29 @@ public class GameOverScenario : MonoBehaviour {
 
 	public void StartScenario() {
 		manager.ShowCanvasImmediately(distanceGameOverPanel);
+		ComputeEventsPlace();
 		StartCoroutine("TimelineAnimation");
 
-		bestDistanceLabel.text = PlayerPrefs.GetInt("best_distance").ToString();
-		ComputeEventsPlace();
+		bestDistanceLabel.text = "Best: "+PlayerPrefs.GetInt("best_distance").ToString()+"m";
+		if(PlayerPrefs.GetInt("best_distance") == distance) {
+			bestDistanceLabel.text = "NEW HIGHSCORE";
+		}
 	}
 	
 	public void AddEvent(string name, int distance) {
 		timelineEvents.Add(new TimeLineEvent(name, distance));
+	}
+
+	public void ShowLeaderboard() {
+		manager.MakeUninteractable(tapToContinue);
+		manager.MakeInteractable(tournamentGameOverPanel);
+		TweenCanvasAlpha.Show(new TweenParameters(distanceGameOverPanel, 1f, 0f, 1f, 0f));
+		TweenCanvasAlpha.Show(new TweenParameters(tournamentGameOverPanel, 0f, 1f, 1f, 0f));
+	}
+
+	public void ShowSummary() {
+		TweenCanvasAlpha.Show(new TweenParameters(tournamentGameOverPanel, 1f, 0f, 1f, 0f));
+		TweenCanvasAlpha.Show(new TweenParameters(gameoverPanel, 0f, 1f, 1f, 0f));
 	}
 
 	private IEnumerator TimelineAnimation() {
@@ -71,7 +96,7 @@ public class GameOverScenario : MonoBehaviour {
 
 		for(float f = 0.0f; f < 1.0f; f += Time.deltaTime / timelineAnimationTime) {
 			for(int i = 0; i < timelineEvents.Count; i++) {
-				if(timelineEvents[i].timelinePlace >= f) {
+				if(timelineEvents[i].timelinePlace <= f) {
 					timelineEvents[i].Reveal();
 				}
 			}
@@ -79,20 +104,25 @@ public class GameOverScenario : MonoBehaviour {
 			distanceLabel.text = ((int) (f * distance)).ToString() + "M";
 			yield return new WaitForSeconds(Time.deltaTime);
 		}
+
+		TweenCanvasAlpha.Show(new TweenParameters(tapToContinue, 1f, 0f, 1f, 0f));
+		manager.MakeInteractable(tapToContinue);
 	}
 
 	private void CreateEventMarkers() {
 		for(int i = 0; i < timelineEvents.Count; i++) {
 			GameObject g = Instantiate(regionMarkerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 			g.transform.parent = distanceGameOverPanel.transform;
-			g.transform.localPosition = new Vector3(-300 + (600f * timelineEvents[i].timelinePlace), -64, 0);
+			Debug.Log((600f * timelineEvents[i].timelinePlace));
+			g.transform.localPosition = new Vector3(-300f + (600f * timelineEvents[i].timelinePlace), -65, 0);
 			g.transform.localScale = new Vector3(1,1,1);
 			g.GetComponent<RevealEvent>().SetDesc(timelineEvents[i].name, timelineEvents[i].distance);
 			timelineEvents[i].marker = g;
 		}
 
-		lastRunMarker.GetComponent<RevealEvent>().SetDesc("Last Run", PlayerPrefs.GetInt("last_run_distance"));
-		lastRunMarker.transform.localPosition = new Vector3(-300 + ((PlayerPrefs.GetInt("last_run_distance") * 1.0f / distance) * 600), 0, 0);
+		lastRunMarker.GetComponent<RevealEvent>().SetDesc("X\nLast Run", PlayerPrefs.GetInt("last_run_distance"));
+		if(PlayerPrefs.GetInt("last_run_distance") > 1000) lastRunMarker.transform.localPosition = new Vector3(-300 + ((PlayerPrefs.GetInt("last_run_distance") * 1.0f / distance) * 600), -15, 0);
+		else lastRunMarker.GetComponent<Text>().color = new Color(0,0,0,0);
 	}
 
 	private void ComputeEventsPlace() {

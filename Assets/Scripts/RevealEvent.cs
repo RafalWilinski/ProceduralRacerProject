@@ -11,6 +11,6 @@ public class RevealEvent : MonoBehaviour {
 	}
 
 	public void SetDesc(string name, int distance) {
-		text.text = name + "\n" + distance.ToString();
+		text.text = name + "\n" + distance.ToString()+"m";
 	}
 }

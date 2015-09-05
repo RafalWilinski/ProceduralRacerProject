@@ -25806,6 +25806,8 @@ MonoBehaviour:
   controlsPanel: {fileID: 1794510264}
   rewindPanel: {fileID: 2108087297}
   gameoverPanel: {fileID: 154833527}
+  distanceGameOverPanel: {fileID: 0}
+  tournamentGameOverPanel: {fileID: 0}
   firstRegionCanvas: {fileID: 937645327}
   aboutCanvas: {fileID: 74293451}
   aboutCanvasContent: {fileID: 337778958}
@@ -25818,6 +25820,7 @@ MonoBehaviour:
   vehicle: {fileID: 1399996869}
   regionSelector: {fileID: 1399996871}
   checkpointsCreator: {fileID: 1040726951}
+  gameOverScenario: {fileID: 0}
   alphaAnimationTime: .5
 --- !u!4 &1199199877
 Transform:
@@ -29872,6 +29875,7 @@ MonoBehaviour:
   cameraGlitch: {fileID: 1261663271}
   UICameraShake: {fileID: 1261663272}
   gameOverCloud: {fileID: 765576076}
+  gameOverScenario: {fileID: 0}
   particlePoints: {fileID: 701264624}
   currentRegionIndex: 0
   playerHealth: 100

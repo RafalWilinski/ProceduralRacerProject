@@ -150,12 +150,12 @@ public class PanelsManager : MonoBehaviour {
 		}
 	}
 
-	private void MakeInteractable(CanvasGroup cg) {
+	public void MakeInteractable(CanvasGroup cg) {
 		cg.interactable = true;
 		cg.blocksRaycasts = true;
 	}
 
-	private void MakeUninteractable(CanvasGroup cg) {
+	public void MakeUninteractable(CanvasGroup cg) {
 		cg.interactable = false;
 		cg.blocksRaycasts = false;
 	}

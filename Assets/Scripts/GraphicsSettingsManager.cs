@@ -22,8 +22,16 @@ public class GraphicsSettingsManager : MonoBehaviour {
 
 	private int screenHeight;
 	private int screenWidth;
+	private int currentSetting;
+
+	public static GraphicsSettingsManager Instance {
+		get { return _instance; }
+	}
+
+	private static GraphicsSettingsManager _instance;
 
 	void Start() {
+		_instance = this;
 		screenHeight = Screen.height;
 		screenWidth = Screen.width;
 		qualitySlider.value = PlayerPrefs.GetInt("qualitySettings");
@@ -43,6 +51,7 @@ public class GraphicsSettingsManager : MonoBehaviour {
 	}
 
 	public void OnQualityChange(float value) {
+		currentSetting = (int) value;
 		Debug.Log("Quality set to: "+value);
 		if(value >= motionBlurMinRequirement) gameCamera.GetComponent<AmplifyMotionEffect>().enabled = true;
 		else gameCamera.GetComponent<AmplifyMotionEffect>().enabled = false;
@@ -63,6 +72,10 @@ public class GraphicsSettingsManager : MonoBehaviour {
 		else gameCamera.GetComponent<ColorCorrectionCurves>().enabled = false;
 
 		PlayerPrefs.SetInt("qualitySettings", (int) value);
+	}
+
+	public bool IsGlitchAllowed() {
+		return currentSetting > glitchMinRequirement;
 	}
 
 	public void OnMaterialChange(float value) {

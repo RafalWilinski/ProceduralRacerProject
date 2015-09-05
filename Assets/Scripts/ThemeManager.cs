@@ -39,6 +39,7 @@ public class ThemeManager : MonoBehaviour {
 		public float ySplineVariety;
 		public int unlockDistance;
 		public bool isAvailable;
+		public AudioClip soundtrack;
 		public List<String> events;
 
 		public Theme(string n, Color l, Color m, Color b, Color a, Vector3 r, float li) { name = n; lightsColor = l; materialColor = m; backgroundColor = b; ambientColor = a; lightRotation = r; lightIntensity = li; }
