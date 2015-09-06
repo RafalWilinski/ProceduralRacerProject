@@ -105,7 +105,7 @@ public class GameOverScenario : MonoBehaviour {
 			yield return new WaitForSeconds(Time.deltaTime);
 		}
 
-		TweenCanvasAlpha.Show(new TweenParameters(tapToContinue, 1f, 0f, 1f, 0f));
+		TweenCanvasAlpha.Show(new TweenParameters(tapToContinue, 0f, 1f, 1f, 0f));
 		manager.MakeInteractable(tapToContinue);
 	}
 

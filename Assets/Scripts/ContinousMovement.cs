@@ -41,6 +41,7 @@ public class ContinousMovement : MonoBehaviour {
 	public Tweener cinematicTop;
 	public Tweener cinematicRegionNameText;
 	public CameraFilterPack_TV_VHS_Rewind rewindCameraEffect;
+	public CameraFilterPack_Color_Chromatic_Aberration aberrationCameraEffect;
 	public CameraShake UICameraShake;
 	public GameOverCloudAnimation gameOverCloud;
 	public GameOverScenario gameOverScenario;
@@ -346,6 +347,7 @@ public class ContinousMovement : MonoBehaviour {
 
 		Stun();
 		CameraShake.ShakeAll();
+		SoundEngine.Instance.MakeHit();
 		StartCoroutine("GlitchEnumerator");
 
 		playerHealth -= intersectingVector.magnitude * 2;
@@ -371,6 +373,7 @@ public class ContinousMovement : MonoBehaviour {
 		}
 		else {
 			CameraShake.ShakeAll();
+			SoundEngine.Instance.MakeHit();
 			StartCoroutine("GlitchEnumerator");
 		}
 	}
@@ -398,6 +401,8 @@ public class ContinousMovement : MonoBehaviour {
 
 	private IEnumerator CountdownCoroutine() {
 		SoundEngine.Instance.ChangeSoundtrackPitch(0.5f);
+		
+		SoundEngine.Instance.MakeHeartbeat();
 		rewindPanelShown = true;
 		panelsManager.ShowRewindPanel();
 		_t = spline.GetClosestPointAtSpline(myTransform.position) + 0.05f;	
@@ -425,11 +430,24 @@ public class ContinousMovement : MonoBehaviour {
 		StartCoroutine("RewindEnumerator");
 	}
 
+	public void AberrationEffectShort() {
+		StopCoroutine("AberrationEnumerator");
+		StartCoroutine("AberrationEnumerator");
+	}
+
 	IEnumerator RewindEnumerator() {
 		if(GraphicsSettingsManager.Instance.IsGlitchAllowed()) {
 			rewindCameraEffect.enabled = true;
 			yield return new WaitForSeconds(1.0f);
 			rewindCameraEffect.enabled = false;
+		}
+	}
+
+	IEnumerator AberrationEnumerator() {
+		if(GraphicsSettingsManager.Instance.IsGlitchAllowed()) {
+			aberrationCameraEffect.enabled = true;
+			yield return new WaitForSeconds(1.0f);
+			aberrationCameraEffect.enabled = false;
 		}
 	}
 

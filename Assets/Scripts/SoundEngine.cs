@@ -8,9 +8,15 @@ public class SoundEngine : MonoBehaviour {
 	public float fadeInTime;
 	public float fadeOutTime;
 	public float crossfadeTime;
+
 	public AudioClip[] clips;
+	public AudioClip menuTheme;
 	public AudioClip tapSound;
 	public AudioClip fastPassSound;
+	public AudioClip hitSound;
+	public AudioClip heartbeatSound;
+	public AudioClip startGameSound;
+	public AudioClip tickSound;
 
 	public AnimationCurve forwardPitchChangeCurve;
 	public AnimationCurve previousPitchChangeCurve;
@@ -34,7 +40,9 @@ public class SoundEngine : MonoBehaviour {
 		}
 
 		Debug.Log("SoundEngine available executors count: "+available.Count);
-		StartCoroutine("MusicFadeIn");
+		StartCoroutine("MusicFadeIn", 2.0f);
+
+
 	}
 
 	public void CreateSound(AudioClip clip, float pitch = 1, float volume = 1, Vector3 pos = default(Vector3), float length = 0) {
@@ -44,7 +52,7 @@ public class SoundEngine : MonoBehaviour {
 		if(available.Count > 0) executor = available.Pop();
 		else {
 			GameObject g = new GameObject();
-			g.name = "Playing";
+			g.name = "Playing "+(clip.name);
 			g.transform.parent = this.transform;
 			g.AddComponent<AudioSource>();
 			g.AddComponent<SoundEngineChild>();
@@ -58,7 +66,23 @@ public class SoundEngine : MonoBehaviour {
 	}
 
 	public void MakeTapSound() {
+		CreateSound(tapSound);
+	}
 
+	public void MakeHeartbeat() {
+		CreateSound(heartbeatSound, 1, 1, Vector3.zero, 5);
+	}
+
+	public void MakeHit() {
+		CreateSound(hitSound, Random.Range(0.92f, 1.12f), Random.Range(0.92f, 1.12f), Vector3.zero, 1.2f);
+	}
+
+	public void MakeSwoosh(float distance, Vector3 offset) {
+		CreateSound(fastPassSound, Random.Range(0.9f, 1.1f), distance / 100, offset);
+	}
+
+	public void MakeStartGameSound() {
+		CreateSound(startGameSound);
 	}
 
 	public void NextRegionSound() {
@@ -117,7 +141,7 @@ public class SoundEngine : MonoBehaviour {
 	IEnumerator SoundtrackCoroutine(int themeNumber) {
 		MusicFadeOut();
 		yield return new WaitForSeconds(fadeOutTime);
-		MusicFadeIn();
+		MusicFadeIn(0f);
 		for(int i = themeNumber; i < 12; i++) {
 			source.clip = clips[i];
 			source.Play();
@@ -126,12 +150,12 @@ public class SoundEngine : MonoBehaviour {
 		}
 	}
 
-	public void MusicFadeIn() {
+	public void MusicFadeIn(float delay) {
 		StopCoroutine("MusicFadeInCoroutine");
 		StopCoroutine("MusicFadeOutCoroutine");
 		StopCoroutine("CrossFadeCoroutine");
 		
-		StartCoroutine("MusicFadeInCoroutine");
+		StartCoroutine("MusicFadeInCoroutine", delay);
 	}
 
 	public void MusicFadeOut() {
@@ -150,9 +174,10 @@ public class SoundEngine : MonoBehaviour {
 		StartCoroutine("CrossFadeCoroutine");
 	}
 
-	private IEnumerator MusicFadeInCoroutine() {
+	private IEnumerator MusicFadeInCoroutine(float delay) {
+		yield return new WaitForSeconds(delay);
 		source.volume = 0;
-		source.Play();
+		source.PlayDelayed(1.0f);
 		for(float f = 0.0f; f < 1.0f; f += Time.deltaTime / fadeInTime) {
 			source.volume = f;
 			yield return new WaitForEndOfFrame();
@@ -160,7 +185,7 @@ public class SoundEngine : MonoBehaviour {
 	}
 
 	private IEnumerator MusicFadeOutCoroutine() {
-		for(float f = 1.0f; f > 0.0f; f -= Time.deltaTime / fadeOutTime) {
+		for(float f = source.volume; f > 0.0f; f -= Time.deltaTime / fadeOutTime) {
 			source.volume = f;
 			yield return new WaitForEndOfFrame();
 		}
