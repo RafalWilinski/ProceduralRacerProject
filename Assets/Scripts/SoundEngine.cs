@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -26,7 +27,12 @@ public class SoundEngine : MonoBehaviour {
 	private AudioSource source;
 
 	public static SoundEngine Instance {
-		get { return _instance; }
+		get { 
+			if(_instance == null) {
+				Debug.Log("------ Instance unavailable! --------");
+			} 
+			return _instance;
+		}
 	}
 
 	private void Awake() {
@@ -41,12 +47,10 @@ public class SoundEngine : MonoBehaviour {
 
 		Debug.Log("SoundEngine available executors count: "+available.Count);
 		StartCoroutine("MusicFadeIn", 2.0f);
-
-
 	}
 
-	public void CreateSound(AudioClip clip, float pitch = 1, float volume = 1, Vector3 pos = default(Vector3), float length = 0) {
-
+//default(Vector3)
+	public void CreateSound(AudioClip clip, float pitch = 1f, float volume = 1f, float length = 0f) {
 		SoundEngineChild executor;
 
 		if(available.Count > 0) executor = available.Pop();
@@ -56,29 +60,34 @@ public class SoundEngine : MonoBehaviour {
 			g.transform.parent = this.transform;
 			g.AddComponent<AudioSource>();
 			g.AddComponent<SoundEngineChild>();
-			executor = g.GetComponent<SoundEngineChild>();
+			executor = (SoundEngineChild) g.GetComponent<SoundEngineChild>() as SoundEngineChild;
+			Debug.Log("There was insufficient amount of executors so new one was added.");
 		}
 
 		if(executor != null) {
 			if(length == 0) length = clip.length;
-			executor.Play(clip, pitch, volume, pos, length);
+			executor.Play(clip, pitch, volume, length);
+		}
+		else {
+			Debug.Log("Executor is null somehow!");
 		}
 	}
 
 	public void MakeTapSound() {
+		throw new NullReferenceException();
 		CreateSound(tapSound);
 	}
 
 	public void MakeHeartbeat() {
-		CreateSound(heartbeatSound, 1, 1, Vector3.zero, 5);
+		CreateSound(heartbeatSound);
 	}
 
 	public void MakeHit() {
-		CreateSound(hitSound, Random.Range(0.92f, 1.12f), Random.Range(0.92f, 1.12f), Vector3.zero, 1.2f);
+		CreateSound(hitSound, UnityEngine.Random.Range(0.92f, 1.12f), UnityEngine.Random.Range(0.92f, 1.12f), 1.2f);
 	}
 
 	public void MakeSwoosh(float distance, Vector3 offset) {
-		CreateSound(fastPassSound, Random.Range(0.9f, 1.1f), distance / 100, offset);
+		CreateSound(fastPassSound, UnityEngine.Random.Range(0.9f, 1.1f), 1-(distance / 120));
 	}
 
 	public void MakeStartGameSound() {
@@ -177,7 +186,7 @@ public class SoundEngine : MonoBehaviour {
 	private IEnumerator MusicFadeInCoroutine(float delay) {
 		yield return new WaitForSeconds(delay);
 		source.volume = 0;
-		source.PlayDelayed(1.0f);
+		source.Play();
 		for(float f = 0.0f; f < 1.0f; f += Time.deltaTime / fadeInTime) {
 			source.volume = f;
 			yield return new WaitForEndOfFrame();

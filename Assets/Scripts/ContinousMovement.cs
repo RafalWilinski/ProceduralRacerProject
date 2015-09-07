@@ -228,7 +228,6 @@ public class ContinousMovement : MonoBehaviour {
 
 	public void StartGame() {
 		cubesCollected = 0;
-
 		if(!isPreparing) {
 			distance = 0;
 			totalDistance = 0;
@@ -271,13 +270,13 @@ public class ContinousMovement : MonoBehaviour {
 	}
 
 	private IEnumerator straightenMovement() {
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.1f);
 		controlsEnabled = true;
 		while(transform.rotation != Quaternion.identity) {
 			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, Time.deltaTime*5);
 			yield return new WaitForSeconds(0.01f);
 		}
-		yield return new WaitForSeconds(0.3f);
+		yield return new WaitForSeconds(0.1f);
 		isPlaying = true;
 		StartCoroutine("increaseFwdSpeed");
 		particleFlakes.Play();
@@ -359,22 +358,24 @@ public class ContinousMovement : MonoBehaviour {
 
 	public void OnTriggerEnter(Collider col) {
 		Debug.Log("OnTriggerEnter!");
-		if(col.gameObject.tag == "CubePoints") {
-			particlePoints.Emit(200);
-			CameraShake.ShakeAll(CameraShake.ShakeType.CameraMatrix, 3, new Vector3(1,1,1), new Vector3(3,3,3), 0.2f, 70, 0.4f, 1f, true);
-			CubesCollected = CubesCollected + 1;
-			multiplierGauge += 0.2f;
-			cubesCollectedStreak++;
-			streakCountLabel.text = " x " + cubesCollectedStreak;
-			streakGauge.fillAmount = multiplierGauge;
-			StartCoroutine("GaugeCooldown");
-			SoundEngine.Instance.CreateSound(pointsCubeHit);
+		if(!isGameOver) {
+			if(col.gameObject.tag == "CubePoints") {
+				particlePoints.Emit(200);
+				CameraShake.ShakeAll(CameraShake.ShakeType.CameraMatrix, 3, new Vector3(1,1,1), new Vector3(3,3,3), 0.2f, 70, 0.4f, 1f, true);
+				CubesCollected = CubesCollected + 1;
+				multiplierGauge += 0.2f;
+				cubesCollectedStreak++;
+				streakCountLabel.text = " x " + cubesCollectedStreak;
+				streakGauge.fillAmount = multiplierGauge;
+				StartCoroutine("GaugeCooldown");
+				SoundEngine.Instance.CreateSound(pointsCubeHit);
 
-		}
-		else {
-			CameraShake.ShakeAll();
-			SoundEngine.Instance.MakeHit();
-			StartCoroutine("GlitchEnumerator");
+			}
+			else {
+				CameraShake.ShakeAll();
+				SoundEngine.Instance.MakeHit();
+				StartCoroutine("GlitchEnumerator");
+			}
 		}
 	}
 
@@ -401,7 +402,7 @@ public class ContinousMovement : MonoBehaviour {
 
 	private IEnumerator CountdownCoroutine() {
 		SoundEngine.Instance.ChangeSoundtrackPitch(0.5f);
-		
+
 		SoundEngine.Instance.MakeHeartbeat();
 		rewindPanelShown = true;
 		panelsManager.ShowRewindPanel();

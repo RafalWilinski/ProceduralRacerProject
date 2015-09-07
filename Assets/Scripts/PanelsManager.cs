@@ -165,7 +165,7 @@ public class PanelsManager : MonoBehaviour {
 		cg.alpha = 1;
 	}
 
-	private void HideCanvasImmediately(CanvasGroup cg) {
+	public void HideCanvasImmediately(CanvasGroup cg) {
 		MakeUninteractable(cg);
 		cg.alpha = 0;
 	}

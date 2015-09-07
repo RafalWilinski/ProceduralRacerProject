@@ -100,7 +100,7 @@ public class MeshGenerator : MonoBehaviour {
 				else {
 					previousPart = (MeshGenerator) previousPartGameObject.GetComponent<MeshGenerator>() as MeshGenerator;
 					if(previousPart == null) {
-						Debug.Log(this.gameObject + " couldn't find previous part! "+previousPartName);
+						Debug.Log(this.gameObject + " couldn't find previous part! "+previousPartName + ", GameObject: "+previousPartGameObject.name);
 					}
 				}
 			}

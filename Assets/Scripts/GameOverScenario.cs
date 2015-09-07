@@ -64,6 +64,9 @@ public class GameOverScenario : MonoBehaviour {
 	}
 
 	public void StartScenario() {
+		manager.HideCanvasImmediately(tournamentGameOverPanel);
+		manager.HideCanvasImmediately(tapToContinue);
+		manager.MakeUninteractable(tapToContinue);
 		manager.ShowCanvasImmediately(distanceGameOverPanel);
 		ComputeEventsPlace();
 		StartCoroutine("TimelineAnimation");
@@ -82,15 +85,26 @@ public class GameOverScenario : MonoBehaviour {
 		manager.MakeUninteractable(tapToContinue);
 		manager.MakeInteractable(tournamentGameOverPanel);
 		TweenCanvasAlpha.Show(new TweenParameters(distanceGameOverPanel, 1f, 0f, 1f, 0f));
-		TweenCanvasAlpha.Show(new TweenParameters(tournamentGameOverPanel, 0f, 1f, 1f, 0f));
+		TweenCanvasAlpha.Show(new TweenParameters(tournamentGameOverPanel, 0f, 1f, 1f, 1f));
 	}
 
 	public void ShowSummary() {
+		manager.MakeInteractable(gameoverPanel);
+		manager.MakeUninteractable(tournamentGameOverPanel);
 		TweenCanvasAlpha.Show(new TweenParameters(tournamentGameOverPanel, 1f, 0f, 1f, 0f));
-		TweenCanvasAlpha.Show(new TweenParameters(gameoverPanel, 0f, 1f, 1f, 0f));
+		TweenCanvasAlpha.Show(new TweenParameters(gameoverPanel, 0f, 1f, 1f, 1f));
+
+		foreach(TimeLineEvent t in timelineEvents) {
+			Destroy(t.marker);
+		}
+
+		timelineEvents = new List<TimeLineEvent>();
 	}
 
 	private IEnumerator TimelineAnimation() {
+		distanceProgressBar.fillAmount = 0;
+		distanceLabel.text = "0M";
+
 		CreateEventMarkers();
 		yield return new WaitForSeconds(initialWaitTime);
 
@@ -102,11 +116,13 @@ public class GameOverScenario : MonoBehaviour {
 			}
 			distanceProgressBar.fillAmount = f;
 			distanceLabel.text = ((int) (f * distance)).ToString() + "M";
-			yield return new WaitForSeconds(Time.deltaTime);
+			yield return new WaitForEndOfFrame();
 		}
 
 		TweenCanvasAlpha.Show(new TweenParameters(tapToContinue, 0f, 1f, 1f, 0f));
 		manager.MakeInteractable(tapToContinue);
+
+
 	}
 
 	private void CreateEventMarkers() {

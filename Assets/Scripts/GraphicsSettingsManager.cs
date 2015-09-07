@@ -37,11 +37,12 @@ public class GraphicsSettingsManager : MonoBehaviour {
 		qualitySlider.value = PlayerPrefs.GetInt("qualitySettings");
 		OnQualityChange(PlayerPrefs.GetInt("qualitySettings"));
 
-		Resolution[] resolutions = Screen.resolutions;
-		Debug.Log("Supported resolutions: ");
-		foreach (Resolution res in resolutions) {
-			Debug.Log(res.width + "x" + res.height);
-		}
+		// Resolution[] resolutions = Screen.resolutions;
+		// Debug.Log("Supported resolutions: ");
+		// foreach (Resolution res in resolutions) {
+		// 	Debug.Log(res.width + "x" + res.height);
+		// }
+		
 	}
 
 	public void ChangeResolution(float value) {

@@ -46,15 +46,16 @@ public class Tweener : MonoBehaviour {
 
 	IEnumerator Tween() {
 		if(steps < 1) steps = 25;
+
+		steps = time / Time.deltaTime;
 		float step = 1f / steps;
-		float yieldTime = time / steps;
 
 		switch(style) {
 			case (Style.FillAmount):
 				if(image == null) image = this.GetComponent<Image>();
 				for(int i = 0; i < steps; i++) {
 					image.fillAmount = curve.Evaluate(step * i);
-					yield return new WaitForSeconds(yieldTime);
+					yield return new WaitForEndOfFrame();
 				}
 			break;
 
@@ -63,7 +64,7 @@ public class Tweener : MonoBehaviour {
 				step = 1f / steps;
 				for(int i = 0; i < steps; i++) {
 					text.color = new Color(text.color.r, text.color.g, text.color.b, curve.Evaluate(step * i));
-					yield return new WaitForSeconds(yieldTime);
+					yield return new WaitForEndOfFrame();
 				}
 			break;
 		}
