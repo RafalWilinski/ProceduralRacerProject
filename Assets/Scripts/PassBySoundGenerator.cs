@@ -16,7 +16,7 @@ public class PassBySoundGenerator : MonoBehaviour {
 	        if (Physics.Raycast(transform.position, left, out hit, 120)) {
 	        	if(!cooldown_l) {
 	        		SoundEngine.Instance.MakeSwoosh(hit.distance, hit.point - transform.position);
-	        		Debug.Log("Distance: "+hit.distance);
+	        		// Debug.Log("Distance: "+hit.distance);
 	        		StartCoroutine("L_CooldownCoroutine");
 	        	}
 	        }
@@ -24,7 +24,7 @@ public class PassBySoundGenerator : MonoBehaviour {
 	        if (Physics.Raycast(transform.position, right, out hit, 120)) {
 	        	if(!cooldown_r) {
 	        		SoundEngine.Instance.MakeSwoosh(hit.distance, hit.point - transform.position);
-	        		Debug.Log("Distance: "+hit.distance);
+	        		// Debug.Log("Distance: "+hit.distance);
 	        		StartCoroutine("R_CooldownCoroutine");
 	        	}
 	        }

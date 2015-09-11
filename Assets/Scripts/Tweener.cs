@@ -47,7 +47,7 @@ public class Tweener : MonoBehaviour {
 	IEnumerator Tween() {
 		if(steps < 1) steps = 25;
 
-		steps = time / Time.deltaTime;
+		steps = (int) (time / Time.deltaTime);
 		float step = 1f / steps;
 
 		switch(style) {

@@ -468,10 +468,10 @@ public class ContinousMovement : MonoBehaviour {
 		if(!isGameOver) {
 			particleFlakes.Stop();
 			Physics.IgnoreLayerCollision(0, 9, true);
-			eventsManager.StopAllEvents();
 			gameOverScoreLabel.text = (totalDistance + distance).ToString("N");
 			gameOverRegionNameLabel.text = "in "+themesManager.GetCurrentTheme().fullName;
 			gameOverScoreTypeLabel.text = "Distance";
+			StopCoroutine("ScoreSwitching");
 			StartCoroutine("ScoreSwitching");
 
 			Debug.Log("Closest point: "+spline.GetClosestPointAtSpline(myTransform.position));
@@ -528,6 +528,7 @@ public class ContinousMovement : MonoBehaviour {
 	}
 
 	public void RestartGame() {
+		SoundEngine.Instance.ChangeSoundtrackPitch(1f);
 		Debug.Log("Restaring game!");
 		rewindPanelShown = false;
 		playerHealth = 100f;

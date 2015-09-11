@@ -74,7 +74,6 @@ public class SoundEngine : MonoBehaviour {
 	}
 
 	public void MakeTapSound() {
-		throw new NullReferenceException();
 		CreateSound(tapSound);
 	}
 
@@ -135,6 +134,7 @@ public class SoundEngine : MonoBehaviour {
 	}
 
 	public void StartSoundtrack(int themeNumber) {
+		source.pitch = 1;
 		StartCoroutine("SoundtrackCoroutine", themeNumber);
 	}
 

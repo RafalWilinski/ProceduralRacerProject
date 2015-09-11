@@ -54,6 +54,7 @@ public class EventsManager : MonoBehaviour {
         public CoroutineObject(Props e) { 
             this.p = e;
             EventsManager.Instance().StartCoroutine("EventCoroutine",this.p); 
+            Debug.Log("Coroutine started: "+this.p.name);
         }
 
         ~CoroutineObject() {
@@ -211,8 +212,8 @@ public class EventsManager : MonoBehaviour {
         Vector3 position = new Vector3(0,0,0);
         int i = 0;
         while (true) {
-            if (p.stack.Count > 0 && p.isEventInProgress && mov.isPlaying) {
-
+            if (p.stack.Count > 0 && p.isEventInProgress && mov.isPlaying && !mov.isGameOver) {
+                Debug.Log("Spawning: "+p.name);
                 if(!p.worldPos) {
                     position = vehicle.position + p.propRezOffset + 
                                new Vector3(Random.Range(-p.randomness.x, p.randomness.x), Random.Range(-p.randomness.y, p.randomness.y),
