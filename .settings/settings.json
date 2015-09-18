@@ -1,9 +1,0 @@
-// Place your settings in this file to overwrite default and user settings.
-{
-	"search.excludeFolders": [
-		".git",
-		"node_modules",
-		"Temp",
-		"obj"
-	]
-}

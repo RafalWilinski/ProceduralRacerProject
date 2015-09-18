@@ -13,12 +13,11 @@ public class EventSystemDebugger : MonoBehaviour {
 		}
 		else {
 			PerformRaycast();
-			/*
-			if(EventSystem.current.currentSelectedGameObject != null)
-				label.text = "Current Mouseover: "+EventSystem.current.currentSelectedGameObject.name;
-			else 
-				label.text = "Blocked!";
-			*/
+			
+			// if(EventSystem.current.currentSelectedGameObject != null)
+			// 	label.text = "Current Mouseover: "+EventSystem.current.currentSelectedGameObject.name;
+			// else 
+			// 	label.text = "Blocked!";
 		}
 	}
 

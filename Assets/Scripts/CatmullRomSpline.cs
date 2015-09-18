@@ -169,6 +169,13 @@ public class CatmullRomSpline : MonoBehaviour {
 		return divisionPoint;
 	}
 
+	public float NearestDistanceToSpline(Vector3 pos) {
+		float f = GetClosestPointAtSpline(pos, 20);
+		Vector3 closestPoint = GetPositionAtTime(f);
+		Debug.Log("Closest point: "+closestPoint+", Distance: "+Vector3.Distance(pos, closestPoint));
+		return Vector3.Distance(pos, closestPoint);
+	}
+
 	public void PlaceOnClosestPointOnSpline(Transform t) {
 		t.position = GetPositionAtTime(GetClosestPointAtSpline(t.position, 15));
 	}
