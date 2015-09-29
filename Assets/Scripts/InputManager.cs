@@ -47,7 +47,14 @@ public class InputManager : MonoBehaviour {
 		switch(inputType) {
 			case(InputType.MousePosition): 
 				dir = (Input.mousePosition.x / Screen.width) - 0.5f;
-				accel = (Input.mousePosition.y / Screen.height) - 0.5f;
+				if(Input.GetMouseButtonDown(0)) {
+					Debug.Log("MouseDown!");
+					vehicle.TriggerSpeedUp();
+				}
+				else if(Input.GetMouseButtonUp(0)) {
+					Debug.Log("MouseUp!");
+					vehicle.TriggerSlowDown();
+				}
 				break;
 
 			case(InputType.LeftRightArrows):
@@ -63,14 +70,10 @@ public class InputManager : MonoBehaviour {
 
 			case(InputType.Accelerometer):
 				dir = Mathf.Clamp(Input.acceleration.x, -sideMovementClamp, sideMovementClamp) * vehicle.controlMultiplier;
-				accel = Mathf.Atan2(Input.acceleration.y, Input.acceleration.z)*-1;
-				accel = Mathf.Abs(accel) - calibration;
-				accel = Mathf.Clamp(accel,-1,1);
 				break;
 
 			case(InputType.Joysticks):
 				dir = Input.GetAxis("Horizontal") / 2;
-				accel = Input.GetAxis("Vertical");
 				break;
 		}
 		dir *= sideMovementMultiplier;

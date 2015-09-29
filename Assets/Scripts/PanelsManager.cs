@@ -204,6 +204,7 @@ public class PanelsManager : MonoBehaviour {
 		vehicle.isPaused = false;
 		activePanel = Panel.Playing;
 		HideCanvasImmediately(pausePanel);
+		ShowCanvasImmediately(regionIntroduce);
 	}
 
 	public void StartGame() {

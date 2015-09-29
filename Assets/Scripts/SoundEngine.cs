@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class SoundEngine : MonoBehaviour {
 
 	public Stack<SoundEngineChild> available;
+	public List<SoundEngineChild> loopingSounds;
 	public float fadeInTime;
 	public float fadeOutTime;
 	public float crossfadeTime;
@@ -70,6 +71,41 @@ public class SoundEngine : MonoBehaviour {
 		}
 		else {
 			Debug.Log("Executor is null somehow!");
+		}
+	}
+
+	public void CreateLoopingSound(AudioClip clip, float pitch = 1f, float volume = 1f) {
+		SoundEngineChild executor;
+
+		if(available.Count > 0) executor = available.Pop();
+		else {
+			GameObject g = new GameObject();
+			g.name = "Playing "+(clip.name);
+			g.transform.parent = this.transform;
+			g.AddComponent<AudioSource>();
+			g.AddComponent<SoundEngineChild>();
+			executor = (SoundEngineChild) g.GetComponent<SoundEngineChild>() as SoundEngineChild;
+			Debug.Log("There was insufficient amount of executors so new one was added.");
+		}
+
+		if(executor != null) {
+			executor.Looping = true;
+			executor.Play(clip, pitch, volume);
+			loopingSounds.Add(executor);
+		}
+		else {
+			Debug.Log("Executor is null somehow!");
+		}
+	}
+
+	public void RemoveLoopingSound(string tag) {
+		for(int i = 0; i < loopingSounds.Count; i++) {
+			SoundEngineChild s = loopingSounds[i];
+
+			if(s.ClipName == tag) {
+				Destroy(s.gameObject);
+				loopingSounds.Remove(s);
+			}
 		}
 	}
 

@@ -84,10 +84,10 @@ void Update ()
 {
 if (Application.isPlaying)
 {
-Intensity = ChangeValue;
-MovX = ChangeValue2;
-MovY = ChangeValue3;
-blurWidth  = ChangeValue4;
+// Intensity = ChangeValue;
+// MovX = ChangeValue2;
+// MovY = ChangeValue3;
+// blurWidth  = ChangeValue4;
 }
 #if UNITY_EDITOR
 if (Application.isPlaying!=true)

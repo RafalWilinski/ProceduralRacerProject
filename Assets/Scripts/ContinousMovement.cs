@@ -12,6 +12,7 @@ public class ContinousMovement : MonoBehaviour {
 	public Camera cam;
 	public Transform[] uiPanelElements;
 	public ThemeManager themesManager;
+	public Text pointsLabel;
 	public Text speedLabel;
 	public Text distanceLabel;
 	public Text regionLabel;
@@ -31,6 +32,10 @@ public class ContinousMovement : MonoBehaviour {
 	public CanvasGroup streakPanel;
 	public Text streakCountLabel;
 	public Image streakGauge;
+	public Text chargePercentageLabel;
+	public Image chargeLineRight;
+	public CanvasGroup leftGradient;
+	public CanvasGroup rightGradient;
 	public CatmullRomSpline spline;
 	public CanvasManager canvasManager;
 	public PanelsManager panelsManager;
@@ -42,6 +47,7 @@ public class ContinousMovement : MonoBehaviour {
 	public Tweener cinematicRegionNameText;
 	public CameraFilterPack_TV_VHS_Rewind rewindCameraEffect;
 	public CameraFilterPack_Color_Chromatic_Aberration aberrationCameraEffect;
+	public CameraFilterPack_Blur_Radial_Fast radialHighSpeedBlur;
 	public CameraShake UICameraShake;
 	public GameOverCloudAnimation gameOverCloud;
 	public GameOverScenario gameOverScenario;
@@ -58,6 +64,7 @@ public class ContinousMovement : MonoBehaviour {
 		}
 	}
 
+	public int score;
 	public int currentRegionIndex;
 
 	public float playerHealth = 100f;
@@ -80,8 +87,11 @@ public class ContinousMovement : MonoBehaviour {
 	public float forceAffectorMultiplier;
 	public float rewindTotalTime;
 	public float controlMultiplier = 1;
+	public float minChargeDistance;
+	public float nearMissChargeCap;
 
 	public LoopMode loopMode;
+	private bool nearMissCooldown;
 	public bool shouldRotateUI;
 	public bool shouldTweenFOV;
 	public bool controlsEnabled;
@@ -110,6 +120,7 @@ public class ContinousMovement : MonoBehaviour {
 
 	private bool isChangingRegion;
 	private bool rewindPanelShown = false;
+	private bool isSpeedingUp;
 
 	private float distance;
 	private float totalDistance;
@@ -118,6 +129,10 @@ public class ContinousMovement : MonoBehaviour {
 	private float playerOldHealth;
 	private float splineTimeLimit;
 	private float multiplierGauge;
+	private float nearMissCharge;
+	private float highSpeedCameraAffector;
+	private float highSpeedChargeStartAmount;
+
 
 	private StringBuilder stringBuilder;
 
@@ -155,11 +170,10 @@ public class ContinousMovement : MonoBehaviour {
 			if(controlsEnabled) {
 
 				dir = inputManager.dir;
-				accel = inputManager.accel;
 
 				forceAffector = new Vector3(forceAffector.x, 0, forceAffector.z/100);
 				forceAffector = Vector3.ClampMagnitude(forceAffector, forceAffectorMultiplier * 10);
-				vect = new Vector3(directionSensitivity*dir*-1f, 0, fwdSpeed * (1+(accel/10f)) );
+				vect = new Vector3(directionSensitivity*dir*-1f, 0, fwdSpeed * (1+(accel)) );
 				vect += forceAffector * (1 - controlMultiplier);
 
 				if(!isGameOver) transform.Translate(vect);
@@ -169,7 +183,7 @@ public class ContinousMovement : MonoBehaviour {
 				Vector3 nearFuturePos = spline.GetPositionAtTime(spline.GetClosestPointAtSpline(myTransform.position, 20) + 0.1f);
 				float cameraXAngle = myTransform.position.y - nearFuturePos.y;
 
-				cameraRotationTarget = Quaternion.Euler (cameraXAngle * 4, dir * 10, dir*cameraRotSensitivityZ);
+				cameraRotationTarget = Quaternion.Euler (cameraXAngle * 4 + highSpeedCameraAffector, dir * 10, dir*cameraRotSensitivityZ);
 				uiRotationTarget = Quaternion.Euler (accel * uiRotSensitivityX, dir*uiRotSensitivityY, dir*uiRotSensitivityZ);
 				cameraTransform.localRotation = Quaternion.Lerp(cameraTransform.localRotation, cameraRotationTarget, Time.deltaTime*rotationSpeed);
 
@@ -185,7 +199,45 @@ public class ContinousMovement : MonoBehaviour {
 					}
 				}
 
-				if(shouldTweenFOV) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 90 + (accel*10), Time.deltaTime*rotationSpeed);
+				if(shouldTweenFOV) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 90 + (accel*75), Time.deltaTime*rotationSpeed);
+
+
+				Vector3 left = transform.TransformDirection(Vector3.left);
+				Vector3 right = transform.TransformDirection(Vector3.right);
+				RaycastHit hit;
+
+		        if (Physics.Raycast(transform.position, left, out hit, minChargeDistance)) {
+		        	nearMissCharge += 0.1f;
+		        	leftGradient.alpha += 0.1f;
+
+		        	if(hit.collider.gameObject.tag == "Obstacle" && !nearMissCooldown) {
+			        	score += 200;
+						ScoreBonusManager.Instance.AddScore(200, "Near Miss");
+						StartCoroutine("NearMissCooldown");
+					}
+
+		        }
+
+		        if (Physics.Raycast(transform.position, right, out hit, minChargeDistance)) {
+		        	nearMissCharge += 0.1f;
+		        	rightGradient.alpha += 0.1f;
+
+		        	if(hit.collider.gameObject.tag == "Obstacle" && !nearMissCooldown) {
+			        	score += 200;
+						ScoreBonusManager.Instance.AddScore(200, "Near Miss");
+						StartCoroutine("NearMissCooldown");
+					}
+		        }
+
+		        if(nearMissCharge >= nearMissChargeCap) nearMissCharge = nearMissChargeCap;
+		        chargeLineRight.fillAmount = nearMissCharge / nearMissChargeCap;
+		        chargePercentageLabel.text = ((nearMissCharge / nearMissChargeCap)*100).ToString("f1") + "%";
+
+		        if(nearMissCharge < 1f) {
+		        	TriggerSlowDown();
+		        }
+
+
 			}
 			else {
 				if(spline.IsReady) {
@@ -213,6 +265,67 @@ public class ContinousMovement : MonoBehaviour {
 		}
 	}
 
+	private IEnumerator NearMissCooldown() {
+		nearMissCooldown = true;
+		yield return new WaitForSeconds(0.15f);
+		nearMissCooldown = false;
+	}
+
+	public void TriggerSpeedUp() {
+		if(nearMissCharge > 5.0f && !isGameOver) {
+			StopCoroutine("SpeedUp");
+			StartCoroutine("SpeedUp");
+		}
+	}
+
+	public void TriggerSlowDown() {
+		StartCoroutine("SlowDown");
+	}
+
+	private IEnumerator SpeedUp() {
+		highSpeedChargeStartAmount = nearMissCharge;
+
+		radialHighSpeedBlur.enabled = true;
+		StopCoroutine("SlowDown");
+		isSpeedingUp = true;
+		this.GetComponent<AudioSource>().Play();
+
+
+		while(accel < 0.35f) {
+			// radialHighSpeedBlur.Intensity = accel / 10;
+			highSpeedCameraAffector += 1.5f;
+			accel += 0.025f;
+			nearMissCharge -= 0.3f;
+			this.GetComponent<AudioSource>().volume = accel;
+			this.GetComponent<AudioSource>().pitch = 0.4f + accel;
+			yield return new WaitForSeconds(0.02f);
+		}
+		while(true) {
+			// radialHighSpeedBlur.Intensity = accel / 10;
+			nearMissCharge -= 0.3f;
+			yield return new WaitForSeconds(0.05f);
+		}
+	}
+
+	private IEnumerator SlowDown() {
+		if(isSpeedingUp) {
+			score += (int) ((highSpeedChargeStartAmount - nearMissCharge) * 10);
+			ScoreBonusManager.Instance.AddScore( (int)((highSpeedChargeStartAmount - nearMissCharge) * 10), "High Speed!");
+		}
+		isSpeedingUp = false;
+		StopCoroutine("SpeedUp");
+		while(accel > 0) {
+			accel -= 0.025f;
+			highSpeedCameraAffector -= 1.5f;
+			this.GetComponent<AudioSource>().pitch = 0.4f + accel;
+			this.GetComponent<AudioSource>().volume = accel;
+			// radialHighSpeedBlur.Intensity = accel / 10;
+			yield return new WaitForSeconds(0.02f);
+		}
+		radialHighSpeedBlur.enabled = false;
+		this.GetComponent<AudioSource>().Stop();
+	}
+
 	void Start() {
 		CubesCollected = 0;
 		particleFlakes.Stop();
@@ -224,11 +337,21 @@ public class ContinousMovement : MonoBehaviour {
 		StartCoroutine(OnUIRender());
 
 		StartCoroutine("CheckController");
+		StartCoroutine("FadeGradients");
+	}
+
+	private IEnumerator FadeGradients() {
+		while(true) {
+			yield return new WaitForSeconds(0.05f);
+			leftGradient.alpha -= 0.05f;
+			rightGradient.alpha -= 0.05f;
+		}
 	}
 
 	public void StartGame() {
 		cubesCollected = 0;
 		if(!isPreparing) {
+			score = 0;
 			distance = 0;
 			totalDistance = 0;
 			Physics.IgnoreLayerCollision(0, 9, false);
@@ -302,9 +425,10 @@ public class ContinousMovement : MonoBehaviour {
 		float speed = 0f;
 		while(true) {
 			if(isPlaying && !isGameOver) {
-				speed = (fwdSpeed * (1 + (accel/5f))) * 10; 
+				speed = (fwdSpeed * (1 + accel)) * 10; 
 				distance += speed * uiThreadSleep;
 
+				pointsLabel.text = score.ToString() + "pts";
 				distanceLabel.text = distance.ToString("f0") + " / " + themesManager.themes[currentRegionIndex].distance.ToString("f0") + "mi remaining";
 				speedLabel.text = "Speed: "+speed.ToString("f2");
 				marker.anchoredPosition = new Vector2(-markerRegionWidth + (2*markerRegionWidth) * (distance/themesManager.themes[currentRegionIndex].distance), marker.anchoredPosition.y);
@@ -322,8 +446,8 @@ public class ContinousMovement : MonoBehaviour {
 		isChangingRegion = true;
 		UICameraShake.CancelShake();
 		UICameraShake.enabled = false;
-		LeanTween.move( bottomUI, new Vector3(0, -400, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
-		LeanTween.move( topUI, new Vector3(0, 400, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
+		LeanTween.move( bottomUI, new Vector3(0, -60, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
+		LeanTween.move( topUI, new Vector3(0, 60, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
 		yield return new WaitForSeconds(1.25f);
 		totalDistance += distance;
 		gameOverScenario.AddEvent(themesManager.themes[currentRegionIndex+1].fullName, (int) totalDistance);
@@ -335,8 +459,8 @@ public class ContinousMovement : MonoBehaviour {
 		cinematicRegionNameText.StartTween();
 		cinematicRegionNameText.gameObject.GetComponent<Text>().text = themesManager.themes[currentRegionIndex].fullName;
 		yield return new WaitForSeconds(4f);
-		LeanTween.move( topUI, new Vector3(0, 244, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
-		LeanTween.move( bottomUI, new Vector3(0, -249, 0), 2f ) .setEase( LeanTweenType.easeInOutQuad );
+		LeanTween.move( topUI, new Vector3(0, -37, 0), 2f ) .setEase( LeanTweenType.easeInQuad );
+		LeanTween.move( bottomUI, new Vector3(0, 29, 0), 2f ) .setEase( LeanTweenType.easeInOutQuad );
 		isChangingRegion = false;
 		UICameraShake.enabled = true;
 	}
@@ -350,9 +474,13 @@ public class ContinousMovement : MonoBehaviour {
 		StartCoroutine("GlitchEnumerator");
 
 		playerHealth -= intersectingVector.magnitude * 2;
-	
+		
+
 		if(playerHealth <= 0f) {
 			RewindCountdown();
+		}
+		else if(playerHealth <= 10f) {
+			SoundEngine.Instance.MakeHeartbeat();
 		}
 	}
 
@@ -369,6 +497,8 @@ public class ContinousMovement : MonoBehaviour {
 				streakGauge.fillAmount = multiplierGauge;
 				StartCoroutine("GaugeCooldown");
 				SoundEngine.Instance.CreateSound(pointsCubeHit);
+				score += 100;
+				ScoreBonusManager.Instance.AddScore(100, "Cube caught");
 
 			}
 			else {
@@ -421,9 +551,11 @@ public class ContinousMovement : MonoBehaviour {
 	}
 
 	IEnumerator GlitchEnumerator() {
-		// cameraGlitch.enabled = true;
-		yield return new WaitForSeconds(glitchTime);
-		// cameraGlitch.enabled = false;
+		if(GraphicsSettingsManager.Instance.IsGlitchAllowed()) {
+			aberrationCameraEffect.enabled = true;
+			yield return new WaitForSeconds(glitchTime);
+			aberrationCameraEffect.enabled = false;
+		}
 	}
 
 	public void RewindEffectShort() {
@@ -446,9 +578,11 @@ public class ContinousMovement : MonoBehaviour {
 
 	IEnumerator AberrationEnumerator() {
 		if(GraphicsSettingsManager.Instance.IsGlitchAllowed()) {
+			aberrationCameraEffect.Offset = 0.005f;
 			aberrationCameraEffect.enabled = true;
 			yield return new WaitForSeconds(1.0f);
 			aberrationCameraEffect.enabled = false;
+			aberrationCameraEffect.Offset = 0.0028f;
 		}
 	}
 
@@ -466,6 +600,7 @@ public class ContinousMovement : MonoBehaviour {
 
 	public void GameOver() {
 		if(!isGameOver) {
+			TriggerSlowDown();
 			particleFlakes.Stop();
 			Physics.IgnoreLayerCollision(0, 9, true);
 			gameOverScoreLabel.text = (totalDistance + distance).ToString("N");

@@ -7,6 +7,23 @@ public class SoundEngineChild : MonoBehaviour {
 	private Transform myTransform;
 	private AudioSource src;
 	private float length;
+	private bool looping;
+
+	public String ClipName {
+		get {
+			return src.clip.name;
+		}
+	}
+
+	public bool Looping {
+		get { return looping; }
+		set {
+			looping = value;
+
+			if(src == null) src = GetComponent<AudioSource>();
+			src.loop = value;
+		}
+	}
 
 	private void Awake() {
 		src = GetComponent<AudioSource>();
@@ -25,7 +42,7 @@ public class SoundEngineChild : MonoBehaviour {
 				
 				src.Play();
 
-				StartCoroutine("Recycle");
+				if(!looping) StartCoroutine("Recycle");
 			}
 		}
 		catch(Exception e) {

@@ -464,14 +464,18 @@ PlayerSettings:
   WebGL::useEmbeddedResources: 0
   iOS::UseIl2CppPrecompiledHeader: 0
   stringPropertyNames:
+  - Build_ServiceEnabled::Build_ServiceEnabled
+  - UNet_ServiceEnabled::UNet_ServiceEnabled
   - WebGL::emscriptenArgs
   - WebGL::template
   - additionalIl2CppArgs::additionalIl2CppArgs
+  Build_ServiceEnabled::Build_ServiceEnabled: True
+  UNet_ServiceEnabled::UNet_ServiceEnabled: True
   WebGL::emscriptenArgs: 
   WebGL::template: APPLICATION:Default
   additionalIl2CppArgs::additionalIl2CppArgs: 
   firstStreamedSceneWithResources: 0
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudProjectId: 40900c23-a83c-47f7-9bd9-36d4ac8907ac
+  projectName: RacingGame
+  organizationId: thoorne
   cloudEnabled: 0
