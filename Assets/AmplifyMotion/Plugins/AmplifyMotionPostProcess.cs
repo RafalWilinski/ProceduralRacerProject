@@ -9,17 +9,12 @@ using UnityEngine;
 [RequireComponent( typeof( Camera ) )]
 sealed public class AmplifyMotionPostProcess : MonoBehaviour
 {
-	private AmplifyMotionEffectBase Instance = null;
-
-	void OnEnable()
-	{
-		if ( Instance == null )
-			Instance = AmplifyMotionEffectBase.CurrentInstance;
-	}
+	private AmplifyMotionEffectBase m_instance = null;
+	public AmplifyMotionEffectBase Instance { get { return m_instance; } set { m_instance = value; } }
 
 	void OnRenderImage( RenderTexture source, RenderTexture destination )
 	{
-		if ( Instance != null )
-			Instance.PostProcess( source, destination );
+		if ( m_instance != null )
+			m_instance.PostProcess( source, destination );
 	}
 }

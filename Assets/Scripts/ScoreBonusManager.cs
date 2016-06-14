@@ -35,7 +35,7 @@ public class ScoreBonusManager : MonoBehaviour {
 	public void SiftDown() {
 		bonuses.RemoveAt(0);
 		foreach(ScoreBonusObject bonus in bonuses) {
-			Debug.Log("Flying to: "+ (offset + new Vector3(0, spacing, 0) * bonuses.IndexOf(bonus) ) );
+			// Debug.Log("Flying to: "+ (offset + new Vector3(0, spacing, 0) * bonuses.IndexOf(bonus) ) );
 			LeanTween.moveY(bonus.gameObject, 40f + spacing/3 * bonuses.IndexOf(bonus), 0.2f).setEase( LeanTweenType.easeInQuad );
 		}
 	}

@@ -12,6 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+#if !UNITY_4
+using UnityEngine.Rendering;
+#endif
 
 namespace AmplifyMotion
 {
@@ -128,7 +131,11 @@ internal class ClothState : AmplifyMotion.MotionState
 		Mesh.Destroy( m_clonedMesh );
 	}
 
+#if UNITY_4
 	internal override void UpdateTransform( bool starting )
+#else
+	internal override void UpdateTransform( CommandBuffer updateCB, bool starting )
+#endif
 	{
 		if ( !m_initialized )
 		{
@@ -151,7 +158,7 @@ internal class ClothState : AmplifyMotion.MotionState
 	#if UNITY_4
 		m_currLocalToWorld = Matrix4x4.identity;
 	#else
-		m_currLocalToWorld = Matrix4x4.TRS( m_obj.transform.position, m_obj.transform.rotation, Vector3.one );
+		m_currLocalToWorld = Matrix4x4.TRS( m_transform.position, m_transform.rotation, Vector3.one );
 	#endif
 
 		if ( starting || !m_wasVisible )
@@ -163,12 +170,13 @@ internal class ClothState : AmplifyMotion.MotionState
 		Profiler.EndSample();
 	}
 
+#if UNITY_4
 	internal override void RenderVectors( Camera camera, float scale, AmplifyMotion.Quality quality )
 	{
-		Profiler.BeginSample( "Cloth.Render" );
-
 		if ( m_initialized && !m_error && m_renderer.isVisible )
 		{
+			Profiler.BeginSample( "Cloth.Render" );
+
 			const float rcp255 = 1 / 255.0f;
 			bool mask = ( m_owner.Instance.CullingMask & ( 1 << m_obj.gameObject.layer ) ) != 0;
 			int objectId = mask ? m_owner.Instance.GenerateObjectId( m_obj.gameObject ) : 255;
@@ -189,9 +197,9 @@ internal class ClothState : AmplifyMotion.MotionState
 			else
 				prevModelViewProj = m_owner.PrevViewProjMatrixRT * m_prevLocalToWorld;
 
-			Shader.SetGlobalMatrix( "_EFLOW_MATRIX_PREV_MVP", prevModelViewProj );
-			Shader.SetGlobalFloat( "_EFLOW_OBJECT_ID", objectId * rcp255 );
-			Shader.SetGlobalFloat( "_EFLOW_MOTION_SCALE", mask ? scale : 0 );
+			Shader.SetGlobalMatrix( "_AM_MATRIX_PREV_MVP", prevModelViewProj );
+			Shader.SetGlobalFloat( "_AM_OBJECT_ID", objectId * rcp255 );
+			Shader.SetGlobalFloat( "_AM_MOTION_SCALE", mask ? scale : 0 );
 
 			int qualityPass = ( quality == AmplifyMotion.Quality.Mobile ) ? 0 : 2;
 
@@ -212,14 +220,66 @@ internal class ClothState : AmplifyMotion.MotionState
 				#if UNITY_4
 					Graphics.DrawMeshNow( m_clonedMesh, Matrix4x4.identity, i );
 				#else
-					Graphics.DrawMeshNow( m_clonedMesh, Matrix4x4.TRS( m_obj.transform.position, m_obj.transform.rotation, Vector3.one ), i );
+					Graphics.DrawMeshNow( m_clonedMesh, m_currLocalToWorld, i );
 				#endif
 				}
-
 			}
-		}
 
-		Profiler.EndSample();
+			Profiler.EndSample();
+		}
 	}
+#else
+	internal override void RenderVectors( Camera camera, CommandBuffer renderCB, float scale, AmplifyMotion.Quality quality )
+	{
+		if ( m_initialized && !m_error && m_renderer.isVisible )
+		{
+			Profiler.BeginSample( "Cloth.Render" );
+
+			const float rcp255 = 1 / 255.0f;
+			bool mask = ( m_owner.Instance.CullingMask & ( 1 << m_obj.gameObject.layer ) ) != 0;
+			int objectId = mask ? m_owner.Instance.GenerateObjectId( m_obj.gameObject ) : 255;
+
+			Vector3[] clothVertices = m_cloth.vertices;
+			for ( int i = 0; i < m_targetVertexCount; i++ )
+				m_currVertices[ i ] = clothVertices[ m_targetRemap[ i ] ];
+
+			if ( m_starting || !m_wasVisible )
+				Array.Copy( m_currVertices, m_prevVertices, m_targetVertexCount );
+
+			m_clonedMesh.vertices = m_currVertices;
+			m_clonedMesh.normals = m_prevVertices;
+
+			Matrix4x4 prevModelViewProj;
+			if ( m_obj.FixedStep )
+				prevModelViewProj = m_owner.PrevViewProjMatrixRT * m_currLocalToWorld;
+			else
+				prevModelViewProj = m_owner.PrevViewProjMatrixRT * m_prevLocalToWorld;
+
+			renderCB.SetGlobalMatrix( "_AM_MATRIX_PREV_MVP", prevModelViewProj );
+			renderCB.SetGlobalFloat( "_AM_OBJECT_ID", objectId * rcp255 );
+			renderCB.SetGlobalFloat( "_AM_MOTION_SCALE", mask ? scale : 0 );
+
+			int qualityPass = ( quality == AmplifyMotion.Quality.Mobile ) ? 0 : 2;
+
+			for ( int i = 0; i < m_sharedMaterials.Length; i++ )
+			{
+				MaterialDesc matDesc = m_sharedMaterials[ i ];
+				int pass = qualityPass + ( matDesc.coverage ? 1 : 0 );
+
+				matDesc.propertyBlock.Clear();
+				if ( matDesc.coverage )
+				{
+					matDesc.propertyBlock.AddTexture( "_MainTex", matDesc.material.mainTexture );
+					if ( matDesc.cutoff )
+						matDesc.propertyBlock.AddFloat( "_Cutoff", matDesc.material.GetFloat( "_Cutoff" ) );
+				}
+
+				renderCB.DrawMesh( m_clonedMesh, m_currLocalToWorld, m_owner.Instance.ClothVectorsMaterial, i, pass, matDesc.propertyBlock );
+			}
+
+			Profiler.EndSample();
+		}
+	}
+#endif
 }
 }

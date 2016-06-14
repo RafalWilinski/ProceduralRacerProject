@@ -13,6 +13,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
+#if !UNITY_4
+using UnityEngine.Rendering;
+#endif
 using UnityEngine.Serialization;
 
 namespace AmplifyMotion
@@ -39,9 +42,10 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 	public float CameraMotionMult = 1.0f;
 	public float MinVelocity = 1.0f;
 	public float MaxVelocity = 10.0f;
-	public float DepthThreshold = 0.01f;
+	public float DepthThreshold = 0.001f;
 	[FormerlySerializedAs( "workerThreads" )] public int WorkerThreads = 0;
 	public bool SystemThreadPool = false;
+	public bool ForceCPUOnly = false;
 	public bool DebugMode = false;
 
 	// For compatibility
@@ -53,9 +57,9 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 
 	private int m_width, m_height;
 	private RenderTexture m_motionRT;
-	private RenderTexture m_combinedRT;
-	private RenderTexture m_blurRT;
+#if UNITY_4
 	private Texture m_dummyTex;
+#endif
 	private Material m_blurMaterial;
 	private Material m_solidVectorsMaterial;
 	private Material m_skinnedVectorsMaterial;
@@ -63,6 +67,7 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 	private Material m_reprojectionMaterial;
 	private Material m_combineMaterial;
 	private Material m_dilationMaterial;
+	private Material m_depthMaterial;
 	private Material m_debugMaterial;
 
 	internal Material SolidVectorsMaterial { get { return m_solidVectorsMaterial; } }
@@ -109,6 +114,20 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 	private static bool m_isD3D = false;
 	public static bool IsD3D { get { return m_isD3D; } }
 
+	private bool m_canUseGPU = false;
+	public bool CanUseGPU { get { return m_canUseGPU; } }
+
+#if !UNITY_4
+	private const CameraEvent m_updateCBEvent = CameraEvent.BeforeImageEffectsOpaque;
+	private CommandBuffer m_updateCB = null;
+
+	private const CameraEvent m_fixedUpdateCBEvent = CameraEvent.BeforeImageEffectsOpaque;
+	private CommandBuffer m_fixedUpdateCB = null;
+
+	private const CameraEvent m_renderCBEvent = CameraEvent.BeforeImageEffects;
+	private CommandBuffer m_renderCB = null;
+#endif
+
 	private static bool m_ignoreMotionScaleWarning = false;
 	public static bool IgnoreMotionScaleWarning { get { return m_ignoreMotionScaleWarning; } }
 
@@ -116,20 +135,30 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 	public static AmplifyMotionEffectBase FirstInstance { get { return m_firstInstance; } }
 	public static AmplifyMotionEffectBase Instance { get { return m_firstInstance; } }
 
-	// HACKS. Unity does not allow assigning component vars before Awake/OnEnable/Start
-	internal static AmplifyMotionEffectBase CurrentInstance = null;
-	internal static AmplifyMotionCamera CurrentOwner = null;
-
 	void Awake()
 	{
 		if ( m_firstInstance == null )
 			m_firstInstance = this;
 
 		m_isD3D = SystemInfo.graphicsDeviceVersion.StartsWith( "Direct3D" );
-
 		m_globalObjectId = 1;
-
 		m_width = m_height = 0;
+
+		if ( ForceCPUOnly )
+			m_canUseGPU = false;
+		else
+		{
+		#if !UNITY_4
+			bool hasRTs = SystemInfo.supportsRenderTextures;
+			bool hasSM3 = ( SystemInfo.graphicsShaderLevel >= 30 );
+			bool hasRHalfTex = SystemInfo.SupportsTextureFormat( TextureFormat.RHalf );
+			bool hasRGHalfTex = SystemInfo.SupportsTextureFormat( TextureFormat.RGHalf );
+			bool hasARGBHalfTex = SystemInfo.SupportsTextureFormat( TextureFormat.RGBAHalf );
+			bool hasARGBFloatRT = SystemInfo.SupportsRenderTextureFormat( RenderTextureFormat.ARGBFloat );
+
+			m_canUseGPU = hasRTs && hasSM3 && hasRHalfTex && hasRGHalfTex && hasARGBHalfTex && hasARGBFloatRT;
+		#endif
+		}
 	}
 
 	internal void ResetObjectId()
@@ -188,6 +217,7 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		SafeDestroyMaterial( ref m_reprojectionMaterial );
 		SafeDestroyMaterial( ref m_combineMaterial );
 		SafeDestroyMaterial( ref m_dilationMaterial );
+		SafeDestroyMaterial( ref m_depthMaterial );
 		SafeDestroyMaterial( ref m_debugMaterial );
 	}
 
@@ -195,13 +225,16 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 	{
 		DestroyMaterials();
 
-		string blurShader = "Hidden/Amplify Motion/MotionBlur";
+		int shaderModel = ( SystemInfo.graphicsShaderLevel >= 30 ) ? 3 : 2;
+
+		string blurShader = "Hidden/Amplify Motion/MotionBlurSM" + shaderModel;
 		string solidVectorsShader = "Hidden/Amplify Motion/SolidVectors";
 		string skinnedVectorsShader = "Hidden/Amplify Motion/SkinnedVectors";
 		string clothVectorsShader = "Hidden/Amplify Motion/ClothVectors";
 		string reprojectionVectorsShader = "Hidden/Amplify Motion/ReprojectionVectors";
 		string combineShader = "Hidden/Amplify Motion/Combine";
 		string dilationShader = "Hidden/Amplify Motion/Dilation";
+		string depthShader = "Hidden/Amplify Motion/Depth";
 		string debugShader = "Hidden/Amplify Motion/Debug";
 
 		try
@@ -213,6 +246,7 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 			m_reprojectionMaterial = new Material( Shader.Find( reprojectionVectorsShader ) ) { hideFlags = HideFlags.DontSave };
 			m_combineMaterial = new Material( Shader.Find( combineShader ) ) { hideFlags = HideFlags.DontSave };
 			m_dilationMaterial = new Material( Shader.Find( dilationShader ) ) { hideFlags = HideFlags.DontSave };
+			m_depthMaterial = new Material( Shader.Find( depthShader ) ) { hideFlags = HideFlags.DontSave };
 			m_debugMaterial = new Material( Shader.Find( debugShader ) ) { hideFlags = HideFlags.DontSave };
 		}
 		catch ( Exception )
@@ -227,6 +261,7 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		ok = ok && CheckMaterialAndShader( m_reprojectionMaterial, reprojectionVectorsShader );
 		ok = ok && CheckMaterialAndShader( m_combineMaterial, combineShader );
 		ok = ok && CheckMaterialAndShader( m_dilationMaterial, dilationShader );
+		ok = ok && CheckMaterialAndShader( m_depthMaterial, depthShader );
 		ok = ok && CheckMaterialAndShader( m_debugMaterial, debugShader );
 		return ok;
 	}
@@ -265,16 +300,15 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		RenderTexture.active = null;
 
 		SafeDestroyRenderTexture( ref m_motionRT );
-		SafeDestroyRenderTexture( ref m_combinedRT );
-		SafeDestroyRenderTexture( ref m_blurRT );
 
+	#if UNITY_4
 		SafeDestroyTexture( ref m_dummyTex );
-
 		if ( m_dummyTex != null )
 		{
 			DestroyImmediate( m_dummyTex );
 			m_dummyTex = null;
 		}
+	#endif
 	}
 
 	void UpdateRenderTextures( bool qualityChanged )
@@ -296,26 +330,17 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 			DestroyRenderTextures();
 		}
 
-		RenderTextureFormat auxRGB = RenderTextureFormat.ARGB32;
-		RenderTextureReadWrite auxRW = RenderTextureReadWrite.Linear;
-		RenderTextureFormat colRGB = RenderTextureFormat.ARGB32;
-		RenderTextureReadWrite colRW = RenderTextureReadWrite.Default;
-
 		if ( m_motionRT == null  )
-			m_motionRT = CreateRenderTexture( "Motion", 24, auxRGB, auxRW, FilterMode.Point );
+			m_motionRT = CreateRenderTexture( "Motion", 24, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear, FilterMode.Point );
 
-		if ( m_combinedRT == null )
-			m_combinedRT = CreateRenderTexture( "Combined", 0, colRGB, colRW, FilterMode.Point );
-
-		if ( QualityLevel == AmplifyMotion.Quality.Mobile && m_blurRT == null )
-			m_blurRT = CreateRenderTexture( "Blur", 0, colRGB, colRW, FilterMode.Bilinear );
-
+	#if UNITY_4
 		if ( m_dummyTex == null )
 		{
 			m_dummyTex = new Texture2D( 4, 4, TextureFormat.ARGB32, false, true );
 			m_dummyTex.wrapMode = TextureWrapMode.Clamp;
 			m_dummyTex.hideFlags = HideFlags.DontSave;
 		}
+	#endif
 	}
 
 	public bool CheckSupport()
@@ -328,6 +353,68 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		return true;
 	}
 
+	void InitializeThreadPool()
+	{
+		if ( WorkerThreads <= 0 )
+			WorkerThreads = Mathf.Max( Environment.ProcessorCount / 2, 1 ); // half of CPU threads; non-busy idle
+
+		m_workerThreadPool = new AmplifyMotion.WorkerThreadPool();
+		m_workerThreadPool.InitializeAsyncUpdateThreads( WorkerThreads, SystemThreadPool );
+	}
+
+	void ShutdownThreadPool()
+	{
+		if ( m_workerThreadPool != null )
+		{
+			m_workerThreadPool.FinalizeAsyncUpdateThreads();
+			m_workerThreadPool = null;
+		}
+	}
+
+	void InitializeCommandBuffers()
+	{
+	#if !UNITY_4
+		ShutdownCommandBuffers();
+
+		m_updateCB = new CommandBuffer();
+		m_updateCB.name = "AmplifyMotion.Update";
+		m_camera.AddCommandBuffer( m_updateCBEvent, m_updateCB );
+
+		m_fixedUpdateCB = new CommandBuffer();
+		m_fixedUpdateCB.name = "AmplifyMotion.FixedUpdate";
+		m_camera.AddCommandBuffer( m_fixedUpdateCBEvent, m_fixedUpdateCB );
+
+		m_renderCB = new CommandBuffer();
+		m_renderCB.name = "AmplifyMotion.Render";
+		m_camera.AddCommandBuffer( m_renderCBEvent, m_renderCB );
+
+	#endif
+	}
+
+	void ShutdownCommandBuffers()
+	{
+	#if !UNITY_4
+		if ( m_updateCB != null )
+		{
+			m_camera.RemoveCommandBuffer( m_updateCBEvent, m_updateCB );
+			m_updateCB.Release();
+			m_updateCB = null;
+		}
+		if ( m_fixedUpdateCB != null )
+		{
+			m_camera.RemoveCommandBuffer( m_fixedUpdateCBEvent, m_fixedUpdateCB );
+			m_fixedUpdateCB.Release();
+			m_fixedUpdateCB = null;
+		}
+		if ( m_renderCB != null )
+		{
+			m_camera.RemoveCommandBuffer( m_renderCBEvent, m_renderCB );
+			m_renderCB.Release();
+			m_renderCB = null;
+		}
+	#endif
+	}
+
 	void OnEnable()
 	{
 		m_camera = GetComponent<Camera>();
@@ -338,11 +425,7 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 			return;
 		}
 
-		if ( WorkerThreads <= 0 )
-			WorkerThreads = Mathf.Max( Environment.ProcessorCount / 2, 1 ); // half of CPU threads; non-busy idle
-
-		m_workerThreadPool = new AmplifyMotion.WorkerThreadPool();
-		m_workerThreadPool.InitializeAsyncUpdateThreads( WorkerThreads, SystemThreadPool );
+		InitializeThreadPool();
 
 		m_starting = true;
 
@@ -357,6 +440,7 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 			UpdateActiveObjects();
 
 		InitializeCameras();
+		InitializeCommandBuffers();
 
 		UpdateRenderTextures( true );
 
@@ -368,7 +452,6 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 			enabled = false;
 			return;
 		}
-
 		if ( m_currentPostProcess != null )
 			m_currentPostProcess.enabled = true;
 
@@ -380,11 +463,8 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		if ( m_currentPostProcess != null )
 			m_currentPostProcess.enabled = false;
 
-		if ( m_workerThreadPool != null )
-		{
-			m_workerThreadPool.FinalizeAsyncUpdateThreads();
-			m_workerThreadPool = null;
-		}
+		ShutdownCommandBuffers();
+		ShutdownThreadPool();
 	}
 
 	void Start()
@@ -408,9 +488,11 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 
 		foreach ( AmplifyMotionCamera cam in prevLinkedCams )
 		{
-			if ( cam.gameObject != gameObject )
+			if ( cam != null && cam.gameObject != gameObject )
 			{
-				cam.Camera.targetTexture = null;
+				Camera actual = cam.GetComponent<Camera>();
+				if ( actual != null )
+					actual.targetTexture = null;
 				DestroyImmediate( cam );
 			}
 		}
@@ -462,19 +544,15 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 			if ( !m_linkedCameras.ContainsKey( reference ) )
 			{
 				AmplifyMotionCamera cam = reference.gameObject.GetComponent<AmplifyMotionCamera>();
-				if ( cam != null && cam.Instance != this )
+				if ( cam != null )
 				{
-					DestroyImmediate( cam );
-					cam = null;
+					cam.enabled = false;
+					cam.enabled = true;
 				}
-
-				if ( cam == null )
-				{
-					CurrentInstance = this;
+				else
 					cam = reference.gameObject.AddComponent<AmplifyMotionCamera>();
-					cam.SetOverlay( i > 0 );
-					CurrentInstance = null;
-				}
+
+				cam.LinkTo( this, i > 0 );
 
 				m_linkedCameras.Add( reference, cam );
 				m_linkedCamerasChanged = true;
@@ -489,20 +567,16 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 
 	internal static void RegisterCamera( AmplifyMotionCamera cam )
 	{
-		//Debug.Log( "Registering AmplifyMotionCamera: " + cam.name );
-
-		m_activeCameras.Add( cam.Camera, cam );
+		m_activeCameras.Add( cam.GetComponent<Camera>(), cam );
 		foreach ( AmplifyMotionObjectBase obj in m_activeObjects.Values )
 			obj.RegisterCamera( cam );
 	}
 
 	internal static void UnregisterCamera( AmplifyMotionCamera cam )
 	{
-		//Debug.Log( "Unregistering AmplifyMotionCamera: " + cam.name );
-
 		foreach ( AmplifyMotionObjectBase obj in m_activeObjects.Values )
 			obj.UnregisterCamera( cam );
-		m_activeCameras.Remove( cam.Camera );
+		m_activeCameras.Remove( cam.GetComponent<Camera>() );
 	}
 
 	public void UpdateActiveObjects()
@@ -511,7 +585,7 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		for ( int i = 0; i < gameObjs.Length; i++ )
 		{
 			if ( !m_activeObjects.ContainsKey( gameObjs[ i ] ) )
-				TryRegister( gameObjs[ i ] );
+				TryRegister( gameObjs[ i ], true );
 		}
 	}
 
@@ -548,7 +622,7 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		return false;
 	}
 
-	internal static bool CanRegister( GameObject gameObj )
+	internal static bool CanRegister( GameObject gameObj, bool autoReg )
 	{
 		// Ignore static objects
 		if ( gameObj.isStatic )
@@ -556,7 +630,7 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 
 		// Ignore invalid materials; Ignore static batches
 		Renderer renderer = null;
-		if ( gameObj.GetComponent<ParticleSystem>() != null )
+		if ( gameObj.GetComponent<ParticleSystem>() != null && !autoReg )
 		{
 			return true;
 		}
@@ -606,9 +680,9 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		return false;
 	}
 
-	internal static void TryRegister( GameObject gameObj )
+	internal static void TryRegister( GameObject gameObj, bool autoReg )
 	{
-		if ( CanRegister( gameObj ) && gameObj.GetComponent<AmplifyMotionObjectBase>() == null )
+		if ( CanRegister( gameObj, autoReg ) && gameObj.GetComponent<AmplifyMotionObjectBase>() == null )
 		{
 			AmplifyMotionObjectBase.ApplyToChildren = false;
 			gameObj.AddComponent<AmplifyMotionObjectBase>();
@@ -626,19 +700,19 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 	public void Register( GameObject gameObj )
 	{
 		if ( !m_activeObjects.ContainsKey( gameObj ) )
-			TryRegister( gameObj );
+			TryRegister( gameObj, false );
 	}
 
 	public static void RegisterS( GameObject gameObj )
 	{
 		if ( !m_activeObjects.ContainsKey( gameObj ) )
-			TryRegister( gameObj );
+			TryRegister( gameObj, false );
 	}
 
 	public void RegisterRecursively( GameObject gameObj )
 	{
 		if ( !m_activeObjects.ContainsKey( gameObj ) )
-			TryRegister( gameObj );
+			TryRegister( gameObj, false );
 
 		foreach ( Transform child in gameObj.transform )
 			RegisterRecursively( child.gameObject );
@@ -647,7 +721,7 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 	public static void RegisterRecursivelyS( GameObject gameObj )
 	{
 		if ( !m_activeObjects.ContainsKey( gameObj ) )
-			TryRegister( gameObj );
+			TryRegister( gameObj, false );
 
 		foreach ( Transform child in gameObj.transform )
 			RegisterRecursivelyS( child.gameObject );
@@ -693,7 +767,7 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 
 		for ( int i = 0; i < m_linkedCameraKeys.Length; i++ )
 		{
-			if ( m_linkedCameraKeys[ i ].depth > highestDepth )
+			if ( m_linkedCameraKeys[ i ] != null && m_linkedCameraKeys[ i ].isActiveAndEnabled && m_linkedCameraKeys[ i ].depth > highestDepth )
 			{
 				highestReference = m_linkedCameraKeys[ i ];
 				highestDepth = m_linkedCameraKeys[ i ].depth;
@@ -708,8 +782,6 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 
 		if ( m_currentPostProcess == null && highestReference != null && highestReference != m_camera )
 		{
-			CurrentInstance = this;
-
 			AmplifyMotionPostProcess[] runtimes = gameObject.GetComponents<AmplifyMotionPostProcess>();
 			if ( runtimes != null && runtimes.Length > 0 )
 			{
@@ -717,8 +789,7 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 					DestroyImmediate( runtimes[ i ] );
 			}
 			m_currentPostProcess = highestReference.gameObject.AddComponent<AmplifyMotionPostProcess>();
-
-			CurrentInstance = null;
+			m_currentPostProcess.Instance = this;
 		}
 	}
 
@@ -778,6 +849,31 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		m_linkedCamerasChanged = false;
 	}
 
+	void FixedUpdate()
+	{
+		if ( m_camera.enabled )
+		{
+			if ( m_linkedCamerasChanged )
+				UpdateLinkedCameras();
+
+		#if !UNITY_4
+			m_fixedUpdateCB.Clear();
+		#endif
+
+			for ( int i = 0; i < m_linkedCameraValues.Length; i++ )
+			{
+				if ( m_linkedCameraValues[ i ] != null && m_linkedCameraValues[ i ].isActiveAndEnabled )
+				{
+				#if UNITY_4
+					m_linkedCameraValues[ i ].FixedUpdateTransform();
+				#else
+					m_linkedCameraValues[ i ].FixedUpdateTransform( m_fixedUpdateCB );
+				#endif
+				}
+			}
+		}
+	}
+
 	void OnPreRender()
 	{
 		if ( m_camera.enabled && ( Time.frameCount == 1 || Mathf.Abs( Time.deltaTime ) > float.Epsilon ) )
@@ -785,17 +881,48 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 			if ( m_linkedCamerasChanged )
 				UpdateLinkedCameras();
 
+		#if !UNITY_4
+			m_updateCB.Clear();
+		#endif
+
 			for ( int i = 0; i < m_linkedCameraValues.Length; i++ )
-				m_linkedCameraValues[ i ].UpdateTransform();
+			{
+				if ( m_linkedCameraValues[ i ] != null && m_linkedCameraValues[ i ].isActiveAndEnabled )
+				{
+				#if UNITY_4
+					m_linkedCameraValues[ i ].UpdateTransform();
+				#else
+					m_linkedCameraValues[ i ].UpdateTransform( m_updateCB );
+				#endif
+				}
+			}
 		}
 	}
 
+#if UNITY_4
 	void RenderReprojectionVectors( RenderTexture destination, float scale )
 	{
-		Shader.SetGlobalMatrix( "_EFLOW_MATRIX_CURR_REPROJ", m_baseCamera.PrevViewProjMatrix * m_baseCamera.InvViewProjMatrix );
-		Shader.SetGlobalFloat( "_EFLOW_MOTION_SCALE", scale );
+		Shader.SetGlobalMatrix( "_AM_MATRIX_CURR_REPROJ", m_baseCamera.PrevViewProjMatrix * m_baseCamera.InvViewProjMatrix );
+		Shader.SetGlobalFloat( "_AM_MOTION_SCALE", scale );
 
 		Graphics.Blit( m_dummyTex, destination, m_reprojectionMaterial );
+	}
+#else
+	void RenderReprojectionVectors( CommandBuffer commandBuffer, RenderTexture destination, float scale )
+	{
+		commandBuffer.SetGlobalMatrix( "_AM_MATRIX_CURR_REPROJ", m_baseCamera.PrevViewProjMatrix * m_baseCamera.InvViewProjMatrix );
+		commandBuffer.SetGlobalFloat( "_AM_MOTION_SCALE", scale );
+
+		RenderTexture dummy = null;
+		commandBuffer.Blit( new RenderTargetIdentifier( dummy ), destination, m_reprojectionMaterial );
+	}
+#endif
+
+	public static void DiscardContents( RenderTexture rtex )
+	{
+	#if !( UNITY_WP8 || UNITY_WP8_1 || UNITY_WSA ) // why?..
+		rtex.DiscardContents();
+	#endif
 	}
 
 	void OnPostRender()
@@ -808,21 +935,16 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		}
 		UpdateRenderTextures( qualityChanged );
 
+		ResetObjectId();
+
+	#if UNITY_4
 		RenderBuffer prevColor = Graphics.activeColorBuffer;
 		RenderBuffer prevDepth = Graphics.activeDepthBuffer;
-
+	#endif
 		bool cameraMotion = ( CameraMotionMult > float.Epsilon );
-
-		m_motionRT.DiscardContents();
-		Graphics.SetRenderTarget( m_motionRT );
-		GL.Clear( true, !cameraMotion || m_starting, Color.black );
-
-		Shader.SetGlobalFloat( "_EFLOW_MIN_VELOCITY", MinVelocity );
-		Shader.SetGlobalFloat( "_EFLOW_MAX_VELOCITY", MaxVelocity );
-		Shader.SetGlobalFloat( "_EFLOW_RCP_TOTAL_VELOCITY", 1.0f / ( MaxVelocity - MinVelocity ) );
+		bool clearColor = !cameraMotion || m_starting;
 
 		float rcpDepthThreshold = ( DepthThreshold > float.Epsilon ) ? 1.0f / DepthThreshold : float.MaxValue;
-		Shader.SetGlobalVector( "_EFLOW_DEPTH_THRESHOLD", new Vector2( DepthThreshold, rcpDepthThreshold ) );
 
 		m_motionScaleNorm = ( m_deltaTime >= float.Epsilon ) ? MotionScale * ( 1.0f / m_deltaTime ) : 0;
 		m_fixedMotionScaleNorm = ( m_fixedDeltaTime >= float.Epsilon ) ? MotionScale * ( 1.0f / m_fixedDeltaTime ) : 0;
@@ -830,107 +952,108 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		float objectScale = !m_starting ? m_motionScaleNorm : 0;
 		float objectFixedScale = !m_starting ? m_fixedMotionScaleNorm : 0;
 
+		DiscardContents( m_motionRT );
+
+	#if UNITY_4
+		Graphics.SetRenderTarget( m_motionRT );
+		GL.Clear( true, clearColor, Color.black );
+
+		Shader.SetGlobalFloat( "_AM_MIN_VELOCITY", MinVelocity );
+		Shader.SetGlobalFloat( "_AM_MAX_VELOCITY", MaxVelocity );
+		Shader.SetGlobalFloat( "_AM_RCP_TOTAL_VELOCITY", 1.0f / ( MaxVelocity - MinVelocity ) );
+		Shader.SetGlobalVector( "_AM_DEPTH_THRESHOLD", new Vector2( DepthThreshold, rcpDepthThreshold ) );
+	#else
+		m_updateCB.Clear();
+		m_renderCB.Clear();
+
+		m_renderCB.SetGlobalFloat( "_AM_MIN_VELOCITY", MinVelocity );
+		m_renderCB.SetGlobalFloat( "_AM_MAX_VELOCITY", MaxVelocity );
+		m_renderCB.SetGlobalFloat( "_AM_RCP_TOTAL_VELOCITY", 1.0f / ( MaxVelocity - MinVelocity ) );
+		m_renderCB.SetGlobalVector( "_AM_DEPTH_THRESHOLD", new Vector2( DepthThreshold, rcpDepthThreshold ) );
+
+		m_renderCB.SetRenderTarget( m_motionRT );
+		m_renderCB.ClearRenderTarget( true, clearColor, Color.black );
+	#endif
+
 		if ( cameraMotion )
 		{
 			float cameraMotionScaleNorm = ( m_deltaTime >= float.Epsilon ) ? MotionScale * CameraMotionMult * ( 1.0f / m_deltaTime ) : 0;
 			float cameraScale = !m_starting ? cameraMotionScaleNorm : 0;
 
+		#if UNITY_4
 			RenderReprojectionVectors( m_motionRT, cameraScale );
+		#else
+			RenderReprojectionVectors( m_renderCB, m_motionRT, cameraScale );
+		#endif
 		}
 
-		ResetObjectId();
-
+	#if UNITY_4
 		m_baseCamera.RenderVectors( objectScale, objectFixedScale, QualityLevel );
+	#else
+		// base camera
+		m_baseCamera.RenderVectors( m_renderCB, objectScale, objectFixedScale, QualityLevel );
+
+		// overlay cameras
+		for ( int i = 0; i < m_linkedCameraValues.Length; i++ )
+		{
+			AmplifyMotionCamera cam = m_linkedCameraValues[ i ];
+			if ( cam != null && cam.Overlay && cam.isActiveAndEnabled )
+				m_linkedCameraValues[ i ].RenderVectors( m_renderCB, objectScale, objectFixedScale, QualityLevel );
+		}
+	#endif
 
 		m_starting = false;
 
+	#if UNITY_4
 		Graphics.SetRenderTarget( prevColor, prevDepth );
+	#endif
 	}
 
-	void RenderMobile( RenderTexture source, RenderTexture destination, Vector4 blurStep )
+	void ApplyMotionBlur( RenderTexture source, RenderTexture destination, Vector4 blurStep )
 	{
+		bool mobile = ( QualityLevel == AmplifyMotion.Quality.Mobile );
 		int pass = ( int ) QualityLevel;
 
-		m_combinedRT.DiscardContents();
+		RenderTexture depthRT = null;
+		if ( mobile )
+		{
+			depthRT = RenderTexture.GetTemporary( m_width, m_height, 0, RenderTextureFormat.ARGB32 );
+			depthRT.wrapMode = TextureWrapMode.Clamp;
+			depthRT.filterMode = FilterMode.Point;
+		}
+
+		RenderTexture combinedRT = RenderTexture.GetTemporary( m_width, m_height, 0, source.format );
+		combinedRT.wrapMode = TextureWrapMode.Clamp;
+		combinedRT.filterMode = FilterMode.Point;
+
+		DiscardContents( combinedRT );
 		m_combineMaterial.SetTexture( "_MotionTex", m_motionRT );
-		Graphics.Blit( source, m_combinedRT, m_combineMaterial, 0 );
+		source.filterMode = FilterMode.Point;
+		Graphics.Blit( source, combinedRT, m_combineMaterial, 0 );
 
 		m_blurMaterial.SetTexture( "_MotionTex", m_motionRT );
+		if ( mobile )
+		{
+			Graphics.Blit( null, depthRT, m_depthMaterial, 0 );
+			m_blurMaterial.SetTexture( "_DepthTex", depthRT );
+		}
 
 		if ( QualitySteps > 1 )
 		{
-			RenderTexture temp = RenderTexture.GetTemporary( m_width, m_height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Default );
+			RenderTexture temp = RenderTexture.GetTemporary( m_width, m_height, 0, source.format );
 			temp.filterMode = FilterMode.Point;
 
 			float step = 1.0f / QualitySteps;
 			float scale = 1.0f;
-			RenderTexture src = m_combinedRT;
+			RenderTexture src = combinedRT;
 			RenderTexture dst = temp;
 
 			for ( int i = 0; i < QualitySteps; i++ )
 			{
 				if ( dst != destination )
-					dst.DiscardContents();
+					DiscardContents( dst );
 
-				m_blurMaterial.SetVector( "_EFLOW_BLUR_STEP", blurStep * scale );
-				Graphics.Blit( src, dst, m_blurMaterial, pass );
-
-				if ( i < QualitySteps - 2 )
-				{
-					RenderTexture tmp = dst;
-					dst = src;
-					src = tmp;
-				}
-				else
-				{
-					src = dst;
-					dst = m_blurRT;
-				}
-				scale -= step;
-			}
-
-			RenderTexture.ReleaseTemporary( temp );
-		}
-		else
-		{
-			m_blurRT.DiscardContents();
-			m_blurMaterial.SetVector( "_EFLOW_BLUR_STEP", blurStep );
-			Graphics.Blit( m_combinedRT, m_blurRT, m_blurMaterial, pass );
-		}
-
-		// we need the full res here
-		m_combineMaterial.SetTexture( "_MotionTex", m_motionRT );
-		m_combineMaterial.SetTexture( "_BlurredTex", m_blurRT );
-
-		Graphics.Blit( source, destination, m_combineMaterial, 1 );
-	}
-
-	void RenderStandard( RenderTexture source, RenderTexture destination, Vector4 blurStep )
-	{
-		int pass = ( int ) QualityLevel;
-
-		m_combinedRT.DiscardContents();
-		m_combineMaterial.SetTexture( "_MotionTex", m_motionRT );
-		Graphics.Blit( source, m_combinedRT, m_combineMaterial, 0 );
-
-		m_blurMaterial.SetTexture( "_MotionTex", m_motionRT );
-
-		if ( QualitySteps > 1 )
-		{
-			RenderTexture temp = RenderTexture.GetTemporary( m_width, m_height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Default );
-			temp.filterMode = FilterMode.Point;
-
-			float step = 1.0f / QualitySteps;
-			float scale = 1.0f;
-			RenderTexture src = m_combinedRT;
-			RenderTexture dst = temp;
-
-			for ( int i = 0; i < QualitySteps; i++ )
-			{
-				if ( dst != destination )
-					dst.DiscardContents();
-
-				m_blurMaterial.SetVector( "_EFLOW_BLUR_STEP", blurStep * scale );
+				m_blurMaterial.SetVector( "_AM_BLUR_STEP", blurStep * scale );
 				Graphics.Blit( src, dst, m_blurMaterial, pass );
 
 				if ( i < QualitySteps - 2 )
@@ -951,9 +1074,20 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		}
 		else
 		{
-			m_blurMaterial.SetVector( "_EFLOW_BLUR_STEP", blurStep );
-			Graphics.Blit( m_combinedRT, destination, m_blurMaterial, pass );
+			m_blurMaterial.SetVector( "_AM_BLUR_STEP", blurStep );
+			Graphics.Blit( combinedRT, destination, m_blurMaterial, pass );
 		}
+
+		if ( mobile )
+		{
+			// we need the full res here
+			m_combineMaterial.SetTexture( "_MotionTex", m_motionRT );
+			Graphics.Blit( source, destination, m_combineMaterial, 1 );
+		}
+
+		RenderTexture.ReleaseTemporary( combinedRT );
+		if ( depthRT != null )
+			RenderTexture.ReleaseTemporary( depthRT );
 	}
 
 	void OnRenderImage( RenderTexture source, RenderTexture destination )
@@ -970,16 +1104,16 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		blurStep.x = MaxVelocity / 1000.0f;
 		blurStep.y = MaxVelocity / 1000.0f;
 
-		RenderTexture temp = null;
+		RenderTexture tempRT = null;
 		if ( QualitySettings.antiAliasing > 1 )
 		{
-			temp = RenderTexture.GetTemporary( m_width, m_height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear );
-			temp.filterMode = FilterMode.Point;
+			tempRT = RenderTexture.GetTemporary( m_width, m_height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear );
+			tempRT.filterMode = FilterMode.Point;
 
 			m_dilationMaterial.SetTexture( "_MotionTex", m_motionRT );
-			Graphics.Blit( m_motionRT, temp, m_dilationMaterial, 0 );
-			m_dilationMaterial.SetTexture( "_MotionTex", temp );
-			Graphics.Blit( temp, m_motionRT, m_dilationMaterial, 1 );
+			Graphics.Blit( m_motionRT, tempRT, m_dilationMaterial, 0 );
+			m_dilationMaterial.SetTexture( "_MotionTex", tempRT );
+			Graphics.Blit( tempRT, m_motionRT, m_dilationMaterial, 1 );
 		}
 
 		if ( DebugMode )
@@ -989,14 +1123,11 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		}
 		else
 		{
-			if ( QualityLevel == AmplifyMotion.Quality.Mobile )
-				RenderMobile( source, destination, blurStep );
-			else if ( QualityLevel >= AmplifyMotion.Quality.Standard )
-				RenderStandard( source, destination, blurStep );
+			ApplyMotionBlur( source, destination, blurStep );
 		}
 
-		if ( temp != null )
-			RenderTexture.ReleaseTemporary( temp );
+		if ( tempRT != null )
+			RenderTexture.ReleaseTemporary( tempRT );
 	}
 
 #if TRIAL
@@ -1005,4 +1136,20 @@ public class AmplifyMotionEffectBase : MonoBehaviour
 		GUI.DrawTexture( new Rect( 15, Screen.height - m_watermark.height - 12, m_watermark.width, m_watermark.height ), m_watermark );
 	}
 #endif
+
+	//void OnGUI()
+	//{
+	//	GUI.color = Color.black;
+	//	GUILayout.BeginHorizontal();
+	//	GUILayout.Space( 300 );
+	//	GUILayout.BeginVertical();
+	//	GUILayout.Label( "GPU / RT / SM3 => " + m_canUseGPU + " / " + SystemInfo.supportsRenderTextures + " / " + ( SystemInfo.graphicsShaderLevel >= 30 ) );
+	//	GUILayout.Label( "TEX.RHalf => " + SystemInfo.SupportsTextureFormat( TextureFormat.RHalf ) );
+	//	GUILayout.Label( "TEX.RGHalf => " + SystemInfo.SupportsTextureFormat( TextureFormat.RGHalf ) );
+	//	GUILayout.Label( "TEX.RGBAHalf => " + SystemInfo.SupportsTextureFormat( TextureFormat.RGBAHalf ) );
+	//	GUILayout.Label( "RT.RFloat => " + SystemInfo.SupportsRenderTextureFormat( RenderTextureFormat.RFloat ) );
+	//	GUILayout.Label( "RT.ARGBFloat => " + SystemInfo.SupportsRenderTextureFormat( RenderTextureFormat.ARGBFloat ) );
+	//	GUILayout.EndVertical();
+	//	GUILayout.EndHorizontal();
+	//}
 }

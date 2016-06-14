@@ -428,7 +428,7 @@ public class ContinousMovement : MonoBehaviour {
 				speed = (fwdSpeed * (1 + accel)) * 10; 
 				distance += speed * uiThreadSleep;
 
-				pointsLabel.text = score.ToString() + "pts";
+				pointsLabel.text = score.ToString() + "exp";
 				distanceLabel.text = distance.ToString("f0") + " / " + themesManager.themes[currentRegionIndex].distance.ToString("f0") + "mi remaining";
 				speedLabel.text = "Speed: "+speed.ToString("f2");
 				marker.anchoredPosition = new Vector2(-markerRegionWidth + (2*markerRegionWidth) * (distance/themesManager.themes[currentRegionIndex].distance), marker.anchoredPosition.y);

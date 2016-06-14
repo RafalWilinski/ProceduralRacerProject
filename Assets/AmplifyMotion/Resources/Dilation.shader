@@ -6,37 +6,36 @@ Shader "Hidden/Amplify Motion/Dilation" {
 		_MainTex ("Base (RGB)", 2D) = "white" {}
 		_MotionTex ("Motion (RGB)", 2D) = "white" {}
 	}
+	CGINCLUDE
+		#pragma fragmentoption ARB_precision_hint_fastest
+		#pragma exclude_renderers flash
+		#include "UnityCG.cginc"
+
+		sampler2D _CameraDepthTexture;
+		sampler2D _MotionTex;
+		float4 _MainTex_TexelSize;
+
+		struct v2f
+		{
+			float4 pos : SV_POSITION;
+			float4 uv : TEXCOORD0;
+		};
+
+		v2f vert( appdata_img v )
+		{
+			v2f o;
+			o.pos = mul( UNITY_MATRIX_MVP, v.vertex );
+			o.uv.xy = v.texcoord.xy;
+			o.uv.zw = v.texcoord.xy;
+		#if UNITY_UV_STARTS_AT_TOP
+			if ( _MainTex_TexelSize.y < 0 )
+				o.uv.w = 1 - o.uv.w;
+		#endif
+			return o;
+		}
+	ENDCG
 	SubShader {
-		ZTest Always Cull Off Fog { Mode off }
-		ZWrite On
-		CGINCLUDE
-			#pragma fragmentoption ARB_precision_hint_fastest
-			#pragma exclude_renderers flash
-			#include "UnityCG.cginc"
-
-			sampler2D _CameraDepthTexture;
-			sampler2D _MotionTex;
-			float4 _MainTex_TexelSize;
-
-			struct v2f
-			{
-				float4 pos : SV_POSITION;
-				float4 uv : TEXCOORD0;
-			};
-
-			v2f vert( appdata_img v )
-			{
-				v2f o;
-				o.pos = mul( UNITY_MATRIX_MVP, v.vertex );
-				o.uv.xy = v.texcoord.xy;
-				o.uv.zw = v.texcoord.xy;
-			#if UNITY_UV_STARTS_AT_TOP
-				if ( _MainTex_TexelSize.y < 0 )
-					o.uv.w = 1 - o.uv.w;
-			#endif
-				return o;
-			}
-		ENDCG
+		ZTest Always Cull Off ZWrite Off Fog { Mode off }
 
 		// Separable Dilation - 3-Tap Horizontal
 		Pass {
@@ -75,7 +74,7 @@ Shader "Hidden/Amplify Motion/Dilation" {
 
 				half4 frag_vertical( v2f i ) : SV_Target
 				{
-					float ty = _MainTex_TexelSize.y;					
+					float ty = _MainTex_TexelSize.y;
 					float2 offsets[ 3 ] = { float2( 0, -ty ), float2( 0, 0 ), float2( 0, ty ) };
 
 					half4 motion_ref = tex2D( _MotionTex, i.uv.zw );

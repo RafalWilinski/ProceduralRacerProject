@@ -11,6 +11,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+#if !UNITY_4
+using UnityEngine.Rendering;
+#endif
 
 namespace AmplifyMotion
 {
@@ -30,42 +33,48 @@ internal abstract class MotionState
 	protected struct MaterialDesc
 	{
 		public Material material;
+	#if !UNITY_4
+		public MaterialPropertyBlock propertyBlock;
+	#endif
 		public bool coverage;
 		public bool cutoff;
 	}
-
-	// TEMPORARY
-	//public string m_name = "";
-	//public string Name { get { return m_name; } }
 
 	public const int AsyncUpdateTimeout = 100;
 
 	protected bool m_error;
 	protected bool m_initialized;
+	protected Transform m_transform;
 
 	protected AmplifyMotionCamera m_owner;
 	protected AmplifyMotionObjectBase m_obj;
 
 	public AmplifyMotionCamera Owner { get { return m_owner; } }
+	public bool Initialized { get { return m_initialized; } }
 	public bool Error { get { return m_error; } }
 
 	public MotionState( AmplifyMotionCamera owner, AmplifyMotionObjectBase obj )
 	{
-		// TEMPORARY
-		//m_name = obj.name;
-
 		m_error = false;
 		m_initialized = false;
 
 		m_owner = owner;
 		m_obj = obj;
+		m_transform = obj.transform;
 	}
 
 	internal virtual void Initialize() { m_initialized = true; }
 	internal virtual void Shutdown() {}
-	internal abstract void UpdateTransform( bool starting );
+	
 	internal virtual void AsyncUpdate() {}
+#if UNITY_4
+	internal abstract void UpdateTransform( bool starting );
 	internal virtual void RenderVectors( Camera camera, float scale, AmplifyMotion.Quality quality ) {}
+#else
+	internal abstract void UpdateTransform( CommandBuffer updateCB, bool starting );
+	internal virtual void RenderVectors( Camera camera, CommandBuffer renderCB, float scale, AmplifyMotion.Quality quality ) {}
+#endif
+	internal virtual void RenderDebugHUD() {}
 
 	protected MaterialDesc[] ProcessSharedMaterials( Material[] mats )
 	{
@@ -74,9 +83,10 @@ internal abstract class MotionState
 		{
 			matsDesc[ i ].material = mats[ i ];
 			bool legacyCoverage = ( mats[ i ].GetTag( "RenderType", false ) == "TransparentCutout" );
-		#if UNITY_3 || UNITY_4
+		#if UNITY_4
 			matsDesc[ i ].coverage = legacyCoverage;
 		#else
+			matsDesc[ i ].propertyBlock = new MaterialPropertyBlock();
 			matsDesc[ i ].coverage = legacyCoverage || mats[ i ].IsKeywordEnabled( "_ALPHATEST_ON" );
 		#endif
 			matsDesc[ i ].cutoff = mats[ i ].HasProperty( "_Cutoff" );
@@ -148,7 +158,6 @@ public class AmplifyMotionObjectBase : MonoBehaviour
 	private AmplifyMotion.ObjectType m_type = AmplifyMotion.ObjectType.None;
 	private Dictionary<Camera, AmplifyMotion.MotionState> m_states = new Dictionary<Camera, AmplifyMotion.MotionState>();
 
-	private bool m_initialized = false;
 	private bool m_fixedStep = false;
 	private int m_objectId = 0;
 
@@ -202,7 +211,7 @@ public class AmplifyMotionObjectBase : MonoBehaviour
 	bool InitializeType()
 	{
 		Renderer renderer = GetComponent<Renderer>();
-		if ( AmplifyMotionEffectBase.CanRegister( gameObject ) )
+		if ( AmplifyMotionEffectBase.CanRegister( gameObject, false ) )
 		{
 			ParticleSystem particleRenderer = GetComponent<ParticleSystem>();
 			if ( particleRenderer != null )
@@ -239,8 +248,6 @@ public class AmplifyMotionObjectBase : MonoBehaviour
 
 	void OnEnable()
 	{
-		m_initialized = false;
-
 		bool valid = InitializeType();
 		if ( valid )
 		{
@@ -254,8 +261,8 @@ public class AmplifyMotionObjectBase : MonoBehaviour
 			}
 			else if ( m_type == AmplifyMotion.ObjectType.Solid )
 			{
-				Rigidbody rigidbody = GetComponentInParent<Rigidbody>();
-				if ( rigidbody != null && rigidbody.interpolation == RigidbodyInterpolation.None )
+				Rigidbody rigidbody = GetComponent<Rigidbody>();
+				if ( rigidbody != null && rigidbody.interpolation == RigidbodyInterpolation.None && !rigidbody.isKinematic )
 					m_fixedStep = true;
 			}
 		}
@@ -273,46 +280,78 @@ public class AmplifyMotionObjectBase : MonoBehaviour
 	void OnDisable()
 	{
 		AmplifyMotionEffectBase.UnregisterObject( this );
-		m_initialized = false;
 	}
 
-	void TryInitialize()
+	void TryInitializeStates()
 	{
-		foreach ( AmplifyMotion.MotionState state in m_states.Values )
-			state.Initialize();
-
-		m_initialized = true;
+		var enumerator = m_states.GetEnumerator();
+		while ( enumerator.MoveNext() )
+		{
+			AmplifyMotion.MotionState state = enumerator.Current.Value;
+			if ( state.Owner.Initialized && !state.Error && !state.Initialized )
+				state.Initialize();
+		}
 	}
 
 	void Start()
 	{
-		if ( AmplifyMotionEffectBase.Instance != null && !m_initialized )
-			TryInitialize();
+		if ( AmplifyMotionEffectBase.Instance != null )
+			TryInitializeStates();
 	}
 
 	void Update()
 	{
-		if ( AmplifyMotionEffectBase.Instance != null && !m_initialized )
-			TryInitialize();
+		if ( AmplifyMotionEffectBase.Instance != null )
+			TryInitializeStates();
 	}
 
-	internal void OnUpdateTransform( AmplifyMotionCamera owner, bool starting )
+#if UNITY_4
+	internal void OnUpdateTransform( Camera camera, bool starting )
+#else
+	internal void OnUpdateTransform( Camera camera, CommandBuffer updateCB, bool starting )
+#endif
 	{
 		AmplifyMotion.MotionState state;
-		if ( m_states.TryGetValue( owner.GetComponent<Camera>(), out state ) )
+		if ( m_states.TryGetValue( camera, out state ) )
 		{
 			if ( !state.Error )
+			{
+			#if UNITY_4
 				state.UpdateTransform( starting );
+			#else
+				state.UpdateTransform( updateCB, starting );
+			#endif
+			}
 		}
 	}
 
+#if UNITY_4
 	internal void OnRenderVectors( Camera camera, float scale, AmplifyMotion.Quality quality )
+#else
+	internal void OnRenderVectors( Camera camera, CommandBuffer renderCB, float scale, AmplifyMotion.Quality quality )
+#endif
 	{
-		AmplifyMotion.MotionState state = null;
-		if ( m_states.TryGetValue( Camera.current, out state ) )
+		AmplifyMotion.MotionState state;
+		if ( m_states.TryGetValue( camera, out state ) )
 		{
 			if ( !state.Error )
+			{
+			#if UNITY_4
 				state.RenderVectors( camera, scale, quality );
+			#else
+				state.RenderVectors( camera, renderCB, scale, quality );
+			#endif
+			}
+		}
+	}
+
+	internal void OnRenderDebugHUD( Camera camera )
+	{
+		AmplifyMotion.MotionState state;
+		if ( m_states.TryGetValue( camera, out state ) )
+		{
+			if ( !state.Error )
+				state.RenderDebugHUD();
 		}
 	}
 }

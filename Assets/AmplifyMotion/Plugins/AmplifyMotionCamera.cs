@@ -1,10 +1,20 @@
 // Amplify Motion - Full-scene Motion Blur for Unity Pro
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
 
+#if UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4  || UNITY_4_5 || UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9
+#define UNITY_4
+#endif
+#if UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3 || UNITY_5_4  || UNITY_5_5 || UNITY_5_6 || UNITY_5_7 || UNITY_5_8 || UNITY_5_9
+#define UNITY_5
+#endif
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if !UNITY_4
+using UnityEngine.Rendering;
+#endif
 
 [AddComponentMenu( "" )]
 [RequireComponent( typeof( Camera ) )]
@@ -19,30 +29,32 @@ public class AmplifyMotionCamera : MonoBehaviour
 	internal Matrix4x4 PrevViewProjMatrixRT;
 	internal Matrix4x4 ViewProjMatrixRT;
 
+	private bool m_linked = false;
+	private bool m_initialized = false;
 	private bool m_starting = true;
+
+	private Camera m_camera;
 	private bool m_autoStep = true;
 	private bool m_step = false;
 	private bool m_overlay = false;
 
+	public bool Initialized { get { return m_initialized; } }
 	public bool AutoStep { get { return m_autoStep; } }
 	public bool Overlay { get { return m_overlay; } }
 
 	private int m_prevFrameCount = 0;
 
-	private Camera m_camera;
-	public Camera Camera { get { return m_camera; } }
+	private HashSet<AmplifyMotionObjectBase> m_affectedObjectsTable = new HashSet<AmplifyMotionObjectBase>();
+	private AmplifyMotionObjectBase[] m_affectedObjects = null;
+	private bool m_affectedObjectsChanged = true;
 
-	internal HashSet<AmplifyMotionObjectBase> m_affectedObjectsTable = new HashSet<AmplifyMotionObjectBase>();
-	internal AmplifyMotionObjectBase[] m_affectedObjects = null;
-	internal bool m_affectedObjectsChanged = true;
-
-	internal void RegisterObject( AmplifyMotionObjectBase obj )
+	public void RegisterObject( AmplifyMotionObjectBase obj )
 	{
 		m_affectedObjectsTable.Add( obj );
 		m_affectedObjectsChanged = true;
 	}
 
-	internal void UnregisterObject( AmplifyMotionObjectBase obj )
+	public void UnregisterObject( AmplifyMotionObjectBase obj )
 	{
 		m_affectedObjectsTable.Remove( obj );
 		m_affectedObjectsChanged = true;
@@ -58,24 +70,32 @@ public class AmplifyMotionCamera : MonoBehaviour
 		m_affectedObjectsChanged = false;
 	}
 
-	void OnEnable()
+	public void LinkTo( AmplifyMotionEffectBase instance, bool overlay )
 	{
+		Instance = instance;
+
 		m_camera = GetComponent<Camera>();
-
-		AmplifyMotionEffectBase.RegisterCamera( this );
-
-		// Assign reference only on first initialization, which is always made by Motion
-		if ( Instance == null )
-			Instance = AmplifyMotionEffectBase.CurrentInstance;
-
 		m_camera.depthTextureMode |= DepthTextureMode.Depth;
 
+		m_overlay = overlay;
+		m_linked = true;
+	}
+
+	public void Initialize()
+	{
 		m_step = false;
 		UpdateMatrices();
+		m_initialized = true;
+	}
+
+	void OnEnable()
+	{
+		AmplifyMotionEffectBase.RegisterCamera( this );
 	}
 
 	void OnDisable()
 	{
+		m_initialized = false;
 		AmplifyMotionEffectBase.UnregisterCamera( this );
 	}
 
@@ -85,7 +105,7 @@ public class AmplifyMotionCamera : MonoBehaviour
 			Instance.RemoveCamera( m_camera );
 	}
 
-	internal void StopAutoStep()
+	public void StopAutoStep()
 	{
 		if ( m_autoStep )
 		{
@@ -94,43 +114,26 @@ public class AmplifyMotionCamera : MonoBehaviour
 		}
 	}
 
-	internal void StartAutoStep()
+	public void StartAutoStep()
 	{
 		m_autoStep = true;
 	}
 
-	internal void Step()
+	public void Step()
 	{
 		m_step = true;
 	}
 
-	internal void SetOverlay( bool state )
-	{
-		m_overlay = state;
-	}
-
-	void FixedUpdate()
-	{
-		if ( Instance != null && Instance.enabled )
-		{
-			if ( m_affectedObjectsChanged )
-				UpdateAffectedObjects();
-
-			for ( int i = 0; i < m_affectedObjects.Length; i++ )
-			{
-				if ( m_affectedObjects[ i ].FixedStep )
-					m_affectedObjects[ i ].OnUpdateTransform( this, m_starting );
-			}
-		}
-	}
-
 	void Update()
 	{
-		if ( Instance != null && Instance.enabled )
-		{
-			if ( ( m_camera.depthTextureMode & DepthTextureMode.Depth ) == 0 )
-				m_camera.depthTextureMode |= DepthTextureMode.Depth;
-		}
+		if ( !m_linked || !Instance.isActiveAndEnabled )
+			return;
+
+		if ( !m_initialized )
+			Initialize();
+
+		if ( ( m_camera.depthTextureMode & DepthTextureMode.Depth ) == 0 )
+			m_camera.depthTextureMode |= DepthTextureMode.Depth;
 	}
 
 	void UpdateMatrices()
@@ -156,8 +159,40 @@ public class AmplifyMotionCamera : MonoBehaviour
 		}
 	}
 
-	internal void UpdateTransform()
+#if UNITY_4
+	public void FixedUpdateTransform()
+#else
+	public void FixedUpdateTransform( CommandBuffer updateCB )
+#endif
 	{
+		if ( !m_initialized )
+			Initialize();
+		
+		if ( m_affectedObjectsChanged )
+			UpdateAffectedObjects();
+
+		for ( int i = 0; i < m_affectedObjects.Length; i++ )
+		{
+			if ( m_affectedObjects[ i ].FixedStep )
+			{
+			#if UNITY_4
+				m_affectedObjects[ i ].OnUpdateTransform( m_camera, m_starting );
+			#else
+				m_affectedObjects[ i ].OnUpdateTransform( m_camera, updateCB, m_starting );
+			#endif
+			}
+		}
+	}
+
+#if UNITY_4
+	public void UpdateTransform()
+#else
+	public void UpdateTransform( CommandBuffer updateCB )
+#endif
+	{
+		if ( !m_initialized )
+			Initialize();
+
 		if ( Time.frameCount > m_prevFrameCount && ( m_autoStep || m_step ) )
 		{
 			UpdateMatrices();
@@ -168,7 +203,14 @@ public class AmplifyMotionCamera : MonoBehaviour
 			for ( int i = 0; i < m_affectedObjects.Length; i++ )
 			{
 				if ( !m_affectedObjects[ i ].FixedStep )
-					m_affectedObjects[ i ].OnUpdateTransform( this, m_starting );
+				{
+				#if UNITY_4
+					m_affectedObjects[ i ].OnUpdateTransform( m_camera, m_starting );
+				#else
+					m_affectedObjects[ i ].OnUpdateTransform( m_camera, updateCB, m_starting );
+				#endif
+
+				}
 			}
 
 			m_starting = false;
@@ -178,57 +220,91 @@ public class AmplifyMotionCamera : MonoBehaviour
 		}
 	}
 
-	internal void RenderVectors( float scale, float fixedScale, AmplifyMotion.Quality quality )
+#if UNITY_4
+	public void RenderVectors( float scale, float fixedScale, AmplifyMotion.Quality quality )
+#else
+	public void RenderVectors( CommandBuffer renderCB, float scale, float fixedScale, AmplifyMotion.Quality quality )
+#endif
 	{
-		if ( Instance != null )
+		if ( !m_initialized )
+			Initialize();
+
+		// For some reason Unity's own values weren't working correctly on Windows/OpenGL
+		float near = m_camera.nearClipPlane;
+		float far = m_camera.farClipPlane;
+		Vector4 zparam;
+
+		if ( AmplifyMotionEffectBase.IsD3D )
 		{
-			// For some reason Unity's own values weren't working correctly on Windows/OpenGL
-			float near = m_camera.nearClipPlane;
-			float far = m_camera.farClipPlane;
-			Vector4 zparam;
+			zparam.x = 1.0f - far / near;
+			zparam.y = far / near;
+		}
+		else
+		{
+			// OpenGL
+			zparam.x = ( 1.0f - far / near ) / 2.0f;
+			zparam.y = ( 1.0f + far / near ) / 2.0f;
+		}
 
-			if ( AmplifyMotionEffectBase.IsD3D )
+		zparam.z = zparam.x / far;
+		zparam.w = zparam.y / far;
+
+		Shader.SetGlobalVector( "_AM_ZBUFFER_PARAMS", zparam );
+
+		if ( m_affectedObjectsChanged )
+			UpdateAffectedObjects();
+
+		for ( int i = 0; i < m_affectedObjects.Length; i++ )
+		{
+			// don't render objects excluded via camera culling mask
+			if ( ( m_camera.cullingMask & ( 1 << m_affectedObjects[ i ].gameObject.layer ) ) != 0 )
 			{
-				zparam.x = 1.0f - far / near;
-				zparam.y = far / near;
-			}
-			else
-			{
-				// OpenGL
-				zparam.x = ( 1.0f - far / near ) / 2.0f;
-				zparam.y = ( 1.0f + far / near ) / 2.0f;
-			}
-
-			zparam.z = zparam.x / far;
-			zparam.w = zparam.y / far;
-
-			Shader.SetGlobalVector( "_EFLOW_ZBUFFER_PARAMS", zparam );
-
-			if ( m_affectedObjectsChanged )
-				UpdateAffectedObjects();
-
-			for ( int i = 0; i < m_affectedObjects.Length; i++ )
-			{
-				// don't render objects excluded via camera culling mask
-				if ( ( m_camera.cullingMask & ( 1 << m_affectedObjects[ i ].gameObject.layer ) ) != 0 )
-					m_affectedObjects[ i ].OnRenderVectors( m_camera, m_affectedObjects[ i ].FixedStep ? fixedScale : scale, quality );
+			#if UNITY_4
+				m_affectedObjects[ i ].OnRenderVectors( m_camera, m_affectedObjects[ i ].FixedStep ? fixedScale : scale, quality );
+			#else
+				m_affectedObjects[ i ].OnRenderVectors( m_camera, renderCB, m_affectedObjects[ i ].FixedStep ? fixedScale : scale, quality );
+			#endif
 			}
 		}
 	}
 
+#if UNITY_4
 	void OnPostRender()
 	{
-		if ( Instance != null && Instance.enabled )
+		if ( !m_linked || !Instance.isActiveAndEnabled )
+			return;
+
+		if ( !m_initialized )
+			Initialize();
+
+		if ( m_overlay )
 		{
-			if ( m_overlay )
-			{
-				RenderTexture prevRT = RenderTexture.active;
 
-				Graphics.SetRenderTarget( Instance.MotionRenderTexture );
-				RenderVectors( Instance.MotionScaleNorm, Instance.FixedMotionScaleNorm, Instance.QualityLevel );
+			RenderTexture prevRT = RenderTexture.active;
 
-				RenderTexture.active = prevRT;
-			}
+			Graphics.SetRenderTarget( Instance.MotionRenderTexture );
+			RenderVectors( Instance.MotionScaleNorm, Instance.FixedMotionScaleNorm, Instance.QualityLevel );
+
+			RenderTexture.active = prevRT;
 		}
+	}
+#endif
+
+	void OnGUI()
+	{
+		if ( !Application.isEditor )
+			return;
+
+		if ( !m_linked || !Instance.isActiveAndEnabled )
+			return;
+
+		if ( !m_initialized )
+			Initialize();
+
+		if ( m_affectedObjectsChanged )
+			UpdateAffectedObjects();
+
+		for ( int i = 0; i < m_affectedObjects.Length; i++ )
+			m_affectedObjects[ i ].OnRenderDebugHUD( m_camera );
 	}
 }

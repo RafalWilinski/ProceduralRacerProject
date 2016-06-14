@@ -7,35 +7,35 @@ Shader "Hidden/Amplify Motion/Combine" {
 		_MotionTex ("Motion (RGB)", 2D) = "white" {}
 		_CameraMotionTex ("Motion (RGB)", 2D) = "white" {}
 	}
+	CGINCLUDE
+		#include "UnityCG.cginc"
+
+		sampler2D _MainTex;
+		sampler2D _MotionTex;
+		sampler2D _BlurredTex;
+		float4 _MainTex_TexelSize;
+
+		struct v2f
+		{
+			float4 pos : SV_POSITION;
+			float4 uv : TEXCOORD0;
+		};
+
+		v2f vert( appdata_img v )
+		{
+			v2f o;
+			o.pos = mul( UNITY_MATRIX_MVP, v.vertex );
+			o.uv.xy = v.texcoord.xy;
+			o.uv.zw = v.texcoord.xy;
+		#if defined( UNITY_UV_STARTS_AT_TOP )
+			if ( _MainTex_TexelSize.y < 0 )
+				o.uv.w = 1 - o.uv.w;
+		#endif
+			return o;
+		}
+	ENDCG
 	SubShader {
 		ZTest Always Cull Off ZWrite Off Fog { Mode off }
-		CGINCLUDE
-			#include "UnityCG.cginc"
-
-			sampler2D _MainTex;
-			sampler2D _MotionTex;
-			sampler2D _BlurredTex;
-			float4 _MainTex_TexelSize;
-
-			struct v2f
-			{
-				float4 pos : SV_POSITION;
-				float4 uv : TEXCOORD0;
-			};
-
-			v2f vert( appdata_img v )
-			{
-				v2f o;
-				o.pos = mul( UNITY_MATRIX_MVP, v.vertex );
-				o.uv.xy = v.texcoord.xy;
-				o.uv.zw = v.texcoord.xy;
-			#if defined( UNITY_UV_STARTS_AT_TOP )
-				if ( _MainTex_TexelSize.y < 0 )
-					o.uv.w = 1 - o.uv.w;
-			#endif
-				return o;
-			}
-		ENDCG
 
 		// Combine source RGB and motion object ID
 		Pass {
@@ -54,6 +54,7 @@ Shader "Hidden/Amplify Motion/Combine" {
 
 		// Combine motion blurred lowres and non-blurred full res (mobile mode)
 		Pass {
+			Blend SrcAlpha OneMinusSrcAlpha
 			CGPROGRAM
 				#pragma vertex vert
 				#pragma fragment frag
@@ -63,9 +64,8 @@ Shader "Hidden/Amplify Motion/Combine" {
 				half4 frag( v2f i ) : SV_Target
 				{
 					half4 source = tex2D( _MainTex, i.uv.xy );
-					half4 blurred = tex2D( _BlurredTex, i.uv.zw );
 					half mag = 2 * tex2D( _MotionTex, i.uv.zw ).z;
-					return lerp( source, blurred, saturate( mag * 1.5 ) );
+					return half4( source.rgb, 1 - saturate( mag * 1.5 ) );
 				}
 			ENDCG
 		}

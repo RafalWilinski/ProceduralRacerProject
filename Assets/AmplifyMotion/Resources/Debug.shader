@@ -46,7 +46,6 @@ Shader "Hidden/Amplify Motion/Debug" {
 					half4 motion = tex2D( _MotionTex, i.uv.zw );
 					half2 vec = ( motion.xy * 2 - 1 ) * motion.z;
 					half id = motion.w;
-					//float depth = SAMPLE_DEPTH_TEXTURE( _CameraDepthTexture, i.uv.zw );
 					return half4( vec, id * 10, 1 );
 				}
 			ENDCG

@@ -71,6 +71,10 @@ Material:
         second: .514999986
       data:
         first:
+          name: _Emission
+        second: -1.57000005
+      data:
+        first:
           name: _V_CW_Z_Bend_Size
         second: 0
       data:
@@ -117,10 +121,6 @@ Material:
         first:
           name: _V_CW_DO
         second: 0
-      data:
-        first:
-          name: _Emission
-        second: -1.57000005
       data:
         first:
           name: _RimPower

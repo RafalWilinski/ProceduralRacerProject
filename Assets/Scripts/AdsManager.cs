@@ -4,6 +4,7 @@ using UnityEngine.Advertisements;
 
 public class AdsManager : MonoBehaviour {
 
+  #if UNITY_ANDROID || UNITY_IPHONE
 	public void ShowUnityAd() {
 
     if (Advertisement.IsReady("rewardedVideo"))
@@ -31,4 +32,5 @@ public class AdsManager : MonoBehaviour {
         break;
     }
   }
+  #endif
 }

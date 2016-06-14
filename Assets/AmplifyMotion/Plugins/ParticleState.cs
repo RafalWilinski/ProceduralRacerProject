@@ -11,6 +11,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+#if !UNITY_4
+using UnityEngine.Rendering;
+#endif
 
 namespace AmplifyMotion
 {
@@ -24,7 +27,7 @@ internal class ParticleState : AmplifyMotion.MotionState
 	}
 
 	public ParticleSystem m_particleSystem;
-	public ParticleSystemRenderer m_meshRenderer;
+	public ParticleSystemRenderer m_renderer;
 
 	private Mesh m_mesh;
 
@@ -42,8 +45,7 @@ internal class ParticleState : AmplifyMotion.MotionState
 	private float m_rangeMinSpeedSize;
 	private float m_rangeMaxSpeedSize;
 
-	private Material[] m_sharedMaterials;
-	private bool[] m_sharedMaterialCoverage;
+	private MaterialDesc[] m_sharedMaterials;
 
 	public bool m_moved = false;
 	private bool m_wasVisible;
@@ -52,7 +54,7 @@ internal class ParticleState : AmplifyMotion.MotionState
 		: base( owner, obj )
 	{
 		m_particleSystem = m_obj.GetComponent<ParticleSystem>();
-		m_meshRenderer = m_particleSystem.GetComponent<Renderer>().GetComponent<ParticleSystemRenderer>();
+		m_renderer = m_particleSystem.GetComponent<Renderer>().GetComponent<ParticleSystemRenderer>();
 	}
 
 	private Mesh CreateQuadMesh()
@@ -90,7 +92,7 @@ internal class ParticleState : AmplifyMotion.MotionState
 
 	internal override void Initialize()
 	{
-		if ( m_meshRenderer == null )
+		if ( m_renderer == null )
 		{
 			Debug.LogError( "[AmplifyMotion] Invalid Particle Mesh in object " + m_obj.name );
 			m_error = true;
@@ -99,13 +101,12 @@ internal class ParticleState : AmplifyMotion.MotionState
 
 		base.Initialize();
 
-		if ( m_meshRenderer.renderMode == ParticleSystemRenderMode.Mesh )
-			m_mesh = m_meshRenderer.mesh;
+		if ( m_renderer.renderMode == ParticleSystemRenderMode.Mesh )
+			m_mesh = m_renderer.mesh;
 		else
 			m_mesh = CreateQuadMesh();
 
-		m_sharedMaterials = m_meshRenderer.sharedMaterials;
-		m_sharedMaterialCoverage = new bool[ m_sharedMaterials.Length ];
+		m_sharedMaterials = ProcessSharedMaterials( m_renderer.sharedMaterials );
 
 		m_capacity = m_particleSystem.maxParticles;
 
@@ -116,16 +117,6 @@ internal class ParticleState : AmplifyMotion.MotionState
 
 		for ( int k = 0; k < m_capacity; k++ )
 			m_particleStack.Push( new Particle() );
-
-		for ( int i = 0; i < m_sharedMaterials.Length; i++ )
-		{
-			bool legacyCoverage = ( m_sharedMaterials[ i ].GetTag( "RenderType", false ) == "TransparentCutout" );
-		#if UNITY_4
-			m_sharedMaterialCoverage[ i ] = legacyCoverage;
-		#else
-			m_sharedMaterialCoverage[ i ] = legacyCoverage || m_sharedMaterials[ i ].IsKeywordEnabled( "_ALPHATEST_ON" );
-		#endif
-		}
 
 		//Initialize Size Curves
 		m_curveLifeTimeSize = null;
@@ -162,11 +153,11 @@ internal class ParticleState : AmplifyMotion.MotionState
 		Quaternion rotPartBillboard = Quaternion.AngleAxis( particle.rotation, Vector3.back );
 		Quaternion rotPartHorizontalBillboard = Quaternion.AngleAxis( particle.rotation, Vector3.forward );
 
-		Vector3 vect = new Vector3( 180f, m_obj.transform.rotation.y, 0f );
+		Vector3 vect = new Vector3( 180f, m_transform.rotation.y, 0f );
 		Quaternion rotPartVerticalBillboard = Quaternion.AngleAxis( particle.rotation, vect );
 
 		//BillBoard
-		if ( m_meshRenderer.renderMode == ParticleSystemRenderMode.Billboard || m_meshRenderer.renderMode == ParticleSystemRenderMode.Stretch )
+		if ( m_renderer.renderMode == ParticleSystemRenderMode.Billboard || m_renderer.renderMode == ParticleSystemRenderMode.Stretch )
 		{
 			Matrix4x4 matrix =
 				Matrix4x4.TRS( particle.position, m_owner.transform.rotation * rotPartBillboard,
@@ -174,17 +165,17 @@ internal class ParticleState : AmplifyMotion.MotionState
 			return matrix;
 		}
 		//Horizontal BillBoard
-		else if ( m_meshRenderer.renderMode == ParticleSystemRenderMode.HorizontalBillboard )
+		else if ( m_renderer.renderMode == ParticleSystemRenderMode.HorizontalBillboard )
 		{
 			const float rcpScale = 1.0f / 1.4f;
 			float size = sizeParticle * rcpScale;
 			Matrix4x4 matrix =
-				Matrix4x4.TRS( particle.position, m_obj.transform.rotation * rotPartHorizontalBillboard,
+				Matrix4x4.TRS( particle.position, m_transform.rotation * rotPartHorizontalBillboard,
 				new Vector3( size, size, size ) ); // HACK: because Unity...
 			return matrix;
 		}
 		//Vertical BillBoard
-		else if ( m_meshRenderer.renderMode == ParticleSystemRenderMode.VerticalBillboard )
+		else if ( m_renderer.renderMode == ParticleSystemRenderMode.VerticalBillboard )
 		{
 			const float rcpScale = 1.0f / 1.4f;
 			float size = sizeParticle * rcpScale;
@@ -226,7 +217,11 @@ internal class ParticleState : AmplifyMotion.MotionState
 			m_particleDict.Remove( m_listToRemove[ i ] );
 	}
 
+#if UNITY_4
 	internal override void UpdateTransform( bool starting )
+#else
+	internal override void UpdateTransform( CommandBuffer updateCB, bool starting )
+#endif
 	{
 		if ( !m_initialized || m_capacity != m_particleSystem.maxParticles )
 		{
@@ -270,19 +265,19 @@ internal class ParticleState : AmplifyMotion.MotionState
 			}
 
 			//Mesh Particle
-			if ( m_meshRenderer.renderMode == ParticleSystemRenderMode.Mesh )
+			if ( m_renderer.renderMode == ParticleSystemRenderMode.Mesh )
 			{
 				Matrix4x4 particleMatrix = buildMatrix4x4( m_particles[ i ], sizeParticle );
 				if ( m_particleSystem.simulationSpace == ParticleSystemSimulationSpace.World )
 					m_localToWorld = particleMatrix;
 				else
-					m_localToWorld = m_obj.transform.localToWorldMatrix * particleMatrix;
+					m_localToWorld = m_transform.localToWorldMatrix * particleMatrix;
 			}
 			//BillBoard Particle
 			else
 			{
 				if ( m_particleSystem.simulationSpace == ParticleSystemSimulationSpace.Local )
-					m_particles[ i ].position = m_obj.transform.TransformPoint( m_particles[ i ].position );
+					m_particles[ i ].position = m_transform.TransformPoint( m_particles[ i ].position );
 
 				Matrix4x4 particleMatrix = buildMatrixBillBoard( m_particles[ i ], sizeParticle );
 				m_localToWorld = particleMatrix;
@@ -311,16 +306,17 @@ internal class ParticleState : AmplifyMotion.MotionState
 
 		RemoveDeadParticles();
 
-		m_wasVisible = m_meshRenderer.isVisible;
+		m_wasVisible = m_renderer.isVisible;
 
 		Profiler.EndSample();
 	}
 
+#if UNITY_4
 	internal override void RenderVectors( Camera camera, float scale, AmplifyMotion.Quality quality )
 	{
 		Profiler.BeginSample( "Particle.Render" );
 
-		if ( m_initialized && !m_error && m_meshRenderer.isVisible )
+		if ( m_initialized && !m_error && m_renderer.isVisible )
 		{
 			bool mask = ( m_owner.Instance.CullingMask & ( 1 << m_obj.gameObject.layer ) ) != 0;
 			if ( !mask || ( mask && m_moved ) )
@@ -328,21 +324,21 @@ internal class ParticleState : AmplifyMotion.MotionState
 				const float rcp255 = 1 / 255.0f;
 				int objectId = mask ? m_owner.Instance.GenerateObjectId( m_obj.gameObject ) : 255;
 
-				Shader.SetGlobalFloat( "_EFLOW_OBJECT_ID", objectId * rcp255 );
-				Shader.SetGlobalFloat( "_EFLOW_MOTION_SCALE", mask ? scale : 0 );
+				Shader.SetGlobalFloat( "_AM_OBJECT_ID", objectId * rcp255 );
+				Shader.SetGlobalFloat( "_AM_MOTION_SCALE", mask ? scale : 0 );
 
 				int qualityPass = ( quality == AmplifyMotion.Quality.Mobile ) ? 0 : 2;
 
 				for ( int i = 0; i < m_sharedMaterials.Length; i++ )
 				{
-					Material mat = m_sharedMaterials[ i ];
-					bool coverage = m_sharedMaterialCoverage[ i ];
-					int pass = qualityPass + ( coverage ? 1 : 0 );
+					MaterialDesc matDesc = m_sharedMaterials[ i ];
+					int pass = qualityPass + ( matDesc.coverage ? 1 : 0 );
 
-					if ( coverage )
+					if ( matDesc.coverage )
 					{
-						m_owner.Instance.SolidVectorsMaterial.mainTexture = mat.mainTexture;
-						m_owner.Instance.SolidVectorsMaterial.SetFloat( "_Cutoff", mat.GetFloat( "_Cutoff" ) );
+						m_owner.Instance.SolidVectorsMaterial.mainTexture = matDesc.material.mainTexture;
+						if ( matDesc.cutoff )
+							m_owner.Instance.SolidVectorsMaterial.SetFloat( "_Cutoff", matDesc.material.GetFloat( "_Cutoff" ) );
 					}
 
 					var enumerator = m_particleDict.GetEnumerator();
@@ -351,7 +347,7 @@ internal class ParticleState : AmplifyMotion.MotionState
 						KeyValuePair<uint, Particle> pair = enumerator.Current;
 
 						Matrix4x4 prevModelViewProj = m_owner.PrevViewProjMatrixRT * pair.Value.prevLocalToWorld;
-						Shader.SetGlobalMatrix( "_EFLOW_MATRIX_PREV_MVP", prevModelViewProj );
+						Shader.SetGlobalMatrix( "_AM_MATRIX_PREV_MVP", prevModelViewProj );
 
 						if ( m_owner.Instance.SolidVectorsMaterial.SetPass( pass ) )
 							Graphics.DrawMeshNow( m_mesh, pair.Value.currLocalToWorld, i );
@@ -362,5 +358,53 @@ internal class ParticleState : AmplifyMotion.MotionState
 
 		Profiler.EndSample();
 	}
+#else
+	internal override void RenderVectors( Camera camera, CommandBuffer renderCB, float scale, AmplifyMotion.Quality quality )
+	{
+		Profiler.BeginSample( "Particle.Render" );
+
+		if ( m_initialized && !m_error && m_renderer.isVisible )
+		{
+			bool mask = ( m_owner.Instance.CullingMask & ( 1 << m_obj.gameObject.layer ) ) != 0;
+			if ( !mask || ( mask && m_moved ) )
+			{
+				const float rcp255 = 1 / 255.0f;
+				int objectId = mask ? m_owner.Instance.GenerateObjectId( m_obj.gameObject ) : 255;
+
+				renderCB.SetGlobalFloat( "_AM_OBJECT_ID", objectId * rcp255 );
+				renderCB.SetGlobalFloat( "_AM_MOTION_SCALE", mask ? scale : 0 );
+
+				int qualityPass = ( quality == AmplifyMotion.Quality.Mobile ) ? 0 : 2;
+
+				for ( int i = 0; i < m_sharedMaterials.Length; i++ )
+				{
+					MaterialDesc matDesc = m_sharedMaterials[ i ];
+					int pass = qualityPass + ( matDesc.coverage ? 1 : 0 );
+
+					matDesc.propertyBlock.Clear();
+					if ( matDesc.coverage )
+					{
+						matDesc.propertyBlock.AddTexture( "_MainTex", matDesc.material.mainTexture );
+						if ( matDesc.cutoff )
+							matDesc.propertyBlock.AddFloat( "_Cutoff", matDesc.material.GetFloat( "_Cutoff" ) );
+					}
+
+					var enumerator = m_particleDict.GetEnumerator();
+					while ( enumerator.MoveNext() )
+					{
+						KeyValuePair<uint, Particle> pair = enumerator.Current;
+
+						Matrix4x4 prevModelViewProj = m_owner.PrevViewProjMatrixRT * pair.Value.prevLocalToWorld;
+						renderCB.SetGlobalMatrix( "_AM_MATRIX_PREV_MVP", prevModelViewProj );
+
+						renderCB.DrawMesh( m_mesh, pair.Value.currLocalToWorld, m_owner.Instance.SolidVectorsMaterial, i, pass );
+					}
+				}
+			}
+		}
+
+		Profiler.EndSample();
+	}
+#endif
 }
 }

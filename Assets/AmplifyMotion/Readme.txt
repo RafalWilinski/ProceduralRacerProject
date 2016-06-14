@@ -19,13 +19,16 @@ Description
   
 Features:
 
-    * Full-scene vector motion blur
-    * Low draw call overhead
-    * Variable quality steps
-    * Camera and moving objects
-    * Skinned and cloth meshes
-    * Soft edge bleeding
-    * Mobile support
+  * Full-scene vector motion blur
+  * Camera and moving objects
+  * Variable quality steps
+  * High-performance across all platforms
+  * Minimal and stable memory overhead
+  * Skinned and cloth meshes
+  * Particle systems
+  * Soft edge bleeding
+  * Optimized for Mobile
+  * Console support
 
 Supported Platforms
 
@@ -35,7 +38,7 @@ Minimum Requirements
 
   Software
 
-    Unity 3.5.7f6
+    Unity 4.6.8f1
 
 Quick Guide
 
